@@ -84,14 +84,14 @@ export default function ContinuumPage() {
           </h2>
 
           <div className="relative mt-8 aspect-[2098/1120] w-full overflow-hidden rounded-2xl bg-neutral-100">
-            <Image
+            <video
               src={problemSection.image}
-              alt={problemSection.imageAlt}
-              width={problemSection.imageWidth}
-              height={problemSection.imageHeight}
-              unoptimized
+              aria-label={problemSection.imageAlt}
+              autoPlay
+              loop
+              muted
+              playsInline
               className="h-full w-full object-cover"
-              sizes="(min-width: 1024px) 60vw, 100vw"
             />
           </div>
 
@@ -207,14 +207,14 @@ export default function ContinuumPage() {
           </ul>
 
           <div className="relative mt-10 aspect-[1852/898] w-full overflow-hidden rounded-2xl bg-neutral-100">
-            <Image
+            <video
               src={designSystemSection.image}
-              alt={designSystemSection.imageAlt}
-              width={designSystemSection.imageWidth}
-              height={designSystemSection.imageHeight}
-              unoptimized
+              aria-label={designSystemSection.imageAlt}
+              autoPlay
+              loop
+              muted
+              playsInline
               className="h-full w-full object-cover"
-              sizes="(min-width: 1024px) 60vw, 100vw"
             />
           </div>
         </section>
@@ -234,14 +234,14 @@ export default function ContinuumPage() {
           </ul>
 
           <div className="relative mt-10 aspect-[908/902] w-full max-w-md overflow-hidden rounded-2xl bg-neutral-100">
-            <Image
+            <video
               src={nextStepsSection.image}
-              alt={nextStepsSection.imageAlt}
-              width={nextStepsSection.imageWidth}
-              height={nextStepsSection.imageHeight}
-              unoptimized
+              aria-label={nextStepsSection.imageAlt}
+              autoPlay
+              loop
+              muted
+              playsInline
               className="h-full w-full object-cover"
-              sizes="(min-width: 640px) 448px, 100vw"
             />
           </div>
         </section>
