@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { social } from "@/app/data/social";
 
 export default function Footer() {
@@ -16,23 +17,39 @@ export default function Footer() {
             Hannah Roxas
           </span>
 
-          <div className="flex gap-6">
+          <div className="flex gap-x-10 gap-y-1 sm:flex-col">
             <a
               href={social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+              className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
             >
               LinkedIn
             </a>
+            <Link
+              href="/#works"
+              className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+            >
+              Works
+            </Link>
+          </div>
+
+          <div className="flex gap-x-10 gap-y-1 sm:flex-col">
             <a
               href={`mailto:${social.email}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+              className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+              data-cursor="Email me"
             >
               Email
             </a>
+            <Link
+              href="/#about1"
+              className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+            >
+              About
+            </Link>
           </div>
         </div>
       </div>

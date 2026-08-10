@@ -3,8 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import CaseStudyNav from "@/app/components/CaseStudyNav";
+import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
+import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
 import {
   continuumHero,
+  highlightsSection,
+  timelineSection,
   roleAndImpact,
   problemSection,
   decisionsSection,
@@ -14,6 +19,18 @@ import {
   nextProject,
 } from "@/app/continuum/continuum/data";
 
+const sections = [
+  { id: "overview", title: "Overview" },
+  { id: "highlights", title: "Highlights" },
+  { id: "timeline", title: "Timeline" },
+  { id: "role-impact", title: "My Role & Impact" },
+  { id: "problem", title: "The Problem" },
+  { id: "decisions", title: "Design Decisions" },
+  { id: "stakeholders", title: "Stakeholders" },
+  { id: "design-system", title: "Design System" },
+  { id: "next-steps", title: "What's Next" },
+];
+
 export const metadata: Metadata = {
   title: "Continuum: Surrogacy Platform — Hannah Roxas",
   description: continuumHero.subtitle,
@@ -21,64 +38,100 @@ export const metadata: Metadata = {
 
 export default function ContinuumPage() {
   return (
-    <div className="flex flex-1 flex-col bg-white">
+    <div className="flex flex-1 flex-col bg-background">
       <Header />
-      <main className="flex-1">
-        {/* Hero */}
-        <section className="mx-auto max-w-4xl px-6 pt-16 pb-8 sm:px-10 sm:pt-24">
-          <Link
-            href="/"
-            className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
-          >
-            ← Back to home
-          </Link>
+      <main className="mx-auto flex w-full max-w-6xl flex-1 gap-12 px-6 sm:px-10">
+        <CaseStudyNav sections={sections} />
 
-          <h1 className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
-            {continuumHero.title}
-          </h1>
+        <div className="min-w-0 flex-1">
+          {/* Hero / Overview */}
+          <section id="overview" className="max-w-4xl pt-16 pb-8 sm:pt-24">
+            <Link
+              href="/"
+              className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
+            >
+              ← Back to home
+            </Link>
 
-          <p className="mt-6 max-w-2xl text-xl leading-relaxed text-neutral-700">
-            {continuumHero.subtitle}
-          </p>
+            <h1 className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
+              {continuumHero.title}
+            </h1>
 
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-500">
-            <span className="font-medium text-neutral-900">{continuumHero.gist.label}</span>{" "}
-            {continuumHero.gist.text}
-          </p>
+            <p className="mt-6 max-w-2xl text-xl leading-relaxed text-neutral-700">
+              {continuumHero.subtitle}
+            </p>
 
-          <p className="mt-8 text-sm text-neutral-400">{continuumHero.date}</p>
+            <p className="mt-8 text-sm text-neutral-400">{continuumHero.date}</p>
 
-          <dl className="mt-6 grid grid-cols-1 gap-6 border-t border-black/[0.08] pt-8 sm:grid-cols-3">
-            {continuumHero.meta.map((item) => (
-              <div key={item.label}>
-                <dt className="text-xs font-medium tracking-wide text-neutral-400 uppercase">
-                  {item.label}
-                </dt>
-                <dd className="mt-2 text-sm leading-relaxed text-neutral-700">{item.value}</dd>
+            <div className="mt-10 grid grid-cols-1 gap-10 border-t border-black/[0.08] pt-10 sm:grid-cols-2">
+              <div>
+                <h2 className="text-sm font-medium tracking-wide text-neutral-400 uppercase">
+                  Project Overview
+                </h2>
+                <p className="mt-3 text-base leading-relaxed text-neutral-700">
+                  {continuumHero.gist.text}
+                </p>
               </div>
-            ))}
-          </dl>
-        </section>
-
-        {/* My Role & Impact */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
-            {roleAndImpact.heading}
-          </h2>
-          <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {roleAndImpact.columns.map((col) => (
-              <div key={col.label}>
-                <h3 className="text-sm font-medium tracking-wide text-neutral-400 uppercase">
-                  {col.label}
-                </h3>
-                <p className="mt-3 text-base leading-relaxed text-neutral-700">{col.body}</p>
+              <div className="border-l border-black/[0.08] pl-10">
+                <h2 className="text-sm font-medium tracking-wide text-neutral-400 uppercase">
+                  My Role
+                </h2>
+                <p className="mt-3 text-base leading-relaxed text-neutral-700">
+                  {roleAndImpact.columns[2]?.body}
+                </p>
               </div>
-            ))}
+            </div>
+
+            <dl className="mt-10 grid grid-cols-1 gap-6 border-t border-black/[0.08] pt-8 sm:grid-cols-3">
+              {continuumHero.meta.map((item) => (
+                <div key={item.label}>
+                  <dt className="text-xs font-medium tracking-wide text-neutral-400 uppercase">
+                    {item.label}
+                  </dt>
+                  <dd className="mt-2 text-sm leading-relaxed text-neutral-700">{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
+          <div className="max-w-4xl">
+            <CaseStudyHighlights
+              heading={highlightsSection.heading}
+              mockup={highlightsSection.mockup}
+              outcomes={highlightsSection.outcomes}
+              stats={highlightsSection.stats}
+              callout={highlightsSection.callout}
+            />
           </div>
-        </section>
 
-        {/* The Problem */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10">
+          <div className="max-w-4xl">
+            <CaseStudyTimeline
+              heading={timelineSection.heading}
+              totalWeeks={timelineSection.totalWeeks}
+              bands={timelineSection.bands}
+              tasks={timelineSection.tasks}
+            />
+          </div>
+
+          {/* My Role & Impact */}
+          <section id="role-impact" className="max-w-4xl py-16">
+            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+              {roleAndImpact.heading}
+            </h2>
+            <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-3">
+              {roleAndImpact.columns.map((col) => (
+                <div key={col.label}>
+                  <h3 className="text-sm font-medium tracking-wide text-neutral-400 uppercase">
+                    {col.label}
+                  </h3>
+                  <p className="mt-3 text-base leading-relaxed text-neutral-700">{col.body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* The Problem */}
+          <section id="problem" className="max-w-4xl py-16">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {problemSection.heading}
           </h2>
@@ -107,7 +160,7 @@ export default function ContinuumPage() {
         </section>
 
         {/* 3 Critical Design Decisions */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10">
+        <section id="decisions" className="max-w-4xl py-16">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {decisionsSection.heading}
           </h2>
@@ -151,7 +204,7 @@ export default function ContinuumPage() {
         </section>
 
         {/* Designing for Multiple Stakeholders */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10">
+        <section id="stakeholders" className="max-w-4xl py-16">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {stakeholdersSection.heading}
           </h2>
@@ -190,7 +243,7 @@ export default function ContinuumPage() {
         </section>
 
         {/* Design System */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10">
+        <section id="design-system" className="max-w-4xl py-16">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {designSystemSection.heading}
           </h2>
@@ -220,7 +273,7 @@ export default function ContinuumPage() {
         </section>
 
         {/* What I'd Do Next */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10">
+        <section id="next-steps" className="max-w-4xl py-16">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {nextStepsSection.heading}
           </h2>
@@ -247,7 +300,7 @@ export default function ContinuumPage() {
         </section>
 
         {/* Next project */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10 sm:py-24">
+        <section className="max-w-4xl py-16 sm:py-24">
           <p className="text-sm font-medium tracking-wide text-neutral-400 uppercase">
             {nextProject.label}
           </p>
@@ -271,6 +324,7 @@ export default function ContinuumPage() {
             </p>
           </Link>
         </section>
+        </div>
       </main>
       <Footer />
     </div>

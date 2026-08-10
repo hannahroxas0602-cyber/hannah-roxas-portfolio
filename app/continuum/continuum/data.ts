@@ -14,6 +14,105 @@ export const continuumHero = {
   ],
 };
 
+export const highlightsSection = {
+  heading: "Highlights",
+  mockup: {
+    image: "/images/continuum/dashboard-mockup.png",
+    imageAlt: "Continuum shared journey timeline interface mockup",
+    imageWidth: 586,
+    imageHeight: 354,
+    tabTitle: "Continuum — Shared Timeline",
+    url: "continuum.app/timeline",
+  },
+  outcomes: [
+    "Single shared timeline for parents, surrogates, and coordinators",
+    "Progressive disclosure model: only the next task is ever shown",
+    "One-tap, emoji-based emotional check-ins for surrogates",
+  ],
+  stats: [
+    { value: "3", label: "stakeholder groups designed for" },
+    { value: "9", label: "months of journey mapped" },
+  ],
+  callout: "Less chaos, more continuity.",
+};
+
+export type TimelineBand = {
+  label: string;
+  colorClass: string;
+  startWeek: number;
+  endWeek: number;
+};
+
+export type TimelineTask = {
+  title: string;
+  band: string;
+  startWeek: number;
+  endWeek: number;
+  row: number;
+  colorClass: string;
+};
+
+export const timelineSection = {
+  heading: "Timeline",
+  totalWeeks: 4,
+  bands: [
+    { label: "Research", colorClass: "bg-neutral-900", startWeek: 0, endWeek: 1 },
+    { label: "Design", colorClass: "bg-neutral-500", startWeek: 1, endWeek: 3 },
+    { label: "Refine", colorClass: "bg-neutral-400", startWeek: 3, endWeek: 3.5 },
+    { label: "Handoff", colorClass: "bg-neutral-300", startWeek: 3.5, endWeek: 4 },
+  ] satisfies TimelineBand[],
+  tasks: [
+    {
+      title: "Stakeholder interviews",
+      band: "Research",
+      startWeek: 0,
+      endWeek: 1,
+      row: 0,
+      colorClass: "bg-neutral-200",
+    },
+    {
+      title: "Progressive disclosure",
+      band: "Design",
+      startWeek: 1,
+      endWeek: 2,
+      row: 1,
+      colorClass: "bg-neutral-200",
+    },
+    {
+      title: "Timeline-first communication",
+      band: "Design",
+      startWeek: 1.25,
+      endWeek: 2.75,
+      row: 0,
+      colorClass: "bg-neutral-100",
+    },
+    {
+      title: "Design system draft",
+      band: "Design",
+      startWeek: 1.75,
+      endWeek: 3,
+      row: 2,
+      colorClass: "bg-neutral-200",
+    },
+    {
+      title: "Frictionless check-ins",
+      band: "Refine",
+      startWeek: 2.75,
+      endWeek: 3.5,
+      row: 1,
+      colorClass: "bg-neutral-100",
+    },
+    {
+      title: "Handoff",
+      band: "Handoff",
+      startWeek: 3.5,
+      endWeek: 4,
+      row: 0,
+      colorClass: "bg-neutral-200",
+    },
+  ] satisfies TimelineTask[],
+};
+
 export const roleAndImpact = {
   heading: "My Role & Impact",
   columns: [

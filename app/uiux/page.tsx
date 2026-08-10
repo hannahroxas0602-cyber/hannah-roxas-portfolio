@@ -16,7 +16,7 @@ const uiuxProjects = projects.filter((project) => project.tags.includes("UX/UI")
 
 export default function UiUxPage() {
   return (
-    <div className="flex flex-1 flex-col bg-white">
+    <div className="flex flex-1 flex-col bg-background">
       <Header />
       <main className="flex-1">
         <section className="mx-auto max-w-6xl px-6 pt-16 pb-8 sm:px-10 sm:pt-24">

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function DearBelovedPage() {
   return (
-    <div className="flex flex-1 flex-col bg-white">
+    <div className="flex flex-1 flex-col bg-background">
       <Header />
       <main className="flex-1">
         {/* Hero */}

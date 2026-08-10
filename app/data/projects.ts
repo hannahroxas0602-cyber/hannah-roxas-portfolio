@@ -3,11 +3,13 @@ export type Project = {
   title: string;
   description: string;
   tags: string[];
+  category: "UIUX" | "Graphic Design";
   href: string;
   image: string;
   imageAlt: string;
   imageWidth: number;
   imageHeight: number;
+  imageAspect?: string;
   external?: boolean;
 };
 
@@ -18,11 +20,13 @@ export const projects: Project[] = [
     description:
       "A care-centered platform keeping surrogates, parents, and coordinators in sync after pregnancy confirmation.",
     tags: ["UX/UI", "Product Strategy"],
+    category: "UIUX",
     href: "/continuum/continuum",
     image: "/images/projects/continuum.png",
     imageAlt: "Continuum surrogacy platform interface showing coordination dashboard",
     imageWidth: 1264,
     imageHeight: 848,
+    imageAspect: "3/2",
   },
   {
     slug: "good-friends-poke",
@@ -30,11 +34,13 @@ export const projects: Project[] = [
     description:
       "Redesigning the fast-casual dining experience to eliminate customer friction and peak-hour staff burnout.",
     tags: ["UX/UI", "Service Design"],
+    category: "UIUX",
     href: "/page/good",
     image: "/images/projects/good-friends-poke.png",
     imageAlt: "Good Friends Poke fast-casual dining experience redesign",
     imageWidth: 2446,
     imageHeight: 1376,
+    imageAspect: "16/9",
   },
   {
     slug: "dear-beloved",
@@ -42,11 +48,13 @@ export const projects: Project[] = [
     description:
       "A playful, interactive dollhouse designed to help users reconnect with their inner child and reflect on early memories.",
     tags: ["Interaction Design", "Illustration", "Graphic Design"],
+    category: "Graphic Design",
     href: "/dear-beloved",
     image: "/images/projects/dear-beloved.png",
     imageAlt: "Dear Beloved interactive dollhouse project artwork",
     imageWidth: 620,
     imageHeight: 539,
+    imageAspect: "4/3",
   },
   {
     slug: "boiler-room-cd",
@@ -54,11 +62,13 @@ export const projects: Project[] = [
     description:
       "A fun passion project I made for my interest in the ever ivolving art of techno music and Boiler Room Culture.",
     tags: ["Graphic Design", "Branding"],
+    category: "Graphic Design",
     href: "/boiler-room-cd",
     image: "/images/graphic-design/boiler-room-cd.png",
     imageAlt: "Boiler Room CD cover and packaging design concept",
     imageWidth: 1033,
     imageHeight: 677,
+    imageAspect: "3/2",
   },
   {
     slug: "typography-dictionary",
@@ -66,10 +76,12 @@ export const projects: Project[] = [
     description:
       "A guide to key typography terms, illustrated with examples from past projects like custom typefaces and posters.",
     tags: ["Graphic Design", "Typography"],
+    category: "Graphic Design",
     href: "/typography-dictionary",
     image: "/images/projects/typography-dictionary.png",
     imageAlt: "Typography Dictionary guide spread showing custom typefaces and posters",
     imageWidth: 1376,
     imageHeight: 768,
+    imageAspect: "16/9",
   },
 ];

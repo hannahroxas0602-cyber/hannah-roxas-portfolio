@@ -6,7 +6,10 @@ export default function ProjectCard({ project }: { project: Project }) {
   const isExternal = project.external ?? project.href.startsWith("http");
 
   const media = (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-100">
+    <div
+      className="relative w-full overflow-hidden rounded-2xl bg-neutral-100 shadow-soft"
+      style={{ aspectRatio: project.imageAspect ?? "4/3" }}
+    >
       <Image
         src={project.image}
         alt={project.imageAlt}
@@ -15,12 +18,13 @@ export default function ProjectCard({ project }: { project: Project }) {
         className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
         sizes="(min-width: 1024px) 50vw, 100vw"
       />
+      <div className="absolute inset-0 bg-black/0 transition-colors duration-300 ease-in-out group-hover:bg-black/10" />
     </div>
   );
 
   const body = (
     <div className="mt-5">
-      <h3 className="font-[family-name:var(--font-manrope)] text-xl font-semibold text-neutral-900">
+      <h3 className="link-underline w-fit font-[family-name:var(--font-manrope)] text-xl font-semibold text-neutral-900">
         {project.title}
       </h3>
       <p className="mt-2 text-sm leading-relaxed text-neutral-600">
@@ -48,6 +52,7 @@ export default function ProjectCard({ project }: { project: Project }) {
         target="_blank"
         rel="noopener noreferrer"
         className={className}
+        data-cursor="Visit site"
       >
         {media}
         {body}
@@ -56,7 +61,7 @@ export default function ProjectCard({ project }: { project: Project }) {
   }
 
   return (
-    <Link href={project.href} className={className}>
+    <Link href={project.href} className={className} data-cursor="View case study">
       {media}
       {body}
     </Link>
