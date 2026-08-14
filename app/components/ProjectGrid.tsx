@@ -14,9 +14,11 @@ export default function ProjectGrid({
 }: ProjectGridProps) {
   return (
     <section id={id} className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-24">
-      <div className="flex items-center gap-6">
-        <span className="h-px w-14 shrink-0 bg-neutral-400" />
-        <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+      <div className="flex items-baseline gap-4 border-b border-black/[0.08] pb-4">
+        <span className="font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400 uppercase">
+          01
+        </span>
+        <h2 className="font-[family-name:var(--font-manrope)] text-3xl text-neutral-900 sm:text-4xl">
           {title}
         </h2>
       </div>

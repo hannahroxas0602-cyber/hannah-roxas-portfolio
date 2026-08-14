@@ -27,15 +27,21 @@ export default function UiUxPage() {
             ← Back to home
           </Link>
 
-          <p className="mt-8 text-sm font-medium tracking-wide text-neutral-500 uppercase">
-            {uiuxHero.eyebrow}
-          </p>
+          <div className="mt-10 flex items-start gap-4 sm:mt-14 sm:gap-6">
+            <span className="font-[family-name:var(--font-manrope)] text-3xl leading-none text-neutral-300 italic sm:text-4xl">
+              01
+            </span>
+            <div>
+              <p className="text-sm font-medium tracking-wide text-neutral-500 uppercase">
+                {uiuxHero.eyebrow}
+              </p>
+              <h1 className="mt-3 max-w-3xl font-[family-name:var(--font-manrope)] text-5xl leading-[0.95] tracking-tight text-neutral-900 sm:text-7xl">
+                {uiuxHero.category}
+              </h1>
+            </div>
+          </div>
 
-          <h1 className="mt-4 max-w-3xl font-[family-name:var(--font-manrope)] text-4xl font-semibold leading-tight tracking-tight text-neutral-900 sm:text-5xl">
-            {uiuxHero.category}
-          </h1>
-
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-neutral-600">
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-neutral-600 sm:ml-[3.25rem]">
             {uiuxHero.intro}
           </p>
 

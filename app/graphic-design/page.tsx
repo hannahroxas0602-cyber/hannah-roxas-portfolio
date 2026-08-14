@@ -29,15 +29,21 @@ export default function GraphicDesignPage() {
             ← Back to home
           </Link>
 
-          <p className="mt-8 text-sm font-medium tracking-wide text-neutral-500 uppercase">
-            {graphicDesignHero.eyebrow}
-          </p>
+          <div className="mt-10 flex items-start gap-4 sm:mt-14 sm:gap-6">
+            <span className="font-[family-name:var(--font-manrope)] text-3xl leading-none text-neutral-300 italic sm:text-4xl">
+              02
+            </span>
+            <div>
+              <p className="text-sm font-medium tracking-wide text-neutral-500 uppercase">
+                {graphicDesignHero.eyebrow}
+              </p>
+              <h1 className="mt-3 max-w-3xl font-[family-name:var(--font-manrope)] text-5xl leading-[0.95] tracking-tight text-neutral-900 sm:text-7xl">
+                {graphicDesignHero.category}
+              </h1>
+            </div>
+          </div>
 
-          <h1 className="mt-4 max-w-3xl font-[family-name:var(--font-manrope)] text-4xl font-semibold leading-tight tracking-tight text-neutral-900 sm:text-5xl">
-            {graphicDesignHero.category}
-          </h1>
-
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-neutral-600">
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-neutral-600 sm:ml-[3.25rem]">
             {graphicDesignHero.intro}
           </p>
         </section>
@@ -46,14 +52,19 @@ export default function GraphicDesignPage() {
         <section className="py-16 sm:py-24">
           <div className="mx-auto max-w-6xl px-6 sm:px-10">
             {/* Projects */}
-            <h2 className="font-[family-name:var(--font-manrope)] text-3xl font-semibold text-neutral-900 sm:text-4xl">
-              Projects
-            </h2>
+            <div className="flex items-baseline gap-4 border-b border-black/[0.08] pb-4">
+              <span className="font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400 uppercase">
+                01
+              </span>
+              <h2 className="font-[family-name:var(--font-manrope)] text-3xl text-neutral-900 sm:text-4xl">
+                Projects
+              </h2>
+            </div>
 
             <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
               {galleryProjects.map((project) => (
                 <Link key={project.slug} href={project.href} className="group block">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-100">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-100 shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
                     <Image
                       src={project.image}
                       alt={project.imageAlt}
@@ -63,7 +74,7 @@ export default function GraphicDesignPage() {
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     />
                   </div>
-                  <h3 className="mt-5 font-[family-name:var(--font-manrope)] text-xl font-bold text-neutral-900">
+                  <h3 className="link-underline mt-5 w-fit font-[family-name:var(--font-manrope)] text-xl text-neutral-900">
                     {project.title}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-neutral-500">
@@ -74,9 +85,14 @@ export default function GraphicDesignPage() {
             </div>
 
             {/* Edited Videos */}
-            <h2 className="mt-24 font-[family-name:var(--font-manrope)] text-3xl font-semibold text-neutral-900 sm:text-4xl">
-              Edited Videos
-            </h2>
+            <div className="mt-24 flex items-baseline gap-4 border-b border-black/[0.08] pb-4">
+              <span className="font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400 uppercase">
+                02
+              </span>
+              <h2 className="font-[family-name:var(--font-manrope)] text-3xl text-neutral-900 sm:text-4xl">
+                Edited Videos
+              </h2>
+            </div>
 
             <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2">
               {editedVideos.map((video) => (
@@ -99,9 +115,14 @@ export default function GraphicDesignPage() {
             </div>
 
             {/* Experimental */}
-            <h2 className="mt-24 font-[family-name:var(--font-manrope)] text-3xl font-semibold text-neutral-900 sm:text-4xl">
-              Experimental
-            </h2>
+            <div className="mt-24 flex items-baseline gap-4 border-b border-black/[0.08] pb-4">
+              <span className="font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400 uppercase">
+                03
+              </span>
+              <h2 className="font-[family-name:var(--font-manrope)] text-3xl text-neutral-900 sm:text-4xl">
+                Experimental
+              </h2>
+            </div>
 
             <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {experimentalImages.map((item) => (
