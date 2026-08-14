@@ -31,32 +31,65 @@ export default function Hero() {
         Welcome to the rabbit hole.
       </p>
       <div className="relative mx-auto aspect-square w-full max-w-xl">
-        {/* Rotating photo ring */}
-        <div className="absolute inset-[6%]">
+        {/* Rotating photo ring — each card flips individually on hover */}
+        <div className="absolute inset-[6%] z-0">
           {ringImages.map((img, i) => (
             <div
               key={i}
-              className="absolute inset-0"
+              className="pointer-events-none absolute inset-0"
               style={{ transform: `rotate(${img.angle}deg)` }}
             >
               <div
-                className="absolute top-0 left-1/2 h-14 w-12 -translate-x-1/2 -translate-y-1/2"
-                style={{ transform: `translateX(-50%) rotate(${img.tilt - img.angle}deg)` }}
+                className="group pointer-events-auto absolute top-0 left-1/2 h-12 w-11 cursor-pointer sm:h-16 sm:w-14 lg:h-20 lg:w-[4.5rem]"
+                style={{
+                  transform: `translate(-50%, -50%) rotate(${img.tilt - img.angle}deg)`,
+                  perspective: 1200,
+                }}
               >
-                <Image
-                  src={img.src}
-                  alt=""
-                  fill
-                  sizes="56px"
-                  className="rounded-md object-cover shadow-md"
-                />
+                <motion.div
+                  className="relative h-full w-full"
+                  style={{ transformStyle: "preserve-3d" }}
+                  initial={{ rotateY: 0 }}
+                  whileHover={{ rotateY: 180 }}
+                  transition={{ type: "spring", stiffness: 120, damping: 20, mass: 0.6 }}
+                >
+                  {/* Front face */}
+                  <div
+                    className="absolute inset-0 overflow-hidden rounded-lg shadow-lg"
+                    style={{ backfaceVisibility: "hidden" }}
+                  >
+                    <Image
+                      src={img.src}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 72px, (min-width: 640px) 56px, 44px"
+                      className="object-cover"
+                    />
+                  </div>
+                  {/* Back face — same photo, mirrored so it reads correctly once flipped */}
+                  <div
+                    className="absolute inset-0 overflow-hidden rounded-lg shadow-lg"
+                    style={{
+                      backfaceVisibility: "hidden",
+                      transform: "rotateY(180deg)",
+                    }}
+                  >
+                    <Image
+                      src={img.src}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 72px, (min-width: 640px) 56px, 44px"
+                      className="scale-x-[-1] object-cover"
+                    />
+                  </div>
+                </motion.div>
               </div>
             </div>
           ))}
         </div>
 
         {/* Black oval with sleeping rabbit */}
-        <div className="absolute inset-[18%] overflow-hidden rounded-[50%] bg-black">
+        <div className="absolute inset-[18%] z-10 overflow-hidden rounded-[50%] bg-black">
           <Image
             src="/images/hero/sleeping-rabbit-oval.webp"
             alt="A sleeping white rabbit curled up in a dark burrow"
@@ -67,19 +100,8 @@ export default function Hero() {
           />
         </div>
 
-        {/* Alice + White Rabbit line art */}
-        <div className="pointer-events-none absolute top-[6%] right-[8%] w-[18%]">
-          <Image
-            src="/images/hero/alice-falling.webp"
-            alt=""
-            width={1475}
-            height={1120}
-            className="h-auto w-full"
-          />
-        </div>
-
         {/* Headline overlay */}
-        <div className="absolute inset-[20%] flex items-center justify-center text-center">
+        <div className="absolute inset-[20%] z-20 flex items-center justify-center text-center">
           <motion.h1
             initial="hidden"
             animate="visible"

@@ -1,4 +1,4 @@
-import type { TimelineBand, TimelineTask } from "@/app/continuum/continuum/data";
+import type { TimelineBand, TimelineTask } from "@/app/components/caseStudyTypes";
 
 const ROW_HEIGHT = 44;
 const ROW_GAP = 10;

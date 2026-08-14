@@ -3,8 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import CaseStudyNav from "@/app/components/CaseStudyNav";
+import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
+import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
+import NextProjectPreview from "@/app/components/NextProjectPreview";
 import {
   goodHero,
+  highlightsSection,
+  timelineSection,
   roleAndImpact,
   problemSection,
   researchGallery,
@@ -15,6 +21,19 @@ import {
   nextProject,
 } from "@/app/page/good/data";
 
+const sections = [
+  { id: "overview", title: "Overview" },
+  { id: "highlights", title: "Highlights" },
+  { id: "timeline", title: "Timeline" },
+  { id: "role-impact", title: "My Role & Impact" },
+  { id: "problem", title: "The Problem" },
+  { id: "research", title: "Research" },
+  { id: "design-goal", title: "Design Goal" },
+  { id: "design-solutions", title: "Design Solutions" },
+  { id: "design-decisions", title: "Design Decisions" },
+  { id: "next-steps", title: "What's Next" },
+];
+
 export const metadata: Metadata = {
   title: "Good Friends Poke — Hannah Roxas",
   description: goodHero.subtitle,
@@ -22,11 +41,14 @@ export const metadata: Metadata = {
 
 export default function GoodFriendsPage() {
   return (
-    <div className="flex flex-1 flex-col bg-white">
+    <div className="flex flex-1 flex-col bg-background">
       <Header />
-      <main className="flex-1">
+      <main className="mx-auto flex w-full max-w-6xl flex-1 gap-12 px-6 sm:px-10">
+        <CaseStudyNav sections={sections} />
+
+        <div className="min-w-0 flex-1">
         {/* Hero */}
-        <section className="mx-auto max-w-4xl px-6 pt-16 pb-8 sm:px-10 sm:pt-24">
+        <section id="overview" className="max-w-4xl pt-16 pb-8 sm:pt-24">
           <Link
             href="/"
             className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
@@ -73,8 +95,27 @@ export default function GoodFriendsPage() {
           </div>
         </section>
 
+        <div className="max-w-4xl">
+          <CaseStudyHighlights
+            heading={highlightsSection.heading}
+            mockup={highlightsSection.mockup}
+            outcomes={highlightsSection.outcomes}
+            stats={highlightsSection.stats}
+            callout={highlightsSection.callout}
+          />
+        </div>
+
+        <div className="max-w-4xl">
+          <CaseStudyTimeline
+            heading={timelineSection.heading}
+            totalWeeks={timelineSection.totalWeeks}
+            bands={timelineSection.bands}
+            tasks={timelineSection.tasks}
+          />
+        </div>
+
         {/* My Role & Impact */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10">
+        <section id="role-impact" className="max-w-4xl py-16">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {roleAndImpact.heading}
           </h2>
@@ -91,7 +132,7 @@ export default function GoodFriendsPage() {
         </section>
 
         {/* The Problem */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10">
+        <section id="problem" className="max-w-4xl py-16">
           <p className="font-mono text-sm text-neutral-500">{problemSection.flow}</p>
 
           <div className="mt-6 space-y-4">
@@ -127,7 +168,7 @@ export default function GoodFriendsPage() {
         </section>
 
         {/* Research gallery */}
-        <section className="mx-auto max-w-6xl px-6 py-16 sm:px-10">
+        <section id="research" className="max-w-6xl py-16">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {researchGallery.heading}
           </h2>
@@ -152,7 +193,7 @@ export default function GoodFriendsPage() {
         </section>
 
         {/* Design Goal */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10">
+        <section id="design-goal" className="max-w-4xl py-16">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {designGoal.heading}
           </h2>
@@ -179,7 +220,7 @@ export default function GoodFriendsPage() {
         </section>
 
         {/* Design Solutions */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10">
+        <section id="design-solutions" className="max-w-4xl py-16">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {designSolutions.heading}
           </h2>
@@ -214,7 +255,7 @@ export default function GoodFriendsPage() {
         </section>
 
         {/* Design Decisions & Interactions */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10">
+        <section id="design-decisions" className="max-w-4xl py-16">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {designDecisions.heading}
           </h2>
@@ -265,7 +306,7 @@ export default function GoodFriendsPage() {
         </section>
 
         {/* What I'd Do Next */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10 sm:pb-8">
+        <section id="next-steps" className="max-w-4xl py-16">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {nextStepsSection.heading}
           </h2>
@@ -280,31 +321,8 @@ export default function GoodFriendsPage() {
           </ul>
         </section>
 
-        {/* Next project */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10 sm:py-24">
-          <p className="text-sm font-medium tracking-wide text-neutral-400 uppercase">
-            {nextProject.label}
-          </p>
-
-          <Link href={nextProject.href} className="group mt-6 block">
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-100">
-              <Image
-                src={nextProject.image}
-                alt={nextProject.imageAlt}
-                width={nextProject.imageWidth}
-                height={nextProject.imageHeight}
-                className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                sizes="(min-width: 1024px) 60vw, 100vw"
-              />
-            </div>
-            <h2 className="mt-5 font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900">
-              {nextProject.title}
-            </h2>
-            <p className="mt-2 max-w-xl text-base leading-relaxed text-neutral-600">
-              {nextProject.description}
-            </p>
-          </Link>
-        </section>
+        <NextProjectPreview {...nextProject} />
+        </div>
       </main>
       <Footer />
     </div>

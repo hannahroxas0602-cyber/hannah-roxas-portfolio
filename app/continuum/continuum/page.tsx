@@ -6,6 +6,7 @@ import Footer from "@/app/components/Footer";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
+import NextProjectPreview from "@/app/components/NextProjectPreview";
 import {
   continuumHero,
   highlightsSection,
@@ -204,26 +205,33 @@ export default function ContinuumPage() {
         </section>
 
         {/* Designing for Multiple Stakeholders */}
-        <section id="stakeholders" className="max-w-4xl py-16">
+        <section id="stakeholders" className="max-w-6xl py-16">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {stakeholdersSection.heading}
           </h2>
 
-          <div className="relative mt-8 aspect-[1536/1024] w-full overflow-hidden rounded-2xl bg-neutral-100">
-            <Image
-              src={stakeholdersSection.image}
-              alt={stakeholdersSection.imageAlt}
-              width={stakeholdersSection.imageWidth}
-              height={stakeholdersSection.imageHeight}
-              className="h-full w-full object-cover"
-              sizes="(min-width: 1024px) 60vw, 100vw"
-            />
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
+          <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-3">
             {stakeholdersSection.stakeholders.map((s) => (
               <div key={s.slug}>
-                <h3 className="font-[family-name:var(--font-manrope)] text-lg font-semibold text-neutral-900">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-100">
+                  {s.demoVideo ? (
+                    <video
+                      src={s.demoVideo}
+                      aria-label={s.demoVideoAlt}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-sm text-neutral-400">
+                      Coming soon
+                    </div>
+                  )}
+                </div>
+
+                <h3 className="mt-5 font-[family-name:var(--font-manrope)] text-lg font-semibold text-neutral-900">
                   {s.name}
                 </h3>
                 <p className="mt-1 text-sm font-medium text-neutral-500">
@@ -259,7 +267,7 @@ export default function ContinuumPage() {
             ))}
           </ul>
 
-          <div className="relative mt-10 aspect-[1852/898] w-full overflow-hidden rounded-2xl bg-neutral-100">
+          <div className="relative mt-10 aspect-[908/902] w-full max-w-md overflow-hidden rounded-2xl bg-neutral-100">
             <video
               src={designSystemSection.image}
               aria-label={designSystemSection.imageAlt}
@@ -285,45 +293,9 @@ export default function ContinuumPage() {
               </li>
             ))}
           </ul>
-
-          <div className="relative mt-10 aspect-[908/902] w-full max-w-md overflow-hidden rounded-2xl bg-neutral-100">
-            <video
-              src={nextStepsSection.image}
-              aria-label={nextStepsSection.imageAlt}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="h-full w-full object-cover"
-            />
-          </div>
         </section>
 
-        {/* Next project */}
-        <section className="max-w-4xl py-16 sm:py-24">
-          <p className="text-sm font-medium tracking-wide text-neutral-400 uppercase">
-            {nextProject.label}
-          </p>
-
-          <Link href={nextProject.href} className="group mt-6 block">
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-100">
-              <Image
-                src={nextProject.image}
-                alt={nextProject.imageAlt}
-                width={nextProject.imageWidth}
-                height={nextProject.imageHeight}
-                className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                sizes="(min-width: 1024px) 60vw, 100vw"
-              />
-            </div>
-            <h2 className="mt-5 font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900">
-              {nextProject.title}
-            </h2>
-            <p className="mt-2 max-w-xl text-base leading-relaxed text-neutral-600">
-              {nextProject.description}
-            </p>
-          </Link>
-        </section>
+        <NextProjectPreview {...nextProject} />
         </div>
       </main>
       <Footer />

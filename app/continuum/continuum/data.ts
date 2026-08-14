@@ -36,21 +36,7 @@ export const highlightsSection = {
   callout: "Less chaos, more continuity.",
 };
 
-export type TimelineBand = {
-  label: string;
-  colorClass: string;
-  startWeek: number;
-  endWeek: number;
-};
-
-export type TimelineTask = {
-  title: string;
-  band: string;
-  startWeek: number;
-  endWeek: number;
-  row: number;
-  colorClass: string;
-};
+import type { TimelineBand, TimelineTask } from "@/app/components/caseStudyTypes";
 
 export const timelineSection = {
   heading: "Timeline",
@@ -187,14 +173,12 @@ export type Stakeholder = {
   name: string;
   coreNeed: string;
   features: string[];
+  demoVideo?: string;
+  demoVideoAlt?: string;
 };
 
 export const stakeholdersSection = {
   heading: "Designing for Multiple Stakeholders",
-  image: "/images/continuum/three-users.png",
-  imageAlt: "Illustration representing the three core Continuum user groups",
-  imageWidth: 1536,
-  imageHeight: 1024,
   stakeholders: [
     {
       slug: "intended-parents",
@@ -205,6 +189,8 @@ export const stakeholdersSection = {
         "Guided prompts to ask the right questions at the right time",
         "Reduced need for constant messaging",
       ],
+      demoVideo: "/images/continuum/intended-parent-dashboard-demo.mp4",
+      demoVideoAlt: "Walkthrough of the Continuum Intended Parent dashboard",
     },
     {
       slug: "surrogates",
@@ -215,6 +201,8 @@ export const stakeholdersSection = {
         "Clear expectations and consent-based visibility",
         "Reduced feeling of being monitored",
       ],
+      demoVideo: "/images/continuum/surrogate-dashboard-demo.mp4",
+      demoVideoAlt: "Walkthrough of the Continuum Surrogate dashboard",
     },
     {
       slug: "care-coordinators",
@@ -225,6 +213,8 @@ export const stakeholdersSection = {
         "Tools to track readiness, alignment, and blockers",
         "Centralized communication loops",
       ],
+      demoVideo: "/images/continuum/care-coordinator-dashboard-demo.mp4",
+      demoVideoAlt: "Walkthrough of the Continuum Care Coordinator dashboard",
     },
   ] satisfies Stakeholder[],
 };
@@ -247,10 +237,10 @@ export const designSystemSection = {
       body: "and soft microcopy that feels supportive, not authoritative.",
     },
   ],
-  image: "/images/continuum/design-system.mp4",
-  imageAlt: "Animated walkthrough of the Continuum visual design system",
-  imageWidth: 1852,
-  imageHeight: 898,
+  image: "/images/continuum/design-system-moodboard.mp4",
+  imageAlt: "Continuum design system moodboard showing UI components, icons, buttons, and color palette",
+  imageWidth: 908,
+  imageHeight: 902,
 };
 
 export const nextStepsSection = {
@@ -265,10 +255,6 @@ export const nextStepsSection = {
       body: "by tracking if the platform reduces the volume of anxious, off-channel messages sent to coordinators.",
     },
   ],
-  image: "/images/continuum/next-steps.mp4",
-  imageAlt: "Animated concept exploration for future Continuum features",
-  imageWidth: 908,
-  imageHeight: 902,
 };
 
 export const nextProject = {

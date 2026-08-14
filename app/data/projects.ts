@@ -1,3 +1,8 @@
+export type ImpactStat = {
+  value: string;
+  label: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -11,6 +16,9 @@ export type Project = {
   imageHeight: number;
   imageAspect?: string;
   external?: boolean;
+  year?: string;
+  impactStats?: ImpactStat[];
+  gallery?: string[];
 };
 
 export const projects: Project[] = [
@@ -27,6 +35,17 @@ export const projects: Project[] = [
     imageWidth: 1264,
     imageHeight: 848,
     imageAspect: "3/2",
+    year: "2026",
+    impactStats: [
+      { value: "3", label: "stakeholder groups" },
+      { value: "9", label: "months mapped" },
+    ],
+    gallery: [
+      "/images/projects/continuum.png",
+      "/images/continuum/problem-flow.mp4",
+      "/images/continuum/care-coordinator-dashboard-demo.mp4",
+      "/images/continuum/design-system-moodboard.mp4",
+    ],
   },
   {
     slug: "good-friends-poke",
@@ -41,6 +60,17 @@ export const projects: Project[] = [
     imageWidth: 2446,
     imageHeight: 1376,
     imageAspect: "16/9",
+    year: "UPDATE ME",
+    impactStats: [
+      { value: "XX", label: "update me" },
+      { value: "XX", label: "update me" },
+    ],
+    gallery: [
+      "/images/projects/good-friends-poke.png",
+      "/images/good-friends/hero.png",
+      "/images/good-friends/customer-service.png",
+      "/images/good-friends/product-quality.png",
+    ],
   },
   {
     slug: "dear-beloved",
@@ -55,6 +85,14 @@ export const projects: Project[] = [
     imageWidth: 620,
     imageHeight: 539,
     imageAspect: "4/3",
+    year: "UPDATE ME",
+    impactStats: [{ value: "XX", label: "update me" }],
+    gallery: [
+      "/images/dear-beloved/gallery/photo-20.jpg",
+      "/images/dear-beloved/gallery/photo-24.jpg",
+      "/images/dear-beloved/gallery/photo-28.jpg",
+      "/images/dear-beloved/gallery/photo-32.jpg",
+    ],
   },
   {
     slug: "boiler-room-cd",
@@ -69,6 +107,14 @@ export const projects: Project[] = [
     imageWidth: 1033,
     imageHeight: 677,
     imageAspect: "3/2",
+    year: "UPDATE ME",
+    impactStats: [{ value: "XX", label: "update me" }],
+    gallery: [
+      "/images/graphic-design/boiler-room-cd.png",
+      "/images/boiler-room-cd/front.png",
+      "/images/boiler-room-cd/open-cover-minibook.png",
+      "/images/boiler-room-cd/retro.png",
+    ],
   },
   {
     slug: "typography-dictionary",
@@ -83,5 +129,13 @@ export const projects: Project[] = [
     imageWidth: 1376,
     imageHeight: 768,
     imageAspect: "16/9",
+    year: "UPDATE ME",
+    impactStats: [{ value: "XX", label: "update me" }],
+    gallery: [
+      "/images/typography-dictionary/specimens/specimen-14.png",
+      "/images/typography-dictionary/specimens/specimen-16.png",
+      "/images/typography-dictionary/specimens/specimen-18.png",
+      "/images/typography-dictionary/specimens/specimen-19.png",
+    ],
   },
 ];

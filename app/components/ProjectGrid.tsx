@@ -21,7 +21,7 @@ export default function ProjectGrid({
         </h2>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2">
+      <div className="mt-10 flex flex-col">
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}

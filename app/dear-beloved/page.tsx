@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import NextProjectPreview from "@/app/components/NextProjectPreview";
 import { dearBelovedHero, gallery, nextProject } from "@/app/dear-beloved/data";
 
 export const metadata: Metadata = {
@@ -71,31 +72,7 @@ export default function DearBelovedPage() {
           </div>
         </section>
 
-        {/* Next project */}
-        <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10 sm:py-24">
-          <p className="text-sm font-medium tracking-wide text-neutral-400 uppercase">
-            {nextProject.label}
-          </p>
-
-          <Link href={nextProject.href} className="group mt-6 block">
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-100">
-              <Image
-                src={nextProject.image}
-                alt={nextProject.imageAlt}
-                width={nextProject.imageWidth}
-                height={nextProject.imageHeight}
-                className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                sizes="(min-width: 1024px) 60vw, 100vw"
-              />
-            </div>
-            <h2 className="mt-5 font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900">
-              {nextProject.title}
-            </h2>
-            <p className="mt-2 max-w-xl text-base leading-relaxed text-neutral-600">
-              {nextProject.description}
-            </p>
-          </Link>
-        </section>
+        <NextProjectPreview {...nextProject} />
       </main>
       <Footer />
     </div>

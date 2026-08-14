@@ -4,24 +4,27 @@ export default function About() {
   return (
     <section id="about1" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-16 sm:px-10 sm:py-24">
       <p className="text-lg text-neutral-500">
-        <span className="mr-1">{aboutIntro.eyebrow}</span>
+        <span className="mr-1 font-[family-name:var(--font-mono)] text-sm tracking-wide">
+          {aboutIntro.eyebrow}
+        </span>
         <span className="text-black">{aboutIntro.title}</span>
       </p>
 
-      <div className="mt-10 border-t border-black/[0.08]">
+      <div className="relative mt-14 ml-3 sm:ml-6">
+        <div className="absolute top-2 bottom-2 left-0 w-px bg-black/[0.1]" />
+
         {experience.map((entry) => (
-          <div
-            key={entry.slug}
-            className="flex flex-col gap-1 border-b border-black/[0.08] py-8 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8"
-          >
-            <div>
-              <h2 className="text-lg font-normal text-black">{entry.role}</h2>
-              <p className="mt-1 text-base leading-relaxed text-neutral-500">
-                {entry.context}
-              </p>
-            </div>
-            <p className="text-base text-neutral-500 sm:flex-none sm:text-right">
+          <div key={entry.slug} className="relative pb-14 pl-8 last:pb-0 sm:pl-12">
+            <span className="absolute top-1.5 left-0 h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2 border-black bg-[var(--background)]" />
+
+            <p className="font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400 uppercase">
               {entry.dates}
+            </p>
+            <h2 className="mt-2 font-[family-name:var(--font-manrope)] text-2xl text-black sm:text-3xl">
+              {entry.role}
+            </h2>
+            <p className="mt-2 max-w-xl text-base leading-relaxed text-neutral-500">
+              {entry.context}
             </p>
           </div>
         ))}
