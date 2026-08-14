@@ -22,32 +22,32 @@ export default function TypographyDictionaryPage() {
       <Header />
       <main className="flex-1">
         {/* Hero */}
-        <section className="bg-black py-16 sm:py-24">
+        <section className="py-16 sm:py-24">
           <div className="mx-auto max-w-4xl px-6 sm:px-10">
             <Link
               href="/"
-              className="text-sm font-medium text-neutral-400 transition-colors hover:text-white"
+              className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
             >
               ← Back to home
             </Link>
 
-            <h1 className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+            <h1 className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
               {typographyHero.title}
             </h1>
 
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-300">
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-600">
               {typographyHero.narrative}
             </p>
 
-            <p className="mt-8 text-sm text-neutral-500">{typographyHero.date}</p>
+            <p className="mt-8 text-sm text-neutral-400">{typographyHero.date}</p>
 
-            <dl className="mt-6 grid grid-cols-1 gap-6 border-t border-white/10 pt-8 sm:grid-cols-3">
+            <dl className="mt-6 grid grid-cols-1 gap-6 border-t border-black/[0.08] pt-8 sm:grid-cols-3">
               {typographyHero.meta.map((item) => (
                 <div key={item.label}>
-                  <dt className="text-xs font-medium tracking-wide text-neutral-500 uppercase">
+                  <dt className="text-xs font-medium tracking-wide text-neutral-400 uppercase">
                     {item.label}
                   </dt>
-                  <dd className="mt-2 text-sm leading-relaxed text-neutral-300">{item.value}</dd>
+                  <dd className="mt-2 text-sm leading-relaxed text-neutral-600">{item.value}</dd>
                 </div>
               ))}
             </dl>
@@ -55,16 +55,16 @@ export default function TypographyDictionaryPage() {
         </section>
 
         {/* Spreads */}
-        <section className="bg-black pb-16 sm:pb-24">
+        <section className="pb-16 sm:pb-24">
           <div className="mx-auto max-w-4xl px-6 sm:px-10">
-            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-white sm:text-3xl">
+            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
               {spreads.heading}
             </h2>
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
               {spreads.images.map((item) => (
                 <div
                   key={item.slug}
-                  className="relative aspect-[2575/3175] w-full overflow-hidden rounded-2xl bg-neutral-900"
+                  className="relative aspect-[2575/3175] w-full overflow-hidden rounded-2xl bg-neutral-100"
                 >
                   <Image
                     src={item.src}
@@ -81,16 +81,16 @@ export default function TypographyDictionaryPage() {
         </section>
 
         {/* Book mockup */}
-        <section className="bg-black pb-16 sm:pb-24">
+        <section className="pb-16 sm:pb-24">
           <div className="mx-auto max-w-4xl px-6 sm:px-10">
-            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-white sm:text-3xl">
+            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
               {bookMockup.heading}
             </h2>
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
               {bookMockup.images.map((src) => (
                 <div
                   key={src}
-                  className="relative aspect-square w-full overflow-hidden rounded-2xl bg-neutral-900"
+                  className="relative aspect-square w-full overflow-hidden rounded-2xl bg-neutral-100"
                 >
                   <Image
                     src={src}
@@ -107,15 +107,15 @@ export default function TypographyDictionaryPage() {
         </section>
 
         {/* Dictionary specimens */}
-        <section className="bg-black pb-16 sm:pb-24">
+        <section className="pb-16 sm:pb-24">
           <div className="mx-auto max-w-6xl px-6 sm:px-10">
-            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-white sm:text-3xl">
+            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
               {specimens.heading}
             </h2>
             <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
               {specimens.images.map((src, i) => (
                 <div key={src}>
-                  <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-neutral-900">
+                  <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-neutral-100">
                     <Image
                       src={src}
                       alt={`${specimens.imageAlt} ${specimens.numbers[i]}`}
@@ -125,7 +125,7 @@ export default function TypographyDictionaryPage() {
                       sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                     />
                   </div>
-                  <p className="mt-2 text-xs font-medium text-neutral-500">
+                  <p className="mt-2 text-xs font-medium text-neutral-400">
                     {String(specimens.numbers[i]).padStart(4, "0")}
                   </p>
                 </div>

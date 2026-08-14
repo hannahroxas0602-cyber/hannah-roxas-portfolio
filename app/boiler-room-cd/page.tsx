@@ -17,32 +17,32 @@ export default function BoilerRoomCdPage() {
       <Header />
       <main className="flex-1">
         {/* Hero */}
-        <section className="bg-black py-16 sm:py-24">
+        <section className="py-16 sm:py-24">
           <div className="mx-auto max-w-4xl px-6 sm:px-10">
             <Link
               href="/"
-              className="text-sm font-medium text-neutral-400 transition-colors hover:text-white"
+              className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
             >
               ← Back to home
             </Link>
 
-            <h1 className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+            <h1 className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
               {boilerRoomHero.title}
             </h1>
 
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-300">
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-600">
               {boilerRoomHero.narrative}
             </p>
 
-            <p className="mt-8 text-sm text-neutral-500">{boilerRoomHero.date}</p>
+            <p className="mt-8 text-sm text-neutral-400">{boilerRoomHero.date}</p>
 
-            <dl className="mt-6 grid grid-cols-1 gap-6 border-t border-white/10 pt-8 sm:grid-cols-3">
+            <dl className="mt-6 grid grid-cols-1 gap-6 border-t border-black/[0.08] pt-8 sm:grid-cols-3">
               {boilerRoomHero.meta.map((item) => (
                 <div key={item.label}>
-                  <dt className="text-xs font-medium tracking-wide text-neutral-500 uppercase">
+                  <dt className="text-xs font-medium tracking-wide text-neutral-400 uppercase">
                     {item.label}
                   </dt>
-                  <dd className="mt-2 text-sm leading-relaxed text-neutral-300">{item.value}</dd>
+                  <dd className="mt-2 text-sm leading-relaxed text-neutral-600">{item.value}</dd>
                 </div>
               ))}
             </dl>
@@ -50,12 +50,12 @@ export default function BoilerRoomCdPage() {
         </section>
 
         {/* Gallery */}
-        <section className="bg-black pb-16 sm:pb-24">
+        <section className="pb-16 sm:pb-24">
           <div className="mx-auto max-w-5xl px-6 sm:px-10">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {gallery.map((item) => (
                 <div key={item.slug}>
-                  <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-neutral-900">
+                  <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-neutral-100">
                     <Image
                       src={item.image}
                       alt={item.imageAlt}
@@ -65,7 +65,7 @@ export default function BoilerRoomCdPage() {
                       sizes="(min-width: 640px) 50vw, 100vw"
                     />
                   </div>
-                  <p className="mt-3 text-sm font-medium text-neutral-400">{item.label}</p>
+                  <p className="mt-3 text-sm font-medium text-neutral-500">{item.label}</p>
                 </div>
               ))}
             </div>

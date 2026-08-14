@@ -42,18 +42,18 @@ export default function GraphicDesignPage() {
           </p>
         </section>
 
-        {/* Black gallery section: Projects / Edited Videos / Experimental */}
-        <section className="bg-black py-16 sm:py-24">
+        {/* Gallery section: Projects / Edited Videos / Experimental */}
+        <section className="py-16 sm:py-24">
           <div className="mx-auto max-w-6xl px-6 sm:px-10">
             {/* Projects */}
-            <h2 className="font-[family-name:var(--font-manrope)] text-3xl font-semibold text-white sm:text-4xl">
+            <h2 className="font-[family-name:var(--font-manrope)] text-3xl font-semibold text-neutral-900 sm:text-4xl">
               Projects
             </h2>
 
             <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
               {galleryProjects.map((project) => (
                 <Link key={project.slug} href={project.href} className="group block">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-900">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-100">
                     <Image
                       src={project.image}
                       alt={project.imageAlt}
@@ -63,10 +63,10 @@ export default function GraphicDesignPage() {
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     />
                   </div>
-                  <h3 className="mt-5 font-[family-name:var(--font-manrope)] text-xl font-bold text-white">
+                  <h3 className="mt-5 font-[family-name:var(--font-manrope)] text-xl font-bold text-neutral-900">
                     {project.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-neutral-400">
+                  <p className="mt-2 text-sm leading-relaxed text-neutral-500">
                     {project.description}
                   </p>
                 </Link>
@@ -74,7 +74,7 @@ export default function GraphicDesignPage() {
             </div>
 
             {/* Edited Videos */}
-            <h2 className="mt-24 font-[family-name:var(--font-manrope)] text-3xl font-semibold text-white sm:text-4xl">
+            <h2 className="mt-24 font-[family-name:var(--font-manrope)] text-3xl font-semibold text-neutral-900 sm:text-4xl">
               Edited Videos
             </h2>
 
@@ -82,7 +82,7 @@ export default function GraphicDesignPage() {
               {editedVideos.map((video) => (
                 <div
                   key={video.slug}
-                  className="relative aspect-video w-full overflow-hidden rounded-xl bg-neutral-900"
+                  className="relative aspect-video w-full overflow-hidden rounded-xl bg-neutral-100"
                 >
                   <video
                     src={video.src}
@@ -99,7 +99,7 @@ export default function GraphicDesignPage() {
             </div>
 
             {/* Experimental */}
-            <h2 className="mt-24 font-[family-name:var(--font-manrope)] text-3xl font-semibold text-white sm:text-4xl">
+            <h2 className="mt-24 font-[family-name:var(--font-manrope)] text-3xl font-semibold text-neutral-900 sm:text-4xl">
               Experimental
             </h2>
 
@@ -107,7 +107,7 @@ export default function GraphicDesignPage() {
               {experimentalImages.map((item) => (
                 <div
                   key={item.slug}
-                  className="relative aspect-[2550/3300] w-full overflow-hidden rounded-xl bg-neutral-900 shadow-lg shadow-black/40"
+                  className="relative aspect-[2550/3300] w-full overflow-hidden rounded-xl bg-neutral-100 shadow-sm"
                 >
                   <Image
                     src={item.image}

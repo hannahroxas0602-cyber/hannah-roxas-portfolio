@@ -54,13 +54,14 @@ export default function CustomCursor() {
           initial={{ width: 8, height: 8, paddingInline: 0 }}
           animate={{ width: "auto", height: 32, paddingInline: 12 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="flex items-center justify-center rounded-full bg-[#1c2430]"
+          className="flex items-center justify-center rounded-full"
+          style={{ backgroundColor: CURSOR_COLOR }}
         >
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.05 }}
-            className="text-xs font-medium whitespace-nowrap text-white"
+            className="text-xs font-medium whitespace-nowrap text-black"
           >
             {label}
           </motion.span>
