@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
 
-const geist = Geist({
+const bodyMono = IBM_Plex_Mono({
   variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
-const sourceSerif = Source_Serif_4({
+const bricolage = Bricolage_Grotesque({
   variable: "--font-manrope",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+const labelMono = IBM_Plex_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -29,7 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${geist.variable} ${sourceSerif.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${bodyMono.variable} ${bricolage.variable} ${labelMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col md:cursor-none">
         {children}
