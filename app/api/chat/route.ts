@@ -6,7 +6,7 @@ import { social } from "@/app/data/social";
 
 export const runtime = "nodejs";
 
-const MODEL = "openai/gpt-oss-20b:free";
+const MODELS = ["openai/gpt-oss-20b:free", "google/gemma-4-31b-it:free"];
 const MAX_HISTORY_MESSAGES = 12;
 
 function buildSystemPrompt() {
@@ -79,35 +79,39 @@ export async function POST(req: NextRequest) {
     { role: "user", content: message },
   ];
 
-  try {
-    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-        "HTTP-Referer": "https://www.hannahroxas.com",
-        "X-Title": "Hannah Roxas Portfolio",
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        messages,
-        max_tokens: 900,
-        temperature: 0.6,
-      }),
-    });
+  for (const model of MODELS) {
+    try {
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+          "HTTP-Referer": "https://www.hannahroxas.com",
+          "X-Title": "Hannah Roxas Portfolio",
+        },
+        body: JSON.stringify({
+          model,
+          messages,
+          max_tokens: 900,
+          temperature: 0.6,
+        }),
+      });
 
-    if (!res.ok) {
-      const errText = await res.text();
-      console.error("OpenRouter API error", res.status, errText);
-      return NextResponse.json({ reply: mockReply() });
+      if (!res.ok) {
+        const errText = await res.text();
+        console.error("OpenRouter API error", model, res.status, errText);
+        if (res.status === 429) continue;
+        return NextResponse.json({ reply: mockReply() });
+      }
+
+      const data = await res.json();
+      const reply: string | undefined = data?.choices?.[0]?.message?.content?.trim();
+
+      return NextResponse.json({ reply: reply || mockReply() });
+    } catch (err) {
+      console.error("OpenRouter API request failed", model, err);
     }
-
-    const data = await res.json();
-    const reply: string | undefined = data?.choices?.[0]?.message?.content?.trim();
-
-    return NextResponse.json({ reply: reply || mockReply() });
-  } catch (err) {
-    console.error("OpenRouter API request failed", err);
-    return NextResponse.json({ reply: mockReply() });
   }
+
+  return NextResponse.json({ reply: mockReply() });
 }

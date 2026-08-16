@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { social } from "@/app/data/social";
-import ChatWidget from "@/app/components/ChatWidget";
 
 const wordVariants = {
   hidden: { opacity: 0.001, filter: "blur(10px)", y: 10 },
@@ -162,16 +161,6 @@ export default function Hero() {
               ))}
           </motion.h1>
         </div>
-
-        {/* Chat entry point — inside the circle, near the bottom */}
-        <motion.div
-          initial={{ opacity: 0.001, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut", delay: 0.7 }}
-          className="absolute bottom-[27%] left-1/2 z-20 -translate-x-1/2"
-        >
-          <ChatWidget />
-        </motion.div>
 
         {/* Welcome to / the rabbit hole flanking labels */}
         <span className="absolute top-1/2 left-0 hidden -translate-x-[calc(100%+2.5rem)] -translate-y-1/2 text-xl font-medium tracking-tight whitespace-nowrap text-black lg:block">
