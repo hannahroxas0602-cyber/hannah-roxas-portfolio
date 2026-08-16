@@ -157,8 +157,8 @@ export default function AboutPanel({ width }: { width: number }) {
               </div>
             </div>
 
-            {/* Contact — pinned to the bottom */}
-            <div className="mt-auto rounded-2xl bg-white p-4 sm:p-5">
+            {/* Contact — pinned to the bottom on desktop's fixed-height sidebar; flows normally on mobile's scrollable stack */}
+            <div className="rounded-2xl bg-white p-4 sm:mt-auto sm:p-5">
               <p className="font-[family-name:var(--font-mono)] text-xs font-semibold tracking-widest text-neutral-400 uppercase">
                 Contact
               </p>
