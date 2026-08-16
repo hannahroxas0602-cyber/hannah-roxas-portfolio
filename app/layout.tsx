@@ -52,9 +52,9 @@ export const metadata: Metadata = {
     siteName: siteTitle,
     images: [
       {
-        url: "/images/link_preview.png",
-        width: 2604,
-        height: 1504,
+        url: "/images/Link_preview_final.png",
+        width: 2878,
+        height: 1556,
         alt: "Hannah Roxas — Portfolio",
       },
     ],
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["/images/link_preview.png"],
+    images: ["/images/Link_preview_final.png"],
   },
 };
 
