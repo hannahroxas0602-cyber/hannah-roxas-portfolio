@@ -26,8 +26,7 @@ const interLabel = Inter({
 const siteTitle = "Hannah Roxas | Portfolio";
 const siteDescription =
   "Hannah Roxas is a UX and visual designer who designs connected digital systems that reward curiosity.";
-// TODO: replace with the real deployed domain once this site has one.
-const siteUrl = "https://hannahroxas.com";
+const siteUrl = "https://www.hannahroxas.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
