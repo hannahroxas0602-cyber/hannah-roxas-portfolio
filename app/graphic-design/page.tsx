@@ -39,7 +39,7 @@ export default function GraphicDesignPage() {
             {graphicDesignHero.category}
           </h1>
 
-          <p className="mt-5 max-w-none text-base leading-relaxed whitespace-nowrap text-neutral-500">
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-500">
             {graphicDesignHero.intro}
           </p>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-neutral-400">

@@ -16,7 +16,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
       <motion.div
         animate={{ width: isOpen ? `calc(100% - ${PANEL_WIDTH}px)` : "100%" }}
         transition={{ type: "spring", stiffness: 260, damping: 30 }}
-        className="flex min-h-full flex-none flex-col"
+        className="flex min-h-full w-full flex-none flex-col sm:w-auto"
       >
         <PageTransition>{children}</PageTransition>
       </motion.div>

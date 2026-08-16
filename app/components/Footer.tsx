@@ -32,12 +32,20 @@ export default function Footer() {
             }
           >
             Curiouser and curiouser.{" "}
-            <span
+            <svg
               aria-hidden
-              className="inline-block transition-transform duration-300 group-hover:translate-x-2 group-hover:-translate-y-2"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="inline-block h-[0.7em] w-[0.7em] align-[0.05em] transition-transform duration-300 group-hover:translate-x-2 group-hover:-translate-y-2"
             >
-              ↗
-            </span>
+              <path
+                d="M7 17L17 7M17 7H8M17 7V16"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </h2>
           <p className="mt-4 text-sm font-medium text-neutral-600 sm:text-base">
             {social.email}

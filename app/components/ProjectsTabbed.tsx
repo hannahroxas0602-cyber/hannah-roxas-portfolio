@@ -104,7 +104,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
         </div>
       )}
 
-      <div className="absolute inset-0 z-10 flex flex-col justify-end p-4 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
+      <div className="touch-reveal absolute inset-0 z-10 flex flex-col justify-end p-4 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
         <div className="rounded-2xl border border-white/15 bg-black/45 p-5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl backdrop-saturate-150">
           {project.impactStats && project.impactStats.length > 0 && (
             <div className="mb-4">

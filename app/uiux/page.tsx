@@ -30,13 +30,13 @@ export default function UiUxPage() {
             {uiuxHero.eyebrow}
           </p>
           <h1
-            className="mt-3 max-w-none font-[family-name:var(--font-manrope)] font-semibold tracking-tight whitespace-nowrap text-neutral-900"
+            className="mt-3 max-w-2xl font-[family-name:var(--font-manrope)] font-semibold tracking-tight text-neutral-900"
             style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", lineHeight: 1.05 }}
           >
             {uiuxHero.category}
           </h1>
 
-          <p className="mt-5 max-w-none text-base leading-relaxed whitespace-nowrap text-neutral-500">
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-500">
             {uiuxHero.intro}
           </p>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-neutral-400">

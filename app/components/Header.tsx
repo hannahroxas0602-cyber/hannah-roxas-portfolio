@@ -23,11 +23,11 @@ export default function Header() {
               alt="Hannah Roxas"
               width={77}
               height={50}
-              className="h-full w-full object-contain opacity-100 transition-opacity duration-200 group-hover:opacity-0"
+              className="h-full w-full object-contain opacity-100 transition-opacity duration-200 group-hover:opacity-0 group-active:opacity-0"
               priority
             />
             <div
-              className="absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+              className="absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-active:opacity-100"
               style={{
                 backgroundColor: CURSOR_COLOR,
                 WebkitMaskImage: "url(/images/logo-mark.webp)",

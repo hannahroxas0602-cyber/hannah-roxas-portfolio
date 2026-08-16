@@ -27,7 +27,7 @@ const ringImages = [
 
 export default function Hero() {
   return (
-    <section className="mx-auto max-w-6xl px-6 pt-16 pb-8 sm:px-10 sm:pt-20">
+    <section className="mx-auto max-w-6xl overflow-x-hidden px-6 pt-16 pb-8 sm:px-10 sm:pt-20">
       <p className="mb-6 text-center text-base font-medium tracking-tight text-neutral-500 sm:mb-4 sm:text-lg sm:text-black lg:hidden">
         Welcome to the rabbit hole.
       </p>

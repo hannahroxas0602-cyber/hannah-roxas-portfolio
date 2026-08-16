@@ -7,6 +7,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 @theme inline {
@@ -44,6 +45,14 @@ body {
 .link-underline:hover::after,
 .group:hover .link-underline::after {
   transform: scaleX(1);
+}
+
+/* Touch devices have no hover — always show hover-revealed content instead. */
+@media (hover: none) {
+  .touch-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 @keyframes marquee {

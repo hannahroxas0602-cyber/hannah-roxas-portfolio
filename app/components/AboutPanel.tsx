@@ -33,7 +33,7 @@ export default function AboutPanel({ width }: { width: number }) {
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 32 }}
             style={{ "--panel-width": `${width}px` } as React.CSSProperties}
-            className="fixed inset-4 z-[91] flex flex-col gap-3 overflow-y-auto rounded-3xl border border-white/40 bg-neutral-100 p-4 shadow-[0_8px_40px_rgba(0,0,0,0.12)] sm:inset-y-0 sm:inset-x-auto sm:right-0 sm:w-[var(--panel-width)] sm:max-w-[92vw] sm:overflow-visible sm:rounded-none sm:border-0 sm:border-l sm:border-l-white/40 sm:p-5"
+            className="fixed inset-4 z-[91] flex flex-col gap-3 overflow-hidden rounded-3xl border border-white/40 bg-neutral-100 p-4 shadow-[0_8px_40px_rgba(0,0,0,0.12)] sm:inset-y-0 sm:inset-x-auto sm:right-0 sm:w-[var(--panel-width)] sm:max-w-[92vw] sm:overflow-visible sm:rounded-none sm:border-0 sm:border-l sm:border-l-white/40 sm:p-5"
           >
             <button
               type="button"
@@ -107,9 +107,23 @@ export default function AboutPanel({ width }: { width: number }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   data-cursor="View resume"
-                  className="link-underline text-xs font-medium text-neutral-500 hover:text-neutral-900"
+                  className="link-underline inline-flex items-center gap-1 text-xs font-medium text-neutral-500 hover:text-neutral-900"
                 >
-                  Resume ↗
+                  Resume
+                  <svg
+                    aria-hidden
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="h-[0.9em] w-[0.9em]"
+                  >
+                    <path
+                      d="M7 17L17 7M17 7H8M17 7V16"
+                      stroke="currentColor"
+                      strokeWidth={2.5}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </a>
               </div>
               <div className="relative mt-4 flex flex-col gap-4">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { servicesIntro, services } from "@/app/services/data";
@@ -14,6 +14,15 @@ const halftones = [
 
 export default function Services() {
   const [openSlug, setOpenSlug] = useState<string | null>(services[0]?.slug ?? null);
+  const [canHover, setCanHover] = useState(true);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setCanHover(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setCanHover(e.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
 
   return (
     <section id="services" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-16 sm:px-10 sm:py-24">
@@ -26,7 +35,7 @@ export default function Services() {
 
       <div
         className="mt-10 flex flex-col gap-3"
-        onMouseLeave={() => setOpenSlug(null)}
+        onMouseLeave={canHover ? () => setOpenSlug(null) : undefined}
       >
         {services.map((service, i) => {
           const isOpen = service.slug === openSlug;
@@ -34,7 +43,7 @@ export default function Services() {
             <motion.div
               key={service.slug}
               layout
-              onMouseEnter={() => setOpenSlug(service.slug)}
+              onMouseEnter={canHover ? () => setOpenSlug(service.slug) : undefined}
               transition={{ type: "spring", stiffness: 220, damping: 28, mass: 0.8 }}
               className="relative overflow-hidden rounded-2xl border border-black/[0.08]"
             >
