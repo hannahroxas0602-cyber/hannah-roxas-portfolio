@@ -6,7 +6,7 @@ import { social } from "@/app/data/social";
 
 export const runtime = "nodejs";
 
-const MODEL = "llama-3.3-70b-versatile";
+const MODEL = "openai/gpt-oss-20b:free";
 const MAX_HISTORY_MESSAGES = 12;
 
 function buildSystemPrompt() {
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing message" }, { status: 400 });
   }
 
-  const apiKey = process.env.GROQ_API_KEY;
+  const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ reply: mockReply() });
   }
@@ -80,23 +80,25 @@ export async function POST(req: NextRequest) {
   ];
 
   try {
-    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
+        "HTTP-Referer": "https://www.hannahroxas.com",
+        "X-Title": "Hannah Roxas Portfolio",
       },
       body: JSON.stringify({
         model: MODEL,
         messages,
-        max_tokens: 500,
+        max_tokens: 900,
         temperature: 0.6,
       }),
     });
 
     if (!res.ok) {
       const errText = await res.text();
-      console.error("Groq API error", res.status, errText);
+      console.error("OpenRouter API error", res.status, errText);
       return NextResponse.json({ reply: mockReply() });
     }
 
@@ -105,7 +107,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ reply: reply || mockReply() });
   } catch (err) {
-    console.error("Groq API request failed", err);
+    console.error("OpenRouter API request failed", err);
     return NextResponse.json({ reply: mockReply() });
   }
 }
