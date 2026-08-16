@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { useAboutPanel } from "@/app/components/AboutPanelContext";
@@ -19,15 +20,26 @@ const tools = [
 
 export default function AboutPanel({ width }: { width: number }) {
   const { isOpen, close } = useAboutPanel();
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  // Close on outside click without covering the page in a hit-testing layer,
+  // so the rest of the page stays scrollable/interactive while the panel is open.
+  useEffect(() => {
+    if (!isOpen) return;
+    const handlePointerDown = (e: PointerEvent) => {
+      if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
+        close();
+      }
+    };
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [isOpen, close]);
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
-          {/* Invisible click-catcher — closes the panel on outside tap, no visual overlay */}
-          <div onClick={close} className="fixed inset-0 z-[90]" />
-
           <motion.div
+            ref={panelRef}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -176,7 +188,6 @@ export default function AboutPanel({ width }: { width: number }) {
               </div>
             </div>
           </motion.div>
-        </>
       )}
     </AnimatePresence>
   );
