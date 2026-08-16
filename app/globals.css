@@ -8,6 +8,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  overscroll-behavior-y: none;
 }
 
 @theme inline {
@@ -47,11 +48,29 @@ body {
   transform: scaleX(1);
 }
 
-/* Touch devices have no hover — always show hover-revealed content instead. */
+/* Touch devices have no hover — reveal hover-only content on press-and-hold instead. */
 @media (hover: none) {
-  .touch-reveal {
+  .touch-reveal.is-held {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  /* Content that should just always be visible on touch (e.g. card images),
+     since there's no hover to fade it in. */
+  .touch-always-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Corner controls that only make sense where there's no hover to rely on. */
+.touch-only-control {
+  display: none;
+}
+
+@media (hover: none) {
+  .touch-only-control {
+    display: flex;
   }
 }
 

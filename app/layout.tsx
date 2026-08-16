@@ -75,7 +75,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-scroll-behavior="smooth"
       className={`${inter.variable} ${interDisplay.variable} ${interLabel.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col overflow-x-hidden md:cursor-none">
+      <body className="flex min-h-full flex-col overflow-x-hidden overscroll-y-none md:cursor-none">
         <AboutPanelProvider>
           <AppShell>{children}</AppShell>
         </AboutPanelProvider>

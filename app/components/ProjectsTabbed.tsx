@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { projects, type Project } from "@/app/data/projects";
+import { useHoldPreview } from "@/app/hooks/useHoldPreview";
 
 type Tab = {
   key: Project["category"];
@@ -22,6 +23,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
   const gallery = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
   const [activeIndex, setActiveIndex] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const { held, handlers } = useHoldPreview();
 
   const startCycle = () => {
     if (gallery.length <= 1) return;
@@ -37,6 +39,13 @@ function ProjectThumbnail({ project }: { project: Project }) {
     setActiveIndex(0);
   };
 
+  const goToNext = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    stopCycle();
+    setActiveIndex((i) => (i + 1) % gallery.length);
+  };
+
   useEffect(() => () => stopCycle(), []);
 
   const hasVideo = gallery.some((src) => src.endsWith(".mp4"));
@@ -48,6 +57,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
       onMouseEnter={startCycle}
       onMouseLeave={stopCycle}
       className="group relative block aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-100"
+      {...handlers}
     >
       {/* Videos stay mounted and preloaded at all times so hover playback starts instantly. */}
       {hasVideo &&
@@ -92,19 +102,41 @@ function ProjectThumbnail({ project }: { project: Project }) {
       </AnimatePresence>
 
       {gallery.length > 1 && (
-        <div className="absolute top-4 right-4 z-10 flex gap-1.5">
-          {gallery.map((_, i) => (
-            <span
-              key={i}
-              className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
-                i === activeIndex ? "bg-white" : "bg-white/40"
-              }`}
-            />
-          ))}
-        </div>
+        <>
+          <div className="absolute top-4 right-4 z-10 flex gap-1.5">
+            {gallery.map((_, i) => (
+              <span
+                key={i}
+                className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
+                  i === activeIndex ? "bg-white" : "bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Touch devices can't hover to auto-cycle — give them a manual next button. */}
+          <button
+            type="button"
+            aria-label="Next image"
+            onClick={goToNext}
+            className="touch-only-control absolute bottom-4 left-4 z-20 h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/60 text-white backdrop-blur-xl backdrop-saturate-150"
+          >
+            <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4">
+              <path
+                d="M9 6l6 6-6 6"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </>
       )}
 
-      <div className="touch-reveal absolute inset-0 z-10 flex flex-col justify-end p-4 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
+      <div
+        className={`touch-reveal absolute inset-0 z-10 flex flex-col justify-end p-4 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 ${held ? "is-held" : ""}`}
+      >
         <div className="rounded-2xl border border-white/15 bg-black/45 p-5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl backdrop-saturate-150">
           {project.impactStats && project.impactStats.length > 0 && (
             <div className="mb-4">

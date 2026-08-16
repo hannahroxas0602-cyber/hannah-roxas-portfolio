@@ -1,9 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/app/data/projects";
+import { useHoldPreview } from "@/app/hooks/useHoldPreview";
 
 export default function ProjectCard({ project }: { project: Project }) {
   const isExternal = project.external ?? project.href.startsWith("http");
+  const { held, handlers } = useHoldPreview();
 
   const content = (
     <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
@@ -46,12 +50,14 @@ export default function ProjectCard({ project }: { project: Project }) {
           alt={project.imageAlt}
           width={project.imageWidth}
           height={project.imageHeight}
-          className="touch-reveal h-full w-full scale-105 object-cover opacity-0 transition-all duration-500 ease-out group-hover:scale-100 group-hover:opacity-100"
+          className="touch-always-visible h-full w-full scale-105 object-cover opacity-0 transition-all duration-500 ease-out group-hover:scale-100 group-hover:opacity-100"
           sizes="(min-width: 1024px) 45vw, 100vw"
         />
 
         {project.impactStats && project.impactStats.length > 0 && (
-          <div className="touch-reveal absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/10 to-transparent p-6 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100">
+          <div
+            className={`touch-reveal absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/10 to-transparent p-6 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 ${held ? "is-held" : ""}`}
+          >
             <div className="flex flex-wrap gap-x-8 gap-y-3">
               {project.impactStats.map((stat) => (
                 <div key={stat.label}>
@@ -78,6 +84,7 @@ export default function ProjectCard({ project }: { project: Project }) {
         rel="noopener noreferrer"
         className={className}
         data-cursor="Visit site"
+        {...handlers}
       >
         {content}
       </a>
@@ -85,7 +92,7 @@ export default function ProjectCard({ project }: { project: Project }) {
   }
 
   return (
-    <Link href={project.href} className={className} data-cursor="View case study">
+    <Link href={project.href} className={className} data-cursor="View case study" {...handlers}>
       {content}
     </Link>
   );

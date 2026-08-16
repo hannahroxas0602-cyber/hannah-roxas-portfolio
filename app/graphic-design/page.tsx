@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
-import ProjectTile from "@/app/components/ProjectTile";
+import ProjectCard from "@/app/components/ProjectCard";
 import ClickToPlayVideo from "@/app/components/ClickToPlayVideo";
 import { projects } from "@/app/data/projects";
 import { graphicDesignHero, editedVideos, experimentalImages } from "@/app/graphic-design/data";
@@ -60,9 +60,9 @@ export default function GraphicDesignPage() {
               </h2>
             </div>
 
-            <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 flex flex-col">
               {graphicDesignProjects.map((project) => (
-                <ProjectTile key={project.slug} project={project} />
+                <ProjectCard key={project.slug} project={project} />
               ))}
             </div>
 
