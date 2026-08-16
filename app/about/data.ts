@@ -11,7 +11,7 @@ export const process = {
 
 export const availability = {
   summary:
-    "Open to full-time roles as a product designer, UX/UI designer, or graphic designer, as well as freelance and contract branding work.",
+    "Open to full-time roles as a product designer, UX/UI designer, or graphic designer, as well as freelance and contract branding work. Currently splitting time between LA and the Bay Area, and open to relocating.",
 };
 
 export type ExperienceEntry = {

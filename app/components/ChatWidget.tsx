@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
 
@@ -40,11 +40,26 @@ async function getReply(message: string, history: ChatMessage[]): Promise<string
 export default function ChatWidget({ className = "" }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
+  const [askedPresets, setAskedPresets] = useState<string[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const latestMessageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = messagesContainerRef.current;
+    const latest = latestMessageRef.current;
+    if (!container || !latest) return;
+    const offset = latest.offsetTop - container.offsetTop;
+    container.scrollTo({ top: offset - 8, behavior: "smooth" });
+  }, [messages, isTyping]);
 
   const ask = async (text: string) => {
     if (!text || isTyping) return;
+
+    if (PRESET_QUESTIONS.includes(text)) {
+      setAskedPresets((prev) => (prev.includes(text) ? prev : [...prev, text]));
+    }
 
     const nextMessages = [...messages, { role: "user" as const, text }];
     setMessages(nextMessages);
@@ -56,7 +71,7 @@ export default function ChatWidget({ className = "" }: { className?: string }) {
     setIsTyping(false);
   };
 
-  const hasUserMessage = messages.some((m) => m.role === "user");
+  const remainingPresets = PRESET_QUESTIONS.filter((q) => !askedPresets.includes(q)).slice(0, 3);
 
   return (
     <div className={className}>
@@ -97,10 +112,11 @@ export default function ChatWidget({ className = "" }: { className?: string }) {
               </div>
 
               {/* Messages — fixed height, no page scroll, only this pane scrolls internally */}
-              <div className="flex-1 space-y-3 overflow-y-auto px-5 py-4">
+              <div ref={messagesContainerRef} className="flex-1 space-y-3 overflow-y-auto px-5 py-4">
                 {messages.map((msg, i) => (
                   <div
                     key={i}
+                    ref={i === messages.length - 1 ? latestMessageRef : undefined}
                     className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                   >
                     <div
@@ -124,9 +140,9 @@ export default function ChatWidget({ className = "" }: { className?: string }) {
                   </div>
                 )}
 
-                {!hasUserMessage && !isTyping && (
+                {!isTyping && remainingPresets.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 pt-1">
-                    {PRESET_QUESTIONS.map((q) => (
+                    {remainingPresets.map((q) => (
                       <button
                         key={q}
                         type="button"
