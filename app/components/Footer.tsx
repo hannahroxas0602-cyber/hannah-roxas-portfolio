@@ -3,18 +3,18 @@
 import Link from "next/link";
 import { social } from "@/app/data/social";
 import { useAboutPanel } from "@/app/components/AboutPanelContext";
+import { CURSOR_COLOR } from "@/app/components/CustomCursor";
 
 export default function Footer() {
   const { open: openAbout } = useAboutPanel();
 
   return (
-    <footer className="relative overflow-hidden">
-      {/* Neon gradient the glass panel floats above, smoothly fading to the page background */}
+    <footer data-cursor-invert className="relative overflow-hidden">
+      {/* Gradient: white at top, mint in the middle, pink toward the bottom */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          background:
-            "linear-gradient(to bottom, var(--background) 0%, rgba(215, 234, 75, 0.35) 20%, rgba(223, 165, 235, 0.4) 50%, rgba(232, 95, 224, 0.3) 75%, var(--background) 100%)",
+          background: `linear-gradient(to bottom, var(--background) 0%, #C9F5D9 45%, #B8EFCC 65%, ${CURSOR_COLOR} 100%)`,
         }}
       />
 

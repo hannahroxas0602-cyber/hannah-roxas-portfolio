@@ -10,6 +10,7 @@ export default function CustomCursor() {
   const [label, setLabel] = useState<string | null>(null);
   const [isTouch, setIsTouch] = useState(true);
   const [isMoving, setIsMoving] = useState(false);
+  const [cursorColor, setCursorColor] = useState(CURSOR_COLOR);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -32,6 +33,11 @@ export default function CustomCursor() {
 
       const target = (e.target as HTMLElement)?.closest<HTMLElement>("[data-cursor]");
       setLabel(target?.dataset.cursor ?? null);
+
+      const inverted = (e.target as HTMLElement)?.closest<HTMLElement>(
+        "[data-cursor-invert]",
+      );
+      setCursorColor(inverted ? "#000000" : CURSOR_COLOR);
     };
 
     window.addEventListener("mousemove", handleMove);
@@ -58,10 +64,10 @@ export default function CustomCursor() {
           style={{ backgroundColor: CURSOR_COLOR }}
         >
           <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.05 }}
-            className="text-xs font-medium whitespace-nowrap text-black"
+            initial={{ opacity: 0, color: "#000000" }}
+            animate={{ opacity: 1, color: "#ffffff" }}
+            transition={{ opacity: { delay: 0.05 }, color: { duration: 0.3, delay: 0.1 } }}
+            className="text-xs font-medium whitespace-nowrap"
           >
             {label}
           </motion.span>
@@ -72,7 +78,7 @@ export default function CustomCursor() {
             width: 40,
             height: 32,
             transform: "rotate(-18deg)",
-            backgroundColor: CURSOR_COLOR,
+            backgroundColor: cursorColor,
             WebkitMaskImage: "url(/images/moving.png)",
             maskImage: "url(/images/moving.png)",
             WebkitMaskSize: "contain",
@@ -88,7 +94,7 @@ export default function CustomCursor() {
           style={{
             width: 27,
             height: 21,
-            backgroundColor: CURSOR_COLOR,
+            backgroundColor: cursorColor,
             WebkitMaskImage: "url(/images/not_moving.png)",
             maskImage: "url(/images/not_moving.png)",
             WebkitMaskSize: "contain",

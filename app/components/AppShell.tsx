@@ -11,15 +11,11 @@ export default function AppShell({ children }: { children: ReactNode }) {
   const { isOpen } = useAboutPanel();
 
   return (
-    <div className="relative flex min-h-full w-full flex-1 overflow-hidden">
+    <div className="flex min-h-full w-full">
       <motion.div
-        animate={{
-          scale: isOpen ? 0.94 : 1,
-          x: isOpen ? -PANEL_WIDTH / 2 : 0,
-        }}
+        animate={{ width: isOpen ? `calc(100% - ${PANEL_WIDTH}px)` : "100%" }}
         transition={{ type: "spring", stiffness: 260, damping: 30 }}
-        style={{ transformOrigin: "center left" }}
-        className="flex min-h-full w-full origin-left flex-col rounded-3xl"
+        className="flex min-h-full flex-none flex-col overflow-x-hidden"
       >
         {children}
       </motion.div>
