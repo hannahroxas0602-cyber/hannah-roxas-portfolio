@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
 import { AboutPanelProvider } from "@/app/components/AboutPanelContext";
@@ -79,6 +80,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <AppShell>{children}</AppShell>
         </AboutPanelProvider>
         <CustomCursor />
+        <Analytics />
       </body>
     </html>
   );
