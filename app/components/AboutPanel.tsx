@@ -32,13 +32,8 @@ export default function AboutPanel({ width }: { width: number }) {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 32 }}
-            style={
-              {
-                "--panel-width": `${width}px`,
-                maxHeight: "calc(100svh - 2rem)",
-              } as React.CSSProperties
-            }
-            className="fixed inset-4 z-[91] flex flex-col gap-2 overflow-y-auto overscroll-contain rounded-3xl border border-white/40 bg-neutral-100 p-3 shadow-[0_8px_40px_rgba(0,0,0,0.12)] sm:inset-y-0 sm:inset-x-auto sm:right-0 sm:w-[var(--panel-width)] sm:max-w-[92vw] sm:max-h-none sm:gap-3 sm:overflow-visible sm:rounded-none sm:border-0 sm:border-l sm:border-l-white/40 sm:p-5"
+            style={{ "--panel-width": `${width}px` } as React.CSSProperties}
+            className="fixed inset-4 z-[91] flex max-h-[calc(100svh-2rem)] flex-col gap-2 overflow-y-auto overscroll-contain rounded-3xl border border-white/40 bg-neutral-100 p-3 shadow-[0_8px_40px_rgba(0,0,0,0.12)] sm:inset-y-0 sm:inset-x-auto sm:right-0 sm:w-[var(--panel-width)] sm:max-w-[92vw] sm:max-h-none sm:gap-3 sm:overflow-visible sm:rounded-none sm:border-0 sm:border-l sm:border-l-white/40 sm:p-5"
           >
             <button
               type="button"
