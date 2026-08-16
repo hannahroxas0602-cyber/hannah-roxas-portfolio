@@ -20,42 +20,29 @@ export default function CaseStudyTimeline({
   const pct = (week: number) => (week / totalWeeks) * 100;
 
   return (
-    <section id="timeline" className="mx-auto max-w-4xl px-6 py-16 sm:px-10">
-      <h2 className="font-[family-name:var(--font-manrope)] text-3xl font-semibold text-neutral-900 italic">
+    <section id="timeline" className="mx-auto max-w-4xl px-6 py-24 sm:px-10 sm:py-32">
+      <h2 className="font-[family-name:var(--font-manrope)] text-3xl font-semibold text-neutral-900 sm:text-4xl">
         {heading}
       </h2>
 
-      <div className="mt-10 overflow-x-auto">
+      <div className="mt-16 overflow-x-auto sm:mt-20">
         <div className="min-w-[560px]">
-          {/* Category bands */}
-          <div className="flex gap-1">
+          {/* Category bands — colored strip + label */}
+          <div className="flex gap-1.5">
             {bands.map((band) => (
-              <div
-                key={band.label}
-                className={`rounded-lg px-4 py-2.5 text-sm font-medium text-white ${band.colorClass}`}
-                style={{ width: `${pct(band.endWeek - band.startWeek)}%` }}
-              >
-                {band.label}
+              <div key={band.label} style={{ width: `${pct(band.endWeek - band.startWeek)}%` }}>
+                <div className={`h-1.5 rounded-full ${band.colorClass}`} />
+                <p className="mt-2.5 text-sm font-semibold text-neutral-900">{band.label}</p>
               </div>
             ))}
           </div>
 
           {/* Task bars */}
-          <div className="relative mt-3" style={{ height: chartHeight }}>
-            {/* week gridlines */}
-            <div className="absolute inset-0 flex">
-              {Array.from({ length: totalWeeks }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`h-full flex-1 ${i % 2 === 0 ? "bg-black/[0.03]" : "bg-transparent"}`}
-                />
-              ))}
-            </div>
-
+          <div className="relative mt-6" style={{ height: chartHeight }}>
             {tasks.map((task, i) => (
               <div
                 key={i}
-                className={`absolute flex items-center overflow-visible rounded-lg px-3 text-xs whitespace-nowrap text-neutral-700 ${task.colorClass}`}
+                className="absolute flex items-center overflow-visible rounded-full bg-neutral-900 px-4 text-xs font-medium whitespace-nowrap text-white shadow-sm"
                 style={{
                   left: `${pct(task.startWeek)}%`,
                   width: `${pct(task.endWeek - task.startWeek)}%`,
@@ -69,13 +56,10 @@ export default function CaseStudyTimeline({
           </div>
 
           {/* Week axis */}
-          <div className="mt-4 flex border-t border-black/[0.08] pt-3">
+          <div className="mt-8 flex border-t border-black/[0.12] pt-4">
             {Array.from({ length: totalWeeks }).map((_, i) => (
-              <div
-                key={i}
-                className="flex-1 border-l border-black/[0.08] pl-3 text-sm text-neutral-500 first:border-l-0 first:pl-0"
-              >
-                Week {i + 1}
+              <div key={i} className="flex-1 text-xs font-medium text-neutral-500">
+                {i % 2 === 0 ? `Week ${i + 1}` : ""}
               </div>
             ))}
           </div>

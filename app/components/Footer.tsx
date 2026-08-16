@@ -10,64 +10,77 @@ export default function Footer() {
 
   return (
     <footer data-cursor-invert className="relative overflow-hidden">
-      {/* Gradient: white at top, mint in the middle, pink toward the bottom */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background: `linear-gradient(to bottom, var(--background) 0%, #C9F5D9 45%, #B8EFCC 65%, ${CURSOR_COLOR} 100%)`,
-        }}
-      />
+      <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-8 sm:px-10 sm:pt-16 sm:pb-10">
+        {/* Headline — the focal moment, no card container */}
+        <a
+          href={`mailto:${social.email}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-cursor="Email me"
+          className="group block"
+        >
+          <p className="font-[family-name:var(--font-mono)] text-xs font-medium tracking-widest text-neutral-500 uppercase">
+            Get in touch
+          </p>
+          <h2
+            className="mt-3 font-[family-name:var(--font-manrope)] leading-[0.95] tracking-tight text-neutral-900 transition-colors duration-300 group-hover:text-[var(--footer-hover)]"
+            style={
+              {
+                fontSize: "clamp(1.75rem, 5vw, 3rem)",
+                "--footer-hover": CURSOR_COLOR,
+              } as React.CSSProperties
+            }
+          >
+            Curiouser and curiouser.{" "}
+            <span
+              aria-hidden
+              className="inline-block transition-transform duration-300 group-hover:translate-x-2 group-hover:-translate-y-2"
+            >
+              ↗
+            </span>
+          </h2>
+          <p className="mt-4 text-sm font-medium text-neutral-600 sm:text-base">
+            {social.email}
+          </p>
+        </a>
 
-      <div className="relative mx-auto max-w-6xl px-6 py-10 sm:px-10 sm:py-14">
-        <div className="rounded-3xl border border-black/[0.06] bg-white/60 px-6 py-8 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl backdrop-saturate-150 sm:px-10 sm:py-10">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="font-[family-name:var(--font-mono)] text-xs tracking-widest text-neutral-500 uppercase">
-                Get in touch
-              </p>
-              <h2 className="mt-2 font-[family-name:var(--font-manrope)] text-3xl leading-[1.05] text-neutral-900 sm:text-4xl">
-                Thanks for wandering.
-              </h2>
-            </div>
+        {/* Footer GIF — recolored black & white */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/footer.gif"
+          alt=""
+          className="mt-6 h-24 w-auto sm:h-32"
+          style={{ filter: "grayscale(1) contrast(3) brightness(1.1)" }}
+        />
 
+        {/* Meta row */}
+        <div className="mt-8 flex flex-col gap-6 border-t border-black/[0.08] pt-6 sm:mt-10 sm:flex-row sm:items-center sm:justify-between">
+          <span className="text-sm font-medium text-neutral-900">
+            © {new Date().getFullYear()} Hannah Roxas
+          </span>
+
+          <div className="flex gap-x-8 gap-y-2 sm:gap-x-10">
             <a
-              href={`mailto:${social.email}`}
+              href={social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              data-cursor="Email me"
-              className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full border border-black/10 bg-white/70 px-5 py-2.5 text-sm font-medium text-neutral-900 backdrop-blur-xl backdrop-saturate-150 transition-colors duration-300 hover:bg-white"
+              className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
             >
-              Say hello
-              <span aria-hidden>→</span>
+              LinkedIn
             </a>
-          </div>
-
-          <div className="mt-8 flex flex-col gap-6 border-t border-black/[0.08] pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <span className="text-sm font-medium text-neutral-900">Hannah Roxas</span>
-
-            <div className="flex gap-x-8 gap-y-2 sm:gap-x-10">
-              <a
-                href={social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
-              >
-                LinkedIn
-              </a>
-              <Link
-                href="/#works"
-                className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
-              >
-                Works
-              </Link>
-              <button
-                type="button"
-                onClick={openAbout}
-                className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
-              >
-                About
-              </button>
-            </div>
+            <Link
+              href="/#works"
+              className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+            >
+              Works
+            </Link>
+            <button
+              type="button"
+              onClick={openAbout}
+              className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+            >
+              About
+            </button>
           </div>
         </div>
       </div>

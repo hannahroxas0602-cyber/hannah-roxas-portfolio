@@ -3,6 +3,17 @@ export const aboutIntro = {
   title: "About",
 };
 
+export const process = {
+  summary:
+    "Research first, then design, refine, and handoff. Every project starts with user interviews and stakeholder mapping to find the real problem before any screens get drawn, moves into iterative prototyping in Figma, and ends with a clean, documented handoff so engineering can build without guesswork.",
+  steps: ["Research", "Design", "Refine", "Handoff"],
+};
+
+export const availability = {
+  summary:
+    "Open to full-time roles as a product designer, UX/UI designer, or graphic designer, as well as freelance and contract branding work.",
+};
+
 export type ExperienceEntry = {
   slug: string;
   role: string;
@@ -19,7 +30,7 @@ export const experience: ExperienceEntry[] = [
   },
   {
     slug: "continuum",
-    role: "UX Researcher - Continuum: Surrogacy Care Experience",
+    role: "UX Researcher, Continuum: Surrogacy Care Experience",
     context: "Mgt 120: Managing and Using Information Technology",
     dates: "2025",
   },

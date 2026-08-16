@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import ImageSlideshow from "@/app/components/ImageSlideshow";
 import {
   notesHero,
   intro,
@@ -13,10 +14,10 @@ import {
   platformConcept,
   closingReflection,
   closingCta,
-} from "@/app/continnum-notes/data";
+} from "@/app/continuum-research-notes/data";
 
 export const metadata: Metadata = {
-  title: "Continuum Research Notes — Hannah Roxas",
+  title: "Continuum Research Notes | Hannah Roxas",
   description: notesHero.headline,
 };
 
@@ -28,7 +29,7 @@ export default function ContinnumNotesPage() {
         {/* Hero */}
         <section className="mx-auto max-w-3xl px-6 pt-16 pb-8 text-center sm:px-10 sm:pt-24">
           <Link
-            href="/continuum/continuum"
+            href="/continuum"
             className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
           >
             ← Back to Continuum
@@ -164,22 +165,13 @@ export default function ContinnumNotesPage() {
               {problem.storyNote}
             </p>
 
-            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {problem.gallery.images.map((src, i) => (
-                <div
-                  key={src}
-                  className="relative aspect-video w-full overflow-hidden rounded-lg bg-neutral-100"
-                >
-                  <Image
-                    src={src}
-                    alt={`${problem.gallery.imageAlt} ${i + 1}`}
-                    width={1920}
-                    height={1080}
-                    className="h-full w-full object-cover"
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                  />
-                </div>
-              ))}
+            <div className="mt-8">
+              <ImageSlideshow
+                images={problem.gallery.images}
+                alt={problem.gallery.imageAlt}
+                width={1920}
+                height={1080}
+              />
             </div>
           </section>
         ))}

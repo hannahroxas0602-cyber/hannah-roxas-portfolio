@@ -1,7 +1,7 @@
 export const boilerRoomHero = {
   title: "Boiler Room Tokyo CD",
   narrative:
-    "A fun passion project I made for my interest in the ever ivolving art of techno music and Boiler Room Culture.",
+    "A fun passion project I made for my interest in the ever-evolving art of techno music and Boiler Room culture.",
   date: "2022",
   meta: [
     { label: "COURSE", value: "DES 001: Introduction to Design" },

@@ -4,10 +4,11 @@ import Link from "next/link";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
-import { dearBelovedHero, gallery, nextProject } from "@/app/dear-beloved/data";
+import ImageSlideshow from "@/app/components/ImageSlideshow";
+import { dearBelovedHero, highlights, nextProject } from "@/app/dear-beloved/data";
 
 export const metadata: Metadata = {
-  title: "Dear Beloved — Hannah Roxas",
+  title: "Dear Beloved | Hannah Roxas",
   description: dearBelovedHero.narrative,
 };
 
@@ -51,20 +52,35 @@ export default function DearBelovedPage() {
 
         {/* Gallery */}
         <section className="pb-16 sm:pb-24">
-          <div className="mx-auto max-w-6xl px-6 sm:px-10">
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {gallery.images.map((src, i) => (
+          <div className="mx-auto max-w-4xl px-6 sm:px-10">
+            <ImageSlideshow
+              images={highlights.images}
+              alt={highlights.imageAlt}
+              width={highlights.imageWidth}
+              height={highlights.imageHeight}
+            />
+          </div>
+        </section>
+
+        {/* Highlights — static copies of key slides for those skipping the slideshow */}
+        <section className="pb-16 sm:pb-24">
+          <div className="mx-auto max-w-4xl px-6 sm:px-10">
+            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+              {highlights.heading}
+            </h2>
+            <div className="mt-8 flex flex-col gap-6">
+              {highlights.images.map((src, i) => (
                 <div
                   key={src}
-                  className="relative aspect-[1650/1275] w-full overflow-hidden rounded-lg bg-neutral-100"
+                  className="relative aspect-[1650/1275] w-full overflow-hidden rounded-2xl bg-neutral-100"
                 >
                   <Image
                     src={src}
-                    alt={`${gallery.imageAlt} ${i + 1}`}
-                    width={gallery.imageWidth}
-                    height={gallery.imageHeight}
+                    alt={`${highlights.imageAlt} ${highlights.numbers[i]}`}
+                    width={highlights.imageWidth}
+                    height={highlights.imageHeight}
                     className="h-full w-full object-cover"
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                    sizes="(min-width: 1024px) 768px, 100vw"
                   />
                 </div>
               ))}

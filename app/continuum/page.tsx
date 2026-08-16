@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
@@ -18,7 +17,7 @@ import {
   designSystemSection,
   nextStepsSection,
   nextProject,
-} from "@/app/continuum/continuum/data";
+} from "@/app/continuum/data";
 
 const sections = [
   { id: "overview", title: "Overview" },
@@ -33,7 +32,7 @@ const sections = [
 ];
 
 export const metadata: Metadata = {
-  title: "Continuum: Surrogacy Platform — Hannah Roxas",
+  title: "Continuum: Surrogacy Platform | Hannah Roxas",
   description: continuumHero.subtitle,
 };
 

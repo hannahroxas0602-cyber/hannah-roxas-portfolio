@@ -225,5 +225,5 @@ export const closingCta = {
   heading: "View the full Continuum case study.",
   subtext: "Head back for project context & outcomes.",
   buttonLabel: "Back to Case Study",
-  href: "/continuum/continuum",
+  href: "/continuum",
 };

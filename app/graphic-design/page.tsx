@@ -3,15 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
-import {
-  graphicDesignHero,
-  galleryProjects,
-  editedVideos,
-  experimentalImages,
-} from "@/app/graphic-design/data";
+import ProjectTile from "@/app/components/ProjectTile";
+import ClickToPlayVideo from "@/app/components/ClickToPlayVideo";
+import { projects } from "@/app/data/projects";
+import { graphicDesignHero, editedVideos, experimentalImages } from "@/app/graphic-design/data";
+
+const graphicDesignProjects = projects.filter((project) => project.category === "Graphic Design");
 
 export const metadata: Metadata = {
-  title: "Graphic Design — Hannah Roxas",
+  title: "Graphic Design | Hannah Roxas",
   description: graphicDesignHero.category,
 };
 
@@ -21,7 +21,7 @@ export default function GraphicDesignPage() {
       <Header />
       <main className="flex-1">
         {/* Hero */}
-        <section className="mx-auto max-w-6xl px-6 pt-16 pb-8 sm:px-10 sm:pt-24">
+        <section className="mx-auto max-w-6xl px-6 pt-16 pb-10 sm:px-10 sm:pt-20 sm:pb-14">
           <Link
             href="/"
             className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
@@ -29,22 +29,21 @@ export default function GraphicDesignPage() {
             ← Back to home
           </Link>
 
-          <div className="mt-10 flex items-start gap-4 sm:mt-14 sm:gap-6">
-            <span className="font-[family-name:var(--font-manrope)] text-3xl leading-none text-neutral-300 italic sm:text-4xl">
-              02
-            </span>
-            <div>
-              <p className="text-sm font-medium tracking-wide text-neutral-500 uppercase">
-                {graphicDesignHero.eyebrow}
-              </p>
-              <h1 className="mt-3 max-w-3xl font-[family-name:var(--font-manrope)] text-5xl leading-[0.95] tracking-tight text-neutral-900 sm:text-7xl">
-                {graphicDesignHero.category}
-              </h1>
-            </div>
-          </div>
+          <p className="mt-8 font-[family-name:var(--font-mono)] text-xs font-medium tracking-widest text-neutral-400 uppercase sm:mt-10">
+            {graphicDesignHero.eyebrow}
+          </p>
+          <h1
+            className="mt-3 max-w-2xl font-[family-name:var(--font-manrope)] font-semibold tracking-tight text-neutral-900"
+            style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", lineHeight: 1.05 }}
+          >
+            {graphicDesignHero.category}
+          </h1>
 
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-neutral-600 sm:ml-[3.25rem]">
+          <p className="mt-5 max-w-none text-base leading-relaxed whitespace-nowrap text-neutral-500">
             {graphicDesignHero.intro}
+          </p>
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-neutral-400">
+            {graphicDesignHero.subcopy}
           </p>
         </section>
 
@@ -62,25 +61,8 @@ export default function GraphicDesignPage() {
             </div>
 
             <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-              {galleryProjects.map((project) => (
-                <Link key={project.slug} href={project.href} className="group block">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-100 shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
-                    <Image
-                      src={project.image}
-                      alt={project.imageAlt}
-                      width={project.imageWidth}
-                      height={project.imageHeight}
-                      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    />
-                  </div>
-                  <h3 className="link-underline mt-5 w-fit font-[family-name:var(--font-manrope)] text-xl text-neutral-900">
-                    {project.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-neutral-500">
-                    {project.description}
-                  </p>
-                </Link>
+              {graphicDesignProjects.map((project) => (
+                <ProjectTile key={project.slug} project={project} />
               ))}
             </div>
 
@@ -94,21 +76,17 @@ export default function GraphicDesignPage() {
               </h2>
             </div>
 
-            <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2">
+            <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:h-40 sm:items-end sm:justify-center sm:gap-4 lg:h-48">
               {editedVideos.map((video) => (
-                <div
-                  key={video.slug}
-                  className="relative aspect-video w-full overflow-hidden rounded-xl bg-neutral-100"
-                >
-                  <video
+                <div key={video.slug} className="h-56 w-full max-w-xs sm:h-full sm:w-auto">
+                  <ClickToPlayVideo
                     src={video.src}
-                    controls
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    aria-label={video.title}
-                    className="h-full w-full object-cover"
+                    title={video.title}
+                    width={video.width}
+                    height={video.height}
+                    hasAudio={video.hasAudio}
+                    aspectRatio={video.slug === "edited-video-04" ? "16/9" : undefined}
+                    className="relative h-full w-full sm:w-auto"
                   />
                 </div>
               ))}

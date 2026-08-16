@@ -1,60 +1,18 @@
 export const graphicDesignHero = {
   eyebrow: "Rabbit Hole:",
   category: "Brand & visual systems",
-  intro: "You entered deeper in the rabbit hole…",
+  intro: "Brand identity, illustration, and motion design.",
+  subcopy:
+    "Illustrator, Photoshop, and After Effects: identity systems, packaging, and motion pieces from concept to final export.",
 };
-
-export type GalleryProjectCard = {
-  slug: string;
-  title: string;
-  description: string;
-  href: string;
-  image: string;
-  imageAlt: string;
-  imageWidth: number;
-  imageHeight: number;
-};
-
-export const galleryProjects: GalleryProjectCard[] = [
-  {
-    slug: "dear-beloved",
-    title: "Dear Beloved",
-    description:
-      "A playful, interactive dollhouse designed to help users reconnect with their inner child and reflect on early memories.",
-    href: "/dear-beloved",
-    image: "/images/graphic-design/dear-beloved-card.png",
-    imageAlt: "Dear Beloved brand and illustration artwork",
-    imageWidth: 1021,
-    imageHeight: 538,
-  },
-  {
-    slug: "boiler-room-cd",
-    title: "Boiler Room Tokyo CD",
-    description:
-      "A fun passion project I made for my interest in the ever ivolving art of techno music and Boiler Room Culture.",
-    href: "/boiler-room-cd",
-    image: "/images/graphic-design/boiler-room-cd.png",
-    imageAlt: "Boiler Room CD cover and packaging design concept",
-    imageWidth: 1033,
-    imageHeight: 677,
-  },
-  {
-    slug: "typography-dictionary",
-    title: "Typography Dictionary",
-    description:
-      "A guide to key typography terms, illustrated with examples from past projects like custom typefaces and posters.",
-    href: "/typography-dictionary",
-    image: "/images/graphic-design/typography-dictionary-card.png",
-    imageAlt: "Typography Dictionary guide spread showing custom typefaces and posters",
-    imageWidth: 1376,
-    imageHeight: 768,
-  },
-];
 
 export type EditedVideo = {
   slug: string;
   title: string;
   src: string;
+  width: number;
+  height: number;
+  hasAudio?: boolean;
 };
 
 export const editedVideos: EditedVideo[] = [
@@ -62,21 +20,30 @@ export const editedVideos: EditedVideo[] = [
     slug: "edited-video-01",
     title: "Edited video 1",
     src: "/images/graphic-design/edited-video-01.mp4",
+    width: 728,
+    height: 1080,
   },
   {
-    slug: "edited-video-02",
-    title: "Edited video 2",
-    src: "/images/graphic-design/edited-video-02.mp4",
+    slug: "cheetoes",
+    title: "Cheetoes",
+    src: "/images/graphic-design/cheetoes.mov",
+    width: 1518,
+    height: 1080,
+    hasAudio: false,
   },
   {
     slug: "edited-video-03",
     title: "Edited video 3",
     src: "/images/graphic-design/edited-video-03.mp4",
+    width: 720,
+    height: 720,
   },
   {
     slug: "edited-video-04",
     title: "Edited video 4",
     src: "/images/graphic-design/edited-video-04.mp4",
+    width: 16,
+    height: 9,
   },
 ];
 

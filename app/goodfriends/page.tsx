@@ -7,6 +7,7 @@ import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
+import ImageSlideshow from "@/app/components/ImageSlideshow";
 import {
   goodHero,
   highlightsSection,
@@ -19,7 +20,7 @@ import {
   designDecisions,
   nextStepsSection,
   nextProject,
-} from "@/app/page/good/data";
+} from "@/app/goodfriends/data";
 
 const sections = [
   { id: "overview", title: "Overview" },
@@ -35,7 +36,7 @@ const sections = [
 ];
 
 export const metadata: Metadata = {
-  title: "Good Friends Poke — Hannah Roxas",
+  title: "Good Friends Poke | Hannah Roxas",
   description: goodHero.subtitle,
 };
 
@@ -168,27 +169,18 @@ export default function GoodFriendsPage() {
         </section>
 
         {/* Research gallery */}
-        <section id="research" className="max-w-6xl py-16">
+        <section id="research" className="max-w-4xl py-16">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {researchGallery.heading}
           </h2>
 
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {researchGallery.images.map((src, i) => (
-              <div
-                key={src}
-                className="relative aspect-video w-full overflow-hidden rounded-lg bg-neutral-100"
-              >
-                <Image
-                  src={src}
-                  alt={`${researchGallery.imageAlt} ${i + 1}`}
-                  width={researchGallery.imageWidth}
-                  height={researchGallery.imageHeight}
-                  className="h-full w-full object-cover"
-                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                />
-              </div>
-            ))}
+          <div className="mt-8">
+            <ImageSlideshow
+              images={researchGallery.images}
+              alt={researchGallery.imageAlt}
+              width={researchGallery.imageWidth}
+              height={researchGallery.imageHeight}
+            />
           </div>
         </section>
 
@@ -239,13 +231,15 @@ export default function GoodFriendsPage() {
                     </li>
                   ))}
                 </ul>
-                <div className="relative mt-6 aspect-video w-full overflow-hidden rounded-2xl bg-neutral-100">
+                <div
+                  className="relative mt-6 w-full overflow-hidden rounded-2xl"
+                  style={{ aspectRatio: `${cat.imageWidth}/${cat.imageHeight}` }}
+                >
                   <Image
                     src={cat.image}
                     alt={cat.imageAlt}
-                    width={cat.imageWidth}
-                    height={cat.imageHeight}
-                    className="h-full w-full object-contain"
+                    fill
+                    className="object-cover"
                     sizes="(min-width: 1024px) 60vw, 100vw"
                   />
                 </div>

@@ -108,10 +108,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
         <div className="rounded-2xl border border-white/15 bg-black/45 p-5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl backdrop-saturate-150">
           {project.impactStats && project.impactStats.length > 0 && (
             <div className="mb-4">
-              <span className="text-[11px] font-semibold tracking-widest text-white/70 uppercase">
-                Impact
-              </span>
-              <div className="mt-2 flex flex-wrap gap-x-8 gap-y-2">
+              <div className="flex flex-wrap gap-x-8 gap-y-2">
                 {project.impactStats.map((stat, i) => (
                   <div key={`${stat.label}-${i}`}>
                     <div className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-white">

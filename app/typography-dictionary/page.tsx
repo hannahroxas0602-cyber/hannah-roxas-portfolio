@@ -12,7 +12,7 @@ import {
 } from "@/app/typography-dictionary/data";
 
 export const metadata: Metadata = {
-  title: "Typography Dictionary — Hannah Roxas",
+  title: "Typography Dictionary | Hannah Roxas",
   description: typographyHero.narrative,
 };
 

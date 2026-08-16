@@ -8,8 +8,10 @@ export const CURSOR_COLOR = "#E85FE0";
 
 export default function CustomCursor() {
   const [label, setLabel] = useState<string | null>(null);
-  const [isTouch, setIsTouch] = useState(true);
   const [isMoving, setIsMoving] = useState(false);
+  // Start as "touch" (renders nothing) on both server and client's first paint,
+  // so hydration matches. The real pointer type is only known after mount.
+  const [isTouch, setIsTouch] = useState(true);
   const [cursorColor, setCursorColor] = useState(CURSOR_COLOR);
 
   const x = useMotionValue(0);
@@ -20,8 +22,13 @@ export default function CustomCursor() {
   const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (window.matchMedia("(pointer: coarse)").matches) return;
-    setIsTouch(false);
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    // Intentional: isTouch must start as `true` on both server and client to
+    // avoid a hydration mismatch, then be corrected here once we're in the
+    // browser and can read the real pointer type.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsTouch(coarse);
+    if (coarse) return;
 
     const handleMove = (e: MouseEvent) => {
       x.set(e.clientX);

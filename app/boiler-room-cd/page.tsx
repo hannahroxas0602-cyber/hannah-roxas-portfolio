@@ -7,7 +7,7 @@ import NextProjectPreview from "@/app/components/NextProjectPreview";
 import { boilerRoomHero, gallery, nextProject } from "@/app/boiler-room-cd/data";
 
 export const metadata: Metadata = {
-  title: "Boiler Room Tokyo CD — Hannah Roxas",
+  title: "Boiler Room Tokyo CD | Hannah Roxas",
   description: boilerRoomHero.narrative,
 };
 
@@ -55,7 +55,7 @@ export default function BoilerRoomCdPage() {
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {gallery.map((item) => (
                 <div key={item.slug}>
-                  <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-neutral-100">
+                  <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-white">
                     <Image
                       src={item.image}
                       alt={item.imageAlt}

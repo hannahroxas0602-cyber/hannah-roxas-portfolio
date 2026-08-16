@@ -1,7 +1,25 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async redirects() {
+    return [
+      {
+        source: "/continuum/continuum",
+        destination: "/continuum",
+        permanent: true,
+      },
+      {
+        source: "/page/good",
+        destination: "/goodfriends",
+        permanent: true,
+      },
+      {
+        source: "/continnum-notes",
+        destination: "/continuum-research-notes",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

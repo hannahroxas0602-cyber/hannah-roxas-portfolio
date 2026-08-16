@@ -28,42 +28,41 @@ export default function CaseStudyHighlights({
   callout: string;
 }) {
   return (
-    <section id="highlights" className="mx-auto max-w-4xl px-6 py-16 sm:px-10">
-      <h2 className="font-[family-name:var(--font-manrope)] text-3xl font-semibold text-neutral-900 italic">
+    <section id="highlights" className="mx-auto max-w-4xl px-6 py-24 sm:px-10 sm:py-32">
+      <h2 className="font-[family-name:var(--font-manrope)] text-3xl font-semibold text-neutral-900 sm:text-4xl">
         {heading}
       </h2>
 
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-5">
+      <p className="mt-6 max-w-lg text-lg leading-relaxed text-neutral-500">{callout}</p>
+
+      <div className="mt-16 grid grid-cols-1 gap-6 sm:mt-20 sm:grid-cols-5">
         {/* Browser-chrome mockup card */}
-        <div className="overflow-hidden rounded-2xl bg-neutral-100 sm:col-span-3">
-          <div className="flex items-center gap-3 border-b border-black/[0.06] bg-neutral-50 px-4 py-3">
+        <div className="overflow-hidden rounded-3xl bg-neutral-50 sm:col-span-3">
+          <div className="flex items-center gap-3 px-5 pt-5">
             <div className="flex gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-neutral-300" />
-              <span className="h-2.5 w-2.5 rounded-full bg-neutral-300" />
-              <span className="h-2.5 w-2.5 rounded-full bg-neutral-300" />
+              <span className="h-2.5 w-2.5 rounded-full bg-neutral-200" />
+              <span className="h-2.5 w-2.5 rounded-full bg-neutral-200" />
+              <span className="h-2.5 w-2.5 rounded-full bg-neutral-200" />
             </div>
-            <div className="flex min-w-0 flex-1 items-center gap-2 rounded-md bg-white px-3 py-1 text-xs text-neutral-500">
+            <div className="flex min-w-0 flex-1 items-center gap-2 rounded-full bg-white px-3 py-1 text-xs text-neutral-400">
               <span className="truncate">{mockup.url}</span>
             </div>
           </div>
-          <div className="relative aspect-[586/354] w-full bg-white">
+          <div className="relative aspect-[586/354] w-full">
             <Image
               src={mockup.image}
               alt={mockup.imageAlt}
               fill
-              className="object-contain p-4"
+              className="object-contain p-6"
               sizes="(min-width: 640px) 45vw, 100vw"
             />
           </div>
         </div>
 
         {/* Outcome cards */}
-        <div className="flex flex-col gap-4 sm:col-span-2">
+        <div className="flex flex-col gap-3 sm:col-span-2">
           {outcomes.map((outcome, i) => (
-            <div
-              key={i}
-              className="flex-1 rounded-2xl bg-neutral-50 p-5 text-sm leading-relaxed text-neutral-700"
-            >
+            <div key={i} className="flex-1 py-2 text-sm leading-relaxed text-neutral-600">
               <p className="mb-1.5 text-xs font-medium tracking-wide text-neutral-400 uppercase">
                 Outcome
               </p>
@@ -73,20 +72,17 @@ export default function CaseStudyHighlights({
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-5">
-        <div className="flex items-center rounded-2xl bg-neutral-900 px-6 py-5 text-base font-medium text-white sm:col-span-3">
-          {callout}
-        </div>
-        <div className="flex gap-8 rounded-2xl bg-neutral-50 px-6 py-5 sm:col-span-2">
-          {stats.map((stat) => (
-            <div key={stat.label}>
-              <p className="font-[family-name:var(--font-manrope)] text-3xl font-semibold text-neutral-900">
-                {stat.value}
-              </p>
-              <p className="mt-1 text-xs leading-snug text-neutral-500">{stat.label}</p>
-            </div>
-          ))}
-        </div>
+      <div className="mt-16 flex flex-wrap gap-x-16 gap-y-8 sm:mt-20">
+        {stats.map((stat) => (
+          <div key={stat.label}>
+            <p className="font-[family-name:var(--font-manrope)] text-5xl font-semibold text-neutral-900">
+              {stat.value}
+            </p>
+            <p className="mt-2 max-w-[10rem] text-sm leading-snug text-neutral-500">
+              {stat.label}
+            </p>
+          </div>
+        ))}
       </div>
     </section>
   );

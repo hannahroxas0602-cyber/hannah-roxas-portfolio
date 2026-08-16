@@ -52,10 +52,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 
         {project.impactStats && project.impactStats.length > 0 && (
           <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/10 to-transparent p-6 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100">
-            <span className="text-xs font-semibold tracking-widest text-white/80 uppercase">
-              Impact
-            </span>
-            <div className="mt-3 flex flex-wrap gap-x-8 gap-y-3">
+            <div className="flex flex-wrap gap-x-8 gap-y-3">
               {project.impactStats.map((stat) => (
                 <div key={stat.label}>
                   <div className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-white">
