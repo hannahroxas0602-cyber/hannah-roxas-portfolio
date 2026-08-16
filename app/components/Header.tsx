@@ -6,10 +6,12 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { navLinks } from "@/app/data/social";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
+import { useAboutPanel } from "@/app/components/AboutPanelContext";
 
 export default function Header() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { open: openAbout } = useAboutPanel();
 
   return (
     <header className="sticky top-0 z-50 w-full">
@@ -45,23 +47,42 @@ export default function Header() {
             className="hidden items-center gap-1 rounded-full bg-black/[0.03] p-1 sm:flex"
             onMouseLeave={() => setHovered(null)}
           >
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                onMouseEnter={() => setHovered(link.label)}
-                className="relative rounded-full px-4 py-1.5 text-sm font-medium text-black transition-colors"
-              >
-                {hovered === link.label && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full bg-white shadow-[0_2px_10px_rgba(0,0,0,0.08)]"
-                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                  />
-                )}
-                <span className="relative z-10">{link.label}</span>
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const pill = hovered === link.label && (
+                <motion.span
+                  layoutId="nav-pill"
+                  className="absolute inset-0 rounded-full bg-white shadow-[0_2px_10px_rgba(0,0,0,0.08)]"
+                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                />
+              );
+
+              if (link.label === "About") {
+                return (
+                  <button
+                    key={link.label}
+                    type="button"
+                    onClick={openAbout}
+                    onMouseEnter={() => setHovered(link.label)}
+                    className="relative rounded-full px-4 py-1.5 text-sm font-medium text-black transition-colors"
+                  >
+                    {pill}
+                    <span className="relative z-10">{link.label}</span>
+                  </button>
+                );
+              }
+
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onMouseEnter={() => setHovered(link.label)}
+                  className="relative rounded-full px-4 py-1.5 text-sm font-medium text-black transition-colors"
+                >
+                  {pill}
+                  <span className="relative z-10">{link.label}</span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Mobile hamburger toggle */}
@@ -96,16 +117,30 @@ export default function Header() {
               className="overflow-hidden sm:hidden"
             >
               <nav className="mt-2 flex flex-col gap-1 rounded-2xl border border-black/[0.06] bg-white/70 p-3 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl backdrop-saturate-150">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="rounded-xl px-4 py-3 text-base font-medium text-black transition-colors hover:bg-black/[0.03]"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {navLinks.map((link) =>
+                  link.label === "About" ? (
+                    <button
+                      key={link.label}
+                      type="button"
+                      onClick={() => {
+                        setMenuOpen(false);
+                        openAbout();
+                      }}
+                      className="rounded-xl px-4 py-3 text-left text-base font-medium text-black transition-colors hover:bg-black/[0.03]"
+                    >
+                      {link.label}
+                    </button>
+                  ) : (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="rounded-xl px-4 py-3 text-base font-medium text-black transition-colors hover:bg-black/[0.03]"
+                    >
+                      {link.label}
+                    </Link>
+                  ),
+                )}
               </nav>
             </motion.div>
           )}

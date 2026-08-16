@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Fraunces, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
+import { AboutPanelProvider } from "@/app/components/AboutPanelContext";
+import AboutPanel from "@/app/components/AboutPanel";
 
 const bodyMono = IBM_Plex_Mono({
   variable: "--font-inter",
@@ -35,7 +37,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${bodyMono.variable} ${fraunces.variable} ${labelMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col md:cursor-none">
-        {children}
+        <AboutPanelProvider>
+          {children}
+          <AboutPanel />
+        </AboutPanelProvider>
         <CustomCursor />
       </body>
     </html>

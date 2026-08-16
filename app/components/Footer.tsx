@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { social } from "@/app/data/social";
+import { useAboutPanel } from "@/app/components/AboutPanelContext";
 
 export default function Footer() {
+  const { open: openAbout } = useAboutPanel();
+
   return (
     <footer className="relative overflow-hidden">
       {/* Neon gradient the glass panel floats above, smoothly fading to the page background */}
@@ -55,12 +60,13 @@ export default function Footer() {
               >
                 Works
               </Link>
-              <Link
-                href="/#about1"
+              <button
+                type="button"
+                onClick={openAbout}
                 className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
               >
                 About
-              </Link>
+              </button>
             </div>
           </div>
         </div>
