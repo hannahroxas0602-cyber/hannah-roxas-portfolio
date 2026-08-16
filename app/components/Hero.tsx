@@ -106,7 +106,7 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
             transition={{ staggerChildren: 0.045, delayChildren: 0.1 }}
-            className="font-[family-name:var(--font-inter)] text-xl leading-tight font-medium text-white sm:text-2xl"
+            className="font-[family-name:var(--font-manrope)] text-xl leading-tight text-white sm:text-2xl"
           >
             {"I'm Hannah".split(" ").map((word, i) => (
               <motion.span

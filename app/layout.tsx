@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Fraunces, IBM_Plex_Mono } from "next/font/google";
+import { Newsreader, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
 import { AboutPanelProvider } from "@/app/components/AboutPanelContext";
-import AboutPanel from "@/app/components/AboutPanel";
+import AppShell from "@/app/components/AppShell";
 
 const bodyMono = IBM_Plex_Mono({
   variable: "--font-inter",
@@ -11,7 +11,7 @@ const bodyMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
-const fraunces = Fraunces({
+const newsreader = Newsreader({
   variable: "--font-manrope",
   subsets: ["latin"],
   style: ["normal", "italic"],
@@ -34,12 +34,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${bodyMono.variable} ${fraunces.variable} ${labelMono.variable} h-full antialiased`}
+      className={`${bodyMono.variable} ${newsreader.variable} ${labelMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col md:cursor-none">
         <AboutPanelProvider>
-          {children}
-          <AboutPanel />
+          <AppShell>{children}</AppShell>
         </AboutPanelProvider>
         <CustomCursor />
       </body>
