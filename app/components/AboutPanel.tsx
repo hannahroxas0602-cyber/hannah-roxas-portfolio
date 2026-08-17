@@ -1,11 +1,66 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { useAboutPanel } from "@/app/components/AboutPanelContext";
 import { experience } from "@/app/about/data";
 import { social } from "@/app/data/social";
+
+const stackPhotos = [
+  { src: "/images/hero/inline-photo.webp", alt: "Hannah Roxas" },
+  { src: "/images/about/beach.webp", alt: "Hannah at the beach" },
+  { src: "/images/about/cat.webp", alt: "Hannah's cat perched on her laptop" },
+  { src: "/images/about/brunch.webp", alt: "Brunch spread with matcha and onigiri" },
+];
+
+const STACK_INTERVAL_MS = 1800;
+
+function PhotoStack() {
+  const [index, setIndex] = useState(0);
+  const count = stackPhotos.length;
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % count);
+    }, STACK_INTERVAL_MS);
+    return () => clearInterval(id);
+  }, [count]);
+
+  return (
+    <div className="relative h-16 w-16 shrink-0">
+      {stackPhotos.map((photo, i) => {
+        // Distance behind the front card, wrapping around the deck.
+        const depth = (i - index + count) % count;
+        const isFront = depth === 0;
+        const isNext = depth === 1;
+
+        return (
+          <motion.div
+            key={photo.src}
+            className="absolute inset-0 overflow-hidden rounded-xl border-2 border-white shadow-md"
+            animate={
+              isFront
+                ? { x: 0, y: 0, rotate: 0, scale: 1, opacity: 1, zIndex: count }
+                : isNext
+                  ? { x: 7, y: 7, rotate: 8, scale: 0.94, opacity: 1, zIndex: count - 1 }
+                  : { x: 7, y: 7, rotate: 8, scale: 0.94, opacity: 0, zIndex: 0 }
+            }
+            transition={{ type: "spring", stiffness: 260, damping: 24 }}
+          >
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              fill
+              sizes="64px"
+              className="object-cover"
+            />
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+}
 
 const tools = [
   { name: "Figma", slug: "figma" },
@@ -58,16 +113,8 @@ export default function AboutPanel({ width }: { width: number }) {
 
             {/* Photo + name inline, bio below */}
             <div className="rounded-2xl bg-white p-4 pr-12 sm:p-5">
-              <div className="flex items-center gap-3">
-                <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl">
-                  <Image
-                    src="/images/hero/inline-photo.webp"
-                    alt="Hannah Roxas"
-                    fill
-                    sizes="48px"
-                    className="object-cover"
-                  />
-                </div>
+              <div className="flex items-center gap-5">
+                <PhotoStack />
                 <p className="font-[family-name:var(--font-manrope)] text-base font-semibold text-neutral-900">
                   Hannah Roxas
                 </p>
