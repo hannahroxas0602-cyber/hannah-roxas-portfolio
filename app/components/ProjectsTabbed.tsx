@@ -165,7 +165,7 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
   const visibleProjects = projects.filter((p) => p.category === activeTab);
 
   return (
-    <section id={id} className="mx-auto max-w-7xl px-6 py-16 sm:px-10 sm:py-24">
+    <section id={id} className="mx-auto max-w-7xl px-6 pt-12 pb-16 sm:px-10 sm:pt-14 sm:pb-24">
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[2fr_3fr] lg:gap-12">
         <div className="lg:sticky lg:top-24 lg:self-start">
           <h2 className="text-lg text-neutral-900">

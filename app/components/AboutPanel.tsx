@@ -8,7 +8,12 @@ import { experience } from "@/app/about/data";
 import { social } from "@/app/data/social";
 
 const stackPhotos = [
-  { src: "/images/hero/inline-photo.webp", alt: "Hannah Roxas" },
+  {
+    src: "/images/about/aboutfirst.webp",
+    alt: "Hannah Roxas",
+    objectPosition: "50% 0%",
+    scale: 1.15,
+  },
   { src: "/images/about/beach.webp", alt: "Hannah at the beach" },
   { src: "/images/about/cat.webp", alt: "Hannah's cat perched on her laptop" },
   { src: "/images/about/brunch.webp", alt: "Brunch spread with matcha and onigiri" },
@@ -54,6 +59,10 @@ function PhotoStack() {
               fill
               sizes="64px"
               className="object-cover"
+              style={{
+                objectPosition: photo.objectPosition ?? "50% 50%",
+                transform: photo.scale ? `scale(${photo.scale})` : undefined,
+              }}
             />
           </motion.div>
         );

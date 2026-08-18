@@ -25,7 +25,7 @@ export default function Services() {
   }, []);
 
   return (
-    <section id="services" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-16 sm:px-10 sm:py-24">
+    <section id="services" className="mx-auto max-w-6xl scroll-mt-24 px-6 pt-8 pb-16 sm:px-10 sm:pt-12 sm:pb-24">
       <p className="text-lg text-neutral-500">
         <span className="mr-1 font-[family-name:var(--font-mono)] text-sm tracking-wide">
           {servicesIntro.eyebrow}
