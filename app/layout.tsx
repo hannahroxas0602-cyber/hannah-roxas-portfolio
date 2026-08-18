@@ -53,8 +53,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/images/Link_preview_final.png",
-        width: 2878,
-        height: 1556,
+        width: 2846,
+        height: 1512,
         alt: "Hannah Roxas — Portfolio",
       },
     ],
