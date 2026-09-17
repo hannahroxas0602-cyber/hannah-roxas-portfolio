@@ -26,7 +26,11 @@ export default function NextProjectPreview({
     <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10 sm:py-24">
       <p className="text-sm font-medium tracking-wide text-neutral-400 uppercase">{label}</p>
 
-      <Link href={href} className="group mt-6 flex flex-col gap-6 sm:flex-row sm:items-center">
+      <Link
+        href={href}
+        data-cursor="View case study"
+        className="group mt-6 flex flex-col gap-6 sm:flex-row sm:items-center"
+      >
         <div className="relative aspect-[4/3] w-full max-w-xs shrink-0 overflow-hidden rounded-2xl bg-neutral-100 sm:w-1/2">
           <Image
             src={image}

@@ -140,7 +140,7 @@ export default function TypographyDictionaryPage() {
             {nextProject.label}
           </p>
 
-          <Link href={nextProject.href} className="group mt-6 block">
+          <Link href={nextProject.href} data-cursor="View project" className="group mt-6 block">
             <div className="relative aspect-[336/498] w-full max-w-xs overflow-hidden rounded-2xl bg-neutral-100">
               <Image
                 src={nextProject.image}
