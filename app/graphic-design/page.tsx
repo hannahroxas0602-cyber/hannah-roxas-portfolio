@@ -5,6 +5,7 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import ProjectCard from "@/app/components/ProjectCard";
 import ClickToPlayVideo from "@/app/components/ClickToPlayVideo";
+import ScrollToHash from "@/app/components/ScrollToHash";
 import { projects } from "@/app/data/projects";
 import { graphicDesignHero, editedVideos, experimentalImages } from "@/app/graphic-design/data";
 
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
 export default function GraphicDesignPage() {
   return (
     <div className="flex flex-1 flex-col bg-background">
+      <ScrollToHash />
       <Header />
       <main className="flex-1">
         {/* Hero */}
@@ -67,7 +69,7 @@ export default function GraphicDesignPage() {
             </div>
 
             {/* Edited Videos */}
-            <div className="mt-24 flex items-baseline gap-4 border-b border-black/[0.08] pb-4">
+            <div id="edited-videos" className="mt-24 flex items-baseline gap-4 border-b border-black/[0.08] pb-4 scroll-mt-24">
               <span className="font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400 uppercase">
                 02
               </span>
@@ -113,7 +115,7 @@ export default function GraphicDesignPage() {
                     alt={item.alt}
                     width={item.imageWidth}
                     height={item.imageHeight}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain"
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                   />
                 </div>

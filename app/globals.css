@@ -53,13 +53,6 @@ body {
     opacity: 1 !important;
     transform: none !important;
   }
-
-  /* Content that should just always be visible on touch (e.g. card images),
-     since there's no hover to fade it in. */
-  .touch-always-visible {
-    opacity: 1 !important;
-    transform: none !important;
-  }
 }
 
 /* Corner controls that only make sense where there's no hover to rely on. */

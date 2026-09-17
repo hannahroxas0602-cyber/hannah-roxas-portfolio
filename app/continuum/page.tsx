@@ -97,7 +97,6 @@ export default function ContinuumPage() {
           <div className="max-w-4xl">
             <CaseStudyHighlights
               heading={highlightsSection.heading}
-              mockup={highlightsSection.mockup}
               outcomes={highlightsSection.outcomes}
               stats={highlightsSection.stats}
               callout={highlightsSection.callout}
@@ -118,13 +117,30 @@ export default function ContinuumPage() {
             <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
               {roleAndImpact.heading}
             </h2>
-            <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-3">
-              {roleAndImpact.columns.map((col) => (
-                <div key={col.label}>
-                  <h3 className="text-sm font-medium tracking-wide text-neutral-400 uppercase">
+            <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {roleAndImpact.columns.map((col, i) => (
+                <div
+                  key={col.label}
+                  className={`rounded-2xl border p-6 ${
+                    i === 2
+                      ? "border-black/[0.06] bg-neutral-900"
+                      : "border-black/[0.06] bg-white shadow-soft"
+                  }`}
+                >
+                  <h3
+                    className={`text-xs font-semibold tracking-widest uppercase ${
+                      i === 2 ? "text-white/50" : "text-neutral-400"
+                    }`}
+                  >
                     {col.label}
                   </h3>
-                  <p className="mt-3 text-base leading-relaxed text-neutral-700">{col.body}</p>
+                  <p
+                    className={`mt-3 text-sm leading-relaxed ${
+                      i === 2 ? "text-white/85" : "text-neutral-700"
+                    }`}
+                  >
+                    {col.body}
+                  </p>
                 </div>
               ))}
             </div>
@@ -136,7 +152,7 @@ export default function ContinuumPage() {
             {problemSection.heading}
           </h2>
 
-          <div className="relative mt-8 aspect-[2098/1120] w-full overflow-hidden rounded-2xl bg-neutral-100">
+          <div className="relative mt-8 aspect-[2098/1120] w-full overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
             <video
               src={problemSection.image}
               aria-label={problemSection.imageAlt}
@@ -148,9 +164,22 @@ export default function ContinuumPage() {
             />
           </div>
 
-          <p className="mt-8 font-mono text-sm text-neutral-500">{problemSection.flow}</p>
+          <div className="mt-6 flex flex-wrap items-center gap-2 rounded-xl border border-black/[0.06] bg-neutral-50 px-4 py-3 font-mono text-xs text-neutral-500 sm:text-sm">
+            {problemSection.flow.split("--->").map((step, i, arr) => (
+              <span key={i} className="flex items-center gap-2">
+                <span className="rounded-md bg-white px-2 py-1 text-neutral-700 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)]">
+                  {step.trim()}
+                </span>
+                {i < arr.length - 1 && (
+                  <span aria-hidden className="text-neutral-300">
+                    →
+                  </span>
+                )}
+              </span>
+            ))}
+          </div>
 
-          <div className="mt-6 space-y-4">
+          <div className="mt-8 space-y-4">
             {problemSection.paragraphs.map((p, i) => (
               <p key={i} className="max-w-2xl text-base leading-relaxed text-neutral-700">
                 {p}
@@ -209,10 +238,15 @@ export default function ContinuumPage() {
             {stakeholdersSection.heading}
           </h2>
 
-          <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-3">
-            {stakeholdersSection.stakeholders.map((s) => (
-              <div key={s.slug}>
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-100">
+          <div className="mt-12 space-y-16 sm:space-y-20">
+            {stakeholdersSection.stakeholders.map((s, i) => (
+              <div
+                key={s.slug}
+                className={`flex flex-col items-center gap-8 sm:gap-12 lg:gap-16 ${
+                  i % 2 === 1 ? "lg:flex-row-reverse" : "lg:flex-row"
+                }`}
+              >
+                <div className="relative aspect-[2068/1002] w-full overflow-hidden rounded-2xl bg-neutral-100 lg:w-3/5">
                   {s.demoVideo ? (
                     <video
                       src={s.demoVideo}
@@ -221,7 +255,7 @@ export default function ContinuumPage() {
                       loop
                       muted
                       playsInline
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-contain"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-sm text-neutral-400">
@@ -230,20 +264,25 @@ export default function ContinuumPage() {
                   )}
                 </div>
 
-                <h3 className="mt-5 font-[family-name:var(--font-manrope)] text-lg font-semibold text-neutral-900">
-                  {s.name}
-                </h3>
-                <p className="mt-1 text-sm font-medium text-neutral-500">
-                  Core need: {s.coreNeed}
-                </p>
-                <ul className="mt-4 space-y-2 text-sm leading-relaxed text-neutral-600">
-                  {s.features.map((f, i) => (
-                    <li key={i} className="flex gap-2">
-                      <span className="text-neutral-300">·</span>
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="w-full lg:w-2/5">
+                  <span className="font-mono text-xs font-medium tracking-widest text-neutral-400 uppercase">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-3 font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+                    {s.name}
+                  </h3>
+                  <p className="mt-2 text-sm font-medium text-neutral-500">
+                    Core need: {s.coreNeed}
+                  </p>
+                  <ul className="mt-6 space-y-3 text-base leading-relaxed text-neutral-600">
+                    {s.features.map((f, j) => (
+                      <li key={j} className="flex gap-3">
+                        <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-neutral-300" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>

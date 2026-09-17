@@ -120,13 +120,30 @@ export default function GoodFriendsPage() {
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {roleAndImpact.heading}
           </h2>
-          <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {roleAndImpact.columns.map((col) => (
-              <div key={col.label}>
-                <h3 className="text-sm font-medium tracking-wide text-neutral-400 uppercase">
+          <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {roleAndImpact.columns.map((col, i) => (
+              <div
+                key={col.label}
+                className={`rounded-2xl border p-6 ${
+                  i === 2
+                    ? "border-black/[0.06] bg-neutral-900"
+                    : "border-black/[0.06] bg-white shadow-soft"
+                }`}
+              >
+                <h3
+                  className={`text-xs font-semibold tracking-widest uppercase ${
+                    i === 2 ? "text-white/50" : "text-neutral-400"
+                  }`}
+                >
                   {col.label}
                 </h3>
-                <p className="mt-3 text-base leading-relaxed text-neutral-700">{col.body}</p>
+                <p
+                  className={`mt-3 text-sm leading-relaxed ${
+                    i === 2 ? "text-white/85" : "text-neutral-700"
+                  }`}
+                >
+                  {col.body}
+                </p>
               </div>
             ))}
           </div>
@@ -134,9 +151,22 @@ export default function GoodFriendsPage() {
 
         {/* The Problem */}
         <section id="problem" className="max-w-4xl py-16">
-          <p className="font-mono text-sm text-neutral-500">{problemSection.flow}</p>
+          <div className="flex flex-wrap items-center gap-2 rounded-xl border border-black/[0.06] bg-neutral-50 px-4 py-3 font-mono text-xs text-neutral-500 sm:text-sm">
+            {problemSection.flow.split("--->").map((step, i, arr) => (
+              <span key={i} className="flex items-center gap-2">
+                <span className="rounded-md bg-white px-2 py-1 text-neutral-700 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)]">
+                  {step.trim()}
+                </span>
+                {i < arr.length - 1 && (
+                  <span aria-hidden className="text-neutral-300">
+                    →
+                  </span>
+                )}
+              </span>
+            ))}
+          </div>
 
-          <div className="mt-6 space-y-4">
+          <div className="mt-8 space-y-4">
             {problemSection.paragraphs.map((p, i) => (
               <p key={i} className="max-w-2xl text-base leading-relaxed text-neutral-700">
                 {p}
@@ -148,24 +178,29 @@ export default function GoodFriendsPage() {
             {problemSection.heading}
           </h2>
 
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-700">
-            <span className="font-semibold text-neutral-900">How I got insights: </span>
-            {problemSection.insights.howWeGotInsights}
-          </p>
+          <div className="mt-6 rounded-2xl border border-black/[0.06] bg-white p-6 shadow-soft sm:p-8">
+            <p className="max-w-2xl text-base leading-relaxed text-neutral-700">
+              <span className="font-semibold text-neutral-900">How I got insights: </span>
+              {problemSection.insights.howWeGotInsights}
+            </p>
 
-          <ul className="mt-4 space-y-3">
-            {problemSection.insights.items.map((item, i) => (
-              <li key={i} className="max-w-2xl text-base leading-relaxed text-neutral-700">
-                <span className="font-semibold text-neutral-900">{item.label} </span>
-                {item.body}
-              </li>
-            ))}
-          </ul>
+            <ul className="mt-5 space-y-3">
+              {problemSection.insights.items.map((item, i) => (
+                <li key={i} className="flex gap-3 text-base leading-relaxed text-neutral-700">
+                  <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-neutral-300" />
+                  <span>
+                    <span className="font-semibold text-neutral-900">{item.label} </span>
+                    {item.body}
+                  </span>
+                </li>
+              ))}
+            </ul>
 
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700">
-            <span className="font-semibold text-neutral-900">Deliverables: </span>
-            {problemSection.insights.deliverables}
-          </p>
+            <p className="mt-5 max-w-2xl border-t border-black/[0.06] pt-5 text-base leading-relaxed text-neutral-700">
+              <span className="font-semibold text-neutral-900">Deliverables: </span>
+              {problemSection.insights.deliverables}
+            </p>
+          </div>
         </section>
 
         {/* Research gallery */}
@@ -284,7 +319,8 @@ export default function GoodFriendsPage() {
             {designDecisions.images.map((img) => (
               <div
                 key={img.src}
-                className="relative aspect-video w-full overflow-hidden rounded-2xl bg-neutral-100"
+                className="relative w-full overflow-hidden rounded-2xl bg-neutral-100"
+                style={{ aspectRatio: `${img.width}/${img.height}` }}
               >
                 <Image
                   src={img.src}

@@ -64,7 +64,7 @@ export const nextProject = {
   label: "Keep Wandering",
   title: "Edited Videos",
   description: "Go back to the Graphics page to see how I bring static images to life.",
-  href: "/graphic-design",
+  href: "/graphic-design#edited-videos",
   image: "/images/typography-dictionary/next-edited-videos.gif",
   imageAlt: "Preview of edited video content on the Graphics page",
   imageWidth: 336,

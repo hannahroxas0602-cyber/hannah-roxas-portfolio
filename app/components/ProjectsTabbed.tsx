@@ -119,7 +119,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
             type="button"
             aria-label="Next image"
             onClick={goToNext}
-            className="touch-only-control absolute bottom-4 left-4 z-20 h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/60 text-white backdrop-blur-xl backdrop-saturate-150"
+            className="touch-only-control absolute bottom-4 right-4 z-20 h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/60 text-white backdrop-blur-xl backdrop-saturate-150"
           >
             <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4">
               <path
@@ -133,6 +133,11 @@ function ProjectThumbnail({ project }: { project: Project }) {
           </button>
         </>
       )}
+
+      {/* Persistent title chip so the project reads without needing to hover */}
+      <span className="absolute bottom-4 left-4 z-10 rounded-full border border-white/15 bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-xl backdrop-saturate-150">
+        {project.title}
+      </span>
 
       <div
         className={`touch-reveal absolute inset-0 z-10 flex flex-col justify-end p-4 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 ${held ? "is-held" : ""}`}
@@ -168,15 +173,15 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
     <section id={id} className="mx-auto max-w-7xl px-6 pt-12 pb-16 sm:px-10 sm:pt-14 sm:pb-24">
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[2fr_3fr] lg:gap-12">
         <div className="lg:sticky lg:top-24 lg:self-start">
-          <h2 className="text-lg text-neutral-900">
-            <span className="font-[family-name:var(--font-inter)] italic">Selected</span>{" "}
-            <span className="font-[family-name:var(--font-manrope)] font-semibold">Projects</span>
+          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            <span className="font-[family-name:var(--font-inter)] font-normal italic">Selected</span>{" "}
+            Projects
           </h2>
-          <p className="mt-2 max-w-xl text-lg text-neutral-500">
+          <p className="mt-3 max-w-xl text-base leading-relaxed text-neutral-500">
             Case studies in how research and design decisions shaped real outcomes.
           </p>
 
-          <div className="mt-6 flex gap-8 border-b border-neutral-200">
+          <div className="mt-8 flex gap-8 border-b border-neutral-200">
             {TABS.map((tab) => {
               const isActive = tab.key === activeTab;
               return (
@@ -202,15 +207,30 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
           </div>
 
           <div className="flex flex-col">
-            {visibleProjects.map((project) => (
+            {visibleProjects.map((project, i) => (
               <Link
                 key={project.slug}
                 href={project.href}
                 data-cursor="View case study"
-                className="group block border-b border-neutral-200 py-6"
+                className="group flex items-baseline gap-4 border-b border-neutral-200 py-6 transition-colors duration-200 hover:border-neutral-300"
               >
-                <span className="link-underline w-fit font-[family-name:var(--font-manrope)] text-xl font-medium text-neutral-900 transition-colors duration-300 sm:text-2xl">
-                  {project.title}
+                <span className="font-[family-name:var(--font-mono)] text-xs font-medium text-neutral-300">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <span className="link-underline w-fit font-[family-name:var(--font-manrope)] text-xl font-medium text-neutral-900 transition-colors duration-300 sm:text-2xl">
+                    {project.title}
+                  </span>
+                  <p className="mt-1.5 text-sm text-neutral-400">
+                    {project.tags.join(" · ")}
+                    {project.year && ` · ${project.year}`}
+                  </p>
+                </div>
+                <span
+                  aria-hidden
+                  className="flex-none text-neutral-300 transition-all duration-300 group-hover:translate-x-1 group-hover:text-neutral-900"
+                >
+                  →
                 </span>
               </Link>
             ))}

@@ -131,6 +131,7 @@ export default function ImageSlideshow({
   width: number;
   height: number;
 }) {
+  const aspectRatio = width / height;
   const main = useSlideshow(images.length);
   const [isExpanded, setIsExpanded] = useState(false);
   const lightbox = useSlideshow(images.length);
@@ -201,7 +202,8 @@ export default function ImageSlideshow({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="relative h-full max-h-[85vh] w-full max-w-5xl"
+              className="relative max-h-[85vh] w-full max-w-5xl"
+              style={{ aspectRatio }}
               onClick={(e) => e.stopPropagation()}
             >
               <Frame

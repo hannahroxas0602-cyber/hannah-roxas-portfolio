@@ -120,7 +120,6 @@ export const projects: Project[] = [
     gallery: [
       "/images/graphic-design/boiler-room-cd.png",
       "/images/boiler-room-cd/front.png",
-      "/images/boiler-room-cd/open-cover-minibook.png",
       "/images/boiler-room-cd/retro.png",
     ],
   },

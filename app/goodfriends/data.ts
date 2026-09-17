@@ -47,9 +47,9 @@ export const timelineSection = {
   totalWeeks: 10,
   bands: [
     { label: "Research", colorClass: "bg-neutral-900", startWeek: 0, endWeek: 2.5 },
-    { label: "Design", colorClass: "bg-neutral-500", startWeek: 2.5, endWeek: 7.5 },
-    { label: "Refine", colorClass: "bg-neutral-400", startWeek: 7.5, endWeek: 8.75 },
-    { label: "Handoff", colorClass: "bg-neutral-300", startWeek: 8.75, endWeek: 10 },
+    { label: "Design", colorClass: "bg-neutral-700", startWeek: 2.5, endWeek: 7.5 },
+    { label: "Refine", colorClass: "bg-neutral-600", startWeek: 7.5, endWeek: 8.75 },
+    { label: "Handoff", colorClass: "bg-neutral-500", startWeek: 8.75, endWeek: 10 },
   ] satisfies TimelineBand[],
   tasks: [
     {
@@ -312,8 +312,8 @@ export const designDecisions = {
     {
       src: "/images/good-friends/design-decisions-1.png",
       alt: "Physical wayfinding and packaging design for Good Friends Poke",
-      width: 1920,
-      height: 1080,
+      width: 1706,
+      height: 828,
     },
     {
       src: "/images/good-friends/design-decisions-2.png",

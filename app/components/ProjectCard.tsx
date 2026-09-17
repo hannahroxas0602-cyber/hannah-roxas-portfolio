@@ -1,13 +1,38 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { AnimatePresence, motion } from "motion/react";
 import type { Project } from "@/app/data/projects";
 import { useHoldPreview } from "@/app/hooks/useHoldPreview";
+
+const SLIDE_INTERVAL_MS = 1200;
 
 export default function ProjectCard({ project }: { project: Project }) {
   const isExternal = project.external ?? project.href.startsWith("http");
   const { held, handlers } = useHoldPreview();
+
+  const gallery = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
+  const [activeIndex, setActiveIndex] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const hasVideo = gallery.some((src) => src.endsWith(".mp4"));
+
+  const startCycle = () => {
+    if (gallery.length <= 1) return;
+    setActiveIndex(1);
+    intervalRef.current = setInterval(() => {
+      setActiveIndex((i) => (i + 1) % gallery.length);
+    }, SLIDE_INTERVAL_MS);
+  };
+
+  const stopCycle = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = null;
+    setActiveIndex(0);
+  };
+
+  useEffect(() => () => stopCycle(), []);
 
   const content = (
     <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
@@ -45,14 +70,59 @@ export default function ProjectCard({ project }: { project: Project }) {
         className="relative w-full overflow-hidden rounded-2xl bg-neutral-100"
         style={{ aspectRatio: project.imageAspect ?? "4/3" }}
       >
-        <Image
-          src={project.image}
-          alt={project.imageAlt}
-          width={project.imageWidth}
-          height={project.imageHeight}
-          className="touch-always-visible h-full w-full scale-105 object-cover opacity-0 transition-all duration-500 ease-out group-hover:scale-100 group-hover:opacity-100"
-          sizes="(min-width: 1024px) 45vw, 100vw"
-        />
+        {hasVideo &&
+          gallery.map((src, i) =>
+            src.endsWith(".mp4") ? (
+              <video
+                key={src}
+                src={src}
+                aria-label={project.imageAlt}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-400 ease-out ${
+                  i === activeIndex ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            ) : null,
+          )}
+
+        <AnimatePresence mode="sync">
+          {!gallery[activeIndex].endsWith(".mp4") && (
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={gallery[activeIndex]}
+                alt={project.imageAlt}
+                width={project.imageWidth}
+                height={project.imageHeight}
+                className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                sizes="(min-width: 1024px) 45vw, 100vw"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {gallery.length > 1 && (
+          <div className="absolute top-4 right-4 z-10 flex gap-1.5">
+            {gallery.map((_, i) => (
+              <span
+                key={i}
+                className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
+                  i === activeIndex ? "bg-white" : "bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
+        )}
 
         {project.impactStats && project.impactStats.length > 0 && (
           <div
@@ -84,6 +154,8 @@ export default function ProjectCard({ project }: { project: Project }) {
         rel="noopener noreferrer"
         className={className}
         data-cursor="Visit site"
+        onMouseEnter={startCycle}
+        onMouseLeave={stopCycle}
         {...handlers}
       >
         {content}
@@ -92,7 +164,14 @@ export default function ProjectCard({ project }: { project: Project }) {
   }
 
   return (
-    <Link href={project.href} className={className} data-cursor="View case study" {...handlers}>
+    <Link
+      href={project.href}
+      className={className}
+      data-cursor="View case study"
+      onMouseEnter={startCycle}
+      onMouseLeave={stopCycle}
+      {...handlers}
+    >
       {content}
     </Link>
   );
