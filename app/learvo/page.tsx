@@ -5,7 +5,6 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
-import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
 import {
   learvoHero,
@@ -110,14 +109,29 @@ export default function LearvoPage() {
           />
         </div>
 
-        <div className="max-w-4xl">
-          <CaseStudyTimeline
-            heading={timelineSection.heading}
-            totalWeeks={timelineSection.totalWeeks}
-            bands={timelineSection.bands}
-            tasks={timelineSection.tasks}
-          />
-        </div>
+        {/* Timeline */}
+        <section id="timeline" className="max-w-4xl py-16">
+          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            {timelineSection.heading}
+          </h2>
+
+          <ol className="mt-8 space-y-6 border-l border-black/[0.08] pl-6">
+            {timelineSection.items.map((item) => (
+              <li key={item.title} className="relative">
+                <span className="absolute top-1.5 -left-[29px] h-2 w-2 rounded-full bg-neutral-300" />
+                <p className="text-xs font-medium tracking-wide text-neutral-400 uppercase">
+                  {item.date}
+                </p>
+                <h3 className="mt-1 font-[family-name:var(--font-manrope)] text-lg font-semibold text-neutral-900">
+                  {item.title}
+                </h3>
+                <p className="mt-1 max-w-2xl text-base leading-relaxed text-neutral-700">
+                  {item.body}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </section>
 
         {/* My Role & Impact */}
         <section id="role-impact" className="max-w-4xl py-16">
@@ -171,8 +185,15 @@ export default function LearvoPage() {
                   {cat.problem}
                 </p>
 
+                <div className="mt-6 max-w-2xl rounded-2xl border border-black/[0.06] bg-neutral-900 p-6">
+                  <h4 className="text-xs font-semibold tracking-widest text-white/50 uppercase">
+                    The Call
+                  </h4>
+                  <p className="mt-3 text-base leading-relaxed text-white/90">{cat.decision}</p>
+                </div>
+
                 <ul className="mt-6 space-y-3">
-                  {cat.items.map((item, i) => (
+                  {cat.supportingPoints.map((item, i) => (
                     <li key={i} className="max-w-2xl text-base leading-relaxed text-neutral-700">
                       <span className="font-semibold text-neutral-900">{item.label} </span>
                       {item.body}

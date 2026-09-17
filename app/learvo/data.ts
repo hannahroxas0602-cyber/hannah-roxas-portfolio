@@ -1,18 +1,16 @@
-import type { TimelineBand, TimelineTask } from "@/app/components/caseStudyTypes";
-
 export const learvoHero = {
-  title: "Learvo: Onboarding & In-App UX Overhaul",
+  title: "Learvo",
   subtitle:
-    "Redesigning how new users activate and how returning users study, across onboarding, navigation, and quiz review.",
+    "Designing the first session and the daily study loop for an AI study-tool startup — as the only product designer on the team.",
   gist: {
     label: "The Gist:",
-    text: "New users landed on an empty dashboard with nothing to do, and returning users hit inconsistent nav, unclear quiz status, and a broken Pomodoro timer. I redesigned the first session and the daily-use experience end to end.",
+    text: "New users landed on an empty dashboard with nothing to do. Returning users hit an inconsistent nav and a quiz review screen with no real signal in it. I redesigned both, then shipped the code myself.",
   },
-  date: "[DATES] (Product Design Internship)",
+  date: "Oct 2025 — Present · Product Design Intern",
   meta: [
-    { label: "ROLE", value: "Product Design Intern" },
-    { label: "TEAM", value: "Learvo" },
-    { label: "SCOPE", value: "Onboarding Flow, Activation Nudges, Navigation, Quiz Review UX" },
+    { label: "ROLE", value: "Product Design Intern (design + frontend implementation)" },
+    { label: "TEAM", value: "Learvo — solo designer, shipping directly into a live codebase" },
+    { label: "SCOPE", value: "Onboarding activation, navigation system, quiz review UX" },
   ],
   image: "/images/learvo/hero.png",
   imageAlt: "Learvo onboarding and in-app redesign overview",
@@ -25,93 +23,47 @@ export const highlightsSection = {
   heading: "Highlights",
   // No mockup image yet — add one back once a real screenshot exists.
   outcomes: [
-    "Replaced a cold, empty first-session dashboard with a guided upload → goal → customize → generate flow",
-    "Built a decaying activation checklist that nudges the 4 core actions without nagging long-term users",
-    "Shipped a consistent top nav with real avatars and a working Pomodoro timer across 5 core pages",
-    "Merged two competing quiz-review tabs into one sorted list with honest, data-backed status and stats",
+    "Replaced a cold, empty first session with a guided flow tied to real backend generation state",
+    "Designed an activation nudge that decays on its own instead of nagging long-term users forever",
+    "Shipped one consistent nav system across 5 pages while merging through 121 diverged commits",
+    "Cut a fake \"streak\" feature rather than ship engagement numbers with nothing real behind them",
   ],
   stats: [
-    { value: "4", label: "shipped feature areas" },
+    { value: "4", label: "features designed and shipped solo" },
     { value: "5", label: "core pages unified under one nav system" },
   ],
-  callout: "From a cold dashboard to a guided first session — and a consistent one after that.",
+  callout: "Judgment calls, not just visual polish — every section leads with the decision, not the checklist.",
 };
 
 export const timelineSection = {
   heading: "Timeline",
-  totalWeeks: 12,
-  bands: [
-    { label: "Onboarding Quiz Flow", colorClass: "bg-neutral-900", startWeek: 0, endWeek: 4 },
-    { label: "Onboarding Checklist", colorClass: "bg-neutral-700", startWeek: 3, endWeek: 6 },
-    { label: "Top Nav", colorClass: "bg-neutral-600", startWeek: 5, endWeek: 9 },
-    { label: "Quiz Card Reorg", colorClass: "bg-neutral-500", startWeek: 8, endWeek: 12 },
-  ] satisfies TimelineBand[],
-  tasks: [
+  items: [
     {
-      title: "Guided upload → goal → customize → generate flow",
-      band: "Onboarding Quiz Flow",
-      startWeek: 0,
-      endWeek: 3,
-      row: 0,
-      colorClass: "bg-neutral-200",
+      date: "Oct 2025",
+      title: "Onboarding Quiz Flow",
+      body: "Designed and shipped the guided upload → goal → customize → generate flow, replacing the empty first-session dashboard.",
     },
     {
-      title: "Generation progress, stall warning, retry handling",
-      band: "Onboarding Quiz Flow",
-      startWeek: 2,
-      endWeek: 4,
-      row: 1,
-      colorClass: "bg-neutral-100",
+      date: "Nov 2025",
+      title: "Onboarding Checklist",
+      body: "Designed a persistent, decaying activation nudge for the 4 core actions, built to fade out for users who've already activated.",
     },
     {
-      title: "4-task checklist with visit-based decay logic",
-      band: "Onboarding Checklist",
-      startWeek: 3,
-      endWeek: 5,
-      row: 0,
-      colorClass: "bg-neutral-200",
+      date: "Dec 2025 — Jan 2026",
+      title: "Top Nav",
+      body: "Redesigned navigation across 5 core pages and shipped it through a long-diverged branch alongside other in-flight features.",
     },
     {
-      title: "Cross-page completion tracking + tablet nav variant",
-      band: "Onboarding Checklist",
-      startWeek: 4.5,
-      endWeek: 6,
-      row: 1,
-      colorClass: "bg-neutral-100",
+      date: "Feb 2026",
+      title: "Quiz Card Reorganization",
+      body: "Merged two competing quiz-review tabs into one honest, data-backed list and fixed a real accessibility defect along the way.",
     },
     {
-      title: "TopNav rollout across 5 pages + real avatars",
-      band: "Top Nav",
-      startWeek: 5,
-      endWeek: 7.5,
-      row: 0,
-      colorClass: "bg-neutral-200",
+      date: "Now",
+      title: "Ongoing",
+      body: "Still with Learvo, continuing to design and ship across the product.",
     },
-    {
-      title: "Pomodoro rework + mobile drawer reorganization",
-      band: "Top Nav",
-      startWeek: 7,
-      endWeek: 9,
-      row: 1,
-      colorClass: "bg-neutral-100",
-    },
-    {
-      title: "Merge Past Quizzes + In Progress into one list",
-      band: "Quiz Card Reorg",
-      startWeek: 8,
-      endWeek: 10,
-      row: 0,
-      colorClass: "bg-neutral-200",
-    },
-    {
-      title: "Tier badges, contrast fix, unified buttons, stat banner",
-      band: "Quiz Card Reorg",
-      startWeek: 9.5,
-      endWeek: 12,
-      row: 1,
-      colorClass: "bg-neutral-100",
-    },
-  ] satisfies TimelineTask[],
+  ],
 };
 
 export const roleAndImpact = {
@@ -123,11 +75,11 @@ export const roleAndImpact = {
     },
     {
       label: "Solution",
-      body: "A guided first-session flow backed by real generation state, a decaying activation checklist, one consistent top nav across the app, and a quiz review system that replaced encouragement copy and fake streaks with real, data-backed status.",
+      body: "A guided first-session flow backed by real generation state, an activation nudge with built-in decay, one consistent top nav across the app, and a quiz review system that replaced encouragement copy and fake streaks with real, data-backed status.",
     },
     {
       label: "Impact",
-      body: "Turned a cold first session into a guided activation flow tied to real backend state, and turned daily use into a consistent, accessible experience — while shipping under real integration pressure alongside other concurrently-developed features.",
+      body: "As the only designer on the team, I didn't just design these flows — I shipped the code myself, which meant every design decision also had to survive contact with a real, actively-changing codebase.",
     },
   ],
 };
@@ -136,7 +88,8 @@ export type FeatureCategory = {
   slug: string;
   title: string;
   problem: string;
-  items: { label: string; body: string }[];
+  decision: string;
+  supportingPoints: { label: string; body: string }[];
   impact: string;
   image: string;
   imageAlt: string;
@@ -153,38 +106,24 @@ export const featuresSection = {
       title: "Onboarding Quiz Flow",
       problem:
         "New users signing up via Google or Apple landed cold on an empty dashboard with nothing to do. Referral tracking was also getting killed mid-flight because signup redirected immediately instead of waiting for it to settle.",
-      items: [
+      decision:
+        "The easy fix here would have been a fake progress bar that just counts up to 100%. I designed against that — the generation screen shows the real backend phase the request is in, and if nothing moves for 25 seconds, it says so instead of letting the user stare at a stalled number wondering if it's broken.",
+      supportingPoints: [
         {
           label: "Guided first session:",
-          body: "Upload → goal selection → quiz/summary/flashcard customization → generation, before the user ever sees a bare dashboard.",
+          body: "Upload → goal selection → quiz/summary/flashcard customization → generation, replacing the bare dashboard new users used to land on.",
         },
         {
-          label: "Full customization step:",
-          body: "Quiz and summary length and style controls with benefit-driven copy explaining why each choice matters.",
+          label: "Failure handling that doesn't dead-end:",
+          body: "Generation failures surface a \"Try again\" button and toast/auto-redirect instead of an error banner with no way forward.",
         },
         {
-          label: "Real generation progress:",
-          body: "Shows actual backend progress phases instead of a bare percentage, plus a stall warning if there's no movement in 25 seconds.",
-        },
-        {
-          label: "Graceful failure handling:",
-          body: "Generation failures get a \"Try again\" button and toast/auto-redirect instead of a dead-end error banner.",
-        },
-        {
-          label: "Backend-adjacent fix:",
-          body: "Resolved orphaned QuizAttempt database rows from a speculative attempt-start race — unused attempts are now cancelled via cancelQuizAttempt.",
-        },
-        {
-          label: "Correctness fixes:",
-          body: "Gated the quiz behind actual fresh signup, fixed a premature \"celebration\" trigger and tablet overflow, and routed OAuth (Google/Apple) signups on /login into onboarding too, with test coverage.",
-        },
-        {
-          label: "Per-user storage scoping:",
-          body: "Onboarding state no longer leaks across accounts on shared browsers.",
+          label: "Fixed the state underneath the UI:",
+          body: "Gated the quiz behind actual fresh signup (was firing on stale sessions), routed OAuth signups into onboarding with test coverage, and scoped onboarding state per-user so it can't leak across accounts on a shared browser.",
         },
       ],
       impact:
-        "Turned a cold, empty dashboard into a guided activation flow tied to real backend state — the strongest activation story in this body of work, even without hard funnel numbers yet.",
+        "Turned a cold, empty dashboard into a guided activation flow that tells the truth about what's happening in the backend — the strongest activation story here, even without funnel numbers yet.",
       image: "/images/learvo/onboarding-quiz-flow.png",
       imageAlt: "Learvo guided onboarding quiz flow mockup",
       imageWidth: 1600,
@@ -196,30 +135,24 @@ export const featuresSection = {
       title: "Onboarding Checklist",
       problem:
         "Separate from the quiz flow, users needed a persistent nudge to actually complete the 4 core actions — upload notes, take a quiz, make a flashcard deck, generate an AI summary — rather than a one-time push at signup.",
-      items: [
+      decision:
+        "A checklist that never goes away is a nag, not a nudge. I designed decay into it on purpose: it's visible for a user's first 4 visits, then disappears for good on visit 5 — whether or not they finished it. Growth wanted persistence; I traded some short-term completion pressure for not annoying the users who've already moved past onboarding.",
+      supportingPoints: [
         {
-          label: "4-task checklist with decay logic:",
-          body: "Visible on visits 1–4, auto-hides permanently on visit 5+ so it never becomes a long-term annoyance.",
-        },
-        {
-          label: "Session-only vs. permanent dismiss:",
-          body: "The X button dismisses for the current session only and returns next session; it's gone for good after visit 5.",
+          label: "Two dismiss states, not one:",
+          body: "The X button dismisses for the current session only and returns next session — it's only gone for good after visit 5, so an accidental close doesn't cost a user the nudge entirely.",
         },
         {
           label: "Cross-page completion tracking:",
-          body: "Built via a shared onboardingCelebration util and onboardingStore so progress persists as users move between pages.",
+          body: "Progress persists as users move between pages via a shared onboardingCelebration util and store, instead of resetting per page.",
         },
         {
-          label: "Tablet-collapsed variant:",
-          body: "A waving-hand icon with a notification badge for smaller viewports.",
-        },
-        {
-          label: "Reliability fixes:",
-          body: "Fixed the checklist not showing for new users on reused browsers or failed fetches, added per-user storage scoping, deferred rendering until session settles, added returning-learner tagging, and fixed copy mismatches.",
+          label: "Collapsed variant for tablet:",
+          body: "A waving-hand icon with a notification badge, so the nudge survives on smaller viewports without eating layout space.",
         },
       ],
       impact:
-        "An activation nudge system with built-in decay logic — designed to drive engagement without nagging long-term users.",
+        "An activation nudge that's designed to lose the argument with itself over time — built to drive early engagement without becoming permanent nagware.",
       image: "/images/learvo/onboarding-checklist.png",
       imageAlt: "Learvo onboarding checklist mockup",
       imageWidth: 1600,
@@ -231,30 +164,24 @@ export const featuresSection = {
       title: "Top Nav",
       problem:
         "The old nav had no page identity (no titles), the profile used emoji placeholders instead of real avatars, the Pomodoro timer had input and reset bugs, and mobile lacked a sensible place for the timer, feedback, and profile actions.",
-      items: [
+      decision:
+        "This wasn't just a nav redesign — it was a scope call under pressure. The branch had diverged 121 commits from main by the time it was ready, with other teams shipping global search, an ambassador program, and a quiz tutorial in that same window. I rebased and resolved every conflict by hand rather than asking for a freeze, because blocking three other in-flight features to land one nav redesign wasn't a fair trade.",
+      supportingPoints: [
         {
-          label: "New TopNav across 5 pages:",
-          body: "Flashcards, Library, Quizzes, Summaries, and Generator each get a page title and a per-page action slot (e.g. \"Create Quiz\", \"New Deck\").",
+          label: "One nav system, 5 pages:",
+          body: "Flashcards, Library, Quizzes, Summaries, and Generator each get a page title and a per-page action slot (e.g. \"Create Quiz\", \"New Deck\") instead of a generic shared header.",
         },
         {
-          label: "Real avatar system:",
-          body: "Preset avatars plus custom upload, replacing emoji placeholders.",
+          label: "Real avatars, not emoji:",
+          body: "Preset avatars plus custom upload replaced emoji placeholders in the profile.",
         },
         {
-          label: "Pomodoro rework:",
-          body: "MM:SS digit-mask input, correct preset vs. custom behavior, and a consistent reset-to-zero for custom timers.",
-        },
-        {
-          label: "Mobile-specific reorganization:",
-          body: "Feedback icon replaces the timer in the top bar; the timer moves to a bottom drawer. The profile modal becomes a bottom drawer with keyboard-aware padding.",
-        },
-        {
-          label: "Shipped under integration pressure:",
-          body: "Rebased across 121 diverged commits and manually resolved conflicts to merge cleanly with concurrently-shipped features (global search, ambassador program, quiz tutorial).",
+          label: "Mobile got its own layout, not a squeeze:",
+          body: "Feedback icon replaces the timer in the top bar on mobile; the timer moves to a bottom drawer, and the profile modal becomes a keyboard-aware bottom drawer instead of a cramped popover.",
         },
       ],
       impact:
-        "A consistent navigation system shipped without regressing other in-flight features — a real test of merging under integration pressure, not just visual design.",
+        "A consistent nav system that shipped without blocking or regressing three other features landing in the same window — an integration problem as much as a design one.",
       image: "/images/learvo/top-nav.png",
       imageAlt: "Learvo top navigation redesign mockup",
       imageWidth: 1600,
@@ -266,30 +193,24 @@ export const featuresSection = {
       title: "Quiz Card Reorganization",
       problem:
         "\"Past Quizzes\" and \"In Progress\" lived in separate tabs, cards used encouragement copy that didn't scale, tier status was implicit in whichever tab you were looking at, and CTA colors and button styles were inconsistent.",
-      items: [
+      decision:
+        "The existing banner had a \"weekly streak\" stat. It looked great and it was fake — there was no real activity-tracking behind it. I cut it rather than ship a number that would mislead users about their own behavior, and replaced it with two stats computed from data that actually exists: quizzes this week, questions answered overall.",
+      supportingPoints: [
         {
-          label: "One recency-sorted list:",
-          body: "Merged Past Quizzes and In Progress into a single list; each card carries its own tier badge (Mastered / Still Learning / Needs Work / In Progress) instead of relying on the tab it's in.",
+          label: "One list instead of two tabs:",
+          body: "Merged Past Quizzes and In Progress into a single recency-sorted list; each card carries its own tier badge (Mastered / Still Learning / Needs Work / In Progress) instead of relying on which tab you're in to know your status.",
         },
         {
-          label: "Real question-type labels:",
-          body: "Replaced encouragement copy under the score with the actual question-type label (e.g. \"MCQ · T/F\"), reusing existing parsing logic for consistency app-wide.",
+          label: "Fixed a real accessibility defect:",
+          body: "Found and fixed a contrast failure — white text on a pastel fill — by standardizing on dark text across the cards.",
         },
         {
-          label: "Accessibility fix:",
-          body: "Fixed a real contrast failure — white text on a pastel fill — by standardizing on dark text.",
-        },
-        {
-          label: "Unified button system:",
-          body: "Merged two competing button styles (outline \"Results\" vs. frosted \"Retake\") into one pill-button family.",
-        },
-        {
-          label: "Honest, data-backed banner:",
-          body: "Reworked the banner from a Tour/Lenny/Research carousel into two data-driven stat boxes (quizzes this week, questions answered overall) computed from real user data — and deliberately cut a \"weekly streak\" feature that had no real activity-tracking behind it.",
+          label: "One button system instead of two:",
+          body: "Merged competing outline (\"Results\") and frosted (\"Retake\") button styles into a single pill-button family used consistently across cards.",
         },
       ],
       impact:
-        "The clearest UX judgment story in this work: catching and fixing a real accessibility defect, and choosing to cut a feature rather than fake the data behind it.",
+        "The clearest judgment call in this work: catching an accessibility bug most people would ship past, and turning down a good-looking fake metric in favor of a smaller, honest one.",
       image: "/images/learvo/quiz-card-reorg.png",
       imageAlt: "Learvo quiz card reorganization mockup",
       imageWidth: 1600,
@@ -308,7 +229,7 @@ export const nextStepsSection = {
     },
     {
       title: "Validate the checklist decay window:",
-      body: "A/B test the visit-5 cutoff against a longer or engagement-based threshold to confirm it's not hiding the nudge too early for slower-activating users.",
+      body: "Test the visit-5 cutoff against a longer or engagement-based threshold to confirm it's not hiding the nudge too early for slower-activating users.",
     },
     {
       title: "Build the streak feature properly:",
