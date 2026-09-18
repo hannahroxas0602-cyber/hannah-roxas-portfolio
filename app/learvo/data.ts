@@ -220,6 +220,59 @@ export const featuresSection = {
   ] satisfies FeatureCategory[],
 };
 
+export type BrandElement = {
+  slug: string;
+  title: string;
+  body: string;
+  image: string;
+  imageAlt: string;
+  imageWidth: number;
+  imageHeight: number;
+  isPlaceholder: boolean;
+};
+
+export const brandIdentitySection = {
+  heading: "Brand Identity",
+  problem:
+    "Learvo's green-and-blue palette already existed, but it wasn't showing up consistently at the moments that actually form a first impression — the landing page and onboarding felt disconnected from the rest of the product, so the colors weren't doing the job of making Learvo recognizable.",
+  decision:
+    "Rather than introduce a new palette, I reinforced the existing one at the touchpoints that matter most for recognition — landing page, onboarding quiz, onboarding checklist — and designed a mascot and doodle system to carry that identity through, instead of treating brand as a logo-only concern.",
+  elements: [
+    {
+      slug: "mascot",
+      title: "Lenny, the Study Buddy",
+      body: "A mascot with a motivational-but-calm personality — deliberately not the high-pressure, guilt-driven energy of a Duolingo-style mascot. Lenny shows up on the landing page and throughout onboarding (quiz flow and checklist) as the friendly, reassuring presence at the moments new users are most likely to bounce.",
+      image: "/images/learvo/mascot-lenny.png",
+      imageAlt: "Lenny, the Learvo mascot",
+      imageWidth: 1200,
+      imageHeight: 1200,
+      isPlaceholder: true,
+    },
+    {
+      slug: "doodles",
+      title: "Doodle System",
+      body: "A playful, friendly hand-drawn doodle style used across the same first-impression touchpoints as Lenny, plus a set of preset doodle avatars for profile customization — extending the same warmth into a functional UI element instead of confining it to marketing surfaces.",
+      image: "/images/learvo/doodle-system.png",
+      imageAlt: "Learvo doodle illustration system and preset avatars",
+      imageWidth: 1200,
+      imageHeight: 900,
+      isPlaceholder: true,
+    },
+    {
+      slug: "color-palette",
+      title: "Color Palette Reinforcement",
+      body: "Learvo's green and blue were already the brand's colors — the work was making sure they actually read as Learvo's colors by applying them consistently across landing and onboarding, rather than letting those first-impression surfaces drift from the rest of the product.",
+      image: "/images/learvo/color-palette.png",
+      imageAlt: "Learvo green and blue color palette applied across touchpoints",
+      imageWidth: 1200,
+      imageHeight: 800,
+      isPlaceholder: true,
+    },
+  ] satisfies BrandElement[],
+  impact:
+    "A consistent visual identity at the exact moments a new user forms their first impression of Learvo — turning an already-correct palette into one that's actually recognizable.",
+};
+
 export const nextStepsSection = {
   heading: "What I'd Do Next",
   items: [

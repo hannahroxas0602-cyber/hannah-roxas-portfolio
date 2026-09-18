@@ -12,6 +12,7 @@ import {
   timelineSection,
   roleAndImpact,
   featuresSection,
+  brandIdentitySection,
   nextStepsSection,
   nextProject,
 } from "@/app/learvo/data";
@@ -22,6 +23,7 @@ const sections = [
   { id: "timeline", title: "Timeline" },
   { id: "role-impact", title: "My Role & Impact" },
   { id: "what-i-shipped", title: "What I Shipped" },
+  { id: "brand-identity", title: "Brand Identity" },
   { id: "next-steps", title: "What's Next" },
 ];
 
@@ -225,6 +227,59 @@ export default function LearvoPage() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Brand Identity */}
+        <section id="brand-identity" className="max-w-4xl py-16">
+          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            {brandIdentitySection.heading}
+          </h2>
+
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700">
+            <span className="font-semibold text-neutral-900">Problem: </span>
+            {brandIdentitySection.problem}
+          </p>
+
+          <div className="mt-6 max-w-2xl rounded-2xl border border-black/[0.06] bg-neutral-900 p-6">
+            <h4 className="text-xs font-semibold tracking-widest text-white/50 uppercase">
+              The Call
+            </h4>
+            <p className="mt-3 text-base leading-relaxed text-white/90">
+              {brandIdentitySection.decision}
+            </p>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-3">
+            {brandIdentitySection.elements.map((el) => (
+              <div key={el.slug}>
+                <div
+                  className="relative w-full overflow-hidden rounded-2xl"
+                  style={{ aspectRatio: `${el.imageWidth}/${el.imageHeight}` }}
+                >
+                  {el.isPlaceholder ? (
+                    <PlaceholderImage label={el.title} />
+                  ) : (
+                    <Image
+                      src={el.image}
+                      alt={el.imageAlt}
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 640px) 33vw, 100vw"
+                    />
+                  )}
+                </div>
+                <h3 className="mt-4 font-[family-name:var(--font-manrope)] text-lg font-semibold text-neutral-900">
+                  {el.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-neutral-700">{el.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-10 max-w-2xl rounded-2xl border border-black/[0.06] bg-neutral-50 p-5 text-base leading-relaxed text-neutral-700">
+            <span className="font-semibold text-neutral-900">Impact: </span>
+            {brandIdentitySection.impact}
+          </p>
         </section>
 
         {/* What I'd Do Next */}
