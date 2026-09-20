@@ -1,22 +1,22 @@
 export const learvoHero = {
   title: "Learvo",
   subtitle:
-    "Designing the first session and the daily study loop for an AI study-tool startup — as the only product designer on the team.",
+    "Designing for college students turning their own notes into quizzes, flashcards, summaries, and mnemonics, as the only product designer on an ed-tech startup's team.",
   gist: {
     label: "The Gist:",
     text: "New users landed on an empty dashboard with nothing to do. Returning users hit an inconsistent nav and a quiz review screen with no real signal in it. I redesigned both, then shipped the code myself.",
   },
-  date: "Oct 2025 — Present · Product Design Intern",
+  date: "Oct 2025 to Present (Sep 2026) · Product Design Intern",
   meta: [
     { label: "ROLE", value: "Product Design Intern (design + frontend implementation)" },
-    { label: "TEAM", value: "Learvo — solo designer, shipping directly into a live codebase" },
-    { label: "SCOPE", value: "Onboarding activation, navigation system, quiz review UX" },
+    { label: "TEAM", value: "Learvo, solo designer shipping directly into a live codebase" },
+    { label: "SCOPE", value: "Landing page, onboarding activation, navigation system, quiz review UX" },
   ],
-  image: "/images/learvo/hero.png",
-  imageAlt: "Learvo onboarding and in-app redesign overview",
-  imageWidth: 1600,
-  imageHeight: 1000,
-  isPlaceholder: true,
+  image: "/images/learvo_hero.png",
+  imageAlt: "Learvo's redesigned landing page, showing the hero section with Lenny, the doodle system, and a live quiz preview",
+  imageWidth: 2880,
+  imageHeight: 1544,
+  isPlaceholder: false,
 };
 
 export const highlightsSection = {
@@ -32,36 +32,47 @@ export const highlightsSection = {
     { value: "4", label: "features designed and shipped solo" },
     { value: "5", label: "core pages unified under one nav system" },
   ],
-  callout: "Judgment calls, not just visual polish — every section leads with the decision, not the checklist.",
+  callout: "Judgment calls, not just visual polish. Every section leads with the decision, not the checklist.",
 };
 
 export const timelineSection = {
   heading: "Timeline",
   items: [
     {
+      slug: "timeline-lenny",
       date: "Oct 2025",
-      title: "Onboarding Quiz Flow",
-      body: "Designed and shipped the guided upload → goal → customize → generate flow, replacing the empty first-session dashboard.",
+      title: "Lenny, the Mascot",
+      body: "Designed Lenny, Learvo's mascot, starting with sketches and landing on the final character design used across the product.",
     },
     {
-      date: "Nov 2025",
+      slug: "timeline-doodles",
+      date: "Dec 2025, ongoing",
+      title: "Doodle System",
+      body: "Started designing Learvo's hand-drawn doodle system, extended over time into preset profile avatars and more illustration touchpoints.",
+    },
+    {
+      slug: "timeline-landing-page",
+      date: "June 2026",
+      title: "Landing Page Redesign",
+      body: "Redesigned the marketing landing page to reinforce Learvo's brand identity at the first touchpoint a new user sees.",
+    },
+    {
+      slug: "timeline-checklist",
+      date: "July 2026",
       title: "Onboarding Checklist",
       body: "Designed a persistent, decaying activation nudge for the 4 core actions, built to fade out for users who've already activated.",
     },
     {
-      date: "Dec 2025 — Jan 2026",
+      slug: "timeline-top-nav",
+      date: "Aug 2026",
       title: "Top Nav",
       body: "Redesigned navigation across 5 core pages and shipped it through a long-diverged branch alongside other in-flight features.",
     },
     {
-      date: "Feb 2026",
-      title: "Quiz Card Reorganization",
-      body: "Merged two competing quiz-review tabs into one honest, data-backed list and fixed a real accessibility defect along the way.",
-    },
-    {
-      date: "Now",
-      title: "Ongoing",
-      body: "Still with Learvo, continuing to design and ship across the product.",
+      slug: "timeline-quiz-flow",
+      date: "Sep 2026",
+      title: "Onboarding Quiz Flow & Quiz Card Reorganization",
+      body: "Shipped the guided upload, goal, customize, generate flow, and separately merged two competing quiz-review tabs into one honest, data-backed list.",
     },
   ],
 };
@@ -71,7 +82,7 @@ export const roleAndImpact = {
   columns: [
     {
       label: "Problem",
-      body: "New users signed up and landed on an empty dashboard with nothing to do — and referral tracking broke mid-flight because signup redirected before it could settle. Returning users hit an inconsistent nav, an implicit and sometimes inaccessible quiz status system, and a broken Pomodoro timer.",
+      body: "New users signed up and landed on an empty dashboard with nothing to do, and referral tracking broke mid-flight because signup redirected before it could settle. Returning users hit an inconsistent nav, an implicit and sometimes inaccessible quiz status system, and a broken Pomodoro timer.",
     },
     {
       label: "Solution",
@@ -79,7 +90,7 @@ export const roleAndImpact = {
     },
     {
       label: "Impact",
-      body: "As the only designer on the team, I didn't just design these flows — I shipped the code myself, which meant every design decision also had to survive contact with a real, actively-changing codebase.",
+      body: "As the only designer on the team, I didn't just design these flows, I shipped the code myself, which meant every design decision also had to survive contact with a real, actively changing codebase. That also meant learning to move at startup speed: getting comfortable with Git and opening pull requests across both frontend and backend, and working directly with engineers instead of handing off static designs, to keep up with a fast-moving, ship-often environment.",
     },
   ],
 };
@@ -102,45 +113,45 @@ export const featuresSection = {
   heading: "What I Shipped",
   categories: [
     {
-      slug: "onboarding-quiz-flow",
-      title: "Onboarding Quiz Flow",
+      slug: "landing-page",
+      title: "Landing Page Redesign",
       problem:
-        "New users signing up via Google or Apple landed cold on an empty dashboard with nothing to do. Referral tracking was also getting killed mid-flight because signup redirected immediately instead of waiting for it to settle.",
+        "The old landing page tested badly on both ends. Qualitatively, it read as a generic, gradient-heavy \"startup website\" with no real color or brand identity: no mascot, no doodles, nothing that spoke to college students specifically. Quantitatively, analytics showed a high percentage of visitors never scrolled through the full page, so the product's actual value never reached them.",
       decision:
-        "The easy fix here would have been a fake progress bar that just counts up to 100%. I designed against that — the generation screen shows the real backend phase the request is in, and if nothing moves for 25 seconds, it says so instead of letting the user stare at a stalled number wondering if it's broken.",
+        "Learvo's users are college students deciding, in seconds, whether a study tool is worth their time, usually while stressed, procrastinating, or between classes. I led with speed and effort reduction over a feature list. The core promise is turning whatever notes you already have into a quiz, flashcard deck, summary, or mnemonic set almost instantly, and the whole page was restructured around getting a scrolling, skeptical student to that promise instead of past it.",
       supportingPoints: [
         {
-          label: "Guided first session:",
-          body: "Upload → goal selection → quiz/summary/flashcard customization → generation, replacing the bare dashboard new users used to land on.",
+          label: "Color and brand identity replaced generic gradients:",
+          body: "Rebuilt the page around Learvo's green and blue palette, Lenny, and the doodle system so it reads as a product for college students, not an interchangeable SaaS template.",
         },
         {
-          label: "Failure handling that doesn't dead-end:",
-          body: "Generation failures surface a \"Try again\" button and toast/auto-redirect instead of an error banner with no way forward.",
+          label: "Copy rewritten around a real student pain point:",
+          body: "Reframed messaging around not spending money and not losing study time, instead of generic productivity language that could apply to any audience.",
         },
         {
-          label: "Fixed the state underneath the UI:",
-          body: "Gated the quiz behind actual fresh signup (was firing on stale sessions), routed OAuth signups into onboarding with test coverage, and scoped onboarding state per-user so it can't leak across accounts on a shared browser.",
+          label: "Structured navigation instead of a hope-they-scroll page:",
+          body: "Added a hero CTA into the product-value section, a second CTA down to the FAQ, and a sticky top nav with its own CTA, so a user can reach value or answers from anywhere on the page without scrolling back to the top.",
         },
       ],
       impact:
-        "Turned a cold, empty dashboard into a guided activation flow that tells the truth about what's happening in the backend — the strongest activation story here, even without funnel numbers yet.",
-      image: "/images/learvo/onboarding-quiz-flow.png",
-      imageAlt: "Learvo guided onboarding quiz flow mockup",
-      imageWidth: 1600,
-      imageHeight: 1000,
-      isPlaceholder: true,
+        "Turned a page that lost most visitors before they saw what Learvo does into one built around getting a busy, skeptical student to the value proposition as fast as possible. Before and after scroll and engagement data to follow.",
+      image: "/images/learvo_hero.png",
+      imageAlt: "Learvo's redesigned landing page, showing the hero section with Lenny, the doodle system, and a live quiz preview",
+      imageWidth: 2880,
+      imageHeight: 1544,
+      isPlaceholder: false,
     },
     {
       slug: "onboarding-checklist",
       title: "Onboarding Checklist",
       problem:
-        "Separate from the quiz flow, users needed a persistent nudge to actually complete the 4 core actions — upload notes, take a quiz, make a flashcard deck, generate an AI summary — rather than a one-time push at signup.",
+        "Separate from the quiz flow, users needed a persistent nudge to actually complete the 4 core actions (upload notes, take a quiz, make a flashcard deck, generate an AI summary) rather than a one-time push at signup.",
       decision:
-        "A checklist that never goes away is a nag, not a nudge. I designed decay into it on purpose: it's visible for a user's first 4 visits, then disappears for good on visit 5 — whether or not they finished it. Growth wanted persistence; I traded some short-term completion pressure for not annoying the users who've already moved past onboarding.",
+        "A checklist that never goes away is a nag, not a nudge. I designed decay into it on purpose. It's visible for a user's first 4 visits, then disappears for good on visit 5, whether or not they finished it. Growth wanted persistence. I traded some short-term completion pressure for not annoying the users who've already moved past onboarding.",
       supportingPoints: [
         {
           label: "Two dismiss states, not one:",
-          body: "The X button dismisses for the current session only and returns next session — it's only gone for good after visit 5, so an accidental close doesn't cost a user the nudge entirely.",
+          body: "The X button dismisses for the current session only and returns next session. It's only gone for good after visit 5, so an accidental close doesn't cost a user the nudge entirely.",
         },
         {
           label: "Cross-page completion tracking:",
@@ -152,7 +163,7 @@ export const featuresSection = {
         },
       ],
       impact:
-        "An activation nudge that's designed to lose the argument with itself over time — built to drive early engagement without becoming permanent nagware.",
+        "An activation nudge that's designed to lose the argument with itself over time, built to drive early engagement without becoming permanent nagware.",
       image: "/images/learvo/onboarding-checklist.png",
       imageAlt: "Learvo onboarding checklist mockup",
       imageWidth: 1600,
@@ -162,10 +173,15 @@ export const featuresSection = {
     {
       slug: "top-nav",
       title: "Top Nav",
+      image: "/images/learvo/top-nav-avatars.png",
+      imageAlt: "Five custom hand-drawn preset avatar options for Learvo profiles",
+      imageWidth: 2160,
+      imageHeight: 480,
+      isPlaceholder: false,
       problem:
         "The old nav had no page identity (no titles), the profile used emoji placeholders instead of real avatars, the Pomodoro timer had input and reset bugs, and mobile lacked a sensible place for the timer, feedback, and profile actions.",
       decision:
-        "This wasn't just a nav redesign — it was a scope call under pressure. The branch had diverged 121 commits from main by the time it was ready, with other teams shipping global search, an ambassador program, and a quiz tutorial in that same window. I rebased and resolved every conflict by hand rather than asking for a freeze, because blocking three other in-flight features to land one nav redesign wasn't a fair trade.",
+        "This wasn't just a nav redesign, it was a scope call under pressure. The branch had diverged 121 commits from main by the time it was ready, with other teams shipping global search, an ambassador program, and a quiz tutorial in that same window. I rebased and resolved every conflict by hand rather than asking for a freeze, because blocking three other in-flight features to land one nav redesign wasn't a fair trade.",
       supportingPoints: [
         {
           label: "One nav system, 5 pages:",
@@ -177,13 +193,37 @@ export const featuresSection = {
         },
         {
           label: "Mobile got its own layout, not a squeeze:",
-          body: "Feedback icon replaces the timer in the top bar on mobile; the timer moves to a bottom drawer, and the profile modal becomes a keyboard-aware bottom drawer instead of a cramped popover.",
+          body: "Feedback icon replaces the timer in the top bar on mobile. The timer moves to a bottom drawer, and the profile modal becomes a keyboard-aware bottom drawer instead of a cramped popover.",
         },
       ],
       impact:
-        "A consistent nav system that shipped without blocking or regressing three other features landing in the same window — an integration problem as much as a design one.",
-      image: "/images/learvo/top-nav.png",
-      imageAlt: "Learvo top navigation redesign mockup",
+        "A consistent nav system that shipped without blocking or regressing three other features landing in the same window. As much an integration problem as a design one.",
+    },
+    {
+      slug: "onboarding-quiz-flow",
+      title: "Onboarding Quiz Flow",
+      problem:
+        "New users signing up via Google or Apple landed cold on an empty dashboard with nothing to do. Referral tracking was also getting killed mid-flight because signup redirected immediately instead of waiting for it to settle.",
+      decision:
+        "The easy fix here would have been a fake progress bar that just counts up to 100%. I designed against that. The generation screen shows the real backend phase the request is in, and if nothing moves for 25 seconds, it says so instead of letting the user stare at a stalled number wondering if it's broken.",
+      supportingPoints: [
+        {
+          label: "Guided first session:",
+          body: "Upload, then goal selection, then quiz/summary/flashcard customization, then generation, replacing the bare dashboard new users used to land on.",
+        },
+        {
+          label: "Failure handling that doesn't dead-end:",
+          body: "Generation failures surface a \"Try again\" button and toast/auto-redirect instead of an error banner with no way forward.",
+        },
+        {
+          label: "Fixed the state underneath the UI:",
+          body: "Gated the quiz behind actual fresh signup (was firing on stale sessions), routed OAuth signups into onboarding with test coverage, and scoped onboarding state per-user so it can't leak across accounts on a shared browser.",
+        },
+      ],
+      impact:
+        "Turned a cold, empty dashboard into a guided activation flow that tells the truth about what's happening in the backend. The strongest activation story here, even without funnel numbers yet.",
+      image: "/images/learvo/onboarding-quiz-flow.png",
+      imageAlt: "Learvo guided onboarding quiz flow mockup",
       imageWidth: 1600,
       imageHeight: 1000,
       isPlaceholder: true,
@@ -194,15 +234,15 @@ export const featuresSection = {
       problem:
         "\"Past Quizzes\" and \"In Progress\" lived in separate tabs, cards used encouragement copy that didn't scale, tier status was implicit in whichever tab you were looking at, and CTA colors and button styles were inconsistent.",
       decision:
-        "The existing banner had a \"weekly streak\" stat. It looked great and it was fake — there was no real activity-tracking behind it. I cut it rather than ship a number that would mislead users about their own behavior, and replaced it with two stats computed from data that actually exists: quizzes this week, questions answered overall.",
+        "The existing banner had a \"weekly streak\" stat. It looked great, and it was fake. There was no real activity-tracking behind it. I cut it rather than ship a number that would mislead users about their own behavior, and replaced it with two stats computed from data that actually exists: quizzes this week, questions answered overall.",
       supportingPoints: [
         {
           label: "One list instead of two tabs:",
-          body: "Merged Past Quizzes and In Progress into a single recency-sorted list; each card carries its own tier badge (Mastered / Still Learning / Needs Work / In Progress) instead of relying on which tab you're in to know your status.",
+          body: "Merged Past Quizzes and In Progress into a single recency-sorted list. Each card carries its own tier badge (Mastered / Still Learning / Needs Work / In Progress) instead of relying on which tab you're in to know your status.",
         },
         {
           label: "Fixed a real accessibility defect:",
-          body: "Found and fixed a contrast failure — white text on a pastel fill — by standardizing on dark text across the cards.",
+          body: "Found and fixed a contrast failure, white text on a pastel fill, by standardizing on dark text across the cards.",
         },
         {
           label: "One button system instead of two:",
@@ -234,43 +274,57 @@ export type BrandElement = {
 export const brandIdentitySection = {
   heading: "Brand Identity",
   problem:
-    "Learvo's green-and-blue palette already existed, but it wasn't showing up consistently at the moments that actually form a first impression — the landing page and onboarding felt disconnected from the rest of the product, so the colors weren't doing the job of making Learvo recognizable.",
+    "Learvo's green and blue palette already existed, but it wasn't showing up consistently at the moments that actually form a first impression. The landing page and onboarding felt disconnected from the rest of the product, so the colors weren't doing the job of making Learvo recognizable.",
   decision:
-    "Rather than introduce a new palette, I reinforced the existing one at the touchpoints that matter most for recognition — landing page, onboarding quiz, onboarding checklist — and designed a mascot and doodle system to carry that identity through, instead of treating brand as a logo-only concern.",
+    "Rather than introduce a new palette, I reinforced the existing one at the touchpoints that matter most for recognition (landing page, onboarding quiz, onboarding checklist) and designed a mascot and doodle system to carry that identity through, instead of treating brand as a logo-only concern.",
+  liveLink: {
+    label: "View the live landing page",
+    href: "https://learvo.com/",
+  },
   elements: [
     {
       slug: "mascot",
       title: "Lenny, the Study Buddy",
-      body: "A mascot with a motivational-but-calm personality — deliberately not the high-pressure, guilt-driven energy of a Duolingo-style mascot. Lenny shows up on the landing page and throughout onboarding (quiz flow and checklist) as the friendly, reassuring presence at the moments new users are most likely to bounce.",
+      body: "Lenny is a sprout, a deliberate choice to connote ever-growing progress and tie the mascot directly to the learning theme instead of picking a character with no conceptual link to studying. Lenny carries a motivational-but-calm personality, deliberately not the high-pressure, guilt-driven energy of a Duolingo-style mascot, and shows up on the landing page and throughout onboarding (quiz flow and checklist) as the friendly, reassuring presence at the moments new users are most likely to bounce. Below are the two final renders used across the product.",
       image: "/images/learvo/mascot-lenny.png",
-      imageAlt: "Lenny, the Learvo mascot",
-      imageWidth: 1200,
-      imageHeight: 1200,
-      isPlaceholder: true,
+      imageAlt: "Lenny, the Learvo mascot, shown in two final poses",
+      imageWidth: 1396,
+      imageHeight: 1060,
+      isPlaceholder: false,
+    },
+    {
+      slug: "mascot-process",
+      title: "Early Sketches",
+      body: "Lenny went through several rounds of exploration: proportions, expression, and how much personality the glasses and posture should carry, before landing on the final sprout design used across the product today.",
+      image: "/images/learvo/mascot-sketches.png",
+      imageAlt: "Lenny mascot design sketch sheets showing early exploration",
+      imageWidth: 1737,
+      imageHeight: 840,
+      isPlaceholder: false,
     },
     {
       slug: "doodles",
       title: "Doodle System",
-      body: "A playful, friendly hand-drawn doodle style used across the same first-impression touchpoints as Lenny, plus a set of preset doodle avatars for profile customization — extending the same warmth into a functional UI element instead of confining it to marketing surfaces.",
+      body: "A playful, friendly hand-drawn doodle style used across the same first-impression touchpoints as Lenny, plus a set of preset doodle avatars for profile customization, extending the same warmth into a functional UI element instead of confining it to marketing surfaces.",
       image: "/images/learvo/doodle-system.png",
-      imageAlt: "Learvo doodle illustration system and preset avatars",
-      imageWidth: 1200,
-      imageHeight: 900,
-      isPlaceholder: true,
+      imageAlt: "A selection of Learvo's hand-drawn doodle illustrations",
+      imageWidth: 1100,
+      imageHeight: 1100,
+      isPlaceholder: false,
     },
     {
       slug: "color-palette",
       title: "Color Palette Reinforcement",
-      body: "Learvo's green and blue were already the brand's colors — the work was making sure they actually read as Learvo's colors by applying them consistently across landing and onboarding, rather than letting those first-impression surfaces drift from the rest of the product.",
+      body: "Learvo's green and blue were already the brand's colors. The work was making sure they actually read as Learvo's colors by applying them consistently across landing and onboarding, rather than letting those first-impression surfaces drift from the rest of the product.",
       image: "/images/learvo/color-palette.png",
-      imageAlt: "Learvo green and blue color palette applied across touchpoints",
-      imageWidth: 1200,
-      imageHeight: 800,
-      isPlaceholder: true,
+      imageAlt: "Learvo color system: ink, primary green, primary blue, and the ambient hero gradient with hex codes",
+      imageWidth: 1600,
+      imageHeight: 950,
+      isPlaceholder: false,
     },
   ] satisfies BrandElement[],
   impact:
-    "A consistent visual identity at the exact moments a new user forms their first impression of Learvo — turning an already-correct palette into one that's actually recognizable.",
+    "A consistent visual identity at the exact moments a new user forms their first impression of Learvo, turning an already-correct palette into one that's actually recognizable.",
 };
 
 export const nextStepsSection = {

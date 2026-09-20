@@ -40,7 +40,7 @@ export default function ContinuumPage() {
   return (
     <div className="flex flex-1 flex-col bg-background">
       <Header />
-      <main className="mx-auto flex w-full max-w-6xl flex-1 gap-12 px-6 sm:px-10">
+      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-12 px-6 sm:px-10 md:flex-row">
         <CaseStudyNav sections={sections} />
 
         <div className="min-w-0 flex-1">
