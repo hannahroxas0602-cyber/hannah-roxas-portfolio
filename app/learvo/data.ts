@@ -12,7 +12,7 @@ export const learvoHero = {
     { label: "TEAM", value: "Learvo, solo designer shipping directly into a live codebase" },
     { label: "SCOPE", value: "Landing page, onboarding activation, navigation system, quiz review UX" },
   ],
-  image: "/images/learvo_hero.png",
+  image: "/images/learvo/learvo_hero.png",
   imageAlt: "Learvo's redesigned landing page, showing the hero section with Lenny, the doodle system, and a live quiz preview",
   imageWidth: 2880,
   imageHeight: 1544,
@@ -71,8 +71,8 @@ export const timelineSection = {
     {
       slug: "timeline-quiz-flow",
       date: "Sep 2026",
-      title: "Onboarding Quiz Flow & Quiz Card Reorganization",
-      body: "Shipped the guided upload, goal, customize, generate flow, and separately merged two competing quiz-review tabs into one honest, data-backed list.",
+      title: "Onboarding Quiz Flow",
+      body: "Shipped the guided upload, goal, customize, generate flow, replacing the empty first-session dashboard.",
     },
   ],
 };
@@ -107,6 +107,9 @@ export type FeatureCategory = {
   imageWidth: number;
   imageHeight: number;
   isPlaceholder: boolean;
+  video?: { src: string; width: number; height: number };
+  slides?: { src: string; alt: string }[];
+  isHidden?: boolean;
 };
 
 export const featuresSection = {
@@ -135,11 +138,16 @@ export const featuresSection = {
       ],
       impact:
         "Turned a page that lost most visitors before they saw what Learvo does into one built around getting a busy, skeptical student to the value proposition as fast as possible. Before and after scroll and engagement data to follow.",
-      image: "/images/learvo_hero.png",
+      image: "/images/learvo/learvo_hero.png",
       imageAlt: "Learvo's redesigned landing page, showing the hero section with Lenny, the doodle system, and a live quiz preview",
       imageWidth: 2880,
       imageHeight: 1544,
       isPlaceholder: false,
+      video: {
+        src: "/images/learvo/landing-page-demo.mp4",
+        width: 1196,
+        height: 720,
+      },
     },
     {
       slug: "onboarding-checklist",
@@ -164,11 +172,16 @@ export const featuresSection = {
       ],
       impact:
         "An activation nudge that's designed to lose the argument with itself over time, built to drive early engagement without becoming permanent nagware.",
-      image: "/images/learvo/onboarding-checklist.png",
-      imageAlt: "Learvo onboarding checklist mockup",
-      imageWidth: 1600,
-      imageHeight: 1000,
-      isPlaceholder: true,
+      image: "/images/learvo/onboarding-checklist-1.png",
+      imageAlt: "Learvo onboarding checklist card showing 4 core actions",
+      imageWidth: 1006,
+      imageHeight: 1226,
+      isPlaceholder: false,
+      slides: [
+        { src: "/images/learvo/onboarding-checklist-1.png", alt: "Onboarding checklist, 2 of 4 complete" },
+        { src: "/images/learvo/onboarding-checklist-2.png", alt: "Onboarding checklist collapsed variant" },
+        { src: "/images/learvo/onboarding-checklist-3.png", alt: "Onboarding checklist tablet layout" },
+      ],
     },
     {
       slug: "top-nav",
@@ -178,6 +191,17 @@ export const featuresSection = {
       imageWidth: 2160,
       imageHeight: 480,
       isPlaceholder: false,
+      video: {
+        src: "/images/learvo/top-nav-demo.mp4",
+        width: 1196,
+        height: 720,
+      },
+      slides: [
+        { src: "/images/learvo/top-nav-still-1.png", alt: "Learvo feedback modal" },
+        { src: "/images/learvo/top-nav-still-2.png", alt: "Learvo profile modal with avatar picker" },
+        { src: "/images/learvo/top-nav-still-3.png", alt: "Learvo mobile navigation drawer" },
+        { src: "/images/learvo/top-nav-avatars.png", alt: "Five custom hand-drawn preset avatar options" },
+      ],
       problem:
         "The old nav had no page identity (no titles), the profile used emoji placeholders instead of real avatars, the Pomodoro timer had input and reset bugs, and mobile lacked a sensible place for the timer, feedback, and profile actions.",
       decision:
@@ -222,15 +246,29 @@ export const featuresSection = {
       ],
       impact:
         "Turned a cold, empty dashboard into a guided activation flow that tells the truth about what's happening in the backend. The strongest activation story here, even without funnel numbers yet.",
-      image: "/images/learvo/onboarding-quiz-flow.png",
+      image: "/images/learvo/onboarding-slide-1.png",
       imageAlt: "Learvo guided onboarding quiz flow mockup",
-      imageWidth: 1600,
-      imageHeight: 1000,
-      isPlaceholder: true,
+      imageWidth: 1024,
+      imageHeight: 492,
+      isPlaceholder: false,
+      video: {
+        src: "/images/learvo/onboarding-flow-demo.mp4",
+        width: 1228,
+        height: 720,
+      },
+      slides: [
+        { src: "/images/learvo/onboarding-slide-1.png", alt: "Onboarding step 1: import study materials" },
+        { src: "/images/learvo/onboarding-slide-2.png", alt: "Onboarding step 2: choose a learning goal" },
+        { src: "/images/learvo/onboarding-slide-3.png", alt: "Onboarding step 3: customize study tools" },
+        { src: "/images/learvo/onboarding-slide-4.png", alt: "Onboarding step 4: customize quiz settings" },
+        { src: "/images/learvo/onboarding-slide-5.jpg", alt: "Onboarding step 5: choose a summary type" },
+        { src: "/images/learvo/onboarding-slide-6.png", alt: "Onboarding step 6: generation complete" },
+      ],
     },
     {
       slug: "quiz-card-reorg",
       title: "Quiz Card Reorganization",
+      isHidden: true,
       problem:
         "\"Past Quizzes\" and \"In Progress\" lived in separate tabs, cards used encouragement copy that didn't scale, tier status was implicit in whichever tab you were looking at, and CTA colors and button styles were inconsistent.",
       decision:
@@ -269,6 +307,7 @@ export type BrandElement = {
   imageWidth: number;
   imageHeight: number;
   isPlaceholder: boolean;
+  isHidden?: boolean;
 };
 
 export const brandIdentitySection = {
@@ -288,8 +327,8 @@ export const brandIdentitySection = {
       body: "Lenny is a sprout, a deliberate choice to connote ever-growing progress and tie the mascot directly to the learning theme instead of picking a character with no conceptual link to studying. Lenny carries a motivational-but-calm personality, deliberately not the high-pressure, guilt-driven energy of a Duolingo-style mascot, and shows up on the landing page and throughout onboarding (quiz flow and checklist) as the friendly, reassuring presence at the moments new users are most likely to bounce. Below are the two final renders used across the product.",
       image: "/images/learvo/mascot-lenny.png",
       imageAlt: "Lenny, the Learvo mascot, shown in two final poses",
-      imageWidth: 1396,
-      imageHeight: 1060,
+      imageWidth: 1745,
+      imageHeight: 1325,
       isPlaceholder: false,
     },
     {
@@ -315,6 +354,7 @@ export const brandIdentitySection = {
     {
       slug: "color-palette",
       title: "Color Palette Reinforcement",
+      isHidden: true,
       body: "Learvo's green and blue were already the brand's colors. The work was making sure they actually read as Learvo's colors by applying them consistently across landing and onboarding, rather than letting those first-impression surfaces drift from the rest of the product.",
       image: "/images/learvo/color-palette.png",
       imageAlt: "Learvo color system: ink, primary green, primary blue, and the ambient hero gradient with hex codes",

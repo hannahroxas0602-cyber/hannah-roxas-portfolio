@@ -19,32 +19,34 @@ export type Project = {
   year?: string;
   impactStats?: ImpactStat[];
   gallery?: string[];
+  hideFromHome?: boolean;
 };
 
 export const projects: Project[] = [
   {
-    slug: "continuum",
-    title: "Continuum: Surrogacy Platform",
+    slug: "learvo",
+    title: "Learvo",
     description:
-      "A care-centered platform keeping surrogates, parents, and coordinators in sync after pregnancy confirmation.",
-    tags: ["UX/UI", "Product Strategy"],
+      "Designing for college students turning their own notes into quizzes, flashcards, summaries, and mnemonics, as the only product designer on an ed-tech startup's team.",
+    tags: ["UX/UI", "Product Design"],
     category: "UIUX",
-    href: "/continuum",
-    image: "/images/projects/continuum.png",
-    imageAlt: "Continuum surrogacy platform interface showing coordination dashboard",
-    imageWidth: 1264,
-    imageHeight: 848,
-    imageAspect: "3/2",
-    year: "2026",
+    href: "/learvo",
+    image: "/images/learvo/learvo_hero.png",
+    imageAlt: "Learvo's redesigned landing page and in-app onboarding flow",
+    imageWidth: 2880,
+    imageHeight: 1544,
+    imageAspect: "16/9",
+    year: "2025 to Present",
     impactStats: [
-      { value: "3", label: "stakeholder groups" },
-      { value: "9", label: "months mapped" },
+      { value: "4", label: "features designed and shipped solo" },
+      { value: "5", label: "core pages unified under one nav system" },
     ],
     gallery: [
-      "/images/projects/continuum.png",
-      "/images/continuum/problem-flow.mp4",
-      "/images/continuum/care-coordinator-dashboard-demo.mp4",
-      "/images/continuum/design-system-moodboard.mp4",
+      "/images/learvo/learvo_hero.png",
+      "/images/learvo/landing-page-demo.mp4",
+      "/images/learvo/onboarding-flow-demo.mp4",
+      "/images/learvo/top-nav-demo.mp4",
+      "/images/learvo/mascot-lenny.png",
     ],
   },
   {
@@ -70,6 +72,32 @@ export const projects: Project[] = [
       "/images/good-friends/hero.png",
       "/images/good-friends/customer-service.png",
       "/images/good-friends/product-quality.png",
+    ],
+  },
+  {
+    slug: "continuum",
+    title: "Continuum: Surrogacy Platform",
+    description:
+      "A care-centered platform keeping surrogates, parents, and coordinators in sync after pregnancy confirmation.",
+    tags: ["UX/UI", "Product Strategy"],
+    category: "UIUX",
+    href: "/continuum",
+    image: "/images/projects/continuum.png",
+    imageAlt: "Continuum surrogacy platform interface showing coordination dashboard",
+    imageWidth: 1264,
+    imageHeight: 848,
+    imageAspect: "3/2",
+    year: "2026",
+    hideFromHome: true,
+    impactStats: [
+      { value: "3", label: "stakeholder groups" },
+      { value: "9", label: "months mapped" },
+    ],
+    gallery: [
+      "/images/projects/continuum.png",
+      "/images/continuum/problem-flow.mp4",
+      "/images/continuum/care-coordinator-dashboard-demo.mp4",
+      "/images/continuum/design-system-moodboard.mp4",
     ],
   },
   {

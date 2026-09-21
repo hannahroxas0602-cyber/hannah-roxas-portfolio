@@ -30,7 +30,6 @@ const sections = [
       { id: "onboarding-checklist", title: "Onboarding Checklist" },
       { id: "top-nav", title: "Top Nav" },
       { id: "onboarding-quiz-flow", title: "Onboarding Quiz Flow" },
-      { id: "quiz-card-reorg", title: "Quiz Card Reorganization" },
     ],
   },
   { id: "brand-identity", title: "Brand Identity" },
@@ -188,7 +187,9 @@ export default function LearvoPage() {
           </h2>
 
           <div className="mt-10 space-y-16">
-            {featuresSection.categories.map((cat) => (
+            {featuresSection.categories
+              .filter((cat) => !cat.isHidden)
+              .map((cat) => (
               <div
                 key={cat.slug}
                 id={cat.slug}
@@ -219,22 +220,58 @@ export default function LearvoPage() {
                   ))}
                 </ul>
 
-                <div
-                  className="relative mt-6 w-full overflow-hidden rounded-2xl"
-                  style={{ aspectRatio: `${cat.imageWidth}/${cat.imageHeight}` }}
-                >
-                  {cat.isPlaceholder ? (
-                    <PlaceholderImage label={cat.title} />
-                  ) : (
-                    <Image
-                      src={cat.image}
-                      alt={cat.imageAlt}
-                      fill
-                      className="object-cover"
-                      sizes="(min-width: 1024px) 60vw, 100vw"
+                {cat.video ? (
+                  <div
+                    className="relative mt-6 w-full overflow-hidden rounded-2xl bg-neutral-900"
+                    style={{ aspectRatio: `${cat.video.width}/${cat.video.height}` }}
+                  >
+                    <video
+                      src={cat.video.src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="auto"
+                      className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                     />
-                  )}
-                </div>
+                  </div>
+                ) : (
+                  <div
+                    className="relative mt-6 w-full overflow-hidden rounded-2xl"
+                    style={{ aspectRatio: `${cat.imageWidth}/${cat.imageHeight}` }}
+                  >
+                    {cat.isPlaceholder ? (
+                      <PlaceholderImage label={cat.title} />
+                    ) : (
+                      <Image
+                        src={cat.image}
+                        alt={cat.imageAlt}
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 1024px) 60vw, 100vw"
+                      />
+                    )}
+                  </div>
+                )}
+
+                {cat.slides && (
+                  <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                    {cat.slides.map((slide) => (
+                      <div
+                        key={slide.src}
+                        className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-black/[0.06]"
+                      >
+                        <Image
+                          src={slide.src}
+                          alt={slide.alt}
+                          fill
+                          className="object-cover"
+                          sizes="(min-width: 640px) 33vw, 100vw"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 <p className="mt-6 max-w-2xl rounded-2xl border border-black/[0.06] bg-neutral-50 p-5 text-base leading-relaxed text-neutral-700">
                   <span className="font-semibold text-neutral-900">Impact: </span>
@@ -307,7 +344,7 @@ export default function LearvoPage() {
           </div>
 
           {brandIdentitySection.elements
-            .filter((el) => el.slug === "mascot-process" || el.slug === "color-palette")
+            .filter((el) => (el.slug === "mascot-process" || el.slug === "color-palette") && !el.isHidden)
             .map((el) => (
               <div key={el.slug} id={el.slug} className="mt-10 scroll-mt-28">
                 <div

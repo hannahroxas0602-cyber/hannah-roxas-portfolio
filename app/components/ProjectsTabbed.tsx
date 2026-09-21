@@ -167,7 +167,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
 
 export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
   const [activeTab, setActiveTab] = useState<Tab["key"]>("UIUX");
-  const visibleProjects = projects.filter((p) => p.category === activeTab);
+  const visibleProjects = projects.filter((p) => p.category === activeTab && !p.hideFromHome);
 
   return (
     <section id={id} className="mx-auto max-w-7xl px-6 pt-12 pb-16 sm:px-10 sm:pt-14 sm:pb-24">
