@@ -82,7 +82,7 @@ export const roleAndImpact = {
   columns: [
     {
       label: "Problem",
-      body: "New users signed up and landed on an empty dashboard with nothing to do, and referral tracking broke mid-flight because signup redirected before it could settle. Returning users hit an inconsistent nav, an implicit and sometimes inaccessible quiz status system, and a broken Pomodoro timer.",
+      body: "Learvo's real competition isn't other study apps, it's chatbots: fast answers with no guarantee they're accurate. The product bet is that a student's own class notes, not AI-generated guesses, are the more trustworthy source, and the design problem was making that trade feel just as fast. On top of that, new users landed on an empty dashboard with nothing to do, and returning users hit an inconsistent nav and a quiz status system that was often invisible.",
     },
     {
       label: "Solution",
@@ -199,7 +199,6 @@ export const featuresSection = {
       slides: [
         { src: "/images/learvo/top-nav-still-1.png", alt: "Learvo feedback modal", width: 2832, height: 1372 },
         { src: "/images/learvo/top-nav-still-2.png", alt: "Learvo profile modal with avatar picker", width: 2830, height: 1362 },
-        { src: "/images/learvo/top-nav-still-3.png", alt: "Learvo mobile navigation drawer", width: 988, height: 1368 },
         { src: "/images/learvo/top-nav-avatars.png", alt: "Five custom hand-drawn preset avatar options", width: 2160, height: 480 },
       ],
       problem:

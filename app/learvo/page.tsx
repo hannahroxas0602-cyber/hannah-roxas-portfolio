@@ -256,21 +256,26 @@ export default function LearvoPage() {
 
                 {cat.slides && (
                   <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    {cat.slides.map((slide) => (
-                      <div
-                        key={slide.src}
-                        className="relative w-full overflow-hidden rounded-xl border border-black/[0.06] bg-neutral-50"
-                        style={{ aspectRatio: `${slide.width}/${slide.height}` }}
-                      >
-                        <Image
-                          src={slide.src}
-                          alt={slide.alt}
-                          fill
-                          className="object-contain"
-                          sizes="(min-width: 640px) 45vw, 100vw"
-                        />
-                      </div>
-                    ))}
+                    {cat.slides.map((slide) => {
+                      const isWide = slide.width / slide.height >= 3;
+                      return (
+                        <div
+                          key={slide.src}
+                          className={`relative w-full overflow-hidden rounded-xl border border-black/[0.06] bg-neutral-50 ${
+                            isWide ? "sm:col-span-2" : ""
+                          }`}
+                          style={{ aspectRatio: `${slide.width}/${slide.height}` }}
+                        >
+                          <Image
+                            src={slide.src}
+                            alt={slide.alt}
+                            fill
+                            className="object-contain"
+                            sizes={isWide ? "100vw" : "(min-width: 640px) 45vw, 100vw"}
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
 
@@ -315,9 +320,9 @@ export default function LearvoPage() {
             </p>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2">
+          <div className="mt-10 space-y-10">
             {brandIdentitySection.elements
-              .filter((el) => el.slug === "mascot" || el.slug === "doodles")
+              .filter((el) => !el.isHidden)
               .map((el) => (
                 <div key={el.slug} id={el.slug} className="scroll-mt-28">
                   <div
@@ -332,44 +337,17 @@ export default function LearvoPage() {
                         alt={el.imageAlt}
                         fill
                         className="object-cover"
-                        sizes="(min-width: 640px) 50vw, 100vw"
+                        sizes="100vw"
                       />
                     )}
                   </div>
                   <h3 className="mt-4 font-[family-name:var(--font-manrope)] text-lg font-semibold text-neutral-900">
                     {el.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-neutral-700">{el.body}</p>
+                  <p className="mt-2 max-w-2xl text-sm leading-relaxed text-neutral-700">{el.body}</p>
                 </div>
               ))}
           </div>
-
-          {brandIdentitySection.elements
-            .filter((el) => (el.slug === "mascot-process" || el.slug === "color-palette") && !el.isHidden)
-            .map((el) => (
-              <div key={el.slug} id={el.slug} className="mt-10 scroll-mt-28">
-                <div
-                  className="relative w-full overflow-hidden rounded-2xl"
-                  style={{ aspectRatio: `${el.imageWidth}/${el.imageHeight}` }}
-                >
-                  {el.isPlaceholder ? (
-                    <PlaceholderImage label={el.title} />
-                  ) : (
-                    <Image
-                      src={el.image}
-                      alt={el.imageAlt}
-                      fill
-                      className="object-cover"
-                      sizes="100vw"
-                    />
-                  )}
-                </div>
-                <h3 className="mt-4 font-[family-name:var(--font-manrope)] text-lg font-semibold text-neutral-900">
-                  {el.title}
-                </h3>
-                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-neutral-700">{el.body}</p>
-              </div>
-            ))}
 
           <p className="mt-10 max-w-2xl rounded-2xl border border-black/[0.06] bg-neutral-50 p-5 text-base leading-relaxed text-neutral-700">
             <span className="font-semibold text-neutral-900">Impact: </span>
