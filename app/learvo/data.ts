@@ -1,10 +1,10 @@
 export const learvoHero = {
   title: "Learvo",
   subtitle:
-    "Designing for college students turning their own notes into quizzes, flashcards, summaries, and mnemonics, as the only product designer on an ed-tech startup's team.",
+    "The only product designer at an ed-tech startup turning student notes into quizzes, flashcards, summaries, and mnemonics.",
   gist: {
     label: "The Gist:",
-    text: "New users landed on an empty dashboard with nothing to do. Returning users hit an inconsistent nav and a quiz review screen with no real signal in it. I redesigned both, then shipped the code myself.",
+    text: "New users landed on an empty dashboard. Returning users hit an inconsistent nav and a quiz screen with no real signal. I redesigned both and shipped the code myself.",
   },
   date: "Oct 2025 to Present (Sep 2026) · Product Design Intern",
   meta: [
@@ -90,7 +90,7 @@ export const roleAndImpact = {
     },
     {
       label: "Impact",
-      body: "As the only designer on the team, I didn't just design these flows, I shipped the code myself, which meant every design decision also had to survive contact with a real, actively changing codebase. That also meant learning to move at startup speed: getting comfortable with Git and opening pull requests across both frontend and backend, and working directly with engineers instead of handing off static designs, to keep up with a fast-moving, ship-often environment.",
+      body: "As the only designer, I shipped the code myself, so every decision had to survive a real, changing codebase. I learned Git and opened pull requests across frontend and backend, working directly with engineers instead of handing off static designs.",
     },
   ],
 };
@@ -108,7 +108,7 @@ export type FeatureCategory = {
   imageHeight: number;
   isPlaceholder: boolean;
   video?: { src: string; width: number; height: number };
-  slides?: { src: string; alt: string }[];
+  slides?: { src: string; alt: string; width: number; height: number }[];
   isHidden?: boolean;
 };
 
@@ -119,25 +119,25 @@ export const featuresSection = {
       slug: "landing-page",
       title: "Landing Page Redesign",
       problem:
-        "The old landing page tested badly on both ends. Qualitatively, it read as a generic, gradient-heavy \"startup website\" with no real color or brand identity: no mascot, no doodles, nothing that spoke to college students specifically. Quantitatively, analytics showed a high percentage of visitors never scrolled through the full page, so the product's actual value never reached them.",
+        "The old page read as a generic, gradient-heavy \"startup website\" with no color, mascot, or brand identity. Analytics showed most visitors never scrolled past the fold, so the product's value never reached them.",
       decision:
-        "Learvo's users are college students deciding, in seconds, whether a study tool is worth their time, usually while stressed, procrastinating, or between classes. I led with speed and effort reduction over a feature list. The core promise is turning whatever notes you already have into a quiz, flashcard deck, summary, or mnemonic set almost instantly, and the whole page was restructured around getting a scrolling, skeptical student to that promise instead of past it.",
+        "College students decide in seconds whether a study tool is worth their time, usually while stressed or between classes. I led with speed over a feature list and restructured the page around one promise: turn your notes into a quiz or flashcard deck almost instantly.",
       supportingPoints: [
         {
-          label: "Color and brand identity replaced generic gradients:",
-          body: "Rebuilt the page around Learvo's green and blue palette, Lenny, and the doodle system so it reads as a product for college students, not an interchangeable SaaS template.",
+          label: "Brand identity replaced generic gradients:",
+          body: "Rebuilt the page around Learvo's palette, Lenny, and the doodle system so it reads as built for college students, not a generic SaaS template.",
         },
         {
-          label: "Copy rewritten around a real student pain point:",
-          body: "Reframed messaging around not spending money and not losing study time, instead of generic productivity language that could apply to any audience.",
+          label: "Copy rewritten around a real pain point:",
+          body: "Reframed messaging around not spending money and not losing study time, instead of generic productivity language.",
         },
         {
-          label: "Structured navigation instead of a hope-they-scroll page:",
-          body: "Added a hero CTA into the product-value section, a second CTA down to the FAQ, and a sticky top nav with its own CTA, so a user can reach value or answers from anywhere on the page without scrolling back to the top.",
+          label: "Structured navigation, not a hope-they-scroll page:",
+          body: "Added a hero CTA to the value section, a second CTA to the FAQ, and a sticky nav CTA, so value is reachable from anywhere on the page.",
         },
       ],
       impact:
-        "Turned a page that lost most visitors before they saw what Learvo does into one built around getting a busy, skeptical student to the value proposition as fast as possible. Before and after scroll and engagement data to follow.",
+        "Rebuilt the page around getting a busy, skeptical student to the value proposition fast. Before/after scroll and engagement data to follow.",
       image: "/images/learvo/learvo_hero.png",
       imageAlt: "Learvo's redesigned landing page, showing the hero section with Lenny, the doodle system, and a live quiz preview",
       imageWidth: 2880,
@@ -153,34 +153,34 @@ export const featuresSection = {
       slug: "onboarding-checklist",
       title: "Onboarding Checklist",
       problem:
-        "Separate from the quiz flow, users needed a persistent nudge to actually complete the 4 core actions (upload notes, take a quiz, make a flashcard deck, generate an AI summary) rather than a one-time push at signup.",
+        "Users needed a persistent nudge to complete 4 core actions (upload, quiz, flashcards, summary), not just a one-time push at signup.",
       decision:
-        "A checklist that never goes away is a nag, not a nudge. I designed decay into it on purpose. It's visible for a user's first 4 visits, then disappears for good on visit 5, whether or not they finished it. Growth wanted persistence. I traded some short-term completion pressure for not annoying the users who've already moved past onboarding.",
+        "A checklist that never goes away is a nag, not a nudge. I built in decay on purpose: visible for a user's first 4 visits, gone for good on visit 5. Growth wanted persistence; I traded some completion pressure for not annoying users who'd already moved on.",
       supportingPoints: [
         {
           label: "Two dismiss states, not one:",
-          body: "The X button dismisses for the current session only and returns next session. It's only gone for good after visit 5, so an accidental close doesn't cost a user the nudge entirely.",
+          body: "The X dismisses for the current session and returns next time. It's only gone for good after visit 5, so an accidental close doesn't cost the nudge entirely.",
         },
         {
           label: "Cross-page completion tracking:",
-          body: "Progress persists as users move between pages via a shared onboardingCelebration util and store, instead of resetting per page.",
+          body: "Progress persists across pages via a shared store, instead of resetting per page.",
         },
         {
           label: "Collapsed variant for tablet:",
-          body: "A waving-hand icon with a notification badge, so the nudge survives on smaller viewports without eating layout space.",
+          body: "A waving-hand icon with a notification badge keeps the nudge alive on smaller viewports without eating layout space.",
         },
       ],
       impact:
-        "An activation nudge that's designed to lose the argument with itself over time, built to drive early engagement without becoming permanent nagware.",
+        "An activation nudge built to lose the argument with itself over time, driving early engagement without becoming permanent nagware.",
       image: "/images/learvo/onboarding-checklist-1.png",
       imageAlt: "Learvo onboarding checklist card showing 4 core actions",
       imageWidth: 1006,
       imageHeight: 1226,
       isPlaceholder: false,
       slides: [
-        { src: "/images/learvo/onboarding-checklist-1.png", alt: "Onboarding checklist, 2 of 4 complete" },
-        { src: "/images/learvo/onboarding-checklist-2.png", alt: "Onboarding checklist collapsed variant" },
-        { src: "/images/learvo/onboarding-checklist-3.png", alt: "Onboarding checklist tablet layout" },
+        { src: "/images/learvo/onboarding-checklist-1.png", alt: "Onboarding checklist, 2 of 4 complete", width: 1006, height: 1226 },
+        { src: "/images/learvo/onboarding-checklist-2.png", alt: "Onboarding checklist collapsed variant", width: 1256, height: 1216 },
+        { src: "/images/learvo/onboarding-checklist-3.png", alt: "Onboarding checklist tablet layout", width: 1870, height: 1366 },
       ],
     },
     {
@@ -197,19 +197,19 @@ export const featuresSection = {
         height: 720,
       },
       slides: [
-        { src: "/images/learvo/top-nav-still-1.png", alt: "Learvo feedback modal" },
-        { src: "/images/learvo/top-nav-still-2.png", alt: "Learvo profile modal with avatar picker" },
-        { src: "/images/learvo/top-nav-still-3.png", alt: "Learvo mobile navigation drawer" },
-        { src: "/images/learvo/top-nav-avatars.png", alt: "Five custom hand-drawn preset avatar options" },
+        { src: "/images/learvo/top-nav-still-1.png", alt: "Learvo feedback modal", width: 2832, height: 1372 },
+        { src: "/images/learvo/top-nav-still-2.png", alt: "Learvo profile modal with avatar picker", width: 2830, height: 1362 },
+        { src: "/images/learvo/top-nav-still-3.png", alt: "Learvo mobile navigation drawer", width: 988, height: 1368 },
+        { src: "/images/learvo/top-nav-avatars.png", alt: "Five custom hand-drawn preset avatar options", width: 2160, height: 480 },
       ],
       problem:
-        "The old nav had no page identity (no titles), the profile used emoji placeholders instead of real avatars, the Pomodoro timer had input and reset bugs, and mobile lacked a sensible place for the timer, feedback, and profile actions.",
+        "The old nav had no page identity, emoji placeholders instead of real avatars, a buggy Pomodoro timer, and no sensible mobile layout for timer, feedback, and profile actions.",
       decision:
-        "This wasn't just a nav redesign, it was a scope call under pressure. The branch had diverged 121 commits from main by the time it was ready, with other teams shipping global search, an ambassador program, and a quiz tutorial in that same window. I rebased and resolved every conflict by hand rather than asking for a freeze, because blocking three other in-flight features to land one nav redesign wasn't a fair trade.",
+        "This was a scope call under pressure, not just a nav redesign. The branch had diverged 121 commits from main while other teams shipped global search, an ambassador program, and a quiz tutorial in the same window. I rebased by hand rather than ask for a freeze, since blocking three features to land one redesign wasn't a fair trade.",
       supportingPoints: [
         {
           label: "One nav system, 5 pages:",
-          body: "Flashcards, Library, Quizzes, Summaries, and Generator each get a page title and a per-page action slot (e.g. \"Create Quiz\", \"New Deck\") instead of a generic shared header.",
+          body: "Flashcards, Library, Quizzes, Summaries, and Generator each get a page title and a per-page action slot instead of a generic shared header.",
         },
         {
           label: "Real avatars, not emoji:",
@@ -217,35 +217,35 @@ export const featuresSection = {
         },
         {
           label: "Mobile got its own layout, not a squeeze:",
-          body: "Feedback icon replaces the timer in the top bar on mobile. The timer moves to a bottom drawer, and the profile modal becomes a keyboard-aware bottom drawer instead of a cramped popover.",
+          body: "A feedback icon replaces the timer in the mobile top bar; the timer moves to a bottom drawer, and profile becomes a keyboard-aware drawer instead of a cramped popover.",
         },
       ],
       impact:
-        "A consistent nav system that shipped without blocking or regressing three other features landing in the same window. As much an integration problem as a design one.",
+        "A consistent nav that shipped without blocking or regressing three other features landing in the same window, as much an integration problem as a design one.",
     },
     {
       slug: "onboarding-quiz-flow",
       title: "Onboarding Quiz Flow",
       problem:
-        "New users signing up via Google or Apple landed cold on an empty dashboard with nothing to do. Referral tracking was also getting killed mid-flight because signup redirected immediately instead of waiting for it to settle.",
+        "New users landed cold on an empty dashboard after signup. Referral tracking also broke mid-flight because signup redirected before it could settle.",
       decision:
-        "The easy fix here would have been a fake progress bar that just counts up to 100%. I designed against that. The generation screen shows the real backend phase the request is in, and if nothing moves for 25 seconds, it says so instead of letting the user stare at a stalled number wondering if it's broken.",
+        "The easy fix was a fake progress bar counting to 100%. I designed against that: the generation screen shows the real backend phase, and if nothing moves for 25 seconds, it says so instead of leaving the user guessing.",
       supportingPoints: [
         {
           label: "Guided first session:",
-          body: "Upload, then goal selection, then quiz/summary/flashcard customization, then generation, replacing the bare dashboard new users used to land on.",
+          body: "Upload, goal selection, customization, then generation, replacing the bare dashboard new users used to land on.",
         },
         {
           label: "Failure handling that doesn't dead-end:",
-          body: "Generation failures surface a \"Try again\" button and toast/auto-redirect instead of an error banner with no way forward.",
+          body: "Generation failures surface a \"Try again\" button and auto-redirect instead of an error banner with no way forward.",
         },
         {
           label: "Fixed the state underneath the UI:",
-          body: "Gated the quiz behind actual fresh signup (was firing on stale sessions), routed OAuth signups into onboarding with test coverage, and scoped onboarding state per-user so it can't leak across accounts on a shared browser.",
+          body: "Gated the quiz behind actual fresh signup (was firing on stale sessions), routed OAuth signups into onboarding, and scoped state per-user so it can't leak on a shared browser.",
         },
       ],
       impact:
-        "Turned a cold, empty dashboard into a guided activation flow that tells the truth about what's happening in the backend. The strongest activation story here, even without funnel numbers yet.",
+        "Turned a cold, empty dashboard into a guided activation flow that tells the truth about the backend, the strongest activation story here even without funnel numbers yet.",
       image: "/images/learvo/onboarding-slide-1.png",
       imageAlt: "Learvo guided onboarding quiz flow mockup",
       imageWidth: 1024,
@@ -257,12 +257,12 @@ export const featuresSection = {
         height: 720,
       },
       slides: [
-        { src: "/images/learvo/onboarding-slide-1.png", alt: "Onboarding step 1: import study materials" },
-        { src: "/images/learvo/onboarding-slide-2.png", alt: "Onboarding step 2: choose a learning goal" },
-        { src: "/images/learvo/onboarding-slide-3.png", alt: "Onboarding step 3: customize study tools" },
-        { src: "/images/learvo/onboarding-slide-4.png", alt: "Onboarding step 4: customize quiz settings" },
-        { src: "/images/learvo/onboarding-slide-5.jpg", alt: "Onboarding step 5: choose a summary type" },
-        { src: "/images/learvo/onboarding-slide-6.png", alt: "Onboarding step 6: generation complete" },
+        { src: "/images/learvo/onboarding-slide-1.png", alt: "Onboarding step 1: import study materials", width: 1024, height: 492 },
+        { src: "/images/learvo/onboarding-slide-2.png", alt: "Onboarding step 2: choose a learning goal", width: 1023, height: 494 },
+        { src: "/images/learvo/onboarding-slide-3.png", alt: "Onboarding step 3: customize study tools", width: 1024, height: 492 },
+        { src: "/images/learvo/onboarding-slide-4.png", alt: "Onboarding step 4: customize quiz settings", width: 1024, height: 510 },
+        { src: "/images/learvo/onboarding-slide-5.jpg", alt: "Onboarding step 5: choose a summary type", width: 2468, height: 1294 },
+        { src: "/images/learvo/onboarding-slide-6.png", alt: "Onboarding step 6: generation complete", width: 1024, height: 545 },
       ],
     },
     {
@@ -313,9 +313,9 @@ export type BrandElement = {
 export const brandIdentitySection = {
   heading: "Brand Identity",
   problem:
-    "Learvo's green and blue palette already existed, but it wasn't showing up consistently at the moments that actually form a first impression. The landing page and onboarding felt disconnected from the rest of the product, so the colors weren't doing the job of making Learvo recognizable.",
+    "Learvo's green and blue palette already existed, but wasn't showing up consistently where it mattered most: the landing page and onboarding felt disconnected from the rest of the product.",
   decision:
-    "Rather than introduce a new palette, I reinforced the existing one at the touchpoints that matter most for recognition (landing page, onboarding quiz, onboarding checklist) and designed a mascot and doodle system to carry that identity through, instead of treating brand as a logo-only concern.",
+    "Rather than introduce a new palette, I reinforced the existing one at the highest-visibility touchpoints and designed a mascot and doodle system to carry that identity through, instead of treating brand as a logo-only concern.",
   liveLink: {
     label: "View the live landing page",
     href: "https://learvo.com/",
@@ -324,7 +324,7 @@ export const brandIdentitySection = {
     {
       slug: "mascot",
       title: "Lenny, the Study Buddy",
-      body: "Lenny is a sprout, a deliberate choice to connote ever-growing progress and tie the mascot directly to the learning theme instead of picking a character with no conceptual link to studying. Lenny carries a motivational-but-calm personality, deliberately not the high-pressure, guilt-driven energy of a Duolingo-style mascot, and shows up on the landing page and throughout onboarding (quiz flow and checklist) as the friendly, reassuring presence at the moments new users are most likely to bounce. Below are the two final renders used across the product.",
+      body: "Lenny is a sprout, tying the mascot directly to the learning theme of ever-growing progress. The personality is motivational but calm, deliberately not the high-pressure energy of a Duolingo-style mascot, showing up at the exact moments new users are most likely to bounce.",
       image: "/images/learvo/mascot-lenny.png",
       imageAlt: "Lenny, the Learvo mascot, shown in two final poses",
       imageWidth: 1745,
@@ -344,7 +344,7 @@ export const brandIdentitySection = {
     {
       slug: "doodles",
       title: "Doodle System",
-      body: "A playful, friendly hand-drawn doodle style used across the same first-impression touchpoints as Lenny, plus a set of preset doodle avatars for profile customization, extending the same warmth into a functional UI element instead of confining it to marketing surfaces.",
+      body: "A playful, hand-drawn doodle style used across the same first-impression touchpoints as Lenny, plus preset doodle avatars for profile customization, extending that warmth into a functional UI element.",
       image: "/images/learvo/doodle-system.png",
       imageAlt: "A selection of Learvo's hand-drawn doodle illustrations",
       imageWidth: 1100,
@@ -364,7 +364,7 @@ export const brandIdentitySection = {
     },
   ] satisfies BrandElement[],
   impact:
-    "A consistent visual identity at the exact moments a new user forms their first impression of Learvo, turning an already-correct palette into one that's actually recognizable.",
+    "A consistent visual identity at the exact moments a new user forms their first impression, turning an already-correct palette into one that's actually recognizable.",
 };
 
 export const nextStepsSection = {

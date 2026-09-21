@@ -255,18 +255,19 @@ export default function LearvoPage() {
                 )}
 
                 {cat.slides && (
-                  <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                     {cat.slides.map((slide) => (
                       <div
                         key={slide.src}
-                        className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-black/[0.06]"
+                        className="relative w-full overflow-hidden rounded-xl border border-black/[0.06] bg-neutral-50"
+                        style={{ aspectRatio: `${slide.width}/${slide.height}` }}
                       >
                         <Image
                           src={slide.src}
                           alt={slide.alt}
                           fill
-                          className="object-cover"
-                          sizes="(min-width: 640px) 33vw, 100vw"
+                          className="object-contain"
+                          sizes="(min-width: 640px) 45vw, 100vw"
                         />
                       </div>
                     ))}
