@@ -31,7 +31,7 @@ export const projects: Project[] = [
     tags: ["UX/UI", "Product Design"],
     category: "UIUX",
     href: "/learvo",
-    image: "/images/learvo_thumb.png",
+    image: "/images/learvo_thumb1.png",
     imageAlt: "Learvo's redesigned landing page shown on a laptop screen",
     imageWidth: 1000,
     imageHeight: 1000,
@@ -42,7 +42,7 @@ export const projects: Project[] = [
       { value: "5", label: "core pages unified under one nav system" },
     ],
     gallery: [
-      "/images/learvo_thumb.png",
+      "/images/learvo_thumb1.png",
       "/images/learvo/landing-page-demo.mp4",
       "/images/learvo/onboarding-flow-demo.mp4",
       "/images/learvo/top-nav-demo.mp4",
