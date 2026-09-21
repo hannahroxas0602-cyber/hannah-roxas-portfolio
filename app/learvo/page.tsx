@@ -15,6 +15,7 @@ import {
   brandIdentitySection,
   nextStepsSection,
   nextProject,
+  type FeatureCategory,
 } from "@/app/learvo/data";
 
 const sections = [
@@ -187,9 +188,11 @@ export default function LearvoPage() {
           </h2>
 
           <div className="mt-10 space-y-16">
-            {featuresSection.categories
+            {(featuresSection.categories as FeatureCategory[])
               .filter((cat) => !cat.isHidden)
-              .map((cat) => (
+              .map((cat) => {
+                const showBigImage = !cat.video && !cat.slides;
+                return (
               <div
                 key={cat.slug}
                 id={cat.slug}
@@ -235,7 +238,7 @@ export default function LearvoPage() {
                       className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                     />
                   </div>
-                ) : (
+                ) : showBigImage ? (
                   <div
                     className="relative mt-6 w-full overflow-hidden rounded-2xl"
                     style={{ aspectRatio: `${cat.imageWidth}/${cat.imageHeight}` }}
@@ -252,7 +255,7 @@ export default function LearvoPage() {
                       />
                     )}
                   </div>
-                )}
+                ) : null}
 
                 {cat.slides && (
                   <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -296,7 +299,8 @@ export default function LearvoPage() {
                   </Link>
                 )}
               </div>
-            ))}
+                );
+              })}
           </div>
         </section>
 
