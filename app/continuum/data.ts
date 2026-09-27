@@ -61,7 +61,7 @@ export const timelineSection = {
       endWeek: 10,
     },
     {
-      label: "Independent design · Spring 2025",
+      label: "Solo design · Spring 2025",
       colorClass: "bg-neutral-600",
       startWeek: 10,
       endWeek: 14,
@@ -86,7 +86,7 @@ export const timelineSection = {
     },
     {
       title: "Progressive disclosure",
-      band: "Independent design · Spring 2025",
+      band: "Solo design · Spring 2025",
       startWeek: 10,
       endWeek: 14,
       row: 0,
@@ -95,7 +95,7 @@ export const timelineSection = {
     },
     {
       title: "Timeline-first communication",
-      band: "Independent design · Spring 2025",
+      band: "Solo design · Spring 2025",
       startWeek: 10,
       endWeek: 14,
       row: 1,
@@ -104,7 +104,7 @@ export const timelineSection = {
     },
     {
       title: "Design system draft",
-      band: "Independent design · Spring 2025",
+      band: "Solo design · Spring 2025",
       startWeek: 10,
       endWeek: 14,
       row: 2,
@@ -113,7 +113,7 @@ export const timelineSection = {
     },
     {
       title: "Frictionless check-ins",
-      band: "Independent design · Spring 2025",
+      band: "Solo design · Spring 2025",
       startWeek: 10,
       endWeek: 14,
       row: 3,
@@ -147,7 +147,7 @@ export const problemSection = {
   flow: "[Onboarding: High Support] ---> [Confirmation] ---> [The Drop-Off: Chaos & Isolation]",
   paragraphs: [
     "Through our team's stakeholder interviews, we found a major gap: Support fades the moment pregnancy is confirmed exactly when emotional labor and uncertainty spike.",
-    "The sub-problem I led, Hospital Systems Don't Understand Surrogacy, found that hospital staff often aren't trained to support surrogacy, so surrogates are misrecognized and intended parents miss critical updates and bonding moments.",
+    "I led the 'Hospital Systems Don't Understand Surrogacy' sub-problem: hospital staff often aren't trained for surrogacy, so surrogates get misrecognized and intended parents miss critical updates and bonding moments.",
     "The answer wasn't a better administration tool. It was a care system that sustained trust over nine months.",
   ],
   image: "/images/continuum/problem-flow.mp4",
