@@ -1,12 +1,12 @@
 export const goodHero = {
   title: "Good Friends",
   subtitle:
-    "Redesigning the fast-casual dining experience to eliminate customer friction and peak-hour staff burnout.",
+    "A course concept redesigning the fast-casual dining experience to reduce customer friction and peak-hour staff burnout.",
   gist: {
     label: "The Gist:",
     text: "Good Friends makes great poke, but their physical layout & text-heavy menus left first-time customers frozen at the door, constantly repeating instructions.",
   },
-  date: "Jan 2025 (Course Project)",
+  date: "Jan 2025 · Course concept",
   meta: [
     { label: "COURSE", value: "MGT 140-Marketing for Tech-Based Enterprise" },
     { label: "ROLE", value: "Designer and Researcher" },
@@ -32,11 +32,11 @@ export const highlightsSection = {
   },
   outcomes: [
     "Step-by-step visual menu with clear portion and price breakdowns",
-    "Automated table assignment removes manual register bottlenecks",
-    "Loyalty program turns first-time visits into repeat traffic",
+    "Proposed automated table assignment to ease register bottlenecks",
+    "Loyalty program designed to turn first-time visits into repeat traffic",
   ],
   stats: [
-    { value: "4", label: "design solution categories shipped" },
+    { value: "4", label: "design solution categories proposed" },
     { value: "32", label: "in-store research photos analyzed" },
   ],
   callout: "Less hesitation, more confidence at the door.",
@@ -115,8 +115,8 @@ export const roleAndImpact = {
       body: "A cohesive service design system pairing clear in-store wayfinding with a step-by-step digital ordering menu, automated table routing, and an integrated loyalty flow.",
     },
     {
-      label: "Impact",
-      body: "Redesigned the entire customer journey to turn physical friction into smooth, intuitive brand interactions that free up staff to focus on food quality.",
+      label: "Intended Impact",
+      body: "Proposed a redesigned customer journey intended to turn physical friction into clear, intuitive brand interactions, so staff can spend less time directing traffic and more on food quality.",
     },
   ],
 };
@@ -284,15 +284,15 @@ export const designDecisions = {
   needs: [
     {
       label: "Customers (Need: Clarity & Calm):",
-      body: "Served by step-by-step visual menu flows, clear portion illustrations, and automated table assignments.",
+      body: "Addressed with step-by-step visual menu flows, clear portion illustrations, and automated table assignments.",
     },
     {
       label: "Staff (Need: Efficiency & Flow):",
-      body: "Served by a pre-order mobile queue and automated ticket routing that completely remove register bottlenecks.",
+      body: "Addressed with a proposed pre-order mobile queue and automated ticket routing, designed to reduce register bottlenecks.",
     },
   ],
   bridgeIntro:
-    "A great digital interface is useless if the physical space contradicts it. The updated system bridges both:",
+    "A great digital interface is useless if the physical space contradicts it. The proposed system bridges both:",
   touchpointsHeading: "Tangible Touchpoints",
   touchpoints: [
     {
@@ -333,7 +333,7 @@ export const nextStepsSection = {
     },
     {
       title: "Track Store Analytics:",
-      body: "Measure order-to-table turnaround times during peak 12:00 PM to 1:30 PM lunch rushes to prove the operational ROI.",
+      body: "Measure order-to-table turnaround times during peak 12:00 PM to 1:30 PM lunch rushes to measure whether the redesign improves throughput.",
     },
   ],
 };

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
+import { projectDescription } from "@/app/data/projects";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
@@ -6,10 +8,11 @@ import Footer from "@/app/components/Footer";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
 import { boilerRoomHero, gallery, nextProject } from "@/app/boiler-room-cd/data";
 
-export const metadata: Metadata = {
-  title: "Boiler Room Tokyo CD | Hannah Roxas",
-  description: boilerRoomHero.narrative,
-};
+export const metadata: Metadata = pageMetadata({
+  title: caseStudyTitle("Boiler Room Tokyo CD"),
+  description: projectDescription("boiler-room-cd"),
+  path: "/boiler-room-cd",
+});
 
 export default function BoilerRoomCdPage() {
   return (

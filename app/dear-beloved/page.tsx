@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
+import { projectDescription } from "@/app/data/projects";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
@@ -7,10 +9,11 @@ import NextProjectPreview from "@/app/components/NextProjectPreview";
 import ImageSlideshow from "@/app/components/ImageSlideshow";
 import { dearBelovedHero, highlights, nextProject } from "@/app/dear-beloved/data";
 
-export const metadata: Metadata = {
-  title: "Dear Beloved | Hannah Roxas",
-  description: dearBelovedHero.narrative,
-};
+export const metadata: Metadata = pageMetadata({
+  title: caseStudyTitle("Dear Beloved"),
+  description: projectDescription("dear-beloved"),
+  path: "/dear-beloved",
+});
 
 export default function DearBelovedPage() {
   return (

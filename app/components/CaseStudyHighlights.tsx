@@ -133,7 +133,11 @@ export default function CaseStudyHighlights({
       )}
 
       {/* Outcome cards — numbered, bordered, equal visual weight to the mockup above */}
-      <div className={`grid grid-cols-1 gap-3 sm:grid-cols-3 ${mockup ? "mt-6" : "mt-16 sm:mt-20"}`}>
+      <div
+        className={`grid grid-cols-1 gap-3 ${
+          outcomes.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"
+        } ${mockup ? "mt-6" : "mt-16 sm:mt-20"}`}
+      >
         {outcomes.map((outcome, i) => (
           <div
             key={i}

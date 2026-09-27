@@ -171,7 +171,7 @@ export default function AboutPanel({ width }: { width: number }) {
                   Experience
                 </p>
                 <a
-                  href="/Hannah%20Roxas%20Resume.pdf"
+                  href={social.resume}
                   target="_blank"
                   rel="noopener noreferrer"
                   data-cursor="View resume"

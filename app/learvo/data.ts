@@ -137,7 +137,7 @@ export const featuresSection = {
         },
       ],
       impact:
-        "Rebuilt the page around getting a busy, skeptical student to the value proposition fast. Before/after scroll and engagement data to follow.",
+        "Rebuilt the page around getting a busy, skeptical student to the value proposition fast.",
       image: "/images/learvo/learvo_hero.png",
       imageAlt: "Learvo's redesigned landing page, showing the hero section with Lenny, the doodle system, and a live quiz preview",
       imageWidth: 2880,

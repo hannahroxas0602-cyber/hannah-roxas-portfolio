@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
@@ -37,10 +38,11 @@ const sections = [
   { id: "next-steps", title: "What's Next" },
 ];
 
-export const metadata: Metadata = {
-  title: "Learvo | Hannah Roxas",
+export const metadata: Metadata = pageMetadata({
+  title: caseStudyTitle("Learvo"),
   description: learvoHero.subtitle,
-};
+  path: "/learvo",
+});
 
 function PlaceholderImage({ label }: { label: string }) {
   return (

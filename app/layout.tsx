@@ -5,6 +5,7 @@ import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
 import { AboutPanelProvider } from "@/app/components/AboutPanelContext";
 import AppShell from "@/app/components/AppShell";
+import { pageMetadata, siteDescription, siteName, siteUrl } from "@/app/data/seo";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -24,15 +25,9 @@ const interLabel = Inter({
   weight: ["500", "600"],
 });
 
-const siteTitle = "Hannah Roxas | Portfolio";
-const siteDescription =
-  "Hannah Roxas is a UX and visual designer who designs connected digital systems that reward curiosity.";
-const siteUrl = "https://www.hannahroxas.com";
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: siteTitle,
-  description: siteDescription,
+  ...pageMetadata({ title: siteName, description: siteDescription, path: "/" }),
   icons: {
     icon: [
       {
@@ -44,27 +39,6 @@ export const metadata: Metadata = {
         media: "(prefers-color-scheme: dark)",
       },
     ],
-  },
-  openGraph: {
-    title: siteTitle,
-    description: siteDescription,
-    url: siteUrl,
-    siteName: siteTitle,
-    images: [
-      {
-        url: "/images/Link_preview_final.png",
-        width: 2846,
-        height: 1512,
-        alt: "Hannah Roxas — Portfolio",
-      },
-    ],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteTitle,
-    description: siteDescription,
-    images: ["/images/Link_preview_final.png"],
   },
 };
 

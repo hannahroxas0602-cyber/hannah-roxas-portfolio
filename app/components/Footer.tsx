@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { social } from "@/app/data/social";
 import { useAboutPanel } from "@/app/components/AboutPanelContext";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
 
 export default function Footer() {
   const { open: openAbout } = useAboutPanel();
+  const pathname = usePathname();
 
   return (
     <footer className="relative overflow-hidden">
@@ -20,7 +22,7 @@ export default function Footer() {
           className="group block"
         >
           <p className="font-[family-name:var(--font-mono)] text-xs font-medium tracking-widest text-neutral-500 uppercase">
-            Get in touch
+            Open to full-time roles
           </p>
           <h2
             className="mt-3 font-[family-name:var(--font-manrope)] leading-[0.95] tracking-tight text-neutral-900 transition-colors duration-300 group-hover:text-[var(--footer-hover)]"
@@ -47,7 +49,10 @@ export default function Footer() {
               />
             </svg>
           </h2>
-          <p className="mt-4 text-sm font-medium text-neutral-600 sm:text-base">
+          <p className="mt-4 text-sm text-neutral-600 sm:text-base">
+            Looking for a full-time product design or design engineering role. Let&apos;s talk.
+          </p>
+          <p className="mt-1 text-sm font-medium text-neutral-600 sm:text-base">
             {social.email}
           </p>
         </a>
@@ -76,8 +81,26 @@ export default function Footer() {
             >
               LinkedIn
             </a>
+            <a
+              href={social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+            >
+              GitHub
+            </a>
             <Link
               href="/#works"
+              onClick={(e) => {
+                // Already on the homepage: scroll directly, since a same-URL hash
+                // link won't re-scroll once the hash is already set.
+                if (pathname !== "/") return;
+                const target = document.getElementById("works");
+                if (!target) return;
+                e.preventDefault();
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+                history.replaceState(null, "", "/#works");
+              }}
               className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
             >
               Works

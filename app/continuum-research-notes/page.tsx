@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
@@ -16,10 +17,11 @@ import {
   closingCta,
 } from "@/app/continuum-research-notes/data";
 
-export const metadata: Metadata = {
-  title: "Continuum Research Notes | Hannah Roxas",
+export const metadata: Metadata = pageMetadata({
+  title: caseStudyTitle("Continuum Research Notes"),
   description: notesHero.headline,
-};
+  path: "/continuum-research-notes",
+});
 
 export default function ContinnumNotesPage() {
   return (

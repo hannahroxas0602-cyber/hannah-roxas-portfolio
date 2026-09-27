@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
 import Link from "next/link";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
@@ -31,10 +32,11 @@ const sections = [
   { id: "next-steps", title: "What's Next" },
 ];
 
-export const metadata: Metadata = {
-  title: "Continuum: Surrogacy Platform | Hannah Roxas",
+export const metadata: Metadata = pageMetadata({
+  title: caseStudyTitle("Continuum: Surrogacy Platform"),
   description: continuumHero.subtitle,
-};
+  path: "/continuum",
+});
 
 export default function ContinuumPage() {
   return (

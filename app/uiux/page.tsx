@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
 import Link from "next/link";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
@@ -6,10 +7,11 @@ import ProjectGrid from "@/app/components/ProjectGrid";
 import { projects } from "@/app/data/projects";
 import { uiuxHero } from "@/app/uiux/data";
 
-export const metadata: Metadata = {
-  title: "UI/UX | Hannah Roxas",
-  description: uiuxHero.category,
-};
+export const metadata: Metadata = pageMetadata({
+  title: caseStudyTitle("UI/UX"),
+  description: `${uiuxHero.intro} ${uiuxHero.subcopy}`,
+  path: "/uiux",
+});
 
 const uiuxProjects = projects.filter((project) => project.tags.includes("UX/UI"));
 

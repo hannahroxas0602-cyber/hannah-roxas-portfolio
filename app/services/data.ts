@@ -1,6 +1,6 @@
 export const servicesIntro = {
   eyebrow: "[02]",
-  title: "Services",
+  title: "What I Do",
 };
 
 export type ServiceCategory = {

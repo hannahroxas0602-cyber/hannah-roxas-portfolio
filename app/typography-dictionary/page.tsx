@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
+import { projectDescription } from "@/app/data/projects";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
@@ -11,10 +13,11 @@ import {
   nextProject,
 } from "@/app/typography-dictionary/data";
 
-export const metadata: Metadata = {
-  title: "Typography Dictionary | Hannah Roxas",
-  description: typographyHero.narrative,
-};
+export const metadata: Metadata = pageMetadata({
+  title: caseStudyTitle("Typography Dictionary"),
+  description: projectDescription("typography-dictionary"),
+  path: "/typography-dictionary",
+});
 
 export default function TypographyDictionaryPage() {
   return (

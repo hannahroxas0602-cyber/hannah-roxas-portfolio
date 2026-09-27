@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
@@ -35,10 +36,11 @@ const sections = [
   { id: "next-steps", title: "What's Next" },
 ];
 
-export const metadata: Metadata = {
-  title: "Good Friends Poke | Hannah Roxas",
+export const metadata: Metadata = pageMetadata({
+  title: caseStudyTitle("Good Friends Poke"),
   description: goodHero.subtitle,
-};
+  path: "/goodfriends",
+});
 
 export default function GoodFriendsPage() {
   return (

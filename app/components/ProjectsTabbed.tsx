@@ -50,8 +50,30 @@ function ProjectThumbnail({ project }: { project: Project }) {
 
   const hasVideo = gallery.some((src) => src.endsWith(".mp4"));
 
+  // Defer mounting the videos until the card is near the viewport, so the
+  // homepage doesn't download every demo up front.
+  const cardRef = useRef<HTMLAnchorElement>(null);
+  const [nearViewport, setNearViewport] = useState(false);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el || !hasVideo) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setNearViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px 0px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasVideo]);
+
   return (
     <Link
+      ref={cardRef}
       href={project.href}
       data-cursor="View case study"
       onMouseEnter={startCycle}
@@ -59,8 +81,9 @@ function ProjectThumbnail({ project }: { project: Project }) {
       className="group relative block aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-100"
       {...handlers}
     >
-      {/* Videos stay mounted and preloaded at all times so hover playback starts instantly. */}
+      {/* Once the card is near view, videos stay mounted and preloaded so hover playback starts instantly. */}
       {hasVideo &&
+        nearViewport &&
         gallery.map((src, i) =>
           src.endsWith(".mp4") ? (
             <video
@@ -170,7 +193,7 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
   const visibleProjects = projects.filter((p) => p.category === activeTab && !p.hideFromHome);
 
   return (
-    <section id={id} className="mx-auto max-w-7xl px-6 pt-12 pb-16 sm:px-10 sm:pt-14 sm:pb-24">
+    <section id={id} className="mx-auto max-w-7xl scroll-mt-24 px-6 pt-10 pb-16 sm:px-10 sm:pt-14 sm:pb-24 lg:pt-8">
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[2fr_3fr] lg:gap-12">
         <div className="lg:sticky lg:top-24 lg:self-start">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
@@ -178,7 +201,7 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
             Projects
           </h2>
           <p className="mt-3 max-w-xl text-base leading-relaxed text-neutral-500">
-            Case studies in how research and design decisions shaped real outcomes.
+            Case studies in how research shaped design decisions.
           </p>
 
           <div className="mt-8 flex gap-8 border-b border-neutral-200">

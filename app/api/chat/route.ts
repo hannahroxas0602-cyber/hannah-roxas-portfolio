@@ -40,7 +40,7 @@ ${availability.summary}
 EXPERIENCE:
 ${experienceLines}
 
-SERVICES:
+WHAT I DO:
 ${serviceLines}
 
 SELECTED PROJECTS:

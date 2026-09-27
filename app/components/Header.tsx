@@ -56,7 +56,7 @@ export default function Header() {
                 />
               );
 
-              if (link.label === "About") {
+              if (link.kind === "about") {
                 return (
                   <button
                     key={link.label}
@@ -68,6 +68,22 @@ export default function Header() {
                     {pill}
                     <span className="relative z-10">{link.label}</span>
                   </button>
+                );
+              }
+
+              if (link.kind === "external") {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={() => setHovered(link.label)}
+                    className="relative rounded-full px-4 py-1.5 text-sm font-medium text-black transition-colors"
+                  >
+                    {pill}
+                    <span className="relative z-10">{link.label}</span>
+                  </a>
                 );
               }
 
@@ -118,7 +134,7 @@ export default function Header() {
             >
               <nav className="mt-2 flex flex-col gap-1 rounded-2xl border border-black/[0.06] bg-white/70 p-3 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl backdrop-saturate-150">
                 {navLinks.map((link) =>
-                  link.label === "About" ? (
+                  link.kind === "about" ? (
                     <button
                       key={link.label}
                       type="button"
@@ -130,6 +146,17 @@ export default function Header() {
                     >
                       {link.label}
                     </button>
+                  ) : link.kind === "external" ? (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setMenuOpen(false)}
+                      className="rounded-xl px-4 py-3 text-base font-medium text-black transition-colors hover:bg-black/[0.03]"
+                    >
+                      {link.label}
+                    </a>
                   ) : (
                     <Link
                       key={link.label}

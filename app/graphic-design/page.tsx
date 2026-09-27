@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
@@ -11,10 +12,11 @@ import { graphicDesignHero, editedVideos, experimentalImages } from "@/app/graph
 
 const graphicDesignProjects = projects.filter((project) => project.category === "Graphic Design");
 
-export const metadata: Metadata = {
-  title: "Graphic Design | Hannah Roxas",
-  description: graphicDesignHero.category,
-};
+export const metadata: Metadata = pageMetadata({
+  title: caseStudyTitle("Graphic Design"),
+  description: `${graphicDesignHero.intro} ${graphicDesignHero.subcopy}`,
+  path: "/graphic-design",
+});
 
 export default function GraphicDesignPage() {
   return (

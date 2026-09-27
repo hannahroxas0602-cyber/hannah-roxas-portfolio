@@ -53,7 +53,7 @@ export const projects: Project[] = [
     slug: "good-friends-poke",
     title: "Good Friends Poke",
     description:
-      "Redesigning the fast-casual dining experience to eliminate customer friction and peak-hour staff burnout.",
+      "A course concept redesigning the fast-casual dining experience to reduce customer friction and peak-hour staff burnout.",
     tags: ["UX/UI", "Service Design"],
     category: "UIUX",
     href: "/goodfriends",
@@ -62,9 +62,9 @@ export const projects: Project[] = [
     imageWidth: 2446,
     imageHeight: 1376,
     imageAspect: "16/9",
-    year: "2025",
+    year: "2025 · Course concept",
     impactStats: [
-      { value: "4", label: "design solution categories shipped" },
+      { value: "4", label: "design solution categories proposed" },
       { value: "32", label: "in-store research photos analyzed" },
     ],
     gallery: [
@@ -87,8 +87,7 @@ export const projects: Project[] = [
     imageWidth: 1264,
     imageHeight: 848,
     imageAspect: "3/2",
-    year: "2026",
-    hideFromHome: true,
+    year: "2025 · Course concept",
     impactStats: [
       { value: "3", label: "stakeholder groups" },
       { value: "9", label: "months mapped" },
@@ -174,3 +173,7 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+export function projectDescription(slug: string) {
+  return projects.find((p) => p.slug === slug)?.description ?? "";
+}

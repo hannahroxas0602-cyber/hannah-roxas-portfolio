@@ -6,12 +6,13 @@ import Services from "@/app/components/Services";
 import Footer from "@/app/components/Footer";
 import FadeIn from "@/app/components/FadeIn";
 import ScrollToHash from "@/app/components/ScrollToHash";
+import { pageMetadata, siteDescription, siteName } from "@/app/data/seo";
 
-export const metadata: Metadata = {
-  title: "Hannah Roxas | UX & Product Designer",
-  description:
-    "Hannah Roxas is a UX and visual designer who designs connected digital systems that reward curiosity. Product design, UX research, and brand systems.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: siteName,
+  description: siteDescription,
+  path: "/",
+});
 
 export default function Home() {
   return (
