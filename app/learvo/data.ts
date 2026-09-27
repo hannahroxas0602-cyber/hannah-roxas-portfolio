@@ -3,7 +3,7 @@ import { projectDescription } from "@/app/data/projects";
 export const learvoHero = {
   title: "Learvo",
   subtitle:
-    "The only product designer at an ed-tech startup turning student notes into quizzes, flashcards, summaries, and mnemonics.",
+    "Product designer at an ed-tech startup turning student notes into quizzes, flashcards, summaries, and mnemonics.",
   gist: {
     label: "The Gist:",
     text: "New users landed on an empty dashboard. Returning users hit an inconsistent nav and a quiz screen with no real signal. I redesigned both and shipped the code myself.",
@@ -11,7 +11,7 @@ export const learvoHero = {
   date: "Oct 2025 to Present (Sep 2026) · Product Design Intern",
   meta: [
     { label: "ROLE", value: "Product Design Intern (design + frontend implementation)" },
-    { label: "TEAM", value: "Learvo, solo designer shipping directly into a live codebase" },
+    { label: "TEAM", value: "Learvo, product designer shipping directly into a live codebase" },
     { label: "SCOPE", value: "Landing page, onboarding activation, navigation system, quiz review UX" },
   ],
   image: "/images/learvo/learvo_hero.png",
@@ -31,7 +31,7 @@ export const highlightsSection = {
     "Cut a fake \"streak\" feature rather than ship engagement numbers with nothing real behind them",
   ],
   stats: [
-    { value: "4", label: "features designed and shipped solo" },
+    { value: "4", label: "features designed and shipped" },
     { value: "5", label: "core pages unified under one nav system" },
   ],
   callout: "Judgment calls, not just visual polish. Every section leads with the decision, not the checklist.",
@@ -102,7 +102,7 @@ export const roleAndImpact = {
     },
     {
       label: "Impact",
-      body: "As the only designer, I shipped the code myself, so every decision had to survive a real, changing codebase. I learned Git and opened pull requests across frontend and backend, working directly with engineers instead of handing off static designs.",
+      body: "I shipped the code myself, so every decision had to survive a real, changing codebase. I learned Git and opened pull requests across frontend and backend, working directly with engineers instead of handing off static designs.",
     },
   ],
 };
