@@ -1,3 +1,5 @@
+import { projectDescription } from "@/app/data/projects";
+
 export const learvoHero = {
   title: "Learvo",
   subtitle:
@@ -33,6 +35,16 @@ export const highlightsSection = {
     { value: "5", label: "core pages unified under one nav system" },
   ],
   callout: "Judgment calls, not just visual polish. Every section leads with the decision, not the checklist.",
+};
+
+// Shown after Highlights once `quote` and `name` are filled; `title` is optional.
+export const testimonial: { quote: string | null; name: string | null; title: string | null } = {
+  // PLACEHOLDER: a real quote from a teammate, e.g. an engineer or the founder
+  quote: null,
+  // PLACEHOLDER: their name
+  name: null,
+  // PLACEHOLDER: their role, e.g. "Founding Engineer, Learvo"
+  title: null,
 };
 
 export const timelineSection = {
@@ -95,6 +107,18 @@ export const roleAndImpact = {
   ],
 };
 
+export type BeforeAfterImage = {
+  src: string;
+  alt: string;
+  caption: string | null;
+};
+
+// Renders only once both image files exist under /public.
+export type BeforeAfter = {
+  before: BeforeAfterImage;
+  after: BeforeAfterImage;
+};
+
 export type FeatureCategory = {
   slug: string;
   title: string;
@@ -102,6 +126,8 @@ export type FeatureCategory = {
   decision: string;
   supportingPoints: { label: string; body: string }[];
   impact: string;
+  impactMetric?: string | null;
+  beforeAfter?: BeforeAfter;
   image: string;
   imageAlt: string;
   imageWidth: number;
@@ -138,6 +164,23 @@ export const featuresSection = {
       ],
       impact:
         "Rebuilt the page around getting a busy, skeptical student to the value proposition fast.",
+      // PLACEHOLDER: a real before/after measurement, e.g. "Scroll past the fold rose from X% to Y%."
+      // Appended to the Impact text once filled.
+      impactMetric: null,
+      beforeAfter: {
+        before: {
+          src: "/images/learvo/landing-page-before.png",
+          alt: "Learvo landing page before the redesign",
+          // PLACEHOLDER: short caption for the old page
+          caption: null,
+        },
+        after: {
+          src: "/images/learvo/landing-page-after.png",
+          alt: "Learvo landing page after the redesign",
+          // PLACEHOLDER: short caption for the new page
+          caption: null,
+        },
+      },
       image: "/images/learvo/learvo_hero.png",
       imageAlt: "Learvo's redesigned landing page, showing the hero section with Lenny, the doodle system, and a live quiz preview",
       imageWidth: 2880,
@@ -245,6 +288,20 @@ export const featuresSection = {
       ],
       impact:
         "Turned a cold, empty dashboard into a guided activation flow that tells the truth about the backend, the strongest activation story here even without funnel numbers yet.",
+      beforeAfter: {
+        before: {
+          src: "/images/learvo/onboarding-quiz-before.png",
+          alt: "Learvo first session before the onboarding quiz flow: an empty dashboard",
+          // PLACEHOLDER: short caption for the old first session
+          caption: null,
+        },
+        after: {
+          src: "/images/learvo/onboarding-quiz-after.png",
+          alt: "Learvo first session after the redesign: the guided onboarding quiz flow",
+          // PLACEHOLDER: short caption for the new flow
+          caption: null,
+        },
+      },
       image: "/images/learvo/onboarding-slide-1.png",
       imageAlt: "Learvo guided onboarding quiz flow mockup",
       imageWidth: 1024,
@@ -366,6 +423,23 @@ export const brandIdentitySection = {
     "A consistent visual identity at the exact moments a new user forms their first impression, turning an already-correct palette into one that's actually recognizable.",
 };
 
+// "What I learned from users" renders before What's Next only once `method`,
+// at least 2 `findings`, and `changes` are all filled.
+export const userResearch: {
+  heading: string;
+  method: string | null;
+  findings: (string | null)[];
+  changes: string | null;
+} = {
+  heading: "What I Learned from Users",
+  // PLACEHOLDER: how you tested, e.g. "Usability test with 6 college students"
+  method: null,
+  // PLACEHOLDER: 2–3 real findings, one per entry
+  findings: [null, null, null],
+  // PLACEHOLDER: what you changed in the design as a result
+  changes: null,
+};
+
 export const nextStepsSection = {
   heading: "What I'd Do Next",
   items: [
@@ -387,8 +461,7 @@ export const nextStepsSection = {
 export const nextProject = {
   label: "Keep Wandering",
   title: "Good Friends Poke",
-  description:
-    "Redesigning the fast-casual dining experience to eliminate customer friction and peak-hour staff burnout.",
+  description: projectDescription("good-friends-poke"),
   href: "/goodfriends",
   image: "/images/projects/good-friends-poke.png",
   imageAlt: "Good Friends Poke fast-casual dining experience redesign",

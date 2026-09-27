@@ -87,7 +87,7 @@ export const projects: Project[] = [
     imageWidth: 1264,
     imageHeight: 848,
     imageAspect: "3/2",
-    year: "2025 · Course concept",
+    year: "2025 · Research + solo design",
     impactStats: [
       { value: "3", label: "stakeholder groups" },
       { value: "9", label: "months mapped" },

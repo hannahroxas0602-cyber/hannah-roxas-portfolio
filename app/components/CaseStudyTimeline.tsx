@@ -1,4 +1,8 @@
-import type { TimelineBand, TimelineTask } from "@/app/components/caseStudyTypes";
+import type {
+  TimelineAxisLabel,
+  TimelineBand,
+  TimelineTask,
+} from "@/app/components/caseStudyTypes";
 
 const ROW_HEIGHT = 40;
 const ROW_GAP = 28;
@@ -8,11 +12,13 @@ export default function CaseStudyTimeline({
   totalWeeks,
   bands,
   tasks,
+  axisLabels,
 }: {
   heading: string;
   totalWeeks: number;
   bands: TimelineBand[];
   tasks: TimelineTask[];
+  axisLabels?: TimelineAxisLabel[];
 }) {
   const rowCount = Math.max(...tasks.map((t) => t.row)) + 1;
   const chartHeight = rowCount * ROW_HEIGHT + (rowCount - 1) * ROW_GAP;
@@ -55,9 +61,11 @@ export default function CaseStudyTimeline({
                   minWidth: "2.5rem",
                 }}
               >
-                <p className="mb-1.5 w-max max-w-[12rem] text-xs font-medium whitespace-nowrap text-neutral-600">
-                  {task.title}
-                </p>
+                <div className={task.labelAlign === "end" ? "flex justify-end" : undefined}>
+                  <p className="mb-1.5 w-max max-w-[12rem] text-xs font-medium whitespace-nowrap text-neutral-600">
+                    {task.title}
+                  </p>
+                </div>
                 <div
                   className={`h-2.5 w-full rounded-full ${bandColor(task.band)} transition-transform duration-200 ease-out group-hover:scale-y-125`}
                 />
@@ -65,14 +73,30 @@ export default function CaseStudyTimeline({
             ))}
           </div>
 
-          {/* Week axis */}
-          <div className="mt-8 flex border-t border-black/[0.08] pt-4">
-            {Array.from({ length: totalWeeks }).map((_, i) => (
-              <div key={i} className="flex-1 text-xs font-medium text-neutral-400">
-                {i % 2 === 0 ? `Week ${i + 1}` : ""}
-              </div>
-            ))}
-          </div>
+          {/* Axis — "Week N" by default, or custom labels placed at specific weeks */}
+          {axisLabels ? (
+            <div className="relative mt-8 h-8 border-t border-black/[0.08]">
+              {axisLabels.map((axisLabel) => (
+                <span
+                  key={axisLabel.label}
+                  className={`absolute top-4 text-xs font-medium whitespace-nowrap text-neutral-400 ${
+                    axisLabel.atWeek >= totalWeeks ? "-translate-x-full" : ""
+                  }`}
+                  style={{ left: `${pct(axisLabel.atWeek)}%` }}
+                >
+                  {axisLabel.label}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-8 flex border-t border-black/[0.08] pt-4">
+              {Array.from({ length: totalWeeks }).map((_, i) => (
+                <div key={i} className="flex-1 text-xs font-medium text-neutral-400">
+                  {i % 2 === 0 ? `Week ${i + 1}` : ""}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

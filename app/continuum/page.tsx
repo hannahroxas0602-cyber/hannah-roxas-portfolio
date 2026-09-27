@@ -7,6 +7,7 @@ import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
+import { filled } from "@/app/data/placeholder";
 import {
   continuumHero,
   highlightsSection,
@@ -38,7 +39,28 @@ export const metadata: Metadata = pageMetadata({
   path: "/continuum",
 });
 
+// Full class strings so Tailwind can see them; keyed by how many items render.
+const metaGridCols: Record<number, string> = {
+  1: "sm:grid-cols-1",
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-3",
+  4: "sm:grid-cols-2 lg:grid-cols-4",
+};
+
+const roleGridCols: Record<number, string> = {
+  1: "sm:grid-cols-1",
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-3",
+};
+
 export default function ContinuumPage() {
+  const meta = continuumHero.meta.flatMap((item) =>
+    filled(item.value) ? [{ label: item.label, value: item.value }] : [],
+  );
+  const roleColumns = roleAndImpact.columns.flatMap((col) =>
+    filled(col.body) ? [{ label: col.label, body: col.body }] : [],
+  );
+
   return (
     <div className="flex flex-1 flex-col bg-background">
       <Header />
@@ -74,18 +96,20 @@ export default function ContinuumPage() {
                   {continuumHero.gist.text}
                 </p>
               </div>
-              <div className="border-l border-black/[0.08] pl-10">
+              <div className="sm:border-l sm:border-black/[0.08] sm:pl-10">
                 <h2 className="text-sm font-medium tracking-wide text-neutral-400 uppercase">
                   My Role
                 </h2>
                 <p className="mt-3 text-base leading-relaxed text-neutral-700">
-                  {roleAndImpact.columns[2]?.body}
+                  {continuumHero.myRole}
                 </p>
               </div>
             </div>
 
-            <dl className="mt-10 grid grid-cols-1 gap-6 border-t border-black/[0.08] pt-8 sm:grid-cols-3">
-              {continuumHero.meta.map((item) => (
+            <dl
+              className={`mt-10 grid grid-cols-1 gap-6 border-t border-black/[0.08] pt-8 ${metaGridCols[meta.length]}`}
+            >
+              {meta.map((item) => (
                 <div key={item.label}>
                   <dt className="text-xs font-medium tracking-wide text-neutral-400 uppercase">
                     {item.label}
@@ -111,6 +135,7 @@ export default function ContinuumPage() {
               totalWeeks={timelineSection.totalWeeks}
               bands={timelineSection.bands}
               tasks={timelineSection.tasks}
+              axisLabels={timelineSection.axisLabels}
             />
           </div>
 
@@ -119,8 +144,8 @@ export default function ContinuumPage() {
             <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
               {roleAndImpact.heading}
             </h2>
-            <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-              {roleAndImpact.columns.map((col, i) => (
+            <div className={`mt-8 grid grid-cols-1 gap-3 ${roleGridCols[roleColumns.length]}`}>
+              {roleColumns.map((col, i) => (
                 <div
                   key={col.label}
                   className={`rounded-2xl border p-6 ${

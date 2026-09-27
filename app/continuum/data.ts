@@ -1,3 +1,5 @@
+import { projectDescription } from "@/app/data/projects";
+
 export const continuumHero = {
   title: "Continuum",
   subtitle:
@@ -6,12 +8,19 @@ export const continuumHero = {
     label: "The Gist:",
     text: "Most surrogacy tools manage paperwork. Continuum manages the human experience.",
   },
-  date: "Jan 2025 (Course Project)",
+  date: "Jan 2025 · Course research, independent design",
+  myRole:
+    "I researched this with a class team of 7, focusing on how hospital systems handle surrogacy, then independently designed Continuum after the course, building on that research. Translated highly sensitive, multi-stakeholder emotional anxieties into clear, quiet UI patterns that protect user trust.",
+  // Items with a null value are hidden until filled.
   meta: [
     { label: "COURSE", value: "MGT 120: Managing and Using Information Technology" },
-    { label: "ROLE", value: "MGT 140- Marketing for Tech-Based Enterprise" },
+    { label: "ROLE", value: "Researcher (team), then solo Product Designer" },
+    {
+      label: "TEAM",
+      value: "7 (research) · Solo (design)",
+    },
     { label: "SERVICE", value: "UX Research, Journey Mapping, Interaction Design, Design Systems" },
-  ],
+  ] satisfies { label: string; value: string | null }[],
 };
 
 export const highlightsSection = {
@@ -28,65 +37,88 @@ export const highlightsSection = {
   callout: "Less chaos, more continuity.",
 };
 
-import type { TimelineBand, TimelineTask } from "@/app/components/caseStudyTypes";
+import type {
+  TimelineAxisLabel,
+  TimelineBand,
+  TimelineTask,
+} from "@/app/components/caseStudyTypes";
 
+// Two phases: team research during the 10-week course, then solo design
+// afterward. The design phase has no stated week count, so the axis shows
+// dates instead of week numbers.
 export const timelineSection = {
   heading: "Timeline",
-  totalWeeks: 10,
+  totalWeeks: 14,
+  axisLabels: [
+    { atWeek: 0, label: "Jan 2025" },
+    { atWeek: 14, label: "Apr 2025" },
+  ] satisfies TimelineAxisLabel[],
   bands: [
-    { label: "Research", colorClass: "bg-neutral-900", startWeek: 0, endWeek: 2.5 },
-    { label: "Design", colorClass: "bg-neutral-700", startWeek: 2.5, endWeek: 7.5 },
-    { label: "Refine", colorClass: "bg-neutral-600", startWeek: 7.5, endWeek: 8.75 },
-    { label: "Handoff", colorClass: "bg-neutral-500", startWeek: 8.75, endWeek: 10 },
+    {
+      label: "Course research · Jan–Mar 2025 · Team of 7",
+      colorClass: "bg-neutral-900",
+      startWeek: 0,
+      endWeek: 10,
+    },
+    {
+      label: "Independent design · Spring 2025",
+      colorClass: "bg-neutral-600",
+      startWeek: 10,
+      endWeek: 14,
+    },
   ] satisfies TimelineBand[],
   tasks: [
     {
       title: "Stakeholder interviews",
-      band: "Research",
+      band: "Course research · Jan–Mar 2025 · Team of 7",
       startWeek: 0,
-      endWeek: 2.5,
+      endWeek: 10,
       row: 0,
+      colorClass: "bg-neutral-200",
+    },
+    {
+      title: "Hospital systems sub-problem (my focus)",
+      band: "Course research · Jan–Mar 2025 · Team of 7",
+      startWeek: 0,
+      endWeek: 10,
+      row: 1,
       colorClass: "bg-neutral-200",
     },
     {
       title: "Progressive disclosure",
-      band: "Design",
-      startWeek: 2.5,
-      endWeek: 5,
-      row: 1,
-      colorClass: "bg-neutral-200",
+      band: "Independent design · Spring 2025",
+      startWeek: 10,
+      endWeek: 14,
+      row: 0,
+      colorClass: "bg-neutral-100",
+      labelAlign: "end",
     },
     {
       title: "Timeline-first communication",
-      band: "Design",
-      startWeek: 3.125,
-      endWeek: 6.875,
-      row: 0,
+      band: "Independent design · Spring 2025",
+      startWeek: 10,
+      endWeek: 14,
+      row: 1,
       colorClass: "bg-neutral-100",
+      labelAlign: "end",
     },
     {
       title: "Design system draft",
-      band: "Design",
-      startWeek: 4.375,
-      endWeek: 7.5,
+      band: "Independent design · Spring 2025",
+      startWeek: 10,
+      endWeek: 14,
       row: 2,
-      colorClass: "bg-neutral-200",
+      colorClass: "bg-neutral-100",
+      labelAlign: "end",
     },
     {
       title: "Frictionless check-ins",
-      band: "Refine",
-      startWeek: 6.875,
-      endWeek: 8.75,
-      row: 1,
+      band: "Independent design · Spring 2025",
+      startWeek: 10,
+      endWeek: 14,
+      row: 3,
       colorClass: "bg-neutral-100",
-    },
-    {
-      title: "Handoff",
-      band: "Handoff",
-      startWeek: 8.75,
-      endWeek: 10,
-      row: 0,
-      colorClass: "bg-neutral-200",
+      labelAlign: "end",
     },
   ] satisfies TimelineTask[],
 };
@@ -103,18 +135,20 @@ export const roleAndImpact = {
       body: "A shared mobile and web platform that replaces chaos with a unified, stress-free timeline, proactive coordinator tools, and lightweight wellness tracking.",
     },
     {
-      label: "Impact",
-      body: "Translated highly sensitive, multi-stakeholder emotional anxieties into clear, quiet UI patterns that protect user trust.",
+      label: "Intended Impact",
+      body: "Designed to cut down the anxious, off-channel messages coordinators receive, by making a shared timeline the default place families check for updates, so they get answers without having to ask.",
     },
-  ],
+  ] satisfies { label: string; body: string | null }[],
 };
+
 
 export const problemSection = {
   heading: "The Problem",
   flow: "[Onboarding: High Support] ---> [Confirmation] ---> [The Drop-Off: Chaos & Isolation]",
   paragraphs: [
-    "Through stakeholder interviews, I discovered a major gap: Support fades the moment pregnancy is confirmed exactly when emotional labor and uncertainty spike.",
-    "We didn't need to build a better administration tool. We needed to build a care system that sustained trust over nine months.",
+    "Through our team's stakeholder interviews, we found a major gap: Support fades the moment pregnancy is confirmed exactly when emotional labor and uncertainty spike.",
+    "The sub-problem I led, Hospital Systems Don't Understand Surrogacy, found that hospital staff often aren't trained to support surrogacy, so surrogates are misrecognized and intended parents miss critical updates and bonding moments.",
+    "The answer wasn't a better administration tool. It was a care system that sustained trust over nine months.",
   ],
   image: "/images/continuum/problem-flow.mp4",
   imageAlt: "Animated diagram showing the onboarding, confirmation, and support drop-off flow",
@@ -140,7 +174,7 @@ export const decisionsSection = {
       slug: "progressive-disclosure",
       title: "1. Progressive Disclosure (Legal Tasks)",
       anxiety: "Parents were overwhelmed by massive, complex legal checklists.",
-      fix: "We only display the immediate next task; future steps are hidden.",
+      fix: "I show only the immediate next task; future steps are hidden.",
       tradeoff: 'Parents lose the "big picture" view, but gain daily peace of mind.',
     },
     {
@@ -155,7 +189,7 @@ export const decisionsSection = {
       title: "3. Frictionless Check-ins (Surrogate Care)",
       anxiety: 'Surrogates wanted support but hated feeling monitored or given "homework."',
       fix: "One-tap, emoji-based mood checks with optional short notes.",
-      tradeoff: "We collect less granular health data, but gain authentic participation.",
+      tradeoff: "I gave up more granular health data in exchange for authentic participation.",
     },
   ] satisfies DesignDecision[],
 };
@@ -252,8 +286,7 @@ export const nextStepsSection = {
 export const nextProject = {
   label: "Keep wandering",
   title: "Good Friends Poke",
-  description:
-    "Redesigning the fast-casual dining experience to eliminate customer friction and peak-hour staff burnout.",
+  description: projectDescription("good-friends-poke"),
   href: "/goodfriends",
   image: "/images/projects/good-friends-poke.png",
   imageAlt: "Good Friends Poke fast-casual dining experience redesign",

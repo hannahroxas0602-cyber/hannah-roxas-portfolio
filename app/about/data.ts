@@ -30,8 +30,8 @@ export const experience: ExperienceEntry[] = [
   },
   {
     slug: "continuum",
-    role: "UX Researcher, Continuum: Surrogacy Care Experience",
-    context: "Mgt 120: Managing and Using Information Technology",
+    role: "UX Researcher (MGT 120), then independent Product Designer",
+    context: "Continuum: Surrogacy Care Experience",
     dates: "2025",
   },
   {

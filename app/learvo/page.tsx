@@ -10,6 +10,8 @@ import NextProjectPreview from "@/app/components/NextProjectPreview";
 import {
   learvoHero,
   highlightsSection,
+  testimonial,
+  userResearch,
   timelineSection,
   roleAndImpact,
   featuresSection,
@@ -18,6 +20,21 @@ import {
   nextProject,
   type FeatureCategory,
 } from "@/app/learvo/data";
+import { filled, publicFileExists } from "@/app/data/placeholder";
+
+const showTestimonial = filled(testimonial.quote) && filled(testimonial.name);
+
+const researchFindings = userResearch.findings.filter(filled);
+const showUserResearch =
+  filled(userResearch.method) && researchFindings.length >= 2 && filled(userResearch.changes);
+
+function hasBeforeAfter(cat: FeatureCategory) {
+  return (
+    !!cat.beforeAfter &&
+    publicFileExists(cat.beforeAfter.before.src) &&
+    publicFileExists(cat.beforeAfter.after.src)
+  );
+}
 
 const sections = [
   { id: "overview", title: "Overview" },
@@ -35,6 +52,7 @@ const sections = [
     ],
   },
   { id: "brand-identity", title: "Brand Identity" },
+  ...(showUserResearch ? [{ id: "user-research", title: "What I Learned" }] : []),
   { id: "next-steps", title: "What's Next" },
 ];
 
@@ -124,6 +142,21 @@ export default function LearvoPage() {
             callout={highlightsSection.callout}
           />
         </div>
+
+        {/* Testimonial — renders only once a real quote is filled in */}
+        {showTestimonial && (
+          <section id="testimonial" className="max-w-4xl py-16">
+            <figure className="max-w-2xl rounded-2xl border border-black/[0.06] bg-neutral-900 p-6">
+              <blockquote className="text-base leading-relaxed text-white/90">
+                &ldquo;{testimonial.quote}&rdquo;
+              </blockquote>
+              <figcaption className="mt-4 text-xs font-semibold tracking-widest text-white/50 uppercase">
+                {testimonial.name}
+                {filled(testimonial.title) && ` · ${testimonial.title}`}
+              </figcaption>
+            </figure>
+          </section>
+        )}
 
         {/* Timeline */}
         <section id="timeline" className="max-w-4xl py-16">
@@ -284,9 +317,35 @@ export default function LearvoPage() {
                   </div>
                 )}
 
+                {cat.beforeAfter && hasBeforeAfter(cat) && (
+                  <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    {([
+                      ["Before", cat.beforeAfter.before],
+                      ["After", cat.beforeAfter.after],
+                    ] as const).map(([label, img]) => (
+                      <figure key={label}>
+                        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-black/[0.06] bg-neutral-50">
+                          <Image
+                            src={img.src}
+                            alt={img.alt}
+                            fill
+                            className="object-contain"
+                            sizes="(min-width: 640px) 45vw, 100vw"
+                          />
+                        </div>
+                        <figcaption className="mt-2 text-sm leading-relaxed text-neutral-500">
+                          <span className="font-semibold text-neutral-900">{label}</span>
+                          {filled(img.caption) && `: ${img.caption}`}
+                        </figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                )}
+
                 <p className="mt-6 max-w-2xl rounded-2xl border border-black/[0.06] bg-neutral-50 p-5 text-base leading-relaxed text-neutral-700">
                   <span className="font-semibold text-neutral-900">Impact: </span>
                   {cat.impact}
+                  {filled(cat.impactMetric) && ` ${cat.impactMetric}`}
                 </p>
 
                 {cat.slug === "landing-page" && (
@@ -360,6 +419,34 @@ export default function LearvoPage() {
             {brandIdentitySection.impact}
           </p>
         </section>
+
+        {/* What I Learned from Users — renders only once real research is filled in */}
+        {showUserResearch && (
+          <section id="user-research" className="max-w-4xl py-16">
+            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+              {userResearch.heading}
+            </h2>
+
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700">
+              <span className="font-semibold text-neutral-900">Method: </span>
+              {userResearch.method}
+            </p>
+
+            <ul className="mt-6 space-y-3">
+              {researchFindings.map((finding, i) => (
+                <li key={i} className="flex max-w-2xl gap-3 text-base leading-relaxed text-neutral-700">
+                  <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-neutral-300" />
+                  <span>{finding}</span>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-6 max-w-2xl rounded-2xl border border-black/[0.06] bg-neutral-50 p-5 text-base leading-relaxed text-neutral-700">
+              <span className="font-semibold text-neutral-900">What I changed: </span>
+              {userResearch.changes}
+            </p>
+          </section>
+        )}
 
         {/* What I'd Do Next */}
         <section id="next-steps" className="max-w-4xl py-16">
