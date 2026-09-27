@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { useAboutPanel } from "@/app/components/AboutPanelContext";
 import AboutPanel from "@/app/components/AboutPanel";
 import PageTransition from "@/app/components/PageTransition";
+import DriftingObjects from "@/app/components/DriftingObjects";
 
 const PANEL_WIDTH = 420;
 
@@ -19,8 +20,9 @@ export default function AppShell({ children }: { children: ReactNode }) {
         <motion.div
           animate={{ width: isOpen ? `calc(100% - ${PANEL_WIDTH}px)` : "100%" }}
           transition={{ type: "spring", stiffness: 260, damping: 30 }}
-          className="flex min-h-full w-full flex-none flex-col sm:w-auto"
+          className="relative flex min-h-full w-full flex-none flex-col sm:w-auto"
         >
+          <DriftingObjects />
           <PageTransition>{children}</PageTransition>
         </motion.div>
 

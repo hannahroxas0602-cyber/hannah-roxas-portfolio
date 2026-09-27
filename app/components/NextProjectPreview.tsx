@@ -28,7 +28,7 @@ export default function NextProjectPreview({
 
       <HoleLink
         href={href}
-        data-cursor="View case study"
+        data-cursor="Enter →"
         className="group mt-6 flex flex-col gap-6 sm:flex-row sm:items-center"
       >
         <div className="relative aspect-[4/3] w-full max-w-xs shrink-0 overflow-hidden rounded-2xl bg-neutral-100 sm:w-1/2">

@@ -22,12 +22,26 @@ import {
   type FeatureCategory,
 } from "@/app/learvo/data";
 import { filled, publicFileExists } from "@/app/data/placeholder";
+import { readingMinutes } from "@/app/data/readingTime";
+import ReadingTime from "@/app/components/ReadingTime";
 
 const showTestimonial = filled(testimonial.quote) && filled(testimonial.name);
 
 const researchFindings = userResearch.findings.filter(filled);
 const showUserResearch =
   filled(userResearch.method) && researchFindings.length >= 2 && filled(userResearch.changes);
+
+const minutesToRead = readingMinutes(
+  learvoHero,
+  highlightsSection,
+  showTestimonial ? testimonial : null,
+  timelineSection,
+  roleAndImpact,
+  featuresSection,
+  brandIdentitySection,
+  showUserResearch ? userResearch : null,
+  nextStepsSection,
+);
 
 function hasBeforeAfter(cat: FeatureCategory) {
   return (
@@ -103,7 +117,9 @@ export default function LearvoPage() {
             {learvoHero.gist.text}
           </p>
 
-          <p className="mt-8 text-sm text-neutral-400">{learvoHero.date}</p>
+          <p className="mt-8 text-sm text-neutral-400">
+            {learvoHero.date} · <ReadingTime minutes={minutesToRead} />
+          </p>
 
           <dl className="mt-6 grid grid-cols-1 gap-6 border-t border-black/[0.08] pt-8 sm:grid-cols-3">
             {learvoHero.meta.map((item) => (

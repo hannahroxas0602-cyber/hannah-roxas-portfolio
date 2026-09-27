@@ -3,15 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import HoleLink from "@/app/components/HoleLink";
+import Portal from "@/app/components/Portal";
 import { AnimatePresence, motion } from "motion/react";
 import type { Project } from "@/app/data/projects";
-import { useHoldPreview } from "@/app/hooks/useHoldPreview";
 
 const SLIDE_INTERVAL_MS = 1200;
 
 export default function ProjectCard({ project }: { project: Project }) {
   const isExternal = project.external ?? project.href.startsWith("http");
-  const { held, handlers } = useHoldPreview();
 
   const gallery = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
   const [activeIndex, setActiveIndex] = useState(0);
@@ -58,12 +57,23 @@ export default function ProjectCard({ project }: { project: Project }) {
           {project.description}
         </p>
 
-        <span className="link-underline mt-6 inline-flex w-fit items-center gap-2 text-sm font-semibold text-neutral-900">
-          {isExternal ? "Visit site" : "Read Case Study"}
-          <span aria-hidden className="transition-transform duration-300 ease-out group-hover:translate-x-1">
-            →
+        {isExternal ? (
+          <span className="link-underline mt-6 inline-flex w-fit items-center gap-2 text-sm font-semibold text-neutral-900">
+            Visit site
+            <span aria-hidden className="transition-transform duration-300 ease-out group-hover:translate-x-1">
+              →
+            </span>
           </span>
-        </span>
+        ) : (
+          <span className="cta-swap mt-6 w-fit text-sm font-semibold text-neutral-900">
+            <span className="link-underline w-fit">
+              Read Case Study <span aria-hidden>→</span>
+            </span>
+            <span aria-hidden className="link-underline w-fit">
+              Enter →
+            </span>
+          </span>
+        )}
       </div>
 
       <div
@@ -124,22 +134,8 @@ export default function ProjectCard({ project }: { project: Project }) {
           </div>
         )}
 
-        {project.impactStats && project.impactStats.length > 0 && (
-          <div
-            className={`touch-reveal absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/10 to-transparent p-6 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 ${held ? "is-held" : ""}`}
-          >
-            <div className="flex flex-wrap gap-x-8 gap-y-3">
-              {project.impactStats.map((stat) => (
-                <div key={stat.label}>
-                  <div className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-white">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs text-white/75">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        {!isExternal && <Portal />}
+
       </div>
     </div>
   );
@@ -156,7 +152,6 @@ export default function ProjectCard({ project }: { project: Project }) {
         data-cursor="Visit site"
         onMouseEnter={startCycle}
         onMouseLeave={stopCycle}
-        {...handlers}
       >
         {content}
       </a>
@@ -167,10 +162,9 @@ export default function ProjectCard({ project }: { project: Project }) {
     <HoleLink
       href={project.href}
       className={className}
-      data-cursor="View case study"
+      data-cursor="Enter →"
       onMouseEnter={startCycle}
       onMouseLeave={stopCycle}
-      {...handlers}
     >
       {content}
     </HoleLink>

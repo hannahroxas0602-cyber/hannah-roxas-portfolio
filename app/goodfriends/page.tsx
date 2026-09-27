@@ -9,6 +9,8 @@ import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
 import ImageSlideshow from "@/app/components/ImageSlideshow";
+import ReadingTime from "@/app/components/ReadingTime";
+import { readingMinutes } from "@/app/data/readingTime";
 import {
   goodHero,
   highlightsSection,
@@ -22,6 +24,19 @@ import {
   nextStepsSection,
   nextProject,
 } from "@/app/goodfriends/data";
+
+const minutesToRead = readingMinutes(
+  goodHero,
+  highlightsSection,
+  timelineSection,
+  roleAndImpact,
+  problemSection,
+  researchGallery,
+  designGoal,
+  designSolutions,
+  designDecisions,
+  nextStepsSection,
+);
 
 const sections = [
   { id: "overview", title: "Overview" },
@@ -72,7 +87,9 @@ export default function GoodFriendsPage() {
             {goodHero.gist.text}
           </p>
 
-          <p className="mt-8 text-sm text-neutral-400">{goodHero.date}</p>
+          <p className="mt-8 text-sm text-neutral-400">
+            {goodHero.date} · <ReadingTime minutes={minutesToRead} />
+          </p>
 
           <dl className="mt-6 grid grid-cols-1 gap-6 border-t border-black/[0.08] pt-8 sm:grid-cols-3">
             {goodHero.meta.map((item) => (

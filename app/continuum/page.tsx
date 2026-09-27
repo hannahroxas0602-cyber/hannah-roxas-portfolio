@@ -9,6 +9,8 @@ import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
 import { filled } from "@/app/data/placeholder";
+import { readingMinutes } from "@/app/data/readingTime";
+import ReadingTime from "@/app/components/ReadingTime";
 import {
   continuumHero,
   highlightsSection,
@@ -39,6 +41,18 @@ export const metadata: Metadata = pageMetadata({
   description: continuumHero.subtitle,
   path: "/continuum",
 });
+
+const minutesToRead = readingMinutes(
+  continuumHero,
+  highlightsSection,
+  timelineSection,
+  roleAndImpact,
+  problemSection,
+  decisionsSection,
+  stakeholdersSection,
+  designSystemSection,
+  nextStepsSection,
+);
 
 // Full class strings so Tailwind can see them; keyed by how many items render.
 const metaGridCols: Record<number, string> = {
@@ -86,7 +100,9 @@ export default function ContinuumPage() {
               {continuumHero.subtitle}
             </p>
 
-            <p className="mt-8 text-sm text-neutral-400">{continuumHero.date}</p>
+            <p className="mt-8 text-sm text-neutral-400">
+              {continuumHero.date} · <ReadingTime minutes={minutesToRead} />
+            </p>
 
             <div className="mt-10 grid grid-cols-1 gap-10 border-t border-black/[0.08] pt-10 sm:grid-cols-2">
               <div>

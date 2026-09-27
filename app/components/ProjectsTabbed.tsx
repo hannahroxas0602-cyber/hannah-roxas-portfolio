@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import HoleLink from "@/app/components/HoleLink";
+import Portal from "@/app/components/Portal";
 import { AnimatePresence, motion } from "motion/react";
 import { projects, type Project } from "@/app/data/projects";
 import { useHoldPreview } from "@/app/hooks/useHoldPreview";
@@ -75,7 +76,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
     <HoleLink
       ref={cardRef}
       href={project.href}
-      data-cursor="View case study"
+      data-cursor="Enter →"
       onMouseEnter={startCycle}
       onMouseLeave={stopCycle}
       className="group relative block aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-100"
@@ -157,6 +158,8 @@ function ProjectThumbnail({ project }: { project: Project }) {
         </>
       )}
 
+      <Portal />
+
       {/* Persistent title chip so the project reads without needing to hover */}
       <span className="absolute bottom-4 left-4 z-10 rounded-full border border-white/15 bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-xl backdrop-saturate-150">
         {project.title}
@@ -234,7 +237,7 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
               <HoleLink
                 key={project.slug}
                 href={project.href}
-                data-cursor="View case study"
+                data-cursor="Enter →"
                 className="group flex items-baseline gap-4 border-b border-neutral-200 py-6 transition-colors duration-200 hover:border-neutral-300"
               >
                 <span className="font-[family-name:var(--font-mono)] text-xs font-medium text-neutral-300">
@@ -251,9 +254,10 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
                 </div>
                 <span
                   aria-hidden
-                  className="flex-none text-neutral-300 transition-all duration-300 group-hover:translate-x-1 group-hover:text-neutral-900"
+                  className="cta-swap flex-none justify-items-end text-neutral-300 transition-colors duration-300 group-hover:text-neutral-900"
                 >
-                  →
+                  <span>→</span>
+                  <span className="text-sm font-medium whitespace-nowrap">Enter →</span>
                 </span>
               </HoleLink>
             ))}
