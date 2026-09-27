@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import HoleLink from "@/app/components/HoleLink";
 import { AnimatePresence, motion } from "motion/react";
 import type { Project } from "@/app/data/projects";
 import { useHoldPreview } from "@/app/hooks/useHoldPreview";
@@ -164,7 +164,7 @@ export default function ProjectCard({ project }: { project: Project }) {
   }
 
   return (
-    <Link
+    <HoleLink
       href={project.href}
       className={className}
       data-cursor="View case study"
@@ -173,6 +173,6 @@ export default function ProjectCard({ project }: { project: Project }) {
       {...handlers}
     >
       {content}
-    </Link>
+    </HoleLink>
   );
 }

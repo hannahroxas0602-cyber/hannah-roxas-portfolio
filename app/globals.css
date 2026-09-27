@@ -76,6 +76,79 @@ body {
   }
 }
 
+/* ─── Page transitions: falling into (and climbing out of) the rabbit hole ───
+   PageTransition maps HoleLink's transition types to these classes. The iris
+   is a circular clip on the browser's flat snapshot of each page, so it never
+   re-lays-out or repaints the live page. --iris-x/--iris-y are set on click. */
+:root {
+  --iris-x: 50vw;
+  --iris-y: 50vh;
+}
+
+/* Into a project: the new page opens outward from the clicked card over the old one. */
+::view-transition-old(.iris-over) {
+  animation: none;
+}
+::view-transition-new(.iris-open) {
+  animation: iris-open 560ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+/* Back up: the case study closes into the click point, revealing home beneath it. */
+::view-transition-group(.iris-close) {
+  z-index: 2;
+}
+::view-transition-old(.iris-close) {
+  animation: iris-close 480ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+::view-transition-new(.iris-under) {
+  animation: none;
+}
+
+@keyframes iris-open {
+  from {
+    clip-path: circle(0 at var(--iris-x) var(--iris-y));
+  }
+  to {
+    clip-path: circle(150vmax at var(--iris-x) var(--iris-y));
+  }
+}
+
+@keyframes iris-close {
+  from {
+    clip-path: circle(150vmax at var(--iris-x) var(--iris-y));
+  }
+  to {
+    clip-path: circle(0 at var(--iris-x) var(--iris-y));
+  }
+}
+
+/* The header stays put through every transition, as the fixed point of reference. */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* Clicks during a transition go through to the live page. */
+::view-transition {
+  pointer-events: none;
+}
+
+/* Reduced motion: every page swap is instant. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);

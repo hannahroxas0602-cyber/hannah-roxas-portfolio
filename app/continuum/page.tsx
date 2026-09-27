@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
 import Link from "next/link";
 import Header from "@/app/components/Header";
+import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
@@ -70,12 +71,12 @@ export default function ContinuumPage() {
         <div className="min-w-0 flex-1">
           {/* Hero / Overview */}
           <section id="overview" className="max-w-4xl pt-16 pb-8 sm:pt-24">
-            <Link
+            <HoleLink direction="out"
               href="/"
               className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
             >
               ← Back to home
-            </Link>
+            </HoleLink>
 
             <h1 className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
               {continuumHero.title}

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import HoleLink from "@/app/components/HoleLink";
 
 type NextProjectPreviewProps = {
   label: string;
@@ -26,7 +26,7 @@ export default function NextProjectPreview({
     <section className="mx-auto max-w-4xl px-6 py-16 sm:px-10 sm:py-24">
       <p className="text-sm font-medium tracking-wide text-neutral-400 uppercase">{label}</p>
 
-      <Link
+      <HoleLink
         href={href}
         data-cursor="View case study"
         className="group mt-6 flex flex-col gap-6 sm:flex-row sm:items-center"
@@ -49,7 +49,7 @@ export default function NextProjectPreview({
             {description}
           </p>
         </div>
-      </Link>
+      </HoleLink>
     </section>
   );
 }

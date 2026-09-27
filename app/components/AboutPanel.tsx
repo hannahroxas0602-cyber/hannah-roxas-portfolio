@@ -136,7 +136,7 @@ export default function AboutPanel({ width }: { width: number }) {
 
             {/* Tool marquee — real logos + names via Simple Icons, scrolling in one line */}
             <div className="overflow-hidden rounded-2xl bg-white py-4 sm:py-5">
-              <div className="flex w-max animate-[marquee_28s_linear_infinite] items-center">
+              <div className="flex w-max animate-[marquee_28s_linear_infinite] items-center motion-reduce:animate-none">
                 {[...tools, ...tools].map((tool, i) => (
                   <div
                     key={`${tool.slug}-${i}`}

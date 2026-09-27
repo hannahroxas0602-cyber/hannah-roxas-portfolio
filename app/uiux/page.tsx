@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
-import Link from "next/link";
 import Header from "@/app/components/Header";
+import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
 import ProjectGrid from "@/app/components/ProjectGrid";
 import { projects } from "@/app/data/projects";
@@ -21,12 +21,12 @@ export default function UiUxPage() {
       <Header />
       <main className="flex-1">
         <section className="mx-auto max-w-6xl px-6 pt-16 pb-10 sm:px-10 sm:pt-20 sm:pb-14">
-          <Link
+          <HoleLink direction="out"
             href="/"
             className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
           >
             ← Back to home
-          </Link>
+          </HoleLink>
 
           <p className="mt-8 font-[family-name:var(--font-mono)] text-xs font-medium tracking-widest text-neutral-400 uppercase sm:mt-10">
             {uiuxHero.eyebrow}

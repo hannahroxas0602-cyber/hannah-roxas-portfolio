@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import HoleLink from "@/app/components/HoleLink";
 import { AnimatePresence, motion } from "motion/react";
 import { projects, type Project } from "@/app/data/projects";
 import { useHoldPreview } from "@/app/hooks/useHoldPreview";
@@ -72,7 +72,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
   }, [hasVideo]);
 
   return (
-    <Link
+    <HoleLink
       ref={cardRef}
       href={project.href}
       data-cursor="View case study"
@@ -184,7 +184,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
           <p className="max-w-md text-sm leading-relaxed text-white/90">{project.description}</p>
         </div>
       </div>
-    </Link>
+    </HoleLink>
   );
 }
 
@@ -231,7 +231,7 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
 
           <div className="flex flex-col">
             {visibleProjects.map((project, i) => (
-              <Link
+              <HoleLink
                 key={project.slug}
                 href={project.href}
                 data-cursor="View case study"
@@ -255,7 +255,7 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
                 >
                   →
                 </span>
-              </Link>
+              </HoleLink>
             ))}
           </div>
         </div>

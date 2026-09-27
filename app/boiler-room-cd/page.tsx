@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
 import { projectDescription } from "@/app/data/projects";
 import Image from "next/image";
-import Link from "next/link";
 import Header from "@/app/components/Header";
+import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
 import { boilerRoomHero, gallery, nextProject } from "@/app/boiler-room-cd/data";
@@ -22,12 +22,12 @@ export default function BoilerRoomCdPage() {
         {/* Hero */}
         <section className="py-16 sm:py-24">
           <div className="mx-auto max-w-4xl px-6 sm:px-10">
-            <Link
+            <HoleLink direction="out"
               href="/"
               className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
             >
               ← Back to home
-            </Link>
+            </HoleLink>
 
             <h1 className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
               {boilerRoomHero.title}
