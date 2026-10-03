@@ -85,9 +85,14 @@ body {
   --iris-y: 50vh;
 }
 
-/* Into a project: the new page opens outward from the clicked card over the old one. */
+/* Into a project: the new page opens outward from the clicked card over the old
+   one. The page being left dims toward black behind the circle, so the iris
+   reads even when both pages are light (a white list opening a white page). */
+::view-transition-group(.iris-over) {
+  background: #000;
+}
 ::view-transition-old(.iris-over) {
-  animation: none;
+  animation: iris-dim 560ms cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 ::view-transition-new(.iris-open) {
   animation: iris-open 560ms cubic-bezier(0.65, 0, 0.35, 1) both;
@@ -100,8 +105,11 @@ body {
 ::view-transition-old(.iris-close) {
   animation: iris-close 480ms cubic-bezier(0.65, 0, 0.35, 1) both;
 }
+::view-transition-group(.iris-under) {
+  background: #000;
+}
 ::view-transition-new(.iris-under) {
-  animation: none;
+  animation: iris-undim 480ms cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 
 @keyframes iris-open {
@@ -110,6 +118,18 @@ body {
   }
   to {
     clip-path: circle(150vmax at var(--iris-x) var(--iris-y));
+  }
+}
+
+@keyframes iris-dim {
+  to {
+    opacity: 0.5;
+  }
+}
+
+@keyframes iris-undim {
+  from {
+    opacity: 0.5;
   }
 }
 
@@ -209,15 +229,25 @@ body {
   opacity: 0;
   transform: translateY(4px);
 }
-.group:hover .cta-swap > :first-child,
-.group:focus-visible .cta-swap > :first-child {
-  opacity: 0;
-  transform: translateY(-4px);
+@media (hover: hover) {
+  .group:hover .cta-swap > :first-child,
+  .group:focus-visible .cta-swap > :first-child {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  .group:hover .cta-swap > :last-child,
+  .group:focus-visible .cta-swap > :last-child {
+    opacity: 1;
+    transform: none;
+  }
 }
-.group:hover .cta-swap > :last-child,
-.group:focus-visible .cta-swap > :last-child {
-  opacity: 1;
-  transform: none;
+
+/* Case studies pin a section bar to the bottom of the screen on phones. Leave
+   room for it under the footer so it never covers the footer's links. */
+@media (max-width: 767px) {
+  main:has([data-bottom-bar]) + footer {
+    padding-bottom: 3.5rem;
+  }
 }
 
 @keyframes marquee {

@@ -6,7 +6,6 @@ import HoleLink from "@/app/components/HoleLink";
 import Portal from "@/app/components/Portal";
 import { AnimatePresence, motion } from "motion/react";
 import { projects, type Project } from "@/app/data/projects";
-import { useHoldPreview } from "@/app/hooks/useHoldPreview";
 
 type Tab = {
   key: Project["category"];
@@ -20,14 +19,19 @@ const TABS: Tab[] = [
 
 const SLIDE_INTERVAL_MS = 1200;
 
+// Touch screens have no hover, so project cards behave differently there.
+const isTouchScreen = () => window.matchMedia("(hover: none)").matches;
+
 function ProjectThumbnail({ project }: { project: Project }) {
   const gallery = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
   const [activeIndex, setActiveIndex] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const { held, handlers } = useHoldPreview();
+  // Touch only: set once the card has been tapped, which reveals the info panel.
+  const [previewing, setPreviewing] = useState(false);
 
   const startCycle = () => {
-    if (gallery.length <= 1) return;
+    // iOS fires mouseenter on tap; changing the image there makes it swallow the tap.
+    if (gallery.length <= 1 || isTouchScreen()) return;
     setActiveIndex(1);
     intervalRef.current = setInterval(() => {
       setActiveIndex((i) => (i + 1) % gallery.length);
@@ -40,11 +44,14 @@ function ProjectThumbnail({ project }: { project: Project }) {
     setActiveIndex(0);
   };
 
-  const goToNext = (e: React.MouseEvent) => {
+  // On touch screens a tap on the card previews it (info panel, next image) and
+  // only the arrow opens the case study. With a mouse the whole card is the link.
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isTouchScreen()) return;
+    if ((e.target as HTMLElement).closest("[data-enter]")) return;
     e.preventDefault();
-    e.stopPropagation();
-    stopCycle();
-    setActiveIndex((i) => (i + 1) % gallery.length);
+    if (previewing) setActiveIndex((i) => (i + 1) % gallery.length);
+    setPreviewing(true);
   };
 
   useEffect(() => () => stopCycle(), []);
@@ -79,8 +86,8 @@ function ProjectThumbnail({ project }: { project: Project }) {
       data-cursor="Enter →"
       onMouseEnter={startCycle}
       onMouseLeave={stopCycle}
+      onClick={handleClick}
       className="group relative block aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-100"
-      {...handlers}
     >
       {/* Once the card is near view, videos stay mounted and preloaded so hover playback starts instantly. */}
       {hasVideo &&
@@ -126,8 +133,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
       </AnimatePresence>
 
       {gallery.length > 1 && (
-        <>
-          <div className="absolute top-4 right-4 z-10 flex gap-1.5">
+          <div className="absolute top-4 right-4 z-10 flex gap-1.5 [@media(hover:none)]:top-6 [@media(hover:none)]:right-16">
             {gallery.map((_, i) => (
               <span
                 key={i}
@@ -138,25 +144,24 @@ function ProjectThumbnail({ project }: { project: Project }) {
             ))}
           </div>
 
-          {/* Touch devices can't hover to auto-cycle — give them a manual next button. */}
-          <button
-            type="button"
-            aria-label="Next image"
-            onClick={goToNext}
-            className="touch-only-control absolute bottom-4 right-4 z-20 h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/60 text-white backdrop-blur-xl backdrop-saturate-150"
-          >
-            <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4">
-              <path
-                d="M9 6l6 6-6 6"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </>
       )}
+
+      {/* Touch screens: the arrow is what opens the case study (a tap anywhere else previews). */}
+      <span
+        data-enter
+        aria-hidden
+        className="touch-only-control absolute top-3 right-3 z-20 h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/60 text-white backdrop-blur-xl backdrop-saturate-150"
+      >
+        <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4">
+          <path
+            d="M5 12h14M13 6l6 6-6 6"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </span>
 
       <Portal />
 
@@ -166,7 +171,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
       </span>
 
       <div
-        className={`touch-reveal absolute inset-0 z-10 flex flex-col justify-end p-4 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 ${held ? "is-held" : ""}`}
+        className={`touch-reveal absolute inset-0 z-10 flex flex-col justify-end p-4 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 ${previewing ? "is-held" : ""}`}
       >
         <div className="rounded-2xl border border-white/15 bg-black/45 p-5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl backdrop-saturate-150">
           {project.impactStats && project.impactStats.length > 0 && (

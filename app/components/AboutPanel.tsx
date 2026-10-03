@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { useAboutPanel } from "@/app/components/AboutPanelContext";
 import { experience } from "@/app/about/data";
 import { social } from "@/app/data/social";
@@ -33,41 +33,46 @@ function PhotoStack() {
   }, [count]);
 
   return (
-    <div className="relative h-16 w-16 shrink-0">
-      {stackPhotos.map((photo, i) => {
-        // Distance behind the front card, wrapping around the deck.
-        const depth = (i - index + count) % count;
-        const isFront = depth === 0;
-        const isNext = depth === 1;
+    // The flip-through always animates, even with Reduce Motion on: it's a
+    // 64px thumbnail, not the large-area movement that setting is meant to
+    // stop, and without it the photos just snap from one to the next.
+    <MotionConfig reducedMotion="never">
+      <div className="relative h-16 w-16 shrink-0">
+        {stackPhotos.map((photo, i) => {
+          // Distance behind the front card, wrapping around the deck.
+          const depth = (i - index + count) % count;
+          const isFront = depth === 0;
+          const isNext = depth === 1;
 
-        return (
-          <motion.div
-            key={photo.src}
-            className="absolute inset-0 overflow-hidden rounded-xl border-2 border-white shadow-md"
-            animate={
-              isFront
-                ? { x: 0, y: 0, rotate: 0, scale: 1, opacity: 1, zIndex: count }
-                : isNext
-                  ? { x: 7, y: 7, rotate: 8, scale: 0.94, opacity: 1, zIndex: count - 1 }
-                  : { x: 7, y: 7, rotate: 8, scale: 0.94, opacity: 0, zIndex: 0 }
-            }
-            transition={{ type: "spring", stiffness: 260, damping: 24 }}
-          >
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              fill
-              sizes="64px"
-              className="object-cover"
-              style={{
-                objectPosition: photo.objectPosition ?? "50% 50%",
-                transform: photo.scale ? `scale(${photo.scale})` : undefined,
-              }}
-            />
-          </motion.div>
-        );
-      })}
-    </div>
+          return (
+            <motion.div
+              key={photo.src}
+              className="absolute inset-0 overflow-hidden rounded-xl border-2 border-white shadow-md"
+              animate={
+                isFront
+                  ? { x: 0, y: 0, rotate: 0, scale: 1, opacity: 1, zIndex: count }
+                  : isNext
+                    ? { x: 7, y: 7, rotate: 8, scale: 0.94, opacity: 1, zIndex: count - 1 }
+                    : { x: 7, y: 7, rotate: 8, scale: 0.94, opacity: 0, zIndex: 0 }
+              }
+              transition={{ type: "spring", stiffness: 260, damping: 24 }}
+            >
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                sizes="64px"
+                className="object-cover"
+                style={{
+                  objectPosition: photo.objectPosition ?? "50% 50%",
+                  transform: photo.scale ? `scale(${photo.scale})` : undefined,
+                }}
+              />
+            </motion.div>
+          );
+        })}
+      </div>
+    </MotionConfig>
   );
 }
 

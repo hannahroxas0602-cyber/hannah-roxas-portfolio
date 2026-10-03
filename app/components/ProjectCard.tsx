@@ -18,7 +18,9 @@ export default function ProjectCard({ project }: { project: Project }) {
   const hasVideo = gallery.some((src) => src.endsWith(".mp4"));
 
   const startCycle = () => {
-    if (gallery.length <= 1) return;
+    // iOS fires mouseenter on tap; changing the image there makes it swallow the
+    // tap, so the card needed two taps to open. Only cycle where there's a real hover.
+    if (gallery.length <= 1 || window.matchMedia("(hover: none)").matches) return;
     setActiveIndex(1);
     intervalRef.current = setInterval(() => {
       setActiveIndex((i) => (i + 1) % gallery.length);

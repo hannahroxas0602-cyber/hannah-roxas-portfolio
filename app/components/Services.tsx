@@ -5,6 +5,10 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { servicesIntro, services } from "@/app/services/data";
 
+// One shared timing for everything that opens or closes, so the box that is
+// closing and the box that is opening move together.
+const ACCORDION = { duration: 0.45, ease: [0.32, 0.72, 0, 1] } as const;
+
 const halftones = [
   "/images/halftone_1.png",
   "/images/halftone_2.png",
@@ -40,11 +44,9 @@ export default function Services() {
         {services.map((service, i) => {
           const isOpen = service.slug === openSlug;
           return (
-            <motion.div
+            <div
               key={service.slug}
-              layout
               onMouseEnter={canHover ? () => setOpenSlug(service.slug) : undefined}
-              transition={{ type: "spring", stiffness: 220, damping: 28, mass: 0.8 }}
               className="relative overflow-hidden rounded-2xl border border-black/[0.08]"
             >
               {/* Halftone artwork — full-bleed background, always visible, drifts on hover */}
@@ -67,26 +69,22 @@ export default function Services() {
               </motion.div>
 
               {/* Title row — frosted glass pill so it reads over the artwork */}
-              <motion.button
+              <button
                 type="button"
-                layout
                 onClick={() => setOpenSlug(isOpen ? null : service.slug)}
-                transition={{ type: "spring", stiffness: 220, damping: 28, mass: 0.8 }}
-                className="relative z-10 flex w-full flex-col gap-2 px-6 py-4 text-left sm:px-8 sm:py-5"
+                className="relative z-10 flex w-full flex-col px-6 py-4 text-left sm:px-8 sm:py-5"
               >
                 <div className="flex w-full items-center justify-between">
-                  <motion.h3
-                    layout="position"
-                    className={`inline-block w-fit rounded-full border border-white/10 bg-black/70 px-4 font-[family-name:var(--font-manrope)] text-white backdrop-blur-xl backdrop-saturate-150 ${
+                  <h3
+                    className={`inline-block w-fit rounded-full border border-white/10 bg-black/70 px-4 font-[family-name:var(--font-manrope)] text-white backdrop-blur-xl backdrop-saturate-150 transition-[font-size,line-height,padding] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] ${
                       isOpen ? "py-1.5 text-xl sm:text-2xl" : "py-1 text-lg sm:text-xl"
                     }`}
                   >
                     {service.title}
-                  </motion.h3>
+                  </h3>
                   <motion.span
-                    layout="position"
                     animate={{ rotate: isOpen ? 45 : 0 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 24 }}
+                    transition={ACCORDION}
                     className="flex h-8 w-8 flex-none items-center justify-center rounded-full border border-white/10 bg-black/70 text-lg text-white backdrop-blur-xl backdrop-saturate-150"
                   >
                     +
@@ -96,28 +94,29 @@ export default function Services() {
                 {/* Collapsed-state teaser — one-line proof point, visible without expanding */}
                 <AnimatePresence initial={false}>
                   {!isOpen && (
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="w-fit rounded-full border border-white/10 bg-black/70 px-3 py-1 text-xs text-white backdrop-blur-xl backdrop-saturate-150"
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={ACCORDION}
+                      className="overflow-hidden"
                     >
-                      {service.proof}
-                    </motion.p>
+                      <p className="mt-2 w-fit rounded-full border border-white/10 bg-black/70 px-3 py-1 text-xs text-white backdrop-blur-xl backdrop-saturate-150">
+                        {service.proof}
+                      </p>
+                    </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.button>
+              </button>
 
               <AnimatePresence initial={false}>
                 {isOpen && (
                   <motion.div
-                    layout
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ type: "spring", stiffness: 220, damping: 28, mass: 0.8 }}
-                    className="relative z-10"
+                    transition={ACCORDION}
+                    className="relative z-10 overflow-hidden"
                   >
                     <div className="mx-3 mb-3 rounded-2xl border border-white/10 bg-black/70 p-4 backdrop-blur-xl backdrop-saturate-150 sm:mx-4 sm:mb-4 sm:p-5">
                       <p className="text-sm text-white/80">{service.proof}</p>
@@ -145,7 +144,7 @@ export default function Services() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </div>
           );
         })}
       </div>

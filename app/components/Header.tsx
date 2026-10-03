@@ -130,10 +130,12 @@ export default function Header() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              // Eases in as well as out, so the page below is pushed down
+              // gradually instead of jumping at the start.
+              transition={{ duration: 0.5, ease: [0.45, 0, 0.15, 1] }}
               className="overflow-hidden sm:hidden"
             >
-              <nav className="mt-2 flex flex-col gap-1 rounded-2xl border border-black/[0.06] bg-white/70 p-3 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl backdrop-saturate-150">
+              <nav className="mt-2 flex flex-col gap-1 rounded-2xl border border-black/[0.06] bg-white/95 p-3 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl backdrop-saturate-150">
                 {navLinks.map((link) =>
                   link.kind === "about" ? (
                     <button

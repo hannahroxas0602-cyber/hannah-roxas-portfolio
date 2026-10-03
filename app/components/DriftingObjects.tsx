@@ -2,7 +2,6 @@
 
 import {
   motion,
-  useReducedMotion,
   useScroll,
   useTransform,
   type MotionValue,
@@ -60,14 +59,15 @@ function Drifter({
 // parallax speeds as you scroll. Configure them in app/data/drift.ts.
 // Hidden below 1440px and for visitors who prefer reduced motion.
 export default function DriftingObjects() {
-  const reduceMotion = useReducedMotion();
   const { scrollY } = useScroll();
-  if (reduceMotion) return null;
 
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 hidden overflow-hidden min-[1440px]:block"
+      // motion-reduce:!hidden rather than returning null: the server can't know the
+      // visitor's motion preference, so rendering nothing on the client only
+      // would be a hydration mismatch.
+      className="pointer-events-none absolute inset-0 hidden overflow-hidden min-[1440px]:block motion-reduce:!hidden"
     >
       {driftObjects.map((item) => (
         <Drifter key={item.src + item.top} item={item} scrollY={scrollY} />

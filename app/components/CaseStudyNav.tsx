@@ -62,7 +62,7 @@ export default function CaseStudyNav({ sections }: { sections: CaseStudySection[
   return (
     <>
       {/* Mobile: fixed horizontal scroll bar, pinned to the bottom of the viewport */}
-      <nav className="fixed right-0 bottom-0 left-0 z-30 border-t border-black/[0.06] bg-background/95 py-3 backdrop-blur-sm md:hidden">
+      <nav data-bottom-bar className="fixed right-0 bottom-0 left-0 z-30 border-t border-black/[0.06] bg-background/95 py-3 backdrop-blur-sm md:hidden">
         <div
           ref={mobileScrollRef}
           className="scrollbar-none flex gap-5 overflow-x-auto px-6 sm:px-10"
@@ -87,8 +87,8 @@ export default function CaseStudyNav({ sections }: { sections: CaseStudySection[
         </div>
       </nav>
 
-      {/* Spacer so fixed bottom bar doesn't cover page content on mobile */}
-      <div className="h-14 shrink-0 md:hidden" aria-hidden />
+      {/* Room for this bar at the end of the page is added under the footer in
+          globals.css ([data-bottom-bar]), so it never covers the footer links. */}
 
       {/* Desktop: sticky vertical sidebar */}
       <nav className="hidden md:sticky md:top-28 md:block md:h-fit md:w-40 md:shrink-0">
