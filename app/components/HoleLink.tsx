@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type { ComponentProps, MouseEvent } from "react";
+import { markHoleNavigation } from "@/app/components/irisFallback";
 
 type HoleLinkProps = Omit<ComponentProps<typeof Link>, "transitionTypes"> & {
   // "in" drops into a project (iris opens from the click); "out" climbs back up
@@ -30,8 +31,11 @@ export default function HoleLink({ direction = "in", onClick, ...props }: HoleLi
       {...props}
       transitionTypes={[direction === "in" ? "hole-in" : "hole-out"]}
       onClick={(e) => {
-        setIrisOrigin(e);
         onClick?.(e);
+        // A handler can cancel the navigation (a tap that only previews a card).
+        if (e.defaultPrevented) return;
+        setIrisOrigin(e);
+        markHoleNavigation();
       }}
     />
   );
