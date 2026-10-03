@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import HoleLink from "@/app/components/HoleLink";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { navLinks } from "@/app/data/social";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
 import { useAboutPanel } from "@/app/components/AboutPanelContext";
@@ -15,6 +15,9 @@ export default function Header() {
   const { open: openAbout } = useAboutPanel();
 
   return (
+    // The menu opening and the nav pill are small, tap-triggered UI motion, so
+    // they keep animating under Reduce Motion (which otherwise makes them snap).
+    <MotionConfig reducedMotion="never">
     <header className="sticky top-0 z-50 w-full" style={{ viewTransitionName: "site-header" }}>
       <div className="mx-auto mt-4 max-w-6xl px-4 sm:px-6">
         <div className="flex items-center justify-between rounded-2xl border border-black/[0.06] bg-white/70 px-6 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl backdrop-saturate-150 sm:px-8">
@@ -177,5 +180,6 @@ export default function Header() {
         </AnimatePresence>
       </div>
     </header>
+    </MotionConfig>
   );
 }

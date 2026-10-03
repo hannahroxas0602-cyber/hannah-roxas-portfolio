@@ -171,13 +171,35 @@ html.iris-fallback-backdrop body {
   pointer-events: none;
 }
 
-/* Reduced motion: every page swap is instant. */
+/* Reduced motion: a plain fade replaces the moving circle. */
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(*),
-  ::view-transition-new(*),
-  ::view-transition-group(*) {
-    animation-duration: 0s !important;
-    animation-delay: 0s !important;
+  /* No moving circle and no dimming: the new page simply fades in over the old
+     one (and a page being left fades out), with opacity only. */
+  ::view-transition-group(.iris-over),
+  ::view-transition-group(.iris-under) {
+    background: none;
+  }
+  ::view-transition-old(.iris-over),
+  ::view-transition-new(.iris-under) {
+    animation: none;
+  }
+  ::view-transition-new(.iris-open) {
+    animation: page-fade-in 280ms ease both;
+  }
+  ::view-transition-old(.iris-close) {
+    animation: page-fade-out 280ms ease both;
+  }
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes page-fade-out {
+  to {
+    opacity: 0;
   }
 }
 

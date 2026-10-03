@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, MotionConfig } from "motion/react";
 import { servicesIntro, services } from "@/app/services/data";
 
 // One shared timing for everything that opens or closes, so the box that is
@@ -29,6 +29,9 @@ export default function Services() {
   }, []);
 
   return (
+    // Opening and closing a box is small, tap-triggered UI motion, so it keeps
+    // animating under Reduce Motion (which otherwise makes the boxes snap).
+    <MotionConfig reducedMotion="never">
     <section id="what-i-do" className="mx-auto max-w-6xl scroll-mt-24 px-6 pt-8 pb-16 sm:px-10 sm:pt-12 sm:pb-24">
       <p className="text-lg text-neutral-500">
         <span className="mr-1 font-[family-name:var(--font-mono)] text-sm tracking-wide">
@@ -149,5 +152,6 @@ export default function Services() {
         })}
       </div>
     </section>
+    </MotionConfig>
   );
 }
