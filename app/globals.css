@@ -171,38 +171,10 @@ html.iris-fallback-backdrop body {
   pointer-events: none;
 }
 
-/* Reduced motion: a plain fade replaces the moving circle. */
-@media (prefers-reduced-motion: reduce) {
-  /* No moving circle and no dimming: the new page simply fades in over the old
-     one (and a page being left fades out), with opacity only. */
-  ::view-transition-group(.iris-over),
-  ::view-transition-group(.iris-under) {
-    background: none;
-  }
-  ::view-transition-old(.iris-over),
-  ::view-transition-new(.iris-under) {
-    animation: none;
-  }
-  ::view-transition-new(.iris-open) {
-    animation: page-fade-in 280ms ease both;
-  }
-  ::view-transition-old(.iris-close) {
-    animation: page-fade-out 280ms ease both;
-  }
-}
-
-@keyframes page-fade-in {
-  from {
-    opacity: 0;
-  }
-}
-
-@keyframes page-fade-out {
-  to {
-    opacity: 0;
-  }
-}
-
+/* The iris also plays under Reduce Motion: it's a reveal (a circular wipe), not
+   zooming or parallax, and the site owner wants the same page transition on
+   every device. The hero zoom, drifting objects, and portal rings still switch
+   off for that setting. */
 /* ─── Portal hover on project cards (Portal.tsx) ─── */
 .portal {
   display: none;

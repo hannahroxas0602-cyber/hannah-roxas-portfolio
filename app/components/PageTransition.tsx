@@ -20,7 +20,6 @@ function Page({ children }: { children: ReactNode }) {
     const el = ref.current;
     if (isHoleNavigation.current === null) isHoleNavigation.current = takeHoleNavigation();
     if (!el || !isHoleNavigation.current || supportsViewTransitions()) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const root = document.documentElement;
     el.classList.add("iris-fallback");

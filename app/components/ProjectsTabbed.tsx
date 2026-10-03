@@ -87,7 +87,12 @@ function ProjectThumbnail({ project }: { project: Project }) {
       onMouseEnter={startCycle}
       onMouseLeave={stopCycle}
       onClick={handleClick}
-      className="group relative block aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-100"
+      // Once previewed on touch, the card becomes a one-cell grid holding a 16:9
+      // spacer and the info panel, so it is as tall as whichever is taller. On
+      // very small phones the panel is taller than 16:9 and would be clipped.
+      className={`group relative w-full overflow-hidden rounded-2xl bg-neutral-100 ${
+        previewing ? "grid grid-cols-1" : "block aspect-[16/9]"
+      }`}
     >
       {/* Once the card is near view, videos stay mounted and preloaded so hover playback starts instantly. */}
       {hasVideo &&
@@ -165,31 +170,48 @@ function ProjectThumbnail({ project }: { project: Project }) {
 
       <Portal />
 
+      {/* Keeps the previewed card at least 16:9 (see the grid note above). */}
+      {previewing && (
+        <span aria-hidden className="col-start-1 row-start-1 block aspect-[16/9] w-full" />
+      )}
+
       {/* Persistent title chip so the project reads without needing to hover */}
-      <span className="absolute bottom-4 left-4 z-10 rounded-full border border-white/15 bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-xl backdrop-saturate-150">
+      <span
+        className={`absolute bottom-4 left-4 z-10 rounded-full border border-white/15 bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-xl backdrop-saturate-150 ${
+          // The touch preview panel covers the card; the chip would show through it.
+          previewing ? "hidden" : ""
+        }`}
+      >
         {project.title}
       </span>
 
       <div
-        className={`touch-reveal absolute inset-0 z-10 flex flex-col justify-end p-4 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 ${previewing ? "is-held" : ""}`}
+        className={`touch-reveal z-10 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 sm:p-4 ${
+          previewing ? "is-held relative col-start-1 row-start-1 min-w-0 self-end" : "absolute inset-0"
+        }`}
       >
-        <div className="rounded-2xl border border-white/15 bg-black/45 p-5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl backdrop-saturate-150">
+        <div className="rounded-xl border border-white/15 bg-black/60 p-3 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl backdrop-saturate-150 sm:rounded-2xl sm:bg-black/45 sm:p-5">
           {project.impactStats && project.impactStats.length > 0 && (
-            <div className="mb-4">
-              <div className="flex flex-wrap gap-x-8 gap-y-2">
+            // Right padding on touch keeps the stats clear of the corner arrow.
+            <div className="mb-2 sm:mb-4 [@media(hover:none)]:pr-11">
+              <div className="flex flex-wrap gap-x-5 gap-y-1.5 sm:gap-x-8 sm:gap-y-2">
                 {project.impactStats.map((stat, i) => (
                   <div key={`${stat.label}-${i}`}>
-                    <div className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-white">
+                    <div className="font-[family-name:var(--font-manrope)] text-lg leading-tight font-semibold text-white sm:text-2xl sm:leading-8">
                       {stat.value}
                     </div>
-                    <div className="text-xs text-white/80">{stat.label}</div>
+                    <div className="text-[11px] leading-tight text-white/80 sm:text-xs sm:leading-4">
+                      {stat.label}
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          <p className="max-w-md text-sm leading-relaxed text-white/90">{project.description}</p>
+          <p className="max-w-md text-xs leading-snug text-white/90 sm:text-sm sm:leading-relaxed">
+            {project.description}
+          </p>
         </div>
       </div>
     </HoleLink>
