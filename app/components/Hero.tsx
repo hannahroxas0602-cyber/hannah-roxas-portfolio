@@ -102,7 +102,10 @@ export default function Hero() {
       ref={sectionRef}
       className="mx-auto max-w-6xl px-6 pt-6 pb-4 sm:px-10 sm:pt-10 lg:pt-16"
     >
-      <p className="mb-8 text-center text-base font-medium tracking-tight text-neutral-500 sm:mb-5 sm:text-lg sm:text-black lg:hidden">
+      {/* The top ring card pokes ~12% of the ring's width above it (27px on mobile,
+          46px from sm), so the margin has to clear that, not just the ring's box. */}
+      {/* relative z-10 keeps this text above ring cards as they fly outward */}
+      <p className="relative z-10 mb-10 text-center text-base font-medium tracking-tight text-neutral-500 sm:mb-16 sm:text-lg sm:text-black lg:hidden">
         Welcome to the rabbit hole.
       </p>
       <div className="relative mx-auto aspect-square w-full max-w-[14rem] sm:max-w-sm lg:max-w-[clamp(20rem,calc(100svh_-_28rem),28rem)]">
