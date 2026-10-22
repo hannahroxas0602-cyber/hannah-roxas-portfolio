@@ -1,12 +1,21 @@
 "use client";
 
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, type MouseEvent, type ReactNode } from "react";
 
 type AboutPanelContextValue = {
   isOpen: boolean;
   open: () => void;
   close: () => void;
 };
+
+// About links point at /about (shareable, crawlable, works without JS), but a
+// plain click opens the side panel instead. Modified clicks (new tab, etc.)
+// fall through to the real page.
+export function openAboutOnPlainClick(e: MouseEvent, open: () => void) {
+  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  open();
+}
 
 const AboutPanelContext = createContext<AboutPanelContextValue | null>(null);
 

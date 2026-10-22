@@ -1,6 +1,10 @@
 export const aboutIntro = {
   eyebrow: "[01]",
   title: "About",
+  tagline:
+    "A curious, detail-obsessed designer who treats every project like a rabbit hole worth falling into.",
+  // Shown on /about once filled.
+  bio: "{{TODO: 2–3 sentence bio in your own words: background, what you're drawn to, what you want next}}",
 };
 
 export const process = {
@@ -24,9 +28,9 @@ export type ExperienceEntry = {
 export const experience: ExperienceEntry[] = [
   {
     slug: "learvo",
-    role: "Product Designer & Content Strategist",
+    role: "Product Designer (Intern) · Sole designer",
     context: "Learvo (EdTech SaaS Startup)",
-    dates: "2025-Present",
+    dates: "Oct 2025 – Present",
   },
   {
     slug: "continuum",

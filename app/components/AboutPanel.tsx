@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { useAboutPanel } from "@/app/components/AboutPanelContext";
-import { experience } from "@/app/about/data";
+import { aboutIntro, experience } from "@/app/about/data";
 import { social } from "@/app/data/social";
 
 const stackPhotos = [
@@ -133,10 +133,7 @@ export default function AboutPanel({ width }: { width: number }) {
                   Hannah Roxas
                 </p>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-neutral-600">
-                A curious, detail-obsessed designer who treats every project like a rabbit hole
-                worth falling into.
-              </p>
+              <p className="mt-3 text-sm leading-relaxed text-neutral-600">{aboutIntro.tagline}</p>
             </div>
 
             {/* Tool marquee — real logos + names via Simple Icons, scrolling in one line */}

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import HoleLink from "@/app/components/HoleLink";
 import Portal from "@/app/components/Portal";
+import DemoVideo from "@/app/components/DemoVideo";
 import { AnimatePresence, motion } from "motion/react";
 import type { Project } from "@/app/data/projects";
 
@@ -85,15 +86,12 @@ export default function ProjectCard({ project }: { project: Project }) {
         {hasVideo &&
           gallery.map((src, i) =>
             src.endsWith(".mp4") ? (
-              <video
+              <DemoVideo
                 key={src}
                 src={src}
-                aria-label={project.imageAlt}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
+                alt={project.imageAlt}
+                fallbackSrc={project.image}
+                sizes="(min-width: 1024px) 45vw, 100vw"
                 className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-400 ease-out ${
                   i === activeIndex ? "opacity-100" : "opacity-0"
                 }`}

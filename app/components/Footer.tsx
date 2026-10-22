@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import { social } from "@/app/data/social";
-import { useAboutPanel } from "@/app/components/AboutPanelContext";
+import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
 
 // The bottom of the rabbit hole. When the footer scrolls in, its content lands
@@ -141,13 +141,13 @@ export default function Footer() {
             >
               Works
             </Link>
-            <button
-              type="button"
-              onClick={openAbout}
+            <Link
+              href="/about"
+              onClick={(e) => openAboutOnPlainClick(e, openAbout)}
               className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
             >
               About
-            </button>
+            </Link>
           </div>
         </div>
       </div>

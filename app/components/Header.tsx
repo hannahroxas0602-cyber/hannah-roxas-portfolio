@@ -7,7 +7,7 @@ import HoleLink from "@/app/components/HoleLink";
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { navLinks } from "@/app/data/social";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
-import { useAboutPanel } from "@/app/components/AboutPanelContext";
+import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
 
 export default function Header() {
   const [hovered, setHovered] = useState<string | null>(null);
@@ -62,16 +62,16 @@ export default function Header() {
 
               if (link.kind === "about") {
                 return (
-                  <button
+                  <Link
                     key={link.label}
-                    type="button"
-                    onClick={openAbout}
+                    href={link.href}
+                    onClick={(e) => openAboutOnPlainClick(e, openAbout)}
                     onMouseEnter={() => setHovered(link.label)}
                     className="relative rounded-full px-4 py-1.5 text-sm font-medium text-black transition-colors"
                   >
                     {pill}
                     <span className="relative z-10">{link.label}</span>
-                  </button>
+                  </Link>
                 );
               }
 
@@ -141,17 +141,17 @@ export default function Header() {
               <nav className="mt-2 flex flex-col gap-1 rounded-2xl border border-black/[0.06] bg-white/95 p-3 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl backdrop-saturate-150">
                 {navLinks.map((link) =>
                   link.kind === "about" ? (
-                    <button
+                    <Link
                       key={link.label}
-                      type="button"
-                      onClick={() => {
+                      href={link.href}
+                      onClick={(e) => {
                         setMenuOpen(false);
-                        openAbout();
+                        openAboutOnPlainClick(e, openAbout);
                       }}
                       className="rounded-xl px-4 py-3 text-left text-base font-medium text-black transition-colors hover:bg-black/[0.03]"
                     >
                       {link.label}
-                    </button>
+                    </Link>
                   ) : link.kind === "external" ? (
                     <a
                       key={link.label}

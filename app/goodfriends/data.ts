@@ -146,7 +146,7 @@ export const problemSection = {
       },
     ],
     deliverables:
-      "View full research (Includes interview transcripts, journey maps, and competitive analysis).",
+      "Interview transcripts, journey maps, and competitive analysis.",
   },
 };
 

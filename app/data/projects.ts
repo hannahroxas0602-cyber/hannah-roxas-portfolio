@@ -27,7 +27,7 @@ export const projects: Project[] = [
     slug: "learvo",
     title: "Learvo",
     description:
-      "Designing for college students turning their own notes into quizzes, flashcards, summaries, and mnemonics, as a product designer on an ed-tech startup's team.",
+      "Designing for college students turning their own notes into quizzes, flashcards, summaries, and mnemonics, as the sole product designer (intern) at an ed-tech startup.",
     tags: ["UX/UI", "Product Design"],
     category: "UIUX",
     href: "/learvo",
@@ -36,7 +36,7 @@ export const projects: Project[] = [
     imageWidth: 1000,
     imageHeight: 1000,
     imageAspect: "16/9",
-    year: "2025 to Present",
+    year: "Oct 2025 – Present",
     impactStats: [
       { value: "4", label: "features designed and shipped" },
       { value: "5", label: "core pages unified under one nav system" },

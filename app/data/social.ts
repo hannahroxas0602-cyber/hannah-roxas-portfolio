@@ -8,12 +8,12 @@ export const social = {
 type NavLink =
   | { label: string; href: string; kind: "internal" }
   | { label: string; href: string; kind: "external" }
-  | { label: string; kind: "about" };
+  | { label: string; href: string; kind: "about" };
 
 export const navLinks: NavLink[] = [
   { label: "UI/UX", href: "/uiux", kind: "internal" },
   { label: "Graphics", href: "/graphic-design", kind: "internal" },
   { label: "What I Do", href: "/#what-i-do", kind: "internal" },
-  { label: "About", kind: "about" },
+  { label: "About", href: "/about", kind: "about" },
   { label: "Resume", href: social.resume, kind: "external" },
 ];

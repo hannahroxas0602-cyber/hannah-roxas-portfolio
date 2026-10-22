@@ -4,6 +4,7 @@ import Link from "next/link";
 import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
+import DemoVideo from "@/app/components/DemoVideo";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
@@ -197,13 +198,9 @@ export default function ContinuumPage() {
           </h2>
 
           <div className="relative mt-8 aspect-[2098/1120] w-full overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
-            <video
+            <DemoVideo
               src={problemSection.image}
-              aria-label={problemSection.imageAlt}
-              autoPlay
-              loop
-              muted
-              playsInline
+              alt={problemSection.imageAlt}
               className="h-full w-full object-cover"
             />
           </div>
@@ -292,13 +289,9 @@ export default function ContinuumPage() {
               >
                 <div className="relative aspect-[2068/1002] w-full overflow-hidden rounded-2xl bg-neutral-100 lg:w-3/5">
                   {s.demoVideo ? (
-                    <video
+                    <DemoVideo
                       src={s.demoVideo}
-                      aria-label={s.demoVideoAlt}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
+                      alt={s.demoVideoAlt}
                       className="h-full w-full object-contain"
                     />
                   ) : (
@@ -350,13 +343,10 @@ export default function ContinuumPage() {
           </ul>
 
           <div className="relative mt-10 aspect-[908/902] w-full max-w-md overflow-hidden rounded-2xl bg-neutral-100">
-            <video
+            <DemoVideo
               src={designSystemSection.image}
-              aria-label={designSystemSection.imageAlt}
-              autoPlay
-              loop
-              muted
-              playsInline
+              alt={designSystemSection.imageAlt}
+              sizes="448px"
               className="h-full w-full object-cover"
             />
           </div>

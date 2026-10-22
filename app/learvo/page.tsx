@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
+import DemoVideo from "@/app/components/DemoVideo";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
@@ -280,13 +281,10 @@ export default function LearvoPage() {
                     className="relative mt-6 w-full overflow-hidden rounded-2xl bg-neutral-900"
                     style={{ aspectRatio: `${cat.video.width}/${cat.video.height}` }}
                   >
-                    <video
+                    <DemoVideo
                       src={cat.video.src}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      preload="auto"
+                      alt={cat.imageAlt}
+                      fallbackSrc={cat.isPlaceholder ? undefined : cat.image}
                       className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                     />
                   </div>

@@ -3,14 +3,14 @@ import { projectDescription } from "@/app/data/projects";
 export const learvoHero = {
   title: "Learvo",
   subtitle:
-    "Product designer at an ed-tech startup turning student notes into quizzes, flashcards, summaries, and mnemonics.",
+    "Sole product designer (intern) at an ed-tech startup turning student notes into quizzes, flashcards, summaries, and mnemonics.",
   gist: {
     label: "The Gist:",
     text: "New users landed on an empty dashboard. Returning users hit an inconsistent nav and a quiz screen with no real signal. I redesigned both and shipped the code myself.",
   },
-  date: "Oct 2025 to Present (Sep 2026) · Product Design Intern",
+  date: "Oct 2025 – Present",
   meta: [
-    { label: "ROLE", value: "Product Design Intern (design + frontend implementation)" },
+    { label: "ROLE", value: "Product Designer (Intern) · Sole designer" },
     { label: "TEAM", value: "Learvo, product designer shipping directly into a live codebase" },
     { label: "SCOPE", value: "Landing page, onboarding activation, navigation system, quiz review UX" },
   ],

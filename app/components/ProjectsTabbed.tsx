@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import HoleLink from "@/app/components/HoleLink";
 import Portal from "@/app/components/Portal";
+import DemoVideo from "@/app/components/DemoVideo";
 import { AnimatePresence, motion } from "motion/react";
 import { projects, type Project } from "@/app/data/projects";
 
@@ -94,20 +95,17 @@ function ProjectThumbnail({ project }: { project: Project }) {
         previewing ? "grid grid-cols-1" : "block aspect-[16/9]"
       }`}
     >
-      {/* Once the card is near view, videos stay mounted and preloaded so hover playback starts instantly. */}
+      {/* Once the card is near view, videos stay mounted (and autoplaying) so hover playback starts instantly. */}
       {hasVideo &&
         nearViewport &&
         gallery.map((src, i) =>
           src.endsWith(".mp4") ? (
-            <video
+            <DemoVideo
               key={src}
               src={src}
-              aria-label={project.imageAlt}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
+              alt={project.imageAlt}
+              fallbackSrc={project.image}
+              sizes="(min-width: 1024px) 45vw, 100vw"
               className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-400 ease-out ${
                 i === activeIndex ? "opacity-100" : "opacity-0"
               }`}

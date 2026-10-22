@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { posterFor } from "@/app/components/DemoVideo";
 
 export default function ClickToPlayVideo({
   src,
@@ -43,10 +44,12 @@ export default function ClickToPlayVideo({
         <video
           ref={videoRef}
           src={src}
+          poster={posterFor(src)}
           autoPlay
           loop
           muted={isMuted}
           playsInline
+          preload="metadata"
           aria-label={title}
           className="h-full w-full object-cover"
         />
@@ -112,11 +115,13 @@ export default function ClickToPlayVideo({
             >
               <video
                 src={src}
+                poster={posterFor(src)}
                 controls
                 autoPlay
                 loop
                 muted
                 playsInline
+                preload="metadata"
                 aria-label={title}
                 className={`h-full w-full ${aspectRatio ? "object-cover" : "object-contain"}`}
               />
