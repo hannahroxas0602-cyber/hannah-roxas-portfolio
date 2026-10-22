@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, MotionConfig } from "motion/react";
 import { servicesIntro, services } from "@/app/services/data";
@@ -16,17 +16,23 @@ const halftones = [
   "/images/halftone_4.png",
 ];
 
+const HOVER_QUERY = "(hover: hover) and (pointer: fine)";
+
+function subscribeToHover(onChange: () => void) {
+  const mql = window.matchMedia(HOVER_QUERY);
+  mql.addEventListener("change", onChange);
+  return () => mql.removeEventListener("change", onChange);
+}
+
 export default function Services() {
   const [openSlug, setOpenSlug] = useState<string | null>(services[0]?.slug ?? null);
-  const [canHover, setCanHover] = useState(true);
-
-  useEffect(() => {
-    const mql = window.matchMedia("(hover: hover) and (pointer: fine)");
-    setCanHover(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setCanHover(e.matches);
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
-  }, []);
+  // Read straight from the media query; the server snapshot assumes a mouse,
+  // matching what the effect-based version rendered before hydration.
+  const canHover = useSyncExternalStore(
+    subscribeToHover,
+    () => window.matchMedia(HOVER_QUERY).matches,
+    () => true,
+  );
 
   return (
     // Opening and closing a box is small, tap-triggered UI motion, so it keeps
@@ -105,7 +111,7 @@ export default function Services() {
                       className="overflow-hidden"
                     >
                       <p className="mt-2 w-fit rounded-full border border-white/10 bg-black/70 px-3 py-1 text-xs text-white backdrop-blur-xl backdrop-saturate-150">
-                        {service.proof}
+                        {service.proof[0]}
                       </p>
                     </motion.div>
                   )}
@@ -122,7 +128,11 @@ export default function Services() {
                     className="relative z-10 overflow-hidden"
                   >
                     <div className="mx-3 mb-3 rounded-2xl border border-white/10 bg-black/70 p-4 backdrop-blur-xl backdrop-saturate-150 sm:mx-4 sm:mb-4 sm:p-5">
-                      <p className="text-sm text-white/80">{service.proof}</p>
+                      {service.proof.map((line) => (
+                        <p key={line} className="text-sm text-white/80 [&+&]:mt-1">
+                          {line}
+                        </p>
+                      ))}
 
                       <ul className="mt-3 flex flex-wrap gap-2">
                         {service.deliverables.map((item) => (

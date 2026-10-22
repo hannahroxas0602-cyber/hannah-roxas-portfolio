@@ -8,7 +8,8 @@ export type ServiceCategory = {
   title: string;
   deliverables: string[];
   tools: string[];
-  proof: string;
+  /** First entry is the collapsed one-line teaser; all entries show when expanded. */
+  proof: string[];
 };
 
 export const services: ServiceCategory[] = [
@@ -23,7 +24,7 @@ export const services: ServiceCategory[] = [
       "Animation",
     ],
     tools: ["Figma", "Framer", "Webflow", "React", "Next.js", "TypeScript", "Tailwind", "Git"],
-    proof: "Shipped onboarding flows and web surfaces for a 0→1 EdTech platform.",
+    proof: ["Shipped onboarding flows and web surfaces for a 0→1 EdTech platform."],
   },
   {
     slug: "uiux-design",
@@ -41,20 +42,23 @@ export const services: ServiceCategory[] = [
       "Microsoft Clarity",
       "Vercel",
     ],
-    proof: "Built tokenized design systems for seamless developer handoff.",
+    proof: [
+      "Built tokenized design systems for seamless developer handoff.",
+      "Designed growth experiments using product analytics and user feedback.",
+    ],
   },
   {
     slug: "branding",
     title: "Branding",
     deliverables: ["Logo Design", "Packaging", "Brand Assets", "Typography"],
     tools: ["Illustrator", "Photoshop", "Figma"],
-    proof: "Designed Lenny, Learvo's mascot, and its hand-drawn doodle system.",
+    proof: ["Designed Lenny, Learvo's mascot, and its hand-drawn doodle system."],
   },
   {
     slug: "graphic-design",
     title: "Graphic Design",
     deliverables: ["Illustrations", "3D Graphics", "Presentations", "Visuals", "Icons"],
     tools: ["Illustrator", "Photoshop", "After Effects"],
-    proof: "Led cross-channel campaigns across 10 exhibitions at UC Davis.",
+    proof: ["Led cross-channel campaigns across 10 exhibitions at UC Davis."],
   },
 ];
