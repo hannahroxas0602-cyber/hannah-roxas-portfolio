@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import Image from "next/image";
 import {
   motion,
@@ -156,10 +156,13 @@ export default function Hero() {
               <motion.span
                 variants={wordVariants}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="mr-[0.28em] inline-block"
+                className="inline-block"
               >
                 I&apos;m
               </motion.span>
+              {/* Real spaces between the inline-block words, so the heading's text
+                  reads as a sentence to search engines and screen readers. */}
+              {" "}
               <motion.a
                 href={social.linkedin}
                 target="_blank"
@@ -171,17 +174,19 @@ export default function Hero() {
               >
                 Hannah
               </motion.a>
-              {". I design connected digital systems that reward curiosity."
+              {". Product designer who ships her own front-end code."
                 .split(" ")
                 .map((word, i, arr) => (
-                  <motion.span
-                    key={i}
-                    variants={wordVariants}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
-                    className={`inline-block ${i < arr.length - 1 ? "mr-[0.28em]" : ""}`}
-                  >
-                    {word}
-                  </motion.span>
+                  <Fragment key={i}>
+                    <motion.span
+                      variants={wordVariants}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className="inline-block"
+                    >
+                      {word}
+                    </motion.span>
+                    {i < arr.length - 1 && " "}
+                  </Fragment>
                 ))}
             </motion.h1>
           </div>
@@ -199,9 +204,9 @@ export default function Hero() {
       {/* Role line + availability — plain and scannable, outside the ring */}
       {/* relative z-10 keeps this text above ring cards as they fly outward */}
       <div className="relative z-10 mx-auto mt-9 flex flex-col items-center gap-3 text-center sm:mt-10 lg:mt-12">
-        <p className="text-base leading-relaxed text-balance text-neutral-600 sm:text-lg lg:whitespace-nowrap">
-          Product designer who designs in Figma and ships in code. Currently at
-          Learvo, an ed-tech startup.
+        <p className="max-w-2xl text-base leading-relaxed text-balance text-neutral-600 sm:text-lg">
+          Sole designer at Learvo, an ed-tech startup, where I designed and built
+          onboarding, navigation, and the landing page in React.
         </p>
         <p className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-white px-3 py-1 text-xs font-medium text-neutral-700 sm:text-sm">
           <span
@@ -209,7 +214,7 @@ export default function Hero() {
             className="h-1.5 w-1.5 rounded-full"
             style={{ backgroundColor: CURSOR_COLOR }}
           />
-          Open to product &amp; graphic design roles
+          Open to Product Designer / Design Engineer roles
         </p>
       </div>
     </section>

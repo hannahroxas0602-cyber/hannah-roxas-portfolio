@@ -22,7 +22,7 @@ export const services: ServiceCategory[] = [
       "Framer Development",
       "Animation",
     ],
-    tools: ["Figma", "Framer", "Webflow"],
+    tools: ["Figma", "Framer", "Webflow", "React", "Next.js", "TypeScript", "Tailwind", "Git"],
     proof: "Shipped onboarding flows and web surfaces for a 0→1 EdTech platform.",
   },
   {
@@ -41,14 +41,14 @@ export const services: ServiceCategory[] = [
       "Microsoft Clarity",
       "Vercel",
     ],
-    proof: "Designed growth experiments using product analytics and user feedback.",
+    proof: "Built tokenized design systems for seamless developer handoff.",
   },
   {
     slug: "branding",
     title: "Branding",
     deliverables: ["Logo Design", "Packaging", "Brand Assets", "Typography"],
     tools: ["Illustrator", "Photoshop", "Figma"],
-    proof: "Built tokenized design systems for seamless developer handoff.",
+    proof: "Designed Lenny, Learvo's mascot, and its hand-drawn doodle system.",
   },
   {
     slug: "graphic-design",

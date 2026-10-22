@@ -15,7 +15,7 @@ export const process = {
 
 export const availability = {
   summary:
-    "Open to full-time product design and design engineering roles. Currently splitting time between LA and the Bay Area, and open to relocating.",
+    "Open to full-time Product Designer / Design Engineer roles. Currently splitting time between LA and the Bay Area, and open to relocating.",
 };
 
 export type ExperienceEntry = {

@@ -55,6 +55,9 @@ export const metadata: Metadata = pageMetadata({
   title: caseStudyTitle("Good Friends Poke"),
   description: goodHero.subtitle,
   path: "/goodfriends",
+  ogTitle: "Good Friends Poke: a service design concept for first-visit friction",
+  ogDescription:
+    "Course concept. A visual step-by-step menu, table assignment, and a loyalty flow, proposed to ease first-visit confusion and peak-hour staff strain.",
 });
 
 export default function GoodFriendsPage() {

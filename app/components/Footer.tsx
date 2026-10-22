@@ -45,7 +45,7 @@ export default function Footer() {
             className="group block"
           >
             <p className="font-[family-name:var(--font-mono)] text-xs font-medium tracking-widest text-neutral-500 uppercase">
-              Open to full-time roles
+              Open to full-time Product Designer / Design Engineer roles
             </p>
             <h2
               className="mt-3 font-[family-name:var(--font-manrope)] leading-[0.95] tracking-tight text-neutral-900 transition-colors duration-300 group-hover:text-[var(--footer-hover)]"
@@ -73,7 +73,7 @@ export default function Footer() {
               </svg>
             </h2>
             <p className="mt-4 text-sm text-neutral-600 sm:text-base">
-              Looking for a full-time product design or design engineering role.
+              Looking for a full-time Product Designer / Design Engineer role.
               Let&apos;s talk.
             </p>
             <p className="mt-1 text-sm font-medium text-neutral-600 sm:text-base">

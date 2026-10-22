@@ -41,6 +41,9 @@ export const metadata: Metadata = pageMetadata({
   title: caseStudyTitle("Continuum: Surrogacy Platform"),
   description: continuumHero.subtitle,
   path: "/continuum",
+  ogTitle: "Continuum: designing surrogacy care after pregnancy confirmation",
+  ogDescription:
+    "Team research, solo design. One shared timeline and quiet check-ins that keep surrogates, intended parents, and coordinators in sync.",
 });
 
 const minutesToRead = readingMinutes(
