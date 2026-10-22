@@ -5,6 +5,7 @@ import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
 import DemoVideo from "@/app/components/DemoVideo";
+import CaseStudyTldr from "@/app/components/CaseStudyTldr";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
@@ -14,6 +15,7 @@ import { readingMinutes } from "@/app/data/readingTime";
 import ReadingTime from "@/app/components/ReadingTime";
 import {
   continuumHero,
+  tldr,
   highlightsSection,
   timelineSection,
   roleAndImpact,
@@ -48,6 +50,7 @@ export const metadata: Metadata = pageMetadata({
 
 const minutesToRead = readingMinutes(
   continuumHero,
+  tldr,
   highlightsSection,
   timelineSection,
   roleAndImpact,
@@ -103,6 +106,8 @@ export default function ContinuumPage() {
             <p className="mt-6 max-w-2xl text-xl leading-relaxed text-neutral-700">
               {continuumHero.subtitle}
             </p>
+
+            <CaseStudyTldr tldr={tldr} />
 
             <p className="mt-8 text-sm text-neutral-400">
               {continuumHero.date} · <ReadingTime minutes={minutesToRead} />

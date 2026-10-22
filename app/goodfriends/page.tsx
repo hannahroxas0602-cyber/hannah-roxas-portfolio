@@ -10,9 +10,11 @@ import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
 import ImageSlideshow from "@/app/components/ImageSlideshow";
 import ReadingTime from "@/app/components/ReadingTime";
+import CaseStudyTldr from "@/app/components/CaseStudyTldr";
 import { readingMinutes } from "@/app/data/readingTime";
 import {
   goodHero,
+  tldr,
   highlightsSection,
   timelineSection,
   roleAndImpact,
@@ -27,6 +29,7 @@ import {
 
 const minutesToRead = readingMinutes(
   goodHero,
+  tldr,
   highlightsSection,
   timelineSection,
   roleAndImpact,
@@ -84,6 +87,8 @@ export default function GoodFriendsPage() {
           <p className="mt-6 max-w-2xl text-xl leading-relaxed text-neutral-700">
             {goodHero.subtitle}
           </p>
+
+          <CaseStudyTldr tldr={tldr} />
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-500">
             <span className="font-medium text-neutral-900">{goodHero.gist.label}</span>{" "}

@@ -20,6 +20,8 @@ export type Project = {
   impactStats?: ImpactStat[];
   gallery?: string[];
   hideFromHome?: boolean;
+  /** Highlighted (and listed first) on the homepage. */
+  featured?: boolean;
 };
 
 export const projects: Project[] = [
@@ -37,8 +39,9 @@ export const projects: Project[] = [
     imageHeight: 1000,
     imageAspect: "16/9",
     year: "Oct 2025 – Present",
+    featured: true,
     impactStats: [
-      { value: "4", label: "features designed and shipped" },
+      // {{TODO: outcome metric, e.g. { value: "X%", label: "onboarding completion rate" } (source: Metabase/Clarity)}}
       { value: "5", label: "core pages unified under one nav system" },
     ],
     gallery: [
@@ -65,7 +68,7 @@ export const projects: Project[] = [
     year: "2025 · Course concept",
     impactStats: [
       { value: "4", label: "design solution categories proposed" },
-      { value: "32", label: "in-store research photos analyzed" },
+      // {{TODO: outcome metric, e.g. a course result or feedback from Good Friends staff}}
     ],
     gallery: [
       "/images/projects/good-friends-poke.png",
@@ -78,7 +81,7 @@ export const projects: Project[] = [
     slug: "continuum",
     title: "Continuum: Surrogacy Platform",
     description:
-      "A care-centered platform keeping surrogates, parents, and coordinators in sync after pregnancy confirmation.",
+      "A course concept for a care-centered platform keeping surrogates, parents, and coordinators in sync after pregnancy confirmation.",
     tags: ["UX/UI", "Product Strategy"],
     category: "UIUX",
     href: "/continuum",
@@ -87,10 +90,10 @@ export const projects: Project[] = [
     imageWidth: 1264,
     imageHeight: 848,
     imageAspect: "3/2",
-    year: "2025 · Research + solo design",
+    year: "2025 · Course concept",
     impactStats: [
       { value: "3", label: "stakeholder groups" },
-      { value: "9", label: "months mapped" },
+      // {{TODO: outcome metric, e.g. a usability test or stakeholder feedback result}}
     ],
     gallery: [
       "/images/projects/continuum.png",

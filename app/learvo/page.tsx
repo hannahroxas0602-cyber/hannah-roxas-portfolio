@@ -6,11 +6,14 @@ import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
 import DemoVideo from "@/app/components/DemoVideo";
+import CaseStudyTldr from "@/app/components/CaseStudyTldr";
+import Testimonial, { hasTestimonial } from "@/app/components/Testimonial";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
 import {
   learvoHero,
+  tldr,
   highlightsSection,
   testimonial,
   userResearch,
@@ -22,11 +25,12 @@ import {
   nextProject,
   type FeatureCategory,
 } from "@/app/learvo/data";
-import { filled, publicFileExists } from "@/app/data/placeholder";
+import { filled } from "@/app/data/placeholder";
+import { publicFileExists } from "@/app/data/publicFile";
 import { readingMinutes } from "@/app/data/readingTime";
 import ReadingTime from "@/app/components/ReadingTime";
 
-const showTestimonial = filled(testimonial.quote) && filled(testimonial.name);
+const showTestimonial = hasTestimonial(testimonial);
 
 const researchFindings = userResearch.findings.filter(filled);
 const showUserResearch =
@@ -34,6 +38,7 @@ const showUserResearch =
 
 const minutesToRead = readingMinutes(
   learvoHero,
+  tldr,
   highlightsSection,
   showTestimonial ? testimonial : null,
   timelineSection,
@@ -116,6 +121,8 @@ export default function LearvoPage() {
             {learvoHero.subtitle}
           </p>
 
+          <CaseStudyTldr tldr={tldr} />
+
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-500">
             <span className="font-medium text-neutral-900">{learvoHero.gist.label}</span>{" "}
             {learvoHero.gist.text}
@@ -167,15 +174,7 @@ export default function LearvoPage() {
         {/* Testimonial — renders only once a real quote is filled in */}
         {showTestimonial && (
           <section id="testimonial" className="max-w-4xl py-16">
-            <figure className="max-w-2xl rounded-2xl border border-black/[0.06] bg-neutral-900 p-6">
-              <blockquote className="text-base leading-relaxed text-white/90">
-                &ldquo;{testimonial.quote}&rdquo;
-              </blockquote>
-              <figcaption className="mt-4 text-xs font-semibold tracking-widest text-white/50 uppercase">
-                {testimonial.name}
-                {filled(testimonial.title) && ` · ${testimonial.title}`}
-              </figcaption>
-            </figure>
+            <Testimonial testimonial={testimonial} />
           </section>
         )}
 

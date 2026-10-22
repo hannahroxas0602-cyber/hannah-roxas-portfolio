@@ -6,6 +6,8 @@ import Services from "@/app/components/Services";
 import Footer from "@/app/components/Footer";
 import FadeIn from "@/app/components/FadeIn";
 import ScrollToHash from "@/app/components/ScrollToHash";
+import Testimonial, { hasTestimonial } from "@/app/components/Testimonial";
+import { testimonial } from "@/app/learvo/data";
 import { pageMetadata, siteDescription, siteName } from "@/app/data/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -24,6 +26,14 @@ export default function Home() {
         <FadeIn>
           <ProjectsTabbed id="works" />
         </FadeIn>
+        {/* Renders only once a real quote is filled in (see learvo/data.ts). */}
+        {hasTestimonial(testimonial) && (
+          <FadeIn>
+            <section className="mx-auto max-w-6xl px-6 pb-8 sm:px-10">
+              <Testimonial testimonial={testimonial} />
+            </section>
+          </FadeIn>
+        )}
         <FadeIn>
           <Services />
         </FadeIn>

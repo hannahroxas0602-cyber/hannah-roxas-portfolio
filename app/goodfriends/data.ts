@@ -18,7 +18,17 @@ export const goodHero = {
   imageHeight: 1246,
 };
 
-import type { TimelineBand, TimelineTask } from "@/app/components/caseStudyTypes";
+import type { CaseStudyTldr, TimelineBand, TimelineTask } from "@/app/components/caseStudyTypes";
+
+export const tldr: CaseStudyTldr = {
+  problem:
+    "Text-heavy menus and a confusing layout left first-time customers frozen at the door and staff repeating instructions at peak hours.",
+  role: "Designer and researcher on an MGT 140 course concept.",
+  whatIDid:
+    "Observed the store in person, then proposed a step-by-step visual menu, automated table assignment, and a loyalty program.",
+  result: "Course concept: 4 proposed solution categories. Nothing was built.",
+  resultMetric: "{{TODO: metric, e.g. course result or feedback from Good Friends staff}}",
+};
 
 export const highlightsSection = {
   heading: "Highlights",

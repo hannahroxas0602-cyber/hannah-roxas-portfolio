@@ -7,6 +7,7 @@ import Portal from "@/app/components/Portal";
 import DemoVideo from "@/app/components/DemoVideo";
 import { AnimatePresence, motion } from "motion/react";
 import { projects, type Project } from "@/app/data/projects";
+import { filled } from "@/app/data/placeholder";
 
 type Tab = {
   key: Project["category"];
@@ -19,6 +20,11 @@ const TABS: Tab[] = [
 ];
 
 const SLIDE_INTERVAL_MS = 1200;
+
+// The featured project's accent: the site's cursor pink (CURSOR_COLOR).
+const FEATURED_RING = "ring-[#E85FE0]";
+const FEATURED_BG = "bg-[#E85FE0]";
+const FEATURED_TEXT = "text-[#E85FE0]";
 
 // Touch screens have no hover, so project cards behave differently there.
 const isTouchScreen = () => window.matchMedia("(hover: none)").matches;
@@ -58,6 +64,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
   useEffect(() => () => stopCycle(), []);
 
   const hasVideo = gallery.some((src) => src.endsWith(".mp4"));
+  const stats = (project.impactStats ?? []).filter((s) => filled(s.value) && filled(s.label));
 
   // Defer mounting the videos until the card is near the viewport, so the
   // homepage doesn't download every demo up front.
@@ -93,7 +100,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
       // very small phones the panel is taller than 16:9 and would be clipped.
       className={`group relative w-full overflow-hidden rounded-2xl bg-neutral-100 ${
         previewing ? "grid grid-cols-1" : "block aspect-[16/9]"
-      }`}
+      } ${project.featured ? `ring-2 ${FEATURED_RING} ring-offset-4 ring-offset-background` : ""}`}
     >
       {/* Once the card is near view, videos stay mounted (and autoplaying) so hover playback starts instantly. */}
       {hasVideo &&
@@ -168,6 +175,14 @@ function ProjectThumbnail({ project }: { project: Project }) {
 
       <Portal />
 
+      {project.featured && (
+        <span
+          className={`absolute top-4 left-4 z-10 rounded-full px-3 py-1 text-xs font-semibold text-white shadow-md ${FEATURED_BG}`}
+        >
+          Featured
+        </span>
+      )}
+
       {/* Keeps the previewed card at least 16:9 (see the grid note above). */}
       {previewing && (
         <span aria-hidden className="col-start-1 row-start-1 block aspect-[16/9] w-full" />
@@ -189,11 +204,11 @@ function ProjectThumbnail({ project }: { project: Project }) {
         }`}
       >
         <div className="rounded-xl border border-white/15 bg-black/60 p-3 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl backdrop-saturate-150 sm:rounded-2xl sm:bg-black/45 sm:p-5">
-          {project.impactStats && project.impactStats.length > 0 && (
+          {stats.length > 0 && (
             // Right padding on touch keeps the stats clear of the corner arrow.
             <div className="mb-2 sm:mb-4 [@media(hover:none)]:pr-11">
               <div className="flex flex-wrap gap-x-5 gap-y-1.5 sm:gap-x-8 sm:gap-y-2">
-                {project.impactStats.map((stat, i) => (
+                {stats.map((stat, i) => (
                   <div key={`${stat.label}-${i}`}>
                     <div className="font-[family-name:var(--font-manrope)] text-lg leading-tight font-semibold text-white sm:text-2xl sm:leading-8">
                       {stat.value}
@@ -218,7 +233,9 @@ function ProjectThumbnail({ project }: { project: Project }) {
 
 export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
   const [activeTab, setActiveTab] = useState<Tab["key"]>("UIUX");
-  const visibleProjects = projects.filter((p) => p.category === activeTab && !p.hideFromHome);
+  const visibleProjects = projects
+    .filter((p) => p.category === activeTab && !p.hideFromHome)
+    .sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
 
   return (
     <section id={id} className="mx-auto max-w-7xl scroll-mt-24 px-6 pt-10 pb-16 sm:px-10 sm:pt-14 sm:pb-24 lg:pt-8">
@@ -273,6 +290,9 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
                     {project.title}
                   </span>
                   <p className="mt-1.5 text-sm text-neutral-400">
+                    {project.featured && (
+                      <span className={`mr-2 font-semibold ${FEATURED_TEXT}`}>Featured ·</span>
+                    )}
                     {project.tags.join(" · ")}
                     {project.year && ` · ${project.year}`}
                   </p>

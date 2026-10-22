@@ -40,6 +40,11 @@ export default function ProjectCard({ project }: { project: Project }) {
     <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
       <div>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium tracking-wide text-neutral-500 uppercase">
+          {project.featured && (
+            <span className="rounded-full bg-[#E85FE0] px-2.5 py-0.5 font-semibold text-white">
+              Featured
+            </span>
+          )}
           {project.tags.map((tag, i) => (
             <span key={tag} className="flex items-center gap-3">
               {i > 0 && <span aria-hidden className="text-neutral-300">|</span>}

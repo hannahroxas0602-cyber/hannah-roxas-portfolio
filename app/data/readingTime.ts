@@ -1,7 +1,9 @@
 // Estimates reading time from a case study's own data, so the number always
 // matches what's on the page. Counts words in every string it finds, skipping
 // things a reader never reads (image paths, links, alt text, class names, IDs)
-// and anything marked `isHidden`.
+// anything marked `isHidden`, and unfilled placeholders (which never render).
+import { filled } from "@/app/data/placeholder";
+
 const WORDS_PER_MINUTE = 200;
 
 const SKIPPED_KEYS = new Set([
@@ -23,7 +25,7 @@ const SKIPPED_KEYS = new Set([
 
 function countWords(value: unknown): number {
   if (typeof value === "string") {
-    if (value.startsWith("/") || value.startsWith("http")) return 0;
+    if (value.startsWith("/") || value.startsWith("http") || !filled(value)) return 0;
     return value.split(/\s+/).filter(Boolean).length;
   }
   if (Array.isArray(value))

@@ -1,4 +1,5 @@
 import { projectDescription } from "@/app/data/projects";
+import type { CaseStudyTldr } from "@/app/components/caseStudyTypes";
 
 export const continuumHero = {
   title: "Continuum",
@@ -21,6 +22,17 @@ export const continuumHero = {
     },
     { label: "SERVICE", value: "UX Research, Journey Mapping, Interaction Design, Design Systems" },
   ] satisfies { label: string; value: string | null }[],
+};
+
+export const tldr: CaseStudyTldr = {
+  problem:
+    "Surrogacy support fades the moment pregnancy is confirmed, right when emotional labor and uncertainty spike.",
+  role: "Researcher on a 7-person class team, then solo product designer after the course.",
+  whatIDid:
+    "Mapped 9 months of the journey across 3 stakeholder groups, then designed one shared timeline, progressive disclosure, and one-tap emotional check-ins.",
+  result:
+    "Course concept: role-based dashboards for intended parents, surrogates, and coordinators, all built on one shared timeline.",
+  resultMetric: "{{TODO: metric, e.g. usability test or stakeholder feedback result}}",
 };
 
 export const highlightsSection = {

@@ -1,4 +1,6 @@
 import { projectDescription } from "@/app/data/projects";
+import type { CaseStudyTldr } from "@/app/components/caseStudyTypes";
+import type { TestimonialData } from "@/app/components/Testimonial";
 
 export const learvoHero = {
   title: "Learvo",
@@ -21,6 +23,17 @@ export const learvoHero = {
   isPlaceholder: false,
 };
 
+export const tldr: CaseStudyTldr = {
+  problem:
+    "New users landed on an empty dashboard, and returning users hit a nav that changed from page to page.",
+  role: "Product Designer (Intern) · Sole designer. I designed it and shipped the front-end code myself.",
+  whatIDid:
+    "Redesigned the landing page, built a guided onboarding flow and a self-retiring activation checklist, and unified the nav across 5 pages.",
+  result:
+    "Four features shipped to the live product. The nav alone merged through 121 diverged commits without blocking three other in-flight features.",
+  resultMetric: "{{TODO: metric, e.g. onboarding completion rate before → after (source: Metabase/Clarity)}}",
+};
+
 export const highlightsSection = {
   heading: "Highlights",
   // No mockup image yet — add one back once a real screenshot exists.
@@ -37,14 +50,12 @@ export const highlightsSection = {
   callout: "Judgment calls, not just visual polish. Every section leads with the decision, not the checklist.",
 };
 
-// Shown after Highlights once `quote` and `name` are filled; `title` is optional.
-export const testimonial: { quote: string | null; name: string | null; title: string | null } = {
-  // PLACEHOLDER: a real quote from a teammate, e.g. an engineer or the founder
-  quote: null,
-  // PLACEHOLDER: their name
-  name: null,
-  // PLACEHOLDER: their role, e.g. "Founding Engineer, Learvo"
-  title: null,
+// Shown after Highlights (and on the homepage) once `quote` and `name` are
+// filled; `title` is optional.
+export const testimonial: TestimonialData = {
+  quote: "{{TODO: quote from Learvo founder or engineer}}",
+  name: "{{TODO: their name}}",
+  title: "{{TODO: their role, e.g. Founding Engineer, Learvo}}",
 };
 
 export const timelineSection = {
@@ -164,9 +175,9 @@ export const featuresSection = {
       ],
       impact:
         "Rebuilt the page around getting a busy, skeptical student to the value proposition fast.",
-      // PLACEHOLDER: a real before/after measurement, e.g. "Scroll past the fold rose from X% to Y%."
       // Appended to the Impact text once filled.
-      impactMetric: null,
+      impactMetric:
+        "{{TODO: landing-page scroll depth before → after, e.g. \"Scroll past the fold rose from X% to Y%.\" (source: Metabase/Clarity)}}",
       beforeAfter: {
         before: {
           src: "/images/learvo/landing-page-before.png",
@@ -215,6 +226,9 @@ export const featuresSection = {
       ],
       impact:
         "An activation nudge built to lose the argument with itself over time, driving early engagement without becoming permanent nagware.",
+      // Appended to the Impact text once filled.
+      impactMetric:
+        "{{TODO: checklist completion rate, e.g. \"X% of new users completed all 4 actions.\" (source: Metabase/Clarity)}}",
       image: "/images/learvo/onboarding-checklist-1.png",
       imageAlt: "Learvo onboarding checklist card showing 4 core actions",
       imageWidth: 1006,
@@ -287,7 +301,10 @@ export const featuresSection = {
         },
       ],
       impact:
-        "Turned a cold, empty dashboard into a guided activation flow that tells the truth about the backend, the strongest activation story here even without funnel numbers yet.",
+        "Turned a cold, empty dashboard into a guided activation flow that tells the truth about the backend.",
+      // Appended to the Impact text once filled.
+      impactMetric:
+        "{{TODO: onboarding completion rate, e.g. \"X% of new signups finished the flow.\" (source: Metabase/Clarity)}}",
       beforeAfter: {
         before: {
           src: "/images/learvo/onboarding-quiz-before.png",
