@@ -6,6 +6,7 @@ import {
   supportsViewTransitions,
   takeHoleNavigation,
 } from "@/app/components/irisFallback";
+import { finishTitleMorph } from "@/app/components/titleMorph";
 
 // Remounts with every page (it sits inside the keyed boundary below). Where the
 // browser has no View Transitions API, it plays the iris on the incoming page
@@ -18,6 +19,7 @@ function Page({ children }: { children: ReactNode }) {
 
   useLayoutEffect(() => {
     const el = ref.current;
+    if (el) finishTitleMorph(el);
     if (isHoleNavigation.current === null) isHoleNavigation.current = takeHoleNavigation();
     if (!el || !isHoleNavigation.current || supportsViewTransitions()) return;
 
@@ -51,17 +53,17 @@ function Page({ children }: { children: ReactNode }) {
 
 // Keyed on the pathname so each navigation swaps in a new boundary, which is what
 // lets enter/exit animations fire. HoleLink tags navigations "hole-in" (into a
-// project) or "hole-out" (back up); the iris keyframes live in globals.css.
-// Untyped navigations (nav links, browser back/forward) fall through to the
-// browser's default quick crossfade.
+// project) or "hole-out" (back up); the fall/climb keyframes live in globals.css,
+// which swaps them for the iris under Reduce Motion. Untyped navigations (nav
+// links, browser back/forward) fall through to the browser's default crossfade.
 export default function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   return (
     <ViewTransition
       key={pathname}
-      enter={{ "hole-in": "iris-open", "hole-out": "iris-under", default: "none" }}
-      exit={{ "hole-in": "iris-over", "hole-out": "iris-close", default: "none" }}
+      enter={{ "hole-in": "fall-land", "hole-out": "climb-land", default: "none" }}
+      exit={{ "hole-in": "fall-away", "hole-out": "climb-away", default: "none" }}
       default="none"
     >
       <Page>{children}</Page>

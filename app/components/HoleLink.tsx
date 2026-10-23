@@ -3,10 +3,11 @@
 import Link from "next/link";
 import type { ComponentProps, MouseEvent } from "react";
 import { markHoleNavigation } from "@/app/components/irisFallback";
+import { startTitleMorph } from "@/app/components/titleMorph";
 
 type HoleLinkProps = Omit<ComponentProps<typeof Link>, "transitionTypes"> & {
-  // "in" drops into a project (iris opens from the click); "out" climbs back up
-  // (the current page closes into the click point).
+  // "in" falls into a project (the page drops away into the click point and the
+  // project's title carries over); "out" climbs back up (the page lifts away).
   direction?: "in" | "out";
 };
 
@@ -23,6 +24,10 @@ function setIrisOrigin(e: MouseEvent<HTMLAnchorElement>) {
   const root = document.documentElement.style;
   root.setProperty("--iris-x", `${x}px`);
   root.setProperty("--iris-y", `${y}px`);
+  // The page being left is snapshotted at its full height, so a point on it is
+  // measured from the top of the page, not the viewport.
+  root.setProperty("--iris-page-y", `${y + window.scrollY}px`);
+  root.setProperty("--viewport-center-page-y", `${window.scrollY + window.innerHeight / 2}px`);
 }
 
 export default function HoleLink({ direction = "in", onClick, ...props }: HoleLinkProps) {
@@ -36,6 +41,7 @@ export default function HoleLink({ direction = "in", onClick, ...props }: HoleLi
         if (e.defaultPrevented) return;
         setIrisOrigin(e);
         markHoleNavigation();
+        if (direction === "in") startTitleMorph(e.currentTarget);
       }}
     />
   );

@@ -190,6 +190,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
 
       {/* Persistent title chip so the project reads without needing to hover */}
       <span
+        data-vt-title
         className={`absolute bottom-4 left-4 z-10 rounded-full border border-white/15 bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-xl backdrop-saturate-150 ${
           // The touch preview panel covers the card; the chip would show through it.
           previewing ? "hidden" : ""
@@ -286,7 +287,7 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <span className="link-underline w-fit font-[family-name:var(--font-manrope)] text-xl font-medium text-neutral-900 transition-colors duration-300 sm:text-2xl">
+                  <span data-vt-title className="link-underline w-fit font-[family-name:var(--font-manrope)] text-xl font-medium text-neutral-900 transition-colors duration-300 sm:text-2xl">
                     {project.title}
                   </span>
                   <p className="mt-1.5 text-sm text-neutral-400">

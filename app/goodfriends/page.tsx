@@ -80,7 +80,7 @@ export default function GoodFriendsPage() {
             ← Back to home
           </HoleLink>
 
-          <h1 className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
+          <h1 data-vt-target className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
             {goodHero.title}
           </h1>
 
