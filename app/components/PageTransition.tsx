@@ -21,7 +21,13 @@ function Page({ children }: { children: ReactNode }) {
     const el = ref.current;
     if (el) finishTitleMorph(el);
     if (isHoleNavigation.current === null) isHoleNavigation.current = takeHoleNavigation();
-    if (!el || !isHoleNavigation.current || supportsViewTransitions()) return;
+    if (
+      !el ||
+      !isHoleNavigation.current ||
+      supportsViewTransitions() ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
 
     const root = document.documentElement;
     el.classList.add("iris-fallback");
@@ -32,7 +38,7 @@ function Page({ children }: { children: ReactNode }) {
     };
     // Only this element's own iris counts; animations inside the page bubble up too.
     const onEnd = (e: AnimationEvent) => {
-      if (e.target === el && e.animationName === "iris-open") done();
+      if (e.target === el && e.animationName === "iris-fallback-open") done();
     };
     el.addEventListener("animationend", onEnd);
     // Safety net in case animationend never fires (tab hidden mid-animation).
@@ -53,17 +59,17 @@ function Page({ children }: { children: ReactNode }) {
 
 // Keyed on the pathname so each navigation swaps in a new boundary, which is what
 // lets enter/exit animations fire. HoleLink tags navigations "hole-in" (into a
-// project) or "hole-out" (back up); the fall/climb keyframes live in globals.css,
-// which swaps them for the iris under Reduce Motion. Untyped navigations (nav
-// links, browser back/forward) fall through to the browser's default crossfade.
+// project) or "hole-out" (back up); the iris keyframes live in globals.css,
+// which swaps them for a short crossfade under Reduce Motion. Untyped
+// navigations (nav links, browser back/forward) get the browser's default crossfade.
 export default function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   return (
     <ViewTransition
       key={pathname}
-      enter={{ "hole-in": "fall-land", "hole-out": "climb-land", default: "none" }}
-      exit={{ "hole-in": "fall-away", "hole-out": "climb-away", default: "none" }}
+      enter={{ "hole-in": "iris-open", "hole-out": "iris-under", default: "none" }}
+      exit={{ "hole-in": "iris-over", "hole-out": "iris-close", default: "none" }}
       default="none"
     >
       <Page>{children}</Page>
