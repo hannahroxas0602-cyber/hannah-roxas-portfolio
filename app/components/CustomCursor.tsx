@@ -4,9 +4,15 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 const IDLE_DELAY_MS = 120;
-// The site accent, an orchid purple-pink. Kept as a literal (not the CSS
-// variable) so motion can animate it; keep in sync with --accent in globals.css.
-export const CURSOR_COLOR = "#B44FD6";
+// The site accent pair: lavender fill and deep violet ink (see --accent and
+// --accent-ink in globals.css; keep in sync). Literals, not CSS variables, so
+// motion can animate them.
+export const CURSOR_COLOR = "#D4A3F8";
+export const CURSOR_INK = "#4C1A70";
+// A hairline ink outline, so the lavender cursor stays visible on the white page
+// as well as on photos and the black hero. On the wrapper, because a filter on
+// the masked shapes themselves would be masked away.
+const CURSOR_OUTLINE = `drop-shadow(0 0 0.6px ${CURSOR_INK}) drop-shadow(0 0 0.6px ${CURSOR_INK})`;
 
 export default function CustomCursor() {
   const [label, setLabel] = useState<string | null>(null);
@@ -62,7 +68,13 @@ export default function CustomCursor() {
     <motion.div
       aria-hidden
       className="pointer-events-none fixed top-0 left-0 z-[100] flex items-center justify-center"
-      style={{ x: springX, y: springY, translateX: "-50%", translateY: "-50%" }}
+      style={{
+        x: springX,
+        y: springY,
+        translateX: "-50%",
+        translateY: "-50%",
+        filter: CURSOR_OUTLINE,
+      }}
     >
       {label ? (
         <motion.div
@@ -74,7 +86,7 @@ export default function CustomCursor() {
         >
           <motion.span
             initial={{ opacity: 0, color: "#000000" }}
-            animate={{ opacity: 1, color: "#ffffff" }}
+            animate={{ opacity: 1, color: CURSOR_INK }}
             transition={{ opacity: { delay: 0.05 }, color: { duration: 0.3, delay: 0.1 } }}
             className="text-xs font-medium whitespace-nowrap"
           >

@@ -6,7 +6,7 @@ import Link from "next/link";
 import HoleLink from "@/app/components/HoleLink";
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { navLinks } from "@/app/data/social";
-import { CURSOR_COLOR } from "@/app/components/CustomCursor";
+import { CURSOR_INK } from "@/app/components/CustomCursor";
 import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
 
 export default function Header() {
@@ -33,7 +33,7 @@ export default function Header() {
             <div
               className="absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-active:opacity-100"
               style={{
-                backgroundColor: CURSOR_COLOR,
+                backgroundColor: CURSOR_INK,
                 WebkitMaskImage: "url(/images/logo-mark.webp)",
                 maskImage: "url(/images/logo-mark.webp)",
                 WebkitMaskSize: "contain",

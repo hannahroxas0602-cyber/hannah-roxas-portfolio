@@ -41,7 +41,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       <div>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium tracking-wide text-neutral-500 uppercase">
           {project.featured && (
-            <span className="rounded-full bg-accent px-2.5 py-0.5 font-semibold text-white">
+            <span className="rounded-full bg-accent px-2.5 py-0.5 font-semibold text-accent-ink">
               Featured
             </span>
           )}

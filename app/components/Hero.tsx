@@ -10,7 +10,7 @@ import {
   type MotionValue,
 } from "motion/react";
 import { social } from "@/app/data/social";
-import { CURSOR_COLOR } from "@/app/components/CustomCursor";
+import { CURSOR_INK } from "@/app/components/CustomCursor";
 
 const wordVariants = {
   hidden: { opacity: 0.001, filter: "blur(10px)", y: 10 },
@@ -212,7 +212,7 @@ export default function Hero() {
           <span
             aria-hidden
             className="h-1.5 w-1.5 rounded-full"
-            style={{ backgroundColor: CURSOR_COLOR }}
+            style={{ backgroundColor: CURSOR_INK }}
           />
           Open to Product Designer / Design Engineer roles
         </p>
