@@ -21,10 +21,10 @@ const TABS: Tab[] = [
 
 const SLIDE_INTERVAL_MS = 1200;
 
-// The featured project's accent: the site's cursor pink (CURSOR_COLOR).
-const FEATURED_RING = "ring-[#E85FE0]";
-const FEATURED_BG = "bg-[#E85FE0]";
-const FEATURED_TEXT = "text-[#E85FE0]";
+// The featured project uses the site accent (--accent in globals.css).
+const FEATURED_RING = "ring-accent";
+const FEATURED_BG = "bg-accent";
+const FEATURED_TEXT = "text-accent";
 
 // Touch screens have no hover, so project cards behave differently there.
 const isTouchScreen = () => window.matchMedia("(hover: none)").matches;
