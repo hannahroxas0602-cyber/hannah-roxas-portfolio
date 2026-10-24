@@ -21,8 +21,8 @@ const TABS: Tab[] = [
 
 const SLIDE_INTERVAL_MS = 1200;
 
-// The featured project uses the site accent: pink fill and ring with white
-// text, plum ink for the label on the white page (--accent / --accent-ink).
+// The featured project uses the site accent: periwinkle fill and ring with
+// white text, indigo ink for the label on the white page (--accent / --accent-ink).
 const FEATURED_RING = "ring-accent";
 const FEATURED_BG = "bg-accent";
 const FEATURED_TEXT = "text-accent-ink";

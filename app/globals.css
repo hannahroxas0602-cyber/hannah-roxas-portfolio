@@ -3,13 +3,13 @@
 :root {
   --background: #fafcfd;
   --foreground: #1c2430;
-  /* The site accent, a pair: an orchid pink for fills (cursor, badges, chat
-     bubbles, the featured ring) deep enough for white text (4.5:1) and for the
-     cursor to show on the white page without an outline (4.4:1); and a deep
-     plum of the same hue for accent text and small marks on the white page
-     (15:1). Keep in sync with CustomCursor.tsx. */
-  --accent: #b938d9;
-  --accent-ink: #3b1046;
+  /* The site accent, a pair: a periwinkle for fills (cursor, badges, chat
+     bubbles, the featured ring) deep enough for white text (4.7:1) and for the
+     cursor to show on the white page without an outline (4.5:1); and a deep
+     indigo of the same hue for accent text and small marks on the white page
+     (13.5:1). Keep in sync with CustomCursor.tsx. */
+  --accent: #6963e4;
+  --accent-ink: #23206f;
 }
 
 html {

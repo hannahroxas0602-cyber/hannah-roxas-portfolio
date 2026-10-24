@@ -4,11 +4,11 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 const IDLE_DELAY_MS = 120;
-// The site accent pair: orchid pink fill and deep plum ink (see --accent and
+// The site accent pair: periwinkle fill and deep indigo ink (see --accent and
 // --accent-ink in globals.css; keep in sync). Literals, not CSS variables, so
 // motion can animate them.
-export const CURSOR_COLOR = "#B938D9";
-export const CURSOR_INK = "#3B1046";
+export const CURSOR_COLOR = "#6963E4";
+export const CURSOR_INK = "#23206F";
 
 export default function CustomCursor() {
   const [label, setLabel] = useState<string | null>(null);
