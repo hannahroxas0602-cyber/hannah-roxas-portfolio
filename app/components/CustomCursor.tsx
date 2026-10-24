@@ -4,15 +4,11 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 const IDLE_DELAY_MS = 120;
-// The site accent pair: pink fill and deep plum ink (see --accent and
+// The site accent pair: orchid pink fill and deep plum ink (see --accent and
 // --accent-ink in globals.css; keep in sync). Literals, not CSS variables, so
 // motion can animate them.
-export const CURSOR_COLOR = "#DE5FE8";
-export const CURSOR_INK = "#421046";
-// A hairline ink outline, so the pink cursor stays visible on the white page
-// as well as on photos and the black hero. On the wrapper, because a filter on
-// the masked shapes themselves would be masked away.
-const CURSOR_OUTLINE = `drop-shadow(0 0 0.6px ${CURSOR_INK}) drop-shadow(0 0 0.6px ${CURSOR_INK})`;
+export const CURSOR_COLOR = "#B938D9";
+export const CURSOR_INK = "#3B1046";
 
 export default function CustomCursor() {
   const [label, setLabel] = useState<string | null>(null);
@@ -68,13 +64,7 @@ export default function CustomCursor() {
     <motion.div
       aria-hidden
       className="pointer-events-none fixed top-0 left-0 z-[100] flex items-center justify-center"
-      style={{
-        x: springX,
-        y: springY,
-        translateX: "-50%",
-        translateY: "-50%",
-        filter: CURSOR_OUTLINE,
-      }}
+      style={{ x: springX, y: springY, translateX: "-50%", translateY: "-50%" }}
     >
       {label ? (
         <motion.div
@@ -86,7 +76,7 @@ export default function CustomCursor() {
         >
           <motion.span
             initial={{ opacity: 0, color: "#000000" }}
-            animate={{ opacity: 1, color: CURSOR_INK }}
+            animate={{ opacity: 1, color: "#ffffff" }}
             transition={{ opacity: { delay: 0.05 }, color: { duration: 0.3, delay: 0.1 } }}
             className="text-xs font-medium whitespace-nowrap"
           >
