@@ -3,13 +3,14 @@
 :root {
   --background: #fafcfd;
   --foreground: #1c2430;
-  /* The site accent, a pair: a cool lavender for fills (cursor, badges, chat
-     bubbles, the featured ring) and a deep violet of the same hue for anything
-     that must be read: text on the lavender (6.2:1) and accent text or small
-     marks on the white page (12:1). The lavender alone is only ~2:1 on white,
-     so it's never used for text there. Keep in sync with CustomCursor.tsx. */
-  --accent: #d4a3f8;
-  --accent-ink: #4c1a70;
+  /* The site accent, a pair: a vivid pink, a touch cooler than the original
+     #E85FE0, for fills (cursor, badges, chat bubbles, the featured ring), and a
+     deep plum of the same hue for anything that must be read: text on the pink
+     (4.95:1) and accent text or small marks on the white page (14.6:1). White
+     on the pink is under 3:1, so it's never used for text there. Keep in sync
+     with CustomCursor.tsx. */
+  --accent: #de5fe8;
+  --accent-ink: #421046;
 }
 
 html {

@@ -4,12 +4,12 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 const IDLE_DELAY_MS = 120;
-// The site accent pair: lavender fill and deep violet ink (see --accent and
+// The site accent pair: pink fill and deep plum ink (see --accent and
 // --accent-ink in globals.css; keep in sync). Literals, not CSS variables, so
 // motion can animate them.
-export const CURSOR_COLOR = "#D4A3F8";
-export const CURSOR_INK = "#4C1A70";
-// A hairline ink outline, so the lavender cursor stays visible on the white page
+export const CURSOR_COLOR = "#DE5FE8";
+export const CURSOR_INK = "#421046";
+// A hairline ink outline, so the pink cursor stays visible on the white page
 // as well as on photos and the black hero. On the wrapper, because a filter on
 // the masked shapes themselves would be masked away.
 const CURSOR_OUTLINE = `drop-shadow(0 0 0.6px ${CURSOR_INK}) drop-shadow(0 0 0.6px ${CURSOR_INK})`;

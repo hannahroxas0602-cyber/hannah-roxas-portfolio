@@ -21,7 +21,7 @@ const TABS: Tab[] = [
 
 const SLIDE_INTERVAL_MS = 1200;
 
-// The featured project uses the site accent: lavender fill and ring, ink text
+// The featured project uses the site accent: pink fill and ring, ink text
 // (--accent / --accent-ink in globals.css).
 const FEATURED_RING = "ring-accent";
 const FEATURED_BG = "bg-accent";
