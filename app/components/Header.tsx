@@ -1,19 +1,18 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type PointerEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import HoleLink from "@/app/components/HoleLink";
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
-import { navLinks } from "@/app/data/social";
+import { navLinks, social } from "@/app/data/social";
 import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
 
 const glassEdge =
   "border border-black/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl backdrop-saturate-150";
 const glass = `bg-white/85 ${glassEdge}`;
 const linkBase = "relative rounded-full px-4 py-1.5 text-sm font-medium text-black transition-colors";
-const mobileLink =
-  "rounded-xl px-4 py-3 text-left text-base font-medium text-black transition-colors hover:bg-black/[0.03]";
 
 // Past this scroll distance the logo shrinks into its chip.
 const SCROLLED_PX = 24;
@@ -22,6 +21,16 @@ function subscribeToScroll(onChange: () => void) {
   window.addEventListener("scroll", onChange, { passive: true });
   return () => window.removeEventListener("scroll", onChange);
 }
+
+// The full-screen mobile menu: links rise in one after another.
+const menuList = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+};
+const menuItem = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const } },
+};
 
 export default function Header() {
   const scrolled = useSyncExternalStore(
@@ -32,6 +41,43 @@ export default function Header() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const { open: openAbout } = useAboutPanel();
+  const pathname = usePathname();
+  const logoRef = useRef<HTMLImageElement>(null);
+
+  // While the menu is open: the page behind it doesn't scroll, Escape closes it,
+  // and growing the window to desktop width closes it (the desktop nav takes over).
+  useEffect(() => {
+    if (!menuOpen) return;
+    const html = document.documentElement;
+    const previousOverflow = html.style.overflow;
+    html.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const onResize = () => desktop.matches && setMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    desktop.addEventListener("change", onResize);
+    return () => {
+      html.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKey);
+      desktop.removeEventListener("change", onResize);
+    };
+  }, [menuOpen]);
+
+  // The logo tilts toward the pointer (mouse only); the hover styles live in globals.css.
+  const tiltLogo = (e: PointerEvent<HTMLAnchorElement>) => {
+    if (e.pointerType !== "mouse" || !logoRef.current) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    logoRef.current.style.setProperty("--rx", `${(-y * 18).toFixed(1)}deg`);
+    logoRef.current.style.setProperty("--ry", `${(x * 24).toFixed(1)}deg`);
+  };
+  const levelLogo = () => {
+    logoRef.current?.style.setProperty("--rx", "0deg");
+    logoRef.current?.style.setProperty("--ry", "0deg");
+  };
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     // The menu opening and the nav pill are small, tap-triggered UI motion, so
@@ -40,17 +86,104 @@ export default function Header() {
       {/* The logo and the nav both stay put as you scroll: the logo in the left
           corner, the nav in the right. The logo is big and free-standing at the
           top of the page; once you scroll it shrinks into a frosted chip so it
-          stays readable over content. The header ignores the
-          pointer; only the logo and the nav take it. */}
+          stays readable over content. The header ignores the pointer; only the
+          logo, the nav, and the open menu take it. */}
       <header
         className="pointer-events-none sticky top-0 z-50 h-20 w-full"
         style={{ viewTransitionName: "site-header" }}
       >
-        <div className="relative">
+        {/* Mobile menu: a full-screen sheet under the logo and the button, which
+            stay on top so you can always close it or go home. */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="pointer-events-auto fixed inset-0 flex flex-col overflow-y-auto overscroll-contain bg-background px-6 md:hidden"
+              style={{
+                paddingTop: "max(7rem, calc(env(safe-area-inset-top) + 6.5rem))",
+                paddingBottom: "max(1.75rem, env(safe-area-inset-bottom))",
+              }}
+            >
+              <motion.nav
+                variants={menuList}
+                initial="hidden"
+                animate="show"
+                className="flex flex-1 flex-col justify-center"
+              >
+                {navLinks.map((link, i) => {
+                  const active = link.kind === "internal" && link.href === pathname;
+                  const row = `group flex items-baseline gap-4 py-2.5 font-[family-name:var(--font-serif)] text-[2.6rem] leading-[1.1] tracking-tight text-neutral-900 transition-colors active:text-accent ${
+                    active ? "italic" : ""
+                  }`;
+                  const inner = (
+                    <>
+                      <span className="w-6 shrink-0 font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span>{link.label}</span>
+                      {active && <span aria-hidden className="size-2 self-center rounded-full bg-accent" />}
+                    </>
+                  );
+                  return (
+                    <motion.div key={link.label} variants={menuItem}>
+                      {link.kind === "about" ? (
+                        <Link
+                          href={link.href}
+                          onClick={(e) => {
+                            closeMenu();
+                            openAboutOnPlainClick(e, openAbout);
+                          }}
+                          className={row}
+                        >
+                          {inner}
+                        </Link>
+                      ) : link.kind === "external" ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={closeMenu}
+                          className={row}
+                        >
+                          {inner}
+                        </a>
+                      ) : (
+                        <Link href={link.href} onClick={closeMenu} className={row} aria-current={active ? "page" : undefined}>
+                          {inner}
+                        </Link>
+                      )}
+                    </motion.div>
+                  );
+                })}
+              </motion.nav>
+
+              <div className="mt-8 border-t border-black/[0.08] pt-5">
+                <p className="text-sm text-neutral-500">Open to Product Designer / Design Engineer roles</p>
+                <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm font-medium text-neutral-800">
+                  <a href={`mailto:${social.email}`} className="py-1.5">Email</a>
+                  <a href={social.linkedin} target="_blank" rel="noopener noreferrer" className="py-1.5">LinkedIn</a>
+                  <a href={social.github} target="_blank" rel="noopener noreferrer" className="py-1.5">GitHub</a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div className="relative z-10">
           <HoleLink
             direction="out"
             href="/"
             aria-label="Hannah Roxas, home"
+            onClick={closeMenu}
+            onPointerMove={tiltLogo}
+            onPointerLeave={levelLogo}
             className={`group pointer-events-auto absolute top-4 left-5 block transition-all duration-300 ease-out sm:left-8 ${
               scrolled
                 ? `h-[3.25rem] w-20 rounded-2xl p-2 ${glass}`
@@ -58,6 +191,7 @@ export default function Header() {
             }`}
           >
             <Image
+              ref={logoRef}
               src="/images/claylogo.webp"
               alt=""
               width={800}
@@ -67,7 +201,7 @@ export default function Header() {
               priority
             />
           </HoleLink>
-        <div className="flex justify-end px-5 pt-4 md:px-8">
+          <div className="flex justify-end px-5 pt-4 md:px-8">
           {/* Desktop nav */}
           <nav
             className={`pointer-events-auto hidden items-center gap-1 rounded-full p-1.5 md:flex ${glass}`}
@@ -127,79 +261,28 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Mobile hamburger toggle */}
-          <button
-            type="button"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            className={`pointer-events-auto flex h-12 w-12 flex-none flex-col items-center justify-center gap-1.5 rounded-full md:hidden ${glass}`}
-          >
-            <motion.span
-              animate={{ rotate: menuOpen ? 45 : 0, y: menuOpen ? 3.5 : 0 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="h-px w-5 bg-black"
-            />
-            <motion.span
-              animate={{ rotate: menuOpen ? -45 : 0, y: menuOpen ? -3.5 : 0 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="h-px w-5 bg-black"
-            />
-          </button>
-        </div>
-        </div>
-
-        {/* Mobile dropdown panel: floats under the button, over the page */}
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              // Eases in as well as out, so the panel opens gradually.
-              transition={{ duration: 0.5, ease: [0.45, 0, 0.15, 1] }}
-              className="pointer-events-auto absolute top-[4.75rem] right-5 w-[min(18rem,calc(100vw-2.5rem))] overflow-hidden md:hidden"
+            {/* Mobile menu button */}
+            <button
+              type="button"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              className={`pointer-events-auto flex h-12 w-12 flex-none flex-col items-center justify-center gap-1.5 rounded-full md:hidden ${glass}`}
             >
-              <nav className={`flex flex-col gap-1 rounded-2xl bg-white p-3 ${glassEdge}`}>
-                {navLinks.map((link) =>
-                  link.kind === "about" ? (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      onClick={(e) => {
-                        setMenuOpen(false);
-                        openAboutOnPlainClick(e, openAbout);
-                      }}
-                      className={mobileLink}
-                    >
-                      {link.label}
-                    </Link>
-                  ) : link.kind === "external" ? (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setMenuOpen(false)}
-                      className={mobileLink}
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      onClick={() => setMenuOpen(false)}
-                      className={mobileLink}
-                    >
-                      {link.label}
-                    </Link>
-                  ),
-                )}
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <motion.span
+                animate={{ rotate: menuOpen ? 45 : 0, y: menuOpen ? 3.5 : 0 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="h-px w-5 bg-black"
+              />
+              <motion.span
+                animate={{ rotate: menuOpen ? -45 : 0, y: menuOpen ? -3.5 : 0 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="h-px w-5 bg-black"
+              />
+            </button>
+          </div>
+        </div>
       </header>
     </MotionConfig>
   );

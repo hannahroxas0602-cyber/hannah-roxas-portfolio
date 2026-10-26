@@ -57,6 +57,19 @@ body {
   font-size: 1em;
 }
 
+/* Pen-script lettering, inked on paper: warm black, with the rough edge from
+   the #ink filter (InkFilter.tsx). Script runs small, so size it up where used. */
+.script {
+  display: inline-block;
+  font-family: var(--font-script), "Snell Roundhand", cursive;
+  font-weight: 400;
+  line-height: 1.15;
+  color: #1d1a17;
+  /* A hair of stroke thickens the thin pen lines the way ink spreads into paper. */
+  -webkit-text-stroke: 0.5px currentColor;
+  filter: url(#ink);
+}
+
 .scrollbar-none {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -490,35 +503,21 @@ html.iris-fallback-backdrop body {
   }
 }
 
-/* The clay logo: on hover it squashes and stretches like a lump of clay, then
-   settles. Pressing it squeezes it. Reduce Motion gets neither. */
+/* The clay logo: on hover it lifts and tilts toward the pointer, like a clay
+   figure turning to look at you (the tilt angles come from Header.tsx), with a
+   soft shadow under it. Pressing it squeezes it. Reduce Motion gets none of it. */
 @media (prefers-reduced-motion: no-preference) {
   .logo-clay {
-    transform-origin: 50% 90%;
-    transition: transform 160ms ease-out;
+    transition: transform 180ms ease-out, filter 220ms ease-out;
+    will-change: transform;
   }
   .group:hover .logo-clay {
-    animation: clay-squish 700ms cubic-bezier(0.3, 0.7, 0.4, 1);
+    transform: perspective(420px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
+      translateY(-3px) scale(1.07);
+    filter: drop-shadow(0 9px 8px rgba(110, 70, 150, 0.28));
   }
   .group:active .logo-clay {
-    animation: none;
-    transform: scale(1.06, 0.9);
-  }
-}
-@keyframes clay-squish {
-  0% {
-    transform: scale(1, 1);
-  }
-  22% {
-    transform: scale(1.1, 0.86) rotate(-1.5deg);
-  }
-  46% {
-    transform: scale(0.94, 1.1) rotate(1.2deg);
-  }
-  68% {
-    transform: scale(1.03, 0.97) rotate(-0.4deg);
-  }
-  100% {
-    transform: scale(1, 1) rotate(0deg);
+    transform: perspective(420px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(0.96);
+    filter: drop-shadow(0 3px 4px rgba(110, 70, 150, 0.25));
   }
 }

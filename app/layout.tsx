@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Fraunces, Great_Vibes, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
 import { AboutPanelProvider } from "@/app/components/AboutPanelContext";
 import AppShell from "@/app/components/AppShell";
+import InkFilter from "@/app/components/InkFilter";
 import { pageMetadata, siteDescription, siteName, siteUrl } from "@/app/data/seo";
 
 const inter = Inter({
@@ -26,6 +27,14 @@ const serif = Fraunces({
   subsets: ["latin"],
   style: ["normal", "italic"],
   axes: ["SOFT", "WONK", "opsz"],
+});
+
+// Formal pen script, for the one line of handwriting-style lettering (the hero's
+// welcome); see .script in globals.css.
+const script = Great_Vibes({
+  variable: "--font-script",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 const interLabel = Inter({
@@ -56,9 +65,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${interDisplay.variable} ${interLabel.variable} ${serif.variable} h-full antialiased`}
+      className={`${inter.variable} ${interDisplay.variable} ${interLabel.variable} ${serif.variable} ${script.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col overflow-x-clip overscroll-y-contain md:cursor-none">
+        <InkFilter />
         <AboutPanelProvider>
           <AppShell>{children}</AppShell>
         </AboutPanelProvider>
