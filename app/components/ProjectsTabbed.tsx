@@ -248,11 +248,8 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
             <Em>Selected</Em>{" "}
             Projects
           </h2>
-          <p className="mt-3 max-w-xl text-base leading-relaxed text-neutral-500">
-            Case studies in how research shaped design decisions.
-          </p>
 
-          <div className="mt-8 flex gap-8 border-b border-neutral-200">
+          <div className="mt-6 flex gap-8 border-b border-neutral-200">
             {TABS.map((tab) => {
               const isActive = tab.key === activeTab;
               return (
