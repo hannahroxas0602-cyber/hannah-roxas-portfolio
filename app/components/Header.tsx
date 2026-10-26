@@ -9,6 +9,17 @@ import { navLinks } from "@/app/data/social";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
 import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
 
+// Where the floating nav sits on desktop: centered, or in the right corner
+// across from the logo.
+const NAV_ALIGN: "center" | "right" = "center";
+
+const glassEdge =
+  "border border-black/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl backdrop-saturate-150";
+const glass = `bg-white/75 ${glassEdge}`;
+const linkBase = "relative rounded-full px-4 py-1.5 text-sm font-medium text-black transition-colors";
+const mobileLink =
+  "rounded-xl px-4 py-3 text-left text-base font-medium text-black transition-colors hover:bg-black/[0.03]";
+
 export default function Header() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,44 +29,63 @@ export default function Header() {
     // The menu opening and the nav pill are small, tap-triggered UI motion, so
     // they keep animating under Reduce Motion (which otherwise makes them snap).
     <MotionConfig reducedMotion="never">
-    <header className="sticky top-0 z-50 w-full" style={{ viewTransitionName: "site-header" }}>
-      <div className="mx-auto mt-4 max-w-6xl px-4 sm:px-6">
-        <div className="flex items-center justify-between rounded-2xl border border-black/[0.06] bg-white/70 px-6 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl backdrop-saturate-150 sm:px-8">
-          <HoleLink direction="out" href="/" className="group relative block h-9 w-14 shrink-0">
-            <Image
-              src="/images/logo-mark.webp"
-              alt="Hannah Roxas"
-              width={77}
-              height={50}
-              className="h-full w-full object-contain opacity-100 transition-opacity duration-200 group-hover:opacity-0 group-active:opacity-0"
-              priority
-            />
-            <div
-              className="absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-active:opacity-100"
-              style={{
-                backgroundColor: CURSOR_COLOR,
-                WebkitMaskImage: "url(/images/logo-mark.webp)",
-                maskImage: "url(/images/logo-mark.webp)",
-                WebkitMaskSize: "contain",
-                maskSize: "contain",
-                WebkitMaskRepeat: "no-repeat",
-                maskRepeat: "no-repeat",
-                WebkitMaskPosition: "center",
-                maskPosition: "center",
-              }}
-            />
-          </HoleLink>
+      {/* The logo: free-standing in the top-left corner, aligned with the page's
+          content edge, and part of the page, so it scrolls away instead of
+          sitting over the content. Zero height; the header below holds the space. */}
+      <div className="relative z-40 mx-auto h-0 w-full max-w-6xl">
+        <HoleLink
+          direction="out"
+          href="/"
+          aria-label="Hannah Roxas, home"
+          className="group absolute top-4 left-6 block h-14 w-[4.5rem] sm:left-10 sm:h-[4.5rem] sm:w-[5.5rem]"
+        >
+          <Image
+            src="/images/logo-mark.webp"
+            alt=""
+            width={192}
+            height={157}
+            sizes="88px"
+            className="h-full w-full object-contain opacity-100 transition-opacity duration-200 group-hover:opacity-0 group-active:opacity-0"
+            priority
+          />
+          <div
+            className="absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-active:opacity-100"
+            style={{
+              backgroundColor: CURSOR_COLOR,
+              WebkitMaskImage: "url(/images/logo-mark.webp)",
+              maskImage: "url(/images/logo-mark.webp)",
+              WebkitMaskSize: "contain",
+              maskSize: "contain",
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat",
+              WebkitMaskPosition: "center",
+              maskPosition: "center",
+            }}
+          />
+        </HoleLink>
+      </div>
 
+      {/* The nav: its own floating pill that stays put as you scroll. The header
+          itself ignores the pointer, so it never blocks the logo behind it. */}
+      <header
+        className="pointer-events-none sticky top-0 z-50 h-20 w-full"
+        style={{ viewTransitionName: "site-header" }}
+      >
+        <div
+          className={`mx-auto flex max-w-6xl px-6 pt-4 sm:px-10 ${
+            NAV_ALIGN === "center" ? "justify-end sm:justify-center" : "justify-end"
+          }`}
+        >
           {/* Desktop nav */}
           <nav
-            className="hidden items-center gap-1 rounded-full bg-black/[0.03] p-1 sm:flex"
+            className={`pointer-events-auto hidden items-center gap-1 rounded-full p-1.5 sm:flex ${glass}`}
             onMouseLeave={() => setHovered(null)}
           >
             {navLinks.map((link) => {
               const pill = hovered === link.label && (
                 <motion.span
                   layoutId="nav-pill"
-                  className="absolute inset-0 rounded-full bg-white shadow-[0_2px_10px_rgba(0,0,0,0.08)]"
+                  className="absolute inset-0 rounded-full bg-black/[0.06]"
                   transition={{ type: "spring", stiffness: 400, damping: 32 }}
                 />
               );
@@ -67,7 +97,7 @@ export default function Header() {
                     href={link.href}
                     onClick={(e) => openAboutOnPlainClick(e, openAbout)}
                     onMouseEnter={() => setHovered(link.label)}
-                    className="relative rounded-full px-4 py-1.5 text-sm font-medium text-black transition-colors"
+                    className={linkBase}
                   >
                     {pill}
                     <span className="relative z-10">{link.label}</span>
@@ -83,7 +113,7 @@ export default function Header() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onMouseEnter={() => setHovered(link.label)}
-                    className="relative rounded-full px-4 py-1.5 text-sm font-medium text-black transition-colors"
+                    className={linkBase}
                   >
                     {pill}
                     <span className="relative z-10">{link.label}</span>
@@ -96,7 +126,7 @@ export default function Header() {
                   key={link.label}
                   href={link.href}
                   onMouseEnter={() => setHovered(link.label)}
-                  className="relative rounded-full px-4 py-1.5 text-sm font-medium text-black transition-colors"
+                  className={linkBase}
                 >
                   {pill}
                   <span className="relative z-10">{link.label}</span>
@@ -111,7 +141,7 @@ export default function Header() {
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className="flex h-9 w-9 flex-none flex-col items-center justify-center gap-1.5 sm:hidden"
+            className={`pointer-events-auto flex h-12 w-12 flex-none flex-col items-center justify-center gap-1.5 rounded-full sm:hidden ${glass}`}
           >
             <motion.span
               animate={{ rotate: menuOpen ? 45 : 0, y: menuOpen ? 3.5 : 0 }}
@@ -126,19 +156,18 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile dropdown panel */}
+        {/* Mobile dropdown panel: floats under the button, over the page */}
         <AnimatePresence>
           {menuOpen && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              // Eases in as well as out, so the page below is pushed down
-              // gradually instead of jumping at the start.
+              // Eases in as well as out, so the panel opens gradually.
               transition={{ duration: 0.5, ease: [0.45, 0, 0.15, 1] }}
-              className="overflow-hidden sm:hidden"
+              className="pointer-events-auto absolute top-[4.75rem] right-6 w-[min(18rem,calc(100vw-3rem))] overflow-hidden sm:hidden"
             >
-              <nav className="mt-2 flex flex-col gap-1 rounded-2xl border border-black/[0.06] bg-white/95 p-3 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl backdrop-saturate-150">
+              <nav className={`flex flex-col gap-1 rounded-2xl bg-white p-3 ${glassEdge}`}>
                 {navLinks.map((link) =>
                   link.kind === "about" ? (
                     <Link
@@ -148,7 +177,7 @@ export default function Header() {
                         setMenuOpen(false);
                         openAboutOnPlainClick(e, openAbout);
                       }}
-                      className="rounded-xl px-4 py-3 text-left text-base font-medium text-black transition-colors hover:bg-black/[0.03]"
+                      className={mobileLink}
                     >
                       {link.label}
                     </Link>
@@ -159,7 +188,7 @@ export default function Header() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setMenuOpen(false)}
-                      className="rounded-xl px-4 py-3 text-base font-medium text-black transition-colors hover:bg-black/[0.03]"
+                      className={mobileLink}
                     >
                       {link.label}
                     </a>
@@ -168,7 +197,7 @@ export default function Header() {
                       key={link.label}
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className="rounded-xl px-4 py-3 text-base font-medium text-black transition-colors hover:bg-black/[0.03]"
+                      className={mobileLink}
                     >
                       {link.label}
                     </Link>
@@ -178,8 +207,7 @@ export default function Header() {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
-    </header>
+      </header>
     </MotionConfig>
   );
 }
