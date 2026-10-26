@@ -102,15 +102,15 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="mx-auto max-w-6xl px-6 pt-6 pb-4 sm:px-10 sm:pt-10 lg:pt-16"
+      className="mx-auto max-w-6xl px-6 pt-3 pb-2 sm:px-10 sm:pt-8 lg:pt-6"
     >
       {/* The top ring card pokes ~12% of the ring's width above it (27px on mobile,
           46px from sm), so the margin has to clear that, not just the ring's box. */}
       {/* relative z-10 keeps this text above ring cards as they fly outward */}
-      <p className="relative z-10 mb-10 text-center text-[1.3rem] leading-tight text-balance text-neutral-900 sm:mb-16 sm:text-[2.2rem] lg:hidden">
+      <p className="relative z-10 mb-6 text-center text-[1.3rem] leading-tight text-balance text-neutral-900 sm:mb-12 sm:text-[2.2rem] lg:hidden">
         <Em>Welcome to the rabbit hole</Em>
       </p>
-      <div className="relative mx-auto aspect-square w-full max-w-[14rem] sm:max-w-sm lg:max-w-[clamp(20rem,calc(100svh_-_28rem),28rem)]">
+      <div className="relative mx-auto aspect-square w-full max-w-[12rem] sm:max-w-xs lg:max-w-[clamp(17rem,calc(100svh_-_33rem),26rem)]">
         {/* Decorative photo ring — not interactive, so it doesn't read as clickable */}
         <div
           aria-hidden
@@ -147,12 +147,12 @@ export default function Hero() {
 
       {/* The headline, the role line, and availability: plain and scannable, outside the ring */}
       {/* relative z-10 keeps this text above ring cards as they fly outward */}
-      <div className="relative z-10 mx-auto mt-9 flex flex-col items-center gap-4 text-center sm:mt-10 lg:mt-12">
+      <div className="relative z-10 mx-auto mt-7 flex flex-col items-center gap-3 text-center sm:mt-8 lg:mt-8">
       <motion.h1
         initial="hidden"
         animate="visible"
         transition={{ staggerChildren: 0.045, delayChildren: 0.1 }}
-        className="font-display max-w-3xl text-[1.7rem] leading-[1.12] font-semibold text-balance text-neutral-950 sm:text-4xl lg:text-5xl"
+        className="font-display max-w-3xl text-[1.35rem] leading-[1.15] font-semibold text-balance text-neutral-950 sm:text-3xl lg:text-4xl"
       >
         <motion.span
           variants={wordVariants}
@@ -190,7 +190,7 @@ export default function Hero() {
             </Fragment>
           ))}
       </motion.h1>
-        <p className="max-w-2xl text-base leading-relaxed text-balance text-neutral-600 sm:text-lg">
+        <p className="max-w-2xl text-sm leading-relaxed text-balance text-neutral-600 sm:text-base">
           Sole designer at Learvo, an ed-tech startup, where I designed and built
           onboarding, navigation, and the landing page in React.
         </p>

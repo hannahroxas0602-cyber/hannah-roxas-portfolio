@@ -1,7 +1,8 @@
 // The rabbit hole as the hands of a clock: two ornate silhouette hands (a
 // fleur-de-lis hour hand and a heart-cut minute hand) in the logo's clay lavender,
-// pointing at the pictures at ten and two o'clock. The pictures around the hero ring
-// are the numbers. A flat silhouette; decorative.
+// pointing toward the pictures at ten and two o'clock but stopping short of them, so
+// nothing overlaps. The pictures around the hero ring are the numbers. A flat
+// silhouette; decorative.
 const FILL = "#eacdf3";
 const MINUTE = "M7 -16 C12 -26 14 -44 11.5 -58 C9 -66 4.6 -68 4.6 -78 C4.6 -82 8.5 -83 8.5 -88 C8.5 -92 4.2 -92 4.2 -97 C4.2 -104 23 -114 21 -140 C20 -156 8 -166 3.2 -180 C2.4 -188 1.6 -194 1.4 -204 C-1.6 -194 -2.4 -188 -3.2 -180 C-8 -166 -20 -156 -21 -140 C-23 -114 -4.2 -104 -4.2 -97 C-4.2 -92 -8.5 -92 -8.5 -88 C-8.5 -83 -4.6 -82 -4.6 -78 C-4.6 -68 -9 -66 -11.5 -58 C-14 -44 -12 -26 -7 -16Z";
 const HOUR = "M7 -16 C11 -26 11 -38 7 -48 C4.6 -54 3.6 -58 3.8 -66 C4 -74 12 -76 11 -92 C10 -104 22 -108 20 -128 C19 -142 8 -150 3 -164 C2.4 -171 1.6 -176 1.4 -186 C-1.6 -176 -2.4 -171 -3 -164 C-8 -150 -19 -142 -20 -128 C-22 -108 -10 -104 -11 -92 C-12 -76 -4 -74 -3.8 -66 C-3.6 -58 -4.6 -54 -7 -48 C-11 -38 -11 -26 -7 -16Z";
@@ -30,8 +31,8 @@ export default function HoleHands({ className }: { className?: string }) {
           </g>
         </mask>
       </defs>
-      <g transform="translate(200 200)" fill={FILL} stroke={FILL} strokeWidth={6} strokeLinejoin="round">
-        <g transform="rotate(-51.4) scale(0.82)">
+      <g transform="translate(200 200)" fill={FILL}>
+        <g transform="rotate(-51.4) scale(0.48)">
           <g mask="url(#hand-hour)">
             <circle cx="0" cy="0" r="22" />
             <path d={HOUR} />
@@ -39,13 +40,13 @@ export default function HoleHands({ className }: { className?: string }) {
             <path d={CURL} transform="scale(-1 1)" />
           </g>
         </g>
-        <g transform="rotate(51.4)">
+        <g transform="rotate(51.4) scale(0.6)">
           <g mask="url(#hand-minute)">
             <circle cx="0" cy="0" r="23" />
             <path d={MINUTE} />
           </g>
         </g>
-        <circle cx="0" cy="0" r="11" />
+        <circle cx="0" cy="0" r="7" />
       </g>
     </svg>
   );
