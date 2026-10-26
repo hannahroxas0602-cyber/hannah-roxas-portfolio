@@ -108,7 +108,7 @@ export default function Header() {
               >
                 {navLinks.map((link, i) => {
                   const active = link.kind === "internal" && link.href === pathname;
-                  const row = `group flex items-baseline gap-4 py-2.5 font-[family-name:var(--font-serif)] text-[2.6rem] leading-[1.1] tracking-tight text-neutral-900 transition-colors active:text-accent`;
+                  const row = `group flex items-baseline gap-4 py-2.5 font-[family-name:var(--font-welcome)] text-[2.5rem] leading-[1.1] tracking-[-0.015em] text-neutral-900 transition-colors active:text-accent`;
                   const inner = (
                     <>
                       <span className="w-6 shrink-0 font-label text-xs tracking-wide text-neutral-400">

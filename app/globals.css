@@ -32,30 +32,17 @@ body {
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
 }
 
-/* The storybook voice (Griffy, a quirky curled display face), for emphasis only:
-   one word or a short phrase inside a sans heading. It has no italic, and it
-   runs a little small next to the sans, so it's sized up a touch. */
+/* Emphasis words ("Selected", "What I Do", the page titles): the same Newsreader as the
+   hero statement, in italic, set inside a sans heading. */
 .serif-em {
-  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
-  font-style: normal;
+  font-family: var(--font-welcome), Georgia, "Times New Roman", serif;
+  font-style: italic;
   font-weight: 400;
-  font-size: 1.12em;
-  letter-spacing: 0.005em;
+  font-size: 1.1em;
+  letter-spacing: -0.015em;
 }
 
-/* Headings: Inter at its display optical size, tight and a little heavier, the
-   Apple / Notion look. Small labels use the same face at text size. */
-.font-display {
-  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
-  font-optical-sizing: auto;
-  letter-spacing: -0.022em;
-  font-feature-settings: "ss01", "cv11", "calt";
-}
-.font-label {
-  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
-}
-
-/* The hero's welcome line: Instrument Serif, upright, no tricks. */
+/* The hero's serif (Newsreader): upright, with italic for emphasis. */
 .welcome {
   font-family: var(--font-welcome), Georgia, "Times New Roman", serif;
   font-weight: 400;
@@ -536,4 +523,46 @@ html.iris-fallback-backdrop body {
     transform: translateY(-6px) rotate(-0.8deg);
     filter: drop-shadow(0 12px 7px rgba(110, 70, 150, 0.12));
   }
+}
+
+/* ─── The hero's picture: one rabbit over a hole (RabbitHole.tsx). Static. ─── */
+.rabbit-hole {
+  position: relative;
+  container-type: size;
+}
+.hole {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: min(86cqw, 15rem);
+  height: min(24cqw, 4.2rem);
+  transform: translateX(-50%);
+}
+.hole-rim,
+.hole-pit {
+  position: absolute;
+  border-radius: 50%;
+}
+/* The rim: a lavender lip with a soft glow, so the hole reads as a light well. */
+.hole-rim {
+  inset: 0;
+  background: #eacdf3;
+  box-shadow: 0 0 1.8rem 0.1rem color-mix(in oklab, #eacdf3 70%, transparent);
+}
+/* The pit: black, set lower inside the rim so you see the near lip. */
+.hole-pit {
+  inset: 9% 6% 4% 6%;
+  background: radial-gradient(ellipse at 50% 30%, #1d1424 0%, #07040a 62%, #000 100%);
+}
+/* The rabbit, mid-leap, nose pointing down toward the hole. */
+.rabbit {
+  position: absolute;
+  left: 47%;
+  top: 30%;
+  width: min(34cqw, 5.4rem);
+  aspect-ratio: 1.27;
+  background: #18121e;
+  -webkit-mask: url(/images/moving.png) center / contain no-repeat;
+  mask: url(/images/moving.png) center / contain no-repeat;
+  transform: translateX(-50%) rotate(-100deg) scaleX(-1); /* head down: diving in */
 }

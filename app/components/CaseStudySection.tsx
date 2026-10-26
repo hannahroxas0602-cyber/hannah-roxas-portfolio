@@ -32,7 +32,6 @@ export default function CaseStudySection({
 }
 
 // The dark tile every section uses for its one big takeaway.
-export const darkTile =
-  "relative overflow-hidden rounded-3xl bg-neutral-950 text-white [background-image:radial-gradient(120%_90%_at_100%_0%,color-mix(in_oklab,var(--accent)_32%,transparent),transparent_60%)]";
+export const darkTile = "relative overflow-hidden rounded-3xl bg-neutral-950 text-white";
 // The light tile everything else sits in.
 export const lightTile = "rounded-3xl border border-black/[0.06] bg-white";

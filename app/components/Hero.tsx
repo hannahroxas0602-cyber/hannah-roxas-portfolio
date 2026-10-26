@@ -1,206 +1,47 @@
-"use client";
-
-import { Fragment, useRef } from "react";
-import Image from "next/image";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "motion/react";
 import { social } from "@/app/data/social";
-import HoleHands from "@/app/components/HoleHands";
-import { CURSOR_COLOR } from "@/app/components/CustomCursor";
+import RabbitHole from "@/app/components/RabbitHole";
 
-const wordVariants = {
-  hidden: { opacity: 0.001, filter: "blur(10px)", y: 10 },
-  visible: { opacity: 1, filter: "blur(0px)", y: 0 },
-};
-
-// Seven pieces with bold shapes and big type, which stay recognizable at thumbnail size.
-// `depth` sets how fast each card rushes past as you scroll: the parallax that
-// makes scrolling feel like dropping into a tunnel.
-const ringImages = [
-  { src: "/images/hero-ring/ring-01.webp", angle: 0, tilt: -8, depth: 1.0 }, // Learvo laptop
-  { src: "/images/hero-ring/ring-04.webp", angle: 51.4, tilt: 6, depth: 1.35 }, // Outside Inside
-  { src: "/images/hero-ring/ring-10.webp", angle: 102.9, tilt: -5, depth: 0.8 }, // In Due Time
-  { src: "/images/hero-ring/ring-05.webp", angle: 154.3, tilt: 7, depth: 1.2 }, // Good Friends Poke
-  { src: "/images/hero-ring/ring-11.webp", angle: 205.7, tilt: -6, depth: 0.9 }, // Tokyo CD
-  { src: "/images/hero-ring/ring-12.webp", angle: 257.1, tilt: 8, depth: 1.3 }, // ASAP
-  { src: "/images/hero-ring/ring-08.webp", angle: 308.6, tilt: -7, depth: 1.1 }, // Justified book
-];
-
-// How far the ring flies apart by the time the hero has scrolled away.
-const MAX_CARD_GROWTH = 0.9;
-// Scroll progress (0–1) over which the cards fade out.
-const FADE_START = 0.04;
-const FADE_END = 0.32;
-
-// Each card layer scales from the ring's center, so growing it both pushes the
-// card outward and enlarges it. Transform and opacity only.
-function RingCard({
-  img,
-  progress,
-  animate,
-}: {
-  img: (typeof ringImages)[number];
-  progress: MotionValue<number>;
-  animate: boolean;
-}) {
-  const scale = useTransform(
-    progress,
-    [0, 1],
-    [1, 1 + MAX_CARD_GROWTH * img.depth],
-  );
-  // Fully faded before the cards can drift over the role line below. The explicit
-  // clamp matters: range-mapped opacity kept un-fading past the end of its range.
-  const opacity = useTransform(progress, (p) =>
-    Math.min(1, Math.max(0, 1 - (p - FADE_START) / (FADE_END - FADE_START))),
-  );
-
-  return (
-    <motion.div
-      className="absolute inset-0"
-      style={
-        animate ? { rotate: img.angle, scale, opacity } : { rotate: img.angle }
-      }
-    >
-      <div
-        className="absolute top-0 left-1/2 h-[24%] w-[22%] overflow-hidden rounded-lg shadow-lg"
-        style={{
-          transform: `translate(-50%, -50%) rotate(${img.tilt - img.angle}deg)`,
-        }}
-      >
-        <Image
-          src={img.src}
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 112px, (min-width: 640px) 96px, 56px"
-          loading="eager"
-          className="object-cover"
-        />
-      </div>
-    </motion.div>
-  );
-}
-
+// The hero is built for the first three seconds of a recruiter's visit: one statement
+// that says what I am, a quiet row of facts, and, off to the side, the rabbit hole.
+// Nothing in it moves. It shares its width and left edge with the projects below.
 export default function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
-  // 0 when the hero's top reaches the top of the viewport, 1 once it has scrolled away.
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  // Reduced motion: the ring stays exactly as drawn, with no scroll effect.
-  const animate = !reduceMotion;
-  // The opening draws a little closer as you fall toward it; the headline rides along.
-  const holeScale = useTransform(scrollYProgress, [0, 1], [1, 1.18]);
-
   return (
-    <section
-      ref={sectionRef}
-      className="mx-auto max-w-6xl px-6 pt-3 pb-2 sm:px-10 sm:pt-8 lg:pt-6"
-    >
-      {/* The top ring card pokes ~12% of the ring's width above it (27px on mobile,
-          46px from sm), so the margin has to clear that, not just the ring's box. */}
-      {/* relative z-10 keeps this text above ring cards as they fly outward */}
-      <p className="welcome relative z-10 mb-5 text-center text-[1.3rem] leading-tight text-balance text-neutral-900 sm:mb-10 sm:text-[1.7rem] lg:hidden">
-        Welcome to the rabbit hole
+    <section className="mx-auto max-w-7xl px-6 pt-8 pb-4 sm:px-10 sm:pt-10 lg:pt-12 lg:pb-8">
+      <p className="welcome text-base text-neutral-500 italic sm:text-lg">
+        Welcome to the rabbit hole <span aria-hidden>↓</span>
       </p>
-      <div className="relative mx-auto aspect-square w-full max-w-[12rem] sm:max-w-xs lg:max-w-[clamp(17rem,calc(100svh_-_33rem),26rem)]">
-        {/* Decorative photo ring — not interactive, so it doesn't read as clickable */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-[1%] z-[2]"
-        >
-          {ringImages.map((img) => (
-            <RingCard
-              key={img.src}
-              img={img}
-              progress={scrollYProgress}
-              animate={animate}
-            />
-          ))}
-        </div>
 
-        {/* The hole: clock hands in the logo's lavender. They sit behind the pictures
-            (the numbers) and ease in a touch as you scroll. */}
-        <motion.div
-          aria-hidden
-          className="absolute inset-0 z-[1]"
-          style={animate ? { scale: holeScale } : undefined}
-        >
-          <HoleHands className="absolute inset-0 h-full w-full" />
-        </motion.div>
+      <div className="mt-2 grid items-end gap-x-10 gap-y-5 lg:mt-3 lg:grid-cols-[minmax(0,1fr)_17rem]">
+        <h1 className="welcome text-[clamp(1.9rem,3.5vw,3.1rem)] leading-[1.08] tracking-[-0.02em] text-pretty text-neutral-950 lg:col-start-1 lg:row-start-1">
+          <a
+            href={social.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="View LinkedIn"
+            className="link-underline"
+          >
+            Hannah Roxas
+          </a>{" "}
+          is a product designer who ships her own <em>front-end code.</em>
+        </h1>
 
-        {/* Welcome to / the rabbit hole flanking labels */}
-        <span className="welcome absolute top-1/2 left-0 hidden -translate-x-[calc(100%+3rem)] -translate-y-1/2 text-[1.65rem] leading-none whitespace-nowrap text-neutral-900 lg:block">
-          Welcome to
-        </span>
-        <span className="welcome absolute top-1/2 right-0 hidden translate-x-[calc(100%+3rem)] -translate-y-1/2 text-[1.65rem] leading-none whitespace-nowrap text-neutral-900 lg:block">
-          the rabbit hole
-        </span>
-      </div>
+        <RabbitHole className="h-36 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:h-44" />
 
-      {/* The headline, the role line, and availability: plain and scannable, outside the ring */}
-      {/* relative z-10 keeps this text above ring cards as they fly outward */}
-      <div className="relative z-10 mx-auto mt-7 flex flex-col items-center gap-3 text-center sm:mt-8 lg:mt-8">
-      <motion.h1
-        initial="hidden"
-        animate="visible"
-        transition={{ staggerChildren: 0.045, delayChildren: 0.1 }}
-        className="font-display max-w-3xl text-xl leading-[1.2] font-semibold text-balance text-neutral-950 sm:text-2xl lg:text-[1.85rem]"
-      >
-        <motion.span
-          variants={wordVariants}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="inline-block"
-        >
-          I&apos;m
-        </motion.span>
-        {/* Real spaces between the inline-block words, so the heading's text
-            reads as a sentence to search engines and screen readers. */}
-        {" "}
-        <motion.a
-          href={social.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-cursor="View LinkedIn"
-          variants={wordVariants}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="link-underline inline-block"
-        >
-          Hannah
-        </motion.a>
-        {". Product designer who ships her own front-end code."
-          .split(" ")
-          .map((word, i, arr) => (
-            <Fragment key={i}>
-              <motion.span
-                variants={wordVariants}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className="inline-block"
-              >
-                {word}
-              </motion.span>
-              {i < arr.length - 1 && " "}
-            </Fragment>
-          ))}
-      </motion.h1>
-        <p className="max-w-2xl text-sm leading-relaxed text-balance text-neutral-600 sm:text-base">
-          Sole designer at Learvo, where I designed and built onboarding, navigation,
-          and the landing page in React.
-        </p>
-        <p className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-white px-3 py-1 text-xs font-medium text-neutral-700 sm:text-sm">
-          <span
-            aria-hidden
-            className="h-1.5 w-1.5 rounded-full"
-            style={{ backgroundColor: CURSOR_COLOR }}
-          />
-          Open to work
-        </p>
+        <dl className="grid max-w-xl grid-cols-2 gap-x-8 gap-y-4 text-sm lg:col-start-1 lg:row-start-2">
+          <div>
+            <dt className="text-neutral-400">Currently</dt>
+            <dd className="mt-1 leading-snug text-neutral-700">
+              Sole designer @ Learvo, an ed-tech startup. Building in React.
+            </dd>
+          </div>
+          <div>
+            <dt className="text-neutral-400">Open to</dt>
+            <dd className="mt-1 flex items-start gap-2 leading-snug text-neutral-700">
+              <span aria-hidden className="mt-[0.35rem] size-1.5 shrink-0 rounded-full bg-accent" />
+              Product Designer / Design Engineer roles
+            </dd>
+          </div>
+        </dl>
       </div>
     </section>
   );

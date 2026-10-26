@@ -6,7 +6,6 @@ import { motion } from "motion/react";
 import { social } from "@/app/data/social";
 import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
-import { Em } from "@/app/components/Em";
 
 // The bottom of the rabbit hole. When the footer scrolls in, its content lands
 // with a small "thump" (a short drop and settle) and the floor shadow spreads.
@@ -49,15 +48,15 @@ export default function Footer() {
               Open to full-time Product Designer / Design Engineer roles
             </p>
             <h2
-              className="mt-3 font-display leading-[0.95] tracking-tight text-neutral-900 transition-colors duration-300 group-hover:text-[var(--footer-hover)]"
+              className="welcome mt-3 leading-[1.02] tracking-[-0.02em] text-neutral-900 transition-colors duration-300 group-hover:text-[var(--footer-hover)]"
               style={
                 {
-                  fontSize: "clamp(1.75rem, 5vw, 3rem)",
+                  fontSize: "clamp(2rem, 5.2vw, 3.4rem)",
                   "--footer-hover": CURSOR_COLOR,
                 } as React.CSSProperties
               }
             >
-              <Em>Curiouser</Em> and <Em>curiouser.</Em>{" "}
+              Curiouser and <em>curiouser.</em>{" "}
               <svg
                 aria-hidden
                 viewBox="0 0 24 24"
