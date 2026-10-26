@@ -8,6 +8,7 @@ import DemoVideo from "@/app/components/DemoVideo";
 import { AnimatePresence, motion } from "motion/react";
 import { projects, type Project } from "@/app/data/projects";
 import { filled } from "@/app/data/placeholder";
+import { Em } from "@/app/components/Em";
 
 type Tab = {
   key: Project["category"];
@@ -244,7 +245,7 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[2fr_3fr] lg:gap-12">
         <div className="lg:sticky lg:top-24 lg:self-start">
           <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
-            <span className="font-[family-name:var(--font-inter)] font-normal italic">Selected</span>{" "}
+            <Em>Selected</Em>{" "}
             Projects
           </h2>
           <p className="mt-3 max-w-xl text-base leading-relaxed text-neutral-500">

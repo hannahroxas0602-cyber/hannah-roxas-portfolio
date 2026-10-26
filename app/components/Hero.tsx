@@ -10,6 +10,7 @@ import {
   type MotionValue,
 } from "motion/react";
 import { social } from "@/app/data/social";
+import { Em } from "@/app/components/Em";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
 
 const wordVariants = {
@@ -106,7 +107,7 @@ export default function Hero() {
           46px from sm), so the margin has to clear that, not just the ring's box. */}
       {/* relative z-10 keeps this text above ring cards as they fly outward */}
       <p className="relative z-10 mb-10 text-center text-base font-medium tracking-tight text-neutral-500 sm:mb-16 sm:text-lg sm:text-black lg:hidden">
-        Welcome to the rabbit hole.
+        Welcome to the <Em>rabbit hole.</Em>
       </p>
       <div className="relative mx-auto aspect-square w-full max-w-[14rem] sm:max-w-sm lg:max-w-[clamp(20rem,calc(100svh_-_28rem),28rem)]">
         {/* Decorative photo ring — not interactive, so it doesn't read as clickable */}
@@ -197,7 +198,7 @@ export default function Hero() {
           Welcome to
         </span>
         <span className="absolute top-1/2 right-0 hidden translate-x-[calc(100%+3.5rem)] -translate-y-1/2 text-xl font-medium tracking-tight whitespace-nowrap text-black lg:block">
-          the rabbit hole.
+          the <Em>rabbit hole.</Em>
         </span>
       </div>
 

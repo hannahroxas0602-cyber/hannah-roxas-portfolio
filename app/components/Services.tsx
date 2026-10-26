@@ -4,6 +4,7 @@ import { useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, MotionConfig } from "motion/react";
 import { servicesIntro, services } from "@/app/services/data";
+import { EmphasizeLast } from "@/app/components/Em";
 
 // One shared timing for everything that opens or closes, so the box that is
 // closing and the box that is opening move together.
@@ -43,7 +44,9 @@ export default function Services() {
         <span className="mr-1 font-[family-name:var(--font-mono)] text-sm tracking-wide">
           {servicesIntro.eyebrow}
         </span>
-        <span className="text-black">{servicesIntro.title}</span>
+        <span className="text-black">
+          <EmphasizeLast text={servicesIntro.title} />
+        </span>
       </p>
 
       <div

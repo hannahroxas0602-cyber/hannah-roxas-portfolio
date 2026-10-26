@@ -32,6 +32,18 @@ body {
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
 }
 
+/* The serif voice, for emphasis only: one word or a short phrase inside a
+   sans heading, in a soft italic with the font's quirky letterforms switched on.
+   Sized with its surroundings, a hair larger because serifs run small. */
+.serif-em {
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+  font-size: 1.08em;
+  letter-spacing: -0.01em;
+}
+
 .scrollbar-none {
   scrollbar-width: none;
   -ms-overflow-style: none;

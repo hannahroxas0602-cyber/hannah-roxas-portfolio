@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
+import { Em } from "@/app/components/Em";
 
 export default function NotFound() {
   return (
@@ -25,7 +26,7 @@ export default function NotFound() {
           Error 404
         </p>
         <h1 className="mt-3 font-[family-name:var(--font-manrope)] text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
-          Which way ought I to go from here?
+          Which way ought I to go from <Em>here?</Em>
         </h1>
         <p className="mt-4 max-w-md text-base leading-relaxed text-neutral-600">
           That depends a good deal on where you want to get to. This page doesn&apos;t

@@ -2,9 +2,27 @@
 
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { CURSOR_DEEP, cursorColorAt } from "@/app/components/cursorBackdrop";
+import { CURSOR_DEEP, backdropLuminanceAt, colorFor, monoFor } from "@/app/components/cursorBackdrop";
 
 const IDLE_DELAY_MS = 120;
+
+// Experiment: three cursor looks to compare. Switch with ?cursor=pink|mono|invert
+// (remembered for the tab). "pink" is the brand cursor; "mono" is black on light
+// and white on dark; "invert" is a live difference blend that flips whatever is
+// under it. Remove the losers once one is chosen.
+type CursorMode = "pink" | "mono" | "invert";
+const MODE_KEY = "cursor-mode";
+
+function readMode(): CursorMode {
+  try {
+    const q = new URLSearchParams(window.location.search).get("cursor");
+    if (q === "pink" || q === "mono" || q === "invert") sessionStorage.setItem(MODE_KEY, q);
+    const m = sessionStorage.getItem(MODE_KEY);
+    return m === "mono" || m === "invert" ? m : "pink";
+  } catch {
+    return "pink";
+  }
+}
 // The site accent (see --accent in globals.css; keep in sync). A literal, not
 // the CSS variable, so motion can animate it. The bunny itself shifts to a
 // brighter pink over dark backgrounds (cursorBackdrop.ts); labels, badges and
@@ -18,6 +36,8 @@ export default function CustomCursor() {
   // so hydration matches. The real pointer type is only known after mount.
   const [isTouch, setIsTouch] = useState(true);
   const [cursorColor, setCursorColor] = useState(CURSOR_COLOR);
+  const [mode, setMode] = useState<CursorMode>("pink");
+  const modeRef = useRef<CursorMode>("pink");
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -34,6 +54,8 @@ export default function CustomCursor() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsTouch(coarse);
     if (coarse) return;
+    modeRef.current = readMode();
+    setMode(modeRef.current);
 
     // The backdrop is read at most once per frame, however fast the mouse moves.
     let frame = 0;
@@ -42,7 +64,10 @@ export default function CustomCursor() {
       frame = 0;
       if (!pointer) return;
       const inverted = (pointer.target as HTMLElement | null)?.closest("[data-cursor-invert]");
-      setCursorColor(inverted ? "#000000" : cursorColorAt(pointer.x, pointer.y));
+      if (inverted) return setCursorColor("#000000");
+      const l = backdropLuminanceAt(pointer.x, pointer.y);
+      const m = modeRef.current;
+      setCursorColor(m === "invert" ? "#FFFFFF" : m === "mono" ? monoFor(l) : colorFor(l));
     };
 
     const handleMove = (e: MouseEvent) => {
@@ -74,7 +99,15 @@ export default function CustomCursor() {
     <motion.div
       aria-hidden
       className="pointer-events-none fixed top-0 left-0 z-[100] flex items-center justify-center"
-      style={{ x: springX, y: springY, translateX: "-50%", translateY: "-50%" }}
+      style={{
+        x: springX,
+        y: springY,
+        translateX: "-50%",
+        translateY: "-50%",
+        // The invert look: a white bunny blended with "difference", so it shows as
+        // the opposite of whatever is behind it. The label pill is never blended.
+        mixBlendMode: mode === "invert" && !label ? "difference" : "normal",
+      }}
     >
       {label ? (
         <motion.div
@@ -82,7 +115,7 @@ export default function CustomCursor() {
           animate={{ width: "auto", height: 32, paddingInline: 12 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           className="flex items-center justify-center rounded-full"
-          style={{ backgroundColor: CURSOR_COLOR }}
+          style={{ backgroundColor: mode === "pink" ? CURSOR_COLOR : "#111111" }}
         >
           <motion.span
             initial={{ opacity: 0, color: "#000000" }}

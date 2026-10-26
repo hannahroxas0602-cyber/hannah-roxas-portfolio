@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Fraunces, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
@@ -17,6 +17,15 @@ const interDisplay = Inter({
   variable: "--font-manrope",
   subsets: ["latin"],
   weight: ["500", "600", "700", "800"],
+});
+
+// The storybook voice: a soft, slightly quirky serif, used only for single
+// emphasis words and phrases (the .serif-em class in globals.css).
+const serif = Fraunces({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["SOFT", "WONK", "opsz"],
 });
 
 const interLabel = Inter({
@@ -47,7 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${interDisplay.variable} ${interLabel.variable} h-full antialiased`}
+      className={`${inter.variable} ${interDisplay.variable} ${interLabel.variable} ${serif.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col overflow-x-clip overscroll-y-contain md:cursor-none">
         <AboutPanelProvider>

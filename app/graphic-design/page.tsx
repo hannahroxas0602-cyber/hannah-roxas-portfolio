@@ -4,6 +4,7 @@ import Image from "next/image";
 import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
+import { EmphasizeLast } from "@/app/components/Em";
 import ProjectCard from "@/app/components/ProjectCard";
 import ClickToPlayVideo from "@/app/components/ClickToPlayVideo";
 import ScrollToHash from "@/app/components/ScrollToHash";
@@ -40,7 +41,7 @@ export default function GraphicDesignPage() {
             className="mt-3 max-w-2xl font-[family-name:var(--font-manrope)] font-semibold tracking-tight text-neutral-900"
             style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", lineHeight: 1.05 }}
           >
-            {graphicDesignHero.category}
+            <EmphasizeLast text={graphicDesignHero.category} />
           </h1>
 
           <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-500">

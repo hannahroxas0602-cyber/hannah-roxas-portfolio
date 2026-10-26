@@ -18,6 +18,12 @@ function luminance(r: number, g: number, b: number) {
   return 0.2126 * linear(r) + 0.7152 * linear(g) + 0.0722 * linear(b);
 }
 
+// Black or white, whichever contrasts more: the two cross over at a backdrop
+// luminance of about 0.18, and either way the cursor is at least 4.6:1 against it.
+export function monoFor(backdropLuminance: number) {
+  return backdropLuminance > 0.179 ? "#000000" : "#FFFFFF";
+}
+
 export function colorFor(backdropLuminance: number) {
   const against = (l: number) => {
     const [hi, lo] = l > backdropLuminance ? [l, backdropLuminance] : [backdropLuminance, l];
@@ -63,16 +69,36 @@ function sampleMedia(el: HTMLImageElement | HTMLVideoElement, x: number, y: numb
 // opaque background color. Going through the whole stack (not just the top
 // element's parents) sees past transparent overlays, like the scrim over the
 // black hero circle.
-export function cursorColorAt(x: number, y: number) {
+// Photos and videos set to pointer-events: none (the case study demos are) never
+// show up in elementsFromPoint, so look inside a container for one under the
+// pointer. The last match is the topmost.
+function sampleMediaInside(container: Element, x: number, y: number) {
+  const media = container.querySelectorAll<HTMLImageElement | HTMLVideoElement>("img, video");
+  for (let i = media.length - 1; i >= 0; i--) {
+    const r = media[i].getBoundingClientRect();
+    if (x < r.left || x > r.right || y < r.top || y > r.bottom) continue;
+    const l = sampleMedia(media[i], x, y);
+    if (l !== null) return l;
+  }
+  return null;
+}
+
+export function backdropLuminanceAt(x: number, y: number) {
   for (const el of document.elementsFromPoint(x, y)) {
     if (el instanceof HTMLImageElement || el instanceof HTMLVideoElement) {
       const l = sampleMedia(el, x, y);
-      if (l !== null) return colorFor(l);
+      if (l !== null) return l;
     }
     const bg = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
     if (bg && bg.length >= 3 && (bg.length === 3 || Number(bg[3]) >= 0.5)) {
-      return colorFor(luminance(Number(bg[0]), Number(bg[1]), Number(bg[2])));
+      const inside = sampleMediaInside(el, x, y);
+      if (inside !== null) return inside;
+      return luminance(Number(bg[0]), Number(bg[1]), Number(bg[2]));
     }
   }
-  return CURSOR_DEEP;
+  return 1; // the page itself is light
+}
+
+export function cursorColorAt(x: number, y: number) {
+  return colorFor(backdropLuminanceAt(x, y));
 }

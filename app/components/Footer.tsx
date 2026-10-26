@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { social } from "@/app/data/social";
 import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
+import { Em } from "@/app/components/Em";
 
 // The bottom of the rabbit hole. When the footer scrolls in, its content lands
 // with a small "thump" (a short drop and settle) and the floor shadow spreads.
@@ -56,7 +57,7 @@ export default function Footer() {
                 } as React.CSSProperties
               }
             >
-              Curiouser and curiouser.{" "}
+              <Em>Curiouser</Em> and <Em>curiouser.</Em>{" "}
               <svg
                 aria-hidden
                 viewBox="0 0 24 24"

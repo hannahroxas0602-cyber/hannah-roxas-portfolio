@@ -3,6 +3,7 @@ import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
 import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
+import { EmphasizeLast } from "@/app/components/Em";
 import ProjectGrid from "@/app/components/ProjectGrid";
 import { projects } from "@/app/data/projects";
 import { uiuxHero } from "@/app/uiux/data";
@@ -35,7 +36,7 @@ export default function UiUxPage() {
             className="mt-3 max-w-2xl font-[family-name:var(--font-manrope)] font-semibold tracking-tight text-neutral-900"
             style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", lineHeight: 1.05 }}
           >
-            {uiuxHero.category}
+            <EmphasizeLast text={uiuxHero.category} />
           </h1>
 
           <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-500">
