@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Great_Vibes, Inter } from "next/font/google";
+import { Great_Vibes, Griffy, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
@@ -19,13 +19,13 @@ const interDisplay = Inter({
   weight: ["500", "600", "700", "800"],
 });
 
-// The storybook voice: a soft, slightly quirky serif, used only for single
-// emphasis words and phrases (the .serif-em class in globals.css).
-const serif = Fraunces({
+// The storybook voice: Griffy, a quirky display face with curled letters, used
+// only for single emphasis words and phrases (the .serif-em class in globals.css).
+// It's a display font, so never for body text or anything small.
+const serif = Griffy({
   variable: "--font-serif",
   subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["SOFT", "WONK", "opsz"],
+  weight: "400",
 });
 
 // Formal pen script, for the one line of handwriting-style lettering (the hero's

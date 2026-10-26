@@ -32,29 +32,15 @@ body {
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
 }
 
-/* The serif voice, for emphasis only: one word or a short phrase inside a
-   sans heading, in a soft italic with the font's quirky letterforms switched on.
-   Sized with its surroundings, a hair larger because serifs run small. */
+/* The storybook voice (Griffy, a quirky curled display face), for emphasis only:
+   one word or a short phrase inside a sans heading. It has no italic, and it
+   runs a little small next to the sans, so it's sized up a touch. */
 .serif-em {
   font-family: var(--font-serif), Georgia, "Times New Roman", serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
-  font-variation-settings: "SOFT" 100, "WONK" 1;
-  font-size: 1.08em;
-  letter-spacing: -0.01em;
-}
-
-/* The same serif, upright, for a whole short line (the hero's welcome). The
-   emphasis words inside it stay italic at the same size. */
-.serif {
-  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
-  font-weight: 400;
-  font-variation-settings: "SOFT" 100, "WONK" 0;
-  font-size: 1.08em;
-  letter-spacing: -0.005em;
-}
-.serif .serif-em {
-  font-size: 1em;
+  font-size: 1.12em;
+  letter-spacing: 0.005em;
 }
 
 /* Pen-script lettering, in a warm black. Script runs small, so size it up where

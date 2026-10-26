@@ -119,9 +119,7 @@ export default function Header() {
               >
                 {navLinks.map((link, i) => {
                   const active = link.kind === "internal" && link.href === pathname;
-                  const row = `group flex items-baseline gap-4 py-2.5 font-[family-name:var(--font-serif)] text-[2.6rem] leading-[1.1] tracking-tight text-neutral-900 transition-colors active:text-accent ${
-                    active ? "italic" : ""
-                  }`;
+                  const row = `group flex items-baseline gap-4 py-2.5 font-[family-name:var(--font-serif)] text-[2.6rem] leading-[1.1] tracking-tight text-neutral-900 transition-colors active:text-accent`;
                   const inner = (
                     <>
                       <span className="w-6 shrink-0 font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400">
