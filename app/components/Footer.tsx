@@ -83,24 +83,19 @@ export default function Footer() {
           </a>
         </motion.div>
 
-        {/* Footer GIF — recolored black & white, standing on the floor of the hole */}
+        {/* The clay bunnies hopping along the floor of the hole: an animated PNG,
+            so it stays in the clay's own color. Reduce Motion gets a still frame. */}
         <div className="relative mt-6 inline-block">
-          {/* Floor shadow sits under the rabbits' feet (the GIF has empty space below them) and behind them */}
-          <motion.span
-            aria-hidden
-            initial={{ scaleX: 0.55, opacity: 0.5 }}
-            whileInView={{ scaleX: 1, opacity: 1 }}
-            viewport={LANDING_VIEWPORT}
-            transition={THUMP}
-            className="absolute bottom-[26%] left-[10%] h-2.5 w-[80%] rounded-[50%] bg-black/15 blur-[3px]"
-          />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/footer.gif"
-            alt=""
-            className="relative h-24 w-auto sm:h-32"
-            style={{ filter: "grayscale(1) contrast(3) brightness(1.1)" }}
-          />
+          <picture>
+            <source media="(prefers-reduced-motion: reduce)" srcSet="/clayfooter-still.png" />
+            <img
+              src="/clayfooter.png"
+              alt=""
+              width={1000}
+              height={303}
+              className="relative h-11 w-auto sm:h-16"
+            />
+          </picture>
         </div>
 
         {/* Meta row */}

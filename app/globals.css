@@ -538,3 +538,24 @@ html.iris-fallback-backdrop body {
     transform: translateY(-3.5px) rotate(2.5deg);
   }
 }
+
+/* The big logo floats: it drifts up and down and sways a few degrees, with a soft
+   shadow that shrinks as it rises, like something resting on air. Reduce Motion
+   keeps it still. */
+@media (prefers-reduced-motion: no-preference) {
+  .logo-float {
+    animation: logo-float 5.5s ease-in-out infinite;
+    transform-origin: 50% 60%;
+  }
+}
+@keyframes logo-float {
+  0%,
+  100% {
+    transform: translateY(1px) rotate(-1deg);
+    filter: drop-shadow(0 4px 3px rgba(110, 70, 150, 0.2));
+  }
+  50% {
+    transform: translateY(-5px) rotate(1deg);
+    filter: drop-shadow(0 11px 7px rgba(110, 70, 150, 0.1));
+  }
+}

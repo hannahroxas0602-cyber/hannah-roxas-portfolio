@@ -131,7 +131,7 @@ export default function Hero() {
           style={animate ? { scale: holeScale } : undefined}
         >
           {/* The hole: a spiral in the logo's lavender, with the headline on top in black */}
-          <HoleSwirl className="absolute inset-[14%] z-10 h-[72%] w-[72%]" />
+          <HoleSwirl className="absolute inset-[20%] z-10 h-[60%] w-[60%]" />
 
           {/* Headline overlay */}
           <div className="absolute inset-[23%] z-20 flex flex-col items-center justify-center text-center">

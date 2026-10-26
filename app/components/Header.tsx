@@ -171,15 +171,19 @@ export default function Header() {
                 : "h-14 w-24 rounded-2xl border border-transparent p-0 sm:h-[4.5rem] sm:w-[7.75rem]"
             }`}
           >
-            <Image
-              src="/images/claylogo.webp"
-              alt=""
-              width={800}
-              height={463}
-              sizes="124px"
-              className="logo-clay h-full w-full object-contain"
-              priority
-            />
+            {/* The wrapper floats (only while the logo is big and free-standing); the
+                image inside jiggles on hover. Two layers, so the motions don't fight. */}
+            <span className={`block h-full w-full ${scrolled ? "" : "logo-float"}`}>
+              <Image
+                src="/images/claylogo.webp"
+                alt=""
+                width={800}
+                height={463}
+                sizes="124px"
+                className="logo-clay h-full w-full object-contain"
+                priority
+              />
+            </span>
           </HoleLink>
           <div className="flex justify-end px-5 pt-4 md:px-8">
           {/* Desktop nav */}
