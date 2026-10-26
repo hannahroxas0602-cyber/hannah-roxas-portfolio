@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { CURSOR_COLOR } from "@/app/components/CustomCursor";
+import { CURSOR_STRONG } from "@/app/components/CustomCursor";
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -123,7 +123,7 @@ export default function ChatWidget({ className = "" }: { className?: string }) {
                       className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                         msg.role === "user" ? "text-white" : "bg-neutral-100 text-neutral-800"
                       }`}
-                      style={msg.role === "user" ? { backgroundColor: CURSOR_COLOR } : undefined}
+                      style={msg.role === "user" ? { backgroundColor: CURSOR_STRONG } : undefined}
                     >
                       {msg.text}
                     </div>
@@ -176,7 +176,7 @@ export default function ChatWidget({ className = "" }: { className?: string }) {
                   disabled={!input.trim() || isTyping}
                   aria-label="Send message"
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white transition-opacity disabled:opacity-40"
-                  style={{ backgroundColor: CURSOR_COLOR }}
+                  style={{ backgroundColor: CURSOR_STRONG }}
                 >
                   <svg viewBox="0 0 24 24" className="h-4 w-4 fill-white">
                     <path d="M3 20v-6l8-2-8-2V4l19 8-19 8z" />
