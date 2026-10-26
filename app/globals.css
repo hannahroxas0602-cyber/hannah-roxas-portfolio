@@ -20,8 +20,8 @@ html {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --font-sans: var(--font-archivo);
-  --font-mono: var(--font-archivo);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-body);
   --shadow-soft: 0px 16px 34px rgba(0, 0, 0, 0.03), 0px 6px 16px rgba(0, 0, 0, 0.04),
     0px 1px 2px rgba(0, 0, 0, 0.04);
 }
@@ -29,8 +29,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-archivo), Arial, Helvetica, sans-serif;
-  font-stretch: 85%;
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
 }
 
 /* The storybook voice (Griffy, a quirky curled display face), for emphasis only:
@@ -44,15 +43,13 @@ body {
   letter-spacing: 0.005em;
 }
 
-/* Archivo's widths: headings run narrowest, small labels a touch wider, body
-   in between (set on body above). Tune the three numbers to taste. */
+/* Headings use Bricolage Grotesque; small labels use the body face. */
 .font-display {
-  font-family: var(--font-archivo), Arial, Helvetica, sans-serif;
-  font-stretch: 72%;
+  font-family: var(--font-display), var(--font-body), Arial, Helvetica, sans-serif;
+  font-optical-sizing: auto;
 }
 .font-label {
-  font-family: var(--font-archivo), Arial, Helvetica, sans-serif;
-  font-stretch: 78%;
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
 }
 
 .scrollbar-none {
@@ -488,39 +485,6 @@ html.iris-fallback-backdrop body {
   }
 }
 
-/* The clay logo: on hover it gives a small, soft jiggle, like a touch on clay,
-   then settles. Pressing it presses it in a little. Reduce Motion gets neither. */
-@media (prefers-reduced-motion: no-preference) {
-  .logo-clay {
-    transform-origin: 50% 90%;
-    transition: transform 160ms ease-out;
-  }
-  .group:hover .logo-clay {
-    animation: clay-jiggle 650ms ease-out;
-  }
-  .group:active .logo-clay {
-    animation: none;
-    transform: scale(1.025, 0.965);
-  }
-}
-@keyframes clay-jiggle {
-  0% {
-    transform: scale(1, 1) rotate(0deg);
-  }
-  24% {
-    transform: scale(1.035, 0.965) rotate(-0.7deg);
-  }
-  50% {
-    transform: scale(0.985, 1.025) rotate(0.5deg);
-  }
-  76% {
-    transform: scale(1.008, 0.995) rotate(-0.2deg);
-  }
-  100% {
-    transform: scale(1, 1) rotate(0deg);
-  }
-}
-
 /* The key above the hover label drifts up and down, and sways a few degrees, as
    if floating. Reduce Motion keeps it still. */
 @media (prefers-reduced-motion: no-preference) {
@@ -539,23 +503,31 @@ html.iris-fallback-backdrop body {
   }
 }
 
-/* The big logo floats: it drifts up and down and sways a few degrees, with a soft
-   shadow that shrinks as it rises, like something resting on air. Reduce Motion
-   keeps it still. */
+/* The logo floats while hovered: it lifts off, drifts, and sways with a little
+   wobble, its soft shadow thinning as it rises, then settles back (Header.tsx lets
+   the current bob finish). Starts and ends at rest. Reduce Motion keeps it still. */
 @media (prefers-reduced-motion: no-preference) {
   .logo-float {
-    animation: logo-float 5.5s ease-in-out infinite;
-    transform-origin: 50% 60%;
+    animation: logo-float 2.4s ease-in-out infinite;
+    transform-origin: 50% 70%;
   }
 }
 @keyframes logo-float {
   0%,
   100% {
-    transform: translateY(1px) rotate(-1deg);
-    filter: drop-shadow(0 4px 3px rgba(110, 70, 150, 0.2));
+    transform: translateY(0) rotate(0deg);
+    filter: drop-shadow(0 3px 2px rgba(110, 70, 150, 0));
+  }
+  25% {
+    transform: translateY(-5px) rotate(-1.4deg);
+    filter: drop-shadow(0 10px 6px rgba(110, 70, 150, 0.14));
   }
   50% {
-    transform: translateY(-5px) rotate(1deg);
-    filter: drop-shadow(0 11px 7px rgba(110, 70, 150, 0.1));
+    transform: translateY(-3px) rotate(1.1deg);
+    filter: drop-shadow(0 8px 5px rgba(110, 70, 150, 0.16));
+  }
+  75% {
+    transform: translateY(-6px) rotate(-0.8deg);
+    filter: drop-shadow(0 12px 7px rgba(110, 70, 150, 0.12));
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -42,6 +42,10 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { open: openAbout } = useAboutPanel();
   const pathname = usePathname();
+  // The logo floats while the pointer is on it. Leaving doesn't cut the motion off:
+  // the current bob finishes first, so it settles back instead of snapping.
+  const [floating, setFloating] = useState(false);
+  const leaving = useRef(false);
 
   // While the menu is open: the page behind it doesn't scroll, Escape closes it,
   // and growing the window to desktop width closes it (the desktop nav takes over).
@@ -165,22 +169,31 @@ export default function Header() {
             href="/"
             aria-label="Hannah Roxas, home"
             onClick={closeMenu}
+            onPointerEnter={() => {
+              leaving.current = false;
+              setFloating(true);
+            }}
+            onPointerLeave={() => {
+              leaving.current = true;
+            }}
             className={`group pointer-events-auto absolute top-4 left-5 block transition-all duration-300 ease-out sm:left-8 ${
               scrolled
                 ? `h-[3.25rem] w-20 rounded-2xl p-2 ${glass}`
                 : "h-14 w-24 rounded-2xl border border-transparent p-0 sm:h-[4.5rem] sm:w-[7.75rem]"
             }`}
           >
-            {/* The wrapper floats (only while the logo is big and free-standing); the
-                image inside jiggles on hover. Two layers, so the motions don't fight. */}
-            <span className={`block h-full w-full ${scrolled ? "" : "logo-float"}`}>
+            {/* Floats while hovered, then settles at the end of the current bob. */}
+            <span
+              className={`block h-full w-full ${floating ? "logo-float" : ""}`}
+              onAnimationIteration={() => leaving.current && setFloating(false)}
+            >
               <Image
                 src="/images/claylogo.webp"
                 alt=""
                 width={800}
                 height={463}
                 sizes="124px"
-                className="logo-clay h-full w-full object-contain"
+                className="h-full w-full object-contain"
                 priority
               />
             </span>

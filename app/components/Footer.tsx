@@ -93,7 +93,7 @@ export default function Footer() {
               alt=""
               width={1000}
               height={303}
-              className="relative h-11 w-auto sm:h-16"
+              className="relative h-8 w-auto sm:h-11"
             />
           </picture>
         </div>
