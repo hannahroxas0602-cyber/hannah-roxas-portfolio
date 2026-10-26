@@ -10,6 +10,7 @@ import {
   type MotionValue,
 } from "motion/react";
 import { social } from "@/app/data/social";
+import { Em } from "@/app/components/Em";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
 
 const wordVariants = {
@@ -105,8 +106,8 @@ export default function Hero() {
       {/* The top ring card pokes ~12% of the ring's width above it (27px on mobile,
           46px from sm), so the margin has to clear that, not just the ring's box. */}
       {/* relative z-10 keeps this text above ring cards as they fly outward */}
-      <p className="relative z-10 mb-10 text-center text-base font-medium tracking-tight text-neutral-500 sm:mb-16 sm:text-lg sm:text-black lg:hidden">
-        <span className="script text-[2.1rem] sm:text-[2.5rem]">Welcome to the rabbit hole</span>
+      <p className="relative z-10 mb-10 text-center text-[1.3rem] leading-tight text-balance text-neutral-900 sm:mb-16 sm:text-[2.2rem] lg:hidden">
+        <Em>Welcome to the rabbit hole</Em>
       </p>
       <div className="relative mx-auto aspect-square w-full max-w-[14rem] sm:max-w-sm lg:max-w-[clamp(20rem,calc(100svh_-_28rem),28rem)]">
         {/* Decorative photo ring — not interactive, so it doesn't read as clickable */}
@@ -193,11 +194,11 @@ export default function Hero() {
         </motion.div>
 
         {/* Welcome to / the rabbit hole flanking labels */}
-        <span className="absolute top-1/2 left-0 hidden -translate-x-[calc(100%+3.5rem)] -translate-y-1/2 text-xl font-medium tracking-tight whitespace-nowrap text-black lg:block">
-          <span className="script text-[2.6rem]">Welcome to</span>
+        <span className="absolute top-1/2 left-0 hidden -translate-x-[calc(100%+3.5rem)] -translate-y-1/2 text-[2.1rem] leading-none whitespace-nowrap text-neutral-900 lg:block">
+          <Em>Welcome to</Em>
         </span>
-        <span className="absolute top-1/2 right-0 hidden translate-x-[calc(100%+3.5rem)] -translate-y-1/2 text-xl font-medium tracking-tight whitespace-nowrap text-black lg:block">
-          <span className="script text-[2.6rem]">the rabbit hole</span>
+        <span className="absolute top-1/2 right-0 hidden translate-x-[calc(100%+3.5rem)] -translate-y-1/2 text-[2.1rem] leading-none whitespace-nowrap text-neutral-900 lg:block">
+          <Em>the rabbit hole</Em>
         </span>
       </div>
 

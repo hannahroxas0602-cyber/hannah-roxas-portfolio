@@ -43,16 +43,6 @@ body {
   letter-spacing: 0.005em;
 }
 
-/* Pen-script lettering, in a warm black. Script runs small, so size it up where
-   it's used. */
-.script {
-  display: inline-block;
-  font-family: var(--font-script), "Snell Roundhand", cursive;
-  font-weight: 400;
-  line-height: 1.15;
-  color: #1d1a17;
-}
-
 .scrollbar-none {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -486,21 +476,35 @@ html.iris-fallback-backdrop body {
   }
 }
 
-/* The clay logo: on hover it lifts and tilts toward the pointer, like a clay
-   figure turning to look at you (the tilt angles come from Header.tsx), with a
-   soft shadow under it. Pressing it squeezes it. Reduce Motion gets none of it. */
+/* The clay logo: on hover it gives a small, soft jiggle, like a touch on clay,
+   then settles. Pressing it presses it in a little. Reduce Motion gets neither. */
 @media (prefers-reduced-motion: no-preference) {
   .logo-clay {
-    transition: transform 180ms ease-out, filter 220ms ease-out;
-    will-change: transform;
+    transform-origin: 50% 90%;
+    transition: transform 160ms ease-out;
   }
   .group:hover .logo-clay {
-    transform: perspective(420px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
-      translateY(-3px) scale(1.07);
-    filter: drop-shadow(0 9px 8px rgba(110, 70, 150, 0.28));
+    animation: clay-jiggle 650ms ease-out;
   }
   .group:active .logo-clay {
-    transform: perspective(420px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(0.96);
-    filter: drop-shadow(0 3px 4px rgba(110, 70, 150, 0.25));
+    animation: none;
+    transform: scale(1.025, 0.965);
+  }
+}
+@keyframes clay-jiggle {
+  0% {
+    transform: scale(1, 1) rotate(0deg);
+  }
+  24% {
+    transform: scale(1.035, 0.965) rotate(-0.7deg);
+  }
+  50% {
+    transform: scale(0.985, 1.025) rotate(0.5deg);
+  }
+  76% {
+    transform: scale(1.008, 0.995) rotate(-0.2deg);
+  }
+  100% {
+    transform: scale(1, 1) rotate(0deg);
   }
 }

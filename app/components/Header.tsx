@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore, type PointerEvent } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -42,7 +42,6 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { open: openAbout } = useAboutPanel();
   const pathname = usePathname();
-  const logoRef = useRef<HTMLImageElement>(null);
 
   // While the menu is open: the page behind it doesn't scroll, Escape closes it,
   // and growing the window to desktop width closes it (the desktop nav takes over).
@@ -62,20 +61,6 @@ export default function Header() {
       desktop.removeEventListener("change", onResize);
     };
   }, [menuOpen]);
-
-  // The logo tilts toward the pointer (mouse only); the hover styles live in globals.css.
-  const tiltLogo = (e: PointerEvent<HTMLAnchorElement>) => {
-    if (e.pointerType !== "mouse" || !logoRef.current) return;
-    const r = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    logoRef.current.style.setProperty("--rx", `${(-y * 18).toFixed(1)}deg`);
-    logoRef.current.style.setProperty("--ry", `${(x * 24).toFixed(1)}deg`);
-  };
-  const levelLogo = () => {
-    logoRef.current?.style.setProperty("--rx", "0deg");
-    logoRef.current?.style.setProperty("--ry", "0deg");
-  };
 
   const closeMenu = () => setMenuOpen(false);
 
@@ -180,8 +165,6 @@ export default function Header() {
             href="/"
             aria-label="Hannah Roxas, home"
             onClick={closeMenu}
-            onPointerMove={tiltLogo}
-            onPointerLeave={levelLogo}
             className={`group pointer-events-auto absolute top-4 left-5 block transition-all duration-300 ease-out sm:left-8 ${
               scrolled
                 ? `h-[3.25rem] w-20 rounded-2xl p-2 ${glass}`
@@ -189,7 +172,6 @@ export default function Header() {
             }`}
           >
             <Image
-              ref={logoRef}
               src="/images/claylogo.webp"
               alt=""
               width={800}

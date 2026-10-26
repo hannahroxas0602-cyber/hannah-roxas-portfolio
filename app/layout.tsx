@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Great_Vibes, Griffy, Inter } from "next/font/google";
+import { Griffy, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
@@ -24,14 +24,6 @@ const interDisplay = Inter({
 // It's a display font, so never for body text or anything small.
 const serif = Griffy({
   variable: "--font-serif",
-  subsets: ["latin"],
-  weight: "400",
-});
-
-// Formal pen script, for the one line of handwriting-style lettering (the hero's
-// welcome); see .script in globals.css.
-const script = Great_Vibes({
-  variable: "--font-script",
   subsets: ["latin"],
   weight: "400",
 });
@@ -64,7 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${interDisplay.variable} ${interLabel.variable} ${serif.variable} ${script.variable} h-full antialiased`}
+      className={`${inter.variable} ${interDisplay.variable} ${interLabel.variable} ${serif.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col overflow-x-clip overscroll-y-contain md:cursor-none">
         <AboutPanelProvider>
