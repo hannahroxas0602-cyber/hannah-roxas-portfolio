@@ -11,6 +11,7 @@ import NextProjectPreview from "@/app/components/NextProjectPreview";
 import ImageSlideshow from "@/app/components/ImageSlideshow";
 import ReadingTime from "@/app/components/ReadingTime";
 import CaseStudyTldr from "@/app/components/CaseStudyTldr";
+import CaseStudyRoleImpact from "@/app/components/CaseStudyRoleImpact";
 import { readingMinutes } from "@/app/data/readingTime";
 import {
   goodHero,
@@ -142,39 +143,7 @@ export default function GoodFriendsPage() {
           />
         </div>
 
-        {/* My Role & Impact */}
-        <section id="role-impact" className="max-w-4xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-            {roleAndImpact.heading}
-          </h2>
-          <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-            {roleAndImpact.columns.map((col, i) => (
-              <div
-                key={col.label}
-                className={`rounded-2xl border p-6 ${
-                  i === 2
-                    ? "border-black/[0.06] bg-neutral-900"
-                    : "border-black/[0.06] bg-white shadow-soft"
-                }`}
-              >
-                <h3
-                  className={`text-xs font-semibold tracking-widest uppercase ${
-                    i === 2 ? "text-white/50" : "text-neutral-400"
-                  }`}
-                >
-                  {col.label}
-                </h3>
-                <p
-                  className={`mt-3 text-sm leading-relaxed ${
-                    i === 2 ? "text-white/85" : "text-neutral-700"
-                  }`}
-                >
-                  {col.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
+        <CaseStudyRoleImpact heading={roleAndImpact.heading} columns={roleAndImpact.columns} />
 
         {/* The Problem */}
         <section id="problem" className="max-w-4xl py-16">

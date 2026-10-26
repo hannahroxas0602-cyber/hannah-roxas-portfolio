@@ -10,7 +10,6 @@ import {
   type MotionValue,
 } from "motion/react";
 import { social } from "@/app/data/social";
-import { Em } from "@/app/components/Em";
 import HoleHands from "@/app/components/HoleHands";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
 
@@ -107,8 +106,8 @@ export default function Hero() {
       {/* The top ring card pokes ~12% of the ring's width above it (27px on mobile,
           46px from sm), so the margin has to clear that, not just the ring's box. */}
       {/* relative z-10 keeps this text above ring cards as they fly outward */}
-      <p className="relative z-10 mb-6 text-center text-[1.3rem] leading-tight text-balance text-neutral-900 sm:mb-12 sm:text-[2.2rem] lg:hidden">
-        <Em>Welcome to the rabbit hole</Em>
+      <p className="welcome relative z-10 mb-5 text-center text-[1.3rem] leading-tight text-balance text-neutral-900 sm:mb-10 sm:text-[1.7rem] lg:hidden">
+        Welcome to the rabbit hole
       </p>
       <div className="relative mx-auto aspect-square w-full max-w-[12rem] sm:max-w-xs lg:max-w-[clamp(17rem,calc(100svh_-_33rem),26rem)]">
         {/* Decorative photo ring — not interactive, so it doesn't read as clickable */}
@@ -137,11 +136,11 @@ export default function Hero() {
         </motion.div>
 
         {/* Welcome to / the rabbit hole flanking labels */}
-        <span className="absolute top-1/2 left-0 hidden -translate-x-[calc(100%+3.5rem)] -translate-y-1/2 text-[2.1rem] leading-none whitespace-nowrap text-neutral-900 lg:block">
-          <Em>Welcome to</Em>
+        <span className="welcome absolute top-1/2 left-0 hidden -translate-x-[calc(100%+3rem)] -translate-y-1/2 text-[1.65rem] leading-none whitespace-nowrap text-neutral-900 lg:block">
+          Welcome to
         </span>
-        <span className="absolute top-1/2 right-0 hidden translate-x-[calc(100%+3.5rem)] -translate-y-1/2 text-[2.1rem] leading-none whitespace-nowrap text-neutral-900 lg:block">
-          <Em>the rabbit hole</Em>
+        <span className="welcome absolute top-1/2 right-0 hidden translate-x-[calc(100%+3rem)] -translate-y-1/2 text-[1.65rem] leading-none whitespace-nowrap text-neutral-900 lg:block">
+          the rabbit hole
         </span>
       </div>
 
@@ -152,7 +151,7 @@ export default function Hero() {
         initial="hidden"
         animate="visible"
         transition={{ staggerChildren: 0.045, delayChildren: 0.1 }}
-        className="font-display max-w-3xl text-[1.35rem] leading-[1.15] font-semibold text-balance text-neutral-950 sm:text-3xl lg:text-4xl"
+        className="font-display max-w-3xl text-xl leading-[1.2] font-semibold text-balance text-neutral-950 sm:text-2xl lg:text-[1.85rem]"
       >
         <motion.span
           variants={wordVariants}
@@ -191,8 +190,8 @@ export default function Hero() {
           ))}
       </motion.h1>
         <p className="max-w-2xl text-sm leading-relaxed text-balance text-neutral-600 sm:text-base">
-          Sole designer at Learvo, an ed-tech startup, where I designed and built
-          onboarding, navigation, and the landing page in React.
+          Sole designer at Learvo, where I designed and built onboarding, navigation,
+          and the landing page in React.
         </p>
         <p className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-white px-3 py-1 text-xs font-medium text-neutral-700 sm:text-sm">
           <span
@@ -200,7 +199,7 @@ export default function Hero() {
             className="h-1.5 w-1.5 rounded-full"
             style={{ backgroundColor: CURSOR_COLOR }}
           />
-          Open to Product Designer / Design Engineer roles
+          Open to work
         </p>
       </div>
     </section>

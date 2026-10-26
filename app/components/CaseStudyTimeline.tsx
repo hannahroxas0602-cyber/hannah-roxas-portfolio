@@ -3,6 +3,7 @@ import type {
   TimelineBand,
   TimelineTask,
 } from "@/app/components/caseStudyTypes";
+import CaseStudySection from "@/app/components/CaseStudySection";
 
 const ROW_HEIGHT = 40;
 const ROW_GAP = 28;
@@ -28,13 +29,9 @@ export default function CaseStudyTimeline({
     bands.find((b) => b.label === bandLabel)?.colorClass ?? "bg-neutral-900";
 
   return (
-    <section id="timeline" className="mx-auto max-w-4xl px-6 py-24 sm:px-10 sm:py-32">
-      <h2 className="font-display text-3xl font-semibold text-neutral-900 sm:text-4xl">
-        {heading}
-      </h2>
-
-      <div className="mt-16 overflow-x-auto sm:mt-20">
-        <div className="min-w-[640px] rounded-2xl border border-black/[0.06] bg-white p-6 shadow-soft sm:p-8">
+    <CaseStudySection id="timeline" kicker="How it unfolded" heading={heading}>
+      <div className="overflow-x-auto">
+        <div className="min-w-[640px] rounded-3xl border border-black/[0.06] bg-white p-6 sm:p-8">
           {/* Phase bands — colored strip + label */}
           <div className="flex gap-1.5">
             {bands.map((band) => (
@@ -67,7 +64,7 @@ export default function CaseStudyTimeline({
                   </p>
                 </div>
                 <div
-                  className={`h-2.5 w-full rounded-full ${bandColor(task.band)} transition-transform duration-200 ease-out group-hover:scale-y-125`}
+                  className={`h-3 w-full rounded-full ${bandColor(task.band)} transition-transform duration-200 ease-out group-hover:scale-y-125`}
                 />
               </div>
             ))}
@@ -99,6 +96,6 @@ export default function CaseStudyTimeline({
           )}
         </div>
       </div>
-    </section>
+    </CaseStudySection>
   );
 }

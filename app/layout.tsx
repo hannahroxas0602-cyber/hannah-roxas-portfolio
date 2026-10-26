@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Griffy, Inter } from "next/font/google";
+import { Griffy, Inter, Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
@@ -11,6 +11,13 @@ import { pageMetadata, siteDescription, siteName, siteUrl } from "@/app/data/seo
 // gives large type a tighter, finer cut ("display") and small type a sturdier,
 // looser one ("text"), so headings and body are the same typeface at two
 // voices (.font-display and the default in globals.css).
+// The welcome line only: a simple, current serif that sits comfortably beside Inter.
+const welcome = Instrument_Serif({
+  variable: "--font-welcome",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -48,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${serif.variable} h-full antialiased`}
+      className={`${inter.variable} ${serif.variable} ${welcome.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col overflow-x-clip overscroll-y-contain md:cursor-none">
         <AboutPanelProvider>

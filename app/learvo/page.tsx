@@ -7,6 +7,8 @@ import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
 import DemoVideo from "@/app/components/DemoVideo";
 import CaseStudyTldr from "@/app/components/CaseStudyTldr";
+import CaseStudyMilestones from "@/app/components/CaseStudyMilestones";
+import CaseStudyRoleImpact from "@/app/components/CaseStudyRoleImpact";
 import Testimonial, { hasTestimonial } from "@/app/components/Testimonial";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
@@ -178,63 +180,9 @@ export default function LearvoPage() {
           </section>
         )}
 
-        {/* Timeline */}
-        <section id="timeline" className="max-w-4xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-            {timelineSection.heading}
-          </h2>
+        <CaseStudyMilestones heading={timelineSection.heading} items={timelineSection.items} />
 
-          <ol className="mt-8 space-y-6 border-l border-black/[0.08] pl-6">
-            {timelineSection.items.map((item) => (
-              <li key={item.slug} id={item.slug} className="relative scroll-mt-28">
-                <span className="absolute top-1.5 -left-[29px] h-2 w-2 rounded-full bg-neutral-300" />
-                <p className="text-xs font-medium tracking-wide text-neutral-400 uppercase">
-                  {item.date}
-                </p>
-                <h3 className="mt-1 font-display text-lg font-semibold text-neutral-900">
-                  {item.title}
-                </h3>
-                <p className="mt-1 max-w-2xl text-base leading-relaxed text-neutral-700">
-                  {item.body}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        {/* My Role & Impact */}
-        <section id="role-impact" className="max-w-4xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-            {roleAndImpact.heading}
-          </h2>
-          <div className="mt-8 grid grid-cols-1 items-start gap-3 sm:grid-cols-3">
-            {roleAndImpact.columns.map((col, i) => (
-              <div
-                key={col.label}
-                className={`rounded-2xl border p-6 ${
-                  i === 2
-                    ? "border-black/[0.06] bg-neutral-900"
-                    : "border-black/[0.06] bg-white shadow-soft"
-                }`}
-              >
-                <h3
-                  className={`text-xs font-semibold tracking-widest uppercase ${
-                    i === 2 ? "text-white/50" : "text-neutral-400"
-                  }`}
-                >
-                  {col.label}
-                </h3>
-                <p
-                  className={`mt-3 text-sm leading-relaxed ${
-                    i === 2 ? "text-white/85" : "text-neutral-700"
-                  }`}
-                >
-                  {col.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
+        <CaseStudyRoleImpact heading={roleAndImpact.heading} columns={roleAndImpact.columns} />
 
         {/* What I Shipped */}
         <section id="what-i-shipped" className="max-w-4xl py-16">

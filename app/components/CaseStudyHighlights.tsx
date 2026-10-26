@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
+import CaseStudySection, { darkTile, lightTile } from "@/app/components/CaseStudySection";
 
 type Mockup = {
   image: string;
@@ -108,16 +109,20 @@ export default function CaseStudyHighlights({
   callout: string;
 }) {
   return (
-    <section id="highlights" className="mx-auto max-w-4xl px-6 py-24 sm:px-10 sm:py-32">
-      <h2 className="font-display text-3xl font-semibold text-neutral-900 sm:text-4xl">
-        {heading}
-      </h2>
+    <CaseStudySection id="highlights" kicker="At a glance" heading={heading} intro={callout}>
+      {/* The numbers first: one dark tile per stat. */}
+      <div className={`grid grid-cols-1 gap-2.5 ${stats.length > 1 ? "sm:grid-cols-2" : ""}`}>
+        {stats.map((stat) => (
+          <div key={stat.label} className={`${darkTile} p-7 sm:p-8`}>
+            <p className="font-display text-6xl font-semibold text-white sm:text-7xl">{stat.value}</p>
+            <p className="mt-3 max-w-[16rem] text-sm leading-snug text-white/60">{stat.label}</p>
+          </div>
+        ))}
+      </div>
 
-      <p className="mt-6 max-w-lg text-lg leading-relaxed text-neutral-500">{callout}</p>
-
-      {/* Browser-chrome mockup — elevated, framed like a real product shot */}
+      {/* Browser-chrome mockup, framed like a real product shot */}
       {mockup && (
-        <div className="mt-16 overflow-hidden rounded-3xl border border-black/[0.06] bg-neutral-50 shadow-soft sm:mt-20">
+        <div className="mt-2.5 overflow-hidden rounded-3xl border border-black/[0.06] bg-neutral-50">
           <div className="flex items-center gap-3 border-b border-black/[0.05] px-5 py-4">
             <div className="flex gap-1.5">
               <span className="h-2.5 w-2.5 rounded-full bg-neutral-200" />
@@ -132,36 +137,22 @@ export default function CaseStudyHighlights({
         </div>
       )}
 
-      {/* Outcome cards — numbered, bordered, equal visual weight to the mockup above */}
-      <div
-        className={`grid grid-cols-1 gap-3 ${
-          outcomes.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"
-        } ${mockup ? "mt-6" : "mt-16 sm:mt-20"}`}
-      >
+      {/* What changed: a check and a line each */}
+      <ul className={`mt-2.5 grid grid-cols-1 gap-2.5 ${outcomes.length % 2 === 0 ? "sm:grid-cols-2" : "sm:grid-cols-3"}`}>
         {outcomes.map((outcome, i) => (
-          <div
-            key={i}
-            className="rounded-2xl border border-black/[0.06] bg-white p-5 shadow-soft"
-          >
-            <span className="font-display text-xs font-semibold tracking-wide text-neutral-300">
-              {String(i + 1).padStart(2, "0")}
+          <li key={i} className={`${lightTile} flex gap-3 p-5`}>
+            <span
+              aria-hidden
+              className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent"
+            >
+              <svg viewBox="0 0 16 16" className="size-3" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3.5 8.5l3 3 6-7" />
+              </svg>
             </span>
-            <p className="mt-2 text-sm leading-relaxed text-neutral-700">{outcome}</p>
-          </div>
+            <p className="text-sm leading-relaxed text-neutral-700">{outcome}</p>
+          </li>
         ))}
-      </div>
-
-      {/* Stats — connected strip, same card system as outcomes above */}
-      <div className="mt-6 flex flex-col gap-6 rounded-2xl border border-black/[0.06] bg-neutral-900 p-8 sm:flex-row sm:gap-16 sm:p-10">
-        {stats.map((stat) => (
-          <div key={stat.label}>
-            <p className="font-display text-5xl font-semibold text-white">
-              {stat.value}
-            </p>
-            <p className="mt-2 max-w-[12rem] text-sm leading-snug text-white/60">{stat.label}</p>
-          </div>
-        ))}
-      </div>
-    </section>
+      </ul>
+    </CaseStudySection>
   );
 }

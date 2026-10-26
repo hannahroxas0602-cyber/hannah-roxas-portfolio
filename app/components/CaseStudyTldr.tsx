@@ -1,26 +1,34 @@
 import type { CaseStudyTldr as Tldr } from "@/app/components/caseStudyTypes";
 import { filled } from "@/app/data/placeholder";
+import { darkTile, lightTile } from "@/app/components/CaseStudySection";
 
-// Skimmable summary for recruiters: Problem / My role / What I did / Result.
+// Skimmable summary for recruiters: Problem / My role / What I did / Result, as a
+// 2x2 of tiles. The Result gets the dark tile, the same way each section below
+// puts its one takeaway in dark.
 export default function CaseStudyTldr({ tldr }: { tldr: Tldr }) {
   const result = filled(tldr.resultMetric) ? `${tldr.result} ${tldr.resultMetric}` : tldr.result;
-  const rows = [
+  const tiles = [
     { label: "Problem", value: tldr.problem },
     { label: "My role", value: tldr.role },
     { label: "What I did", value: tldr.whatIDid },
-    { label: "Result", value: result },
-  ].filter((row) => filled(row.value));
+    { label: "Result", value: result, dark: true },
+  ].filter((t) => filled(t.value));
 
   return (
-    <section aria-label="TL;DR" className="mt-8 max-w-2xl rounded-2xl border border-black/[0.06] bg-neutral-50 p-5 sm:p-6">
-      <p className="font-label text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+    <section aria-label="TL;DR" className="mt-8 max-w-3xl">
+      <p className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600">
+        <span aria-hidden className="size-1.5 rounded-full bg-accent" />
         TL;DR
       </p>
-      <dl className="mt-3 flex flex-col gap-2.5">
-        {rows.map((row) => (
-          <div key={row.label} className="grid grid-cols-1 gap-0.5 sm:grid-cols-[7rem_1fr] sm:gap-4">
-            <dt className="text-sm font-semibold text-neutral-900">{row.label}</dt>
-            <dd className="text-sm leading-relaxed text-neutral-700">{row.value}</dd>
+      <dl className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+        {tiles.map((t) => (
+          <div key={t.label} className={`${t.dark ? darkTile : lightTile} p-5`}>
+            <dt className={`text-xs font-medium ${t.dark ? "text-white/55" : "text-neutral-400"}`}>
+              {t.label}
+            </dt>
+            <dd className={`mt-2 text-sm leading-relaxed ${t.dark ? "text-white/90" : "text-neutral-700"}`}>
+              {t.value}
+            </dd>
           </div>
         ))}
       </dl>
