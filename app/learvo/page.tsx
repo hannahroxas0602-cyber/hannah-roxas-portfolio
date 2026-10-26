@@ -7,7 +7,7 @@ import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
 import DemoVideo from "@/app/components/DemoVideo";
 import CaseStudyTldr from "@/app/components/CaseStudyTldr";
-import CaseStudyMilestones from "@/app/components/CaseStudyMilestones";
+import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
 import CaseStudyRoleImpact from "@/app/components/CaseStudyRoleImpact";
 import Testimonial, { hasTestimonial } from "@/app/components/Testimonial";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
@@ -180,7 +180,15 @@ export default function LearvoPage() {
           </section>
         )}
 
-        <CaseStudyMilestones heading={timelineSection.heading} items={timelineSection.items} />
+        <div className="max-w-4xl">
+          <CaseStudyTimeline
+            heading={timelineSection.heading}
+            totalWeeks={timelineSection.totalWeeks}
+            bands={timelineSection.bands}
+            tasks={timelineSection.tasks}
+            axisLabels={timelineSection.axisLabels}
+          />
+        </div>
 
         <CaseStudyRoleImpact heading={roleAndImpact.heading} columns={roleAndImpact.columns} />
 
