@@ -43,7 +43,7 @@ export default function DebugPage() {
     <main className="mx-auto max-w-xl px-6 py-16">
       <meta name="robots" content="noindex" />
       <title>Diagnostics | Hannah Roxas</title>
-      <h1 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900">
+      <h1 className="font-display text-2xl font-semibold text-neutral-900">
         Diagnostics
       </h1>
       <p className="mt-2 text-sm text-neutral-500">What this browser reports right now.</p>

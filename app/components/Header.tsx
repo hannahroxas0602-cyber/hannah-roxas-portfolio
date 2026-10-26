@@ -107,7 +107,7 @@ export default function Header() {
                   const row = `group flex items-baseline gap-4 py-2.5 font-[family-name:var(--font-serif)] text-[2.6rem] leading-[1.1] tracking-tight text-neutral-900 transition-colors active:text-accent`;
                   const inner = (
                     <>
-                      <span className="w-6 shrink-0 font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400">
+                      <span className="w-6 shrink-0 font-label text-xs tracking-wide text-neutral-400">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span>{link.label}</span>

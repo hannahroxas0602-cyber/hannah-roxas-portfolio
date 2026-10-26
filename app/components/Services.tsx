@@ -41,7 +41,7 @@ export default function Services() {
     <MotionConfig reducedMotion="never">
     <section id="what-i-do" className="mx-auto max-w-6xl scroll-mt-24 px-6 pt-8 pb-16 sm:px-10 sm:pt-12 sm:pb-24">
       <p className="text-lg text-neutral-500">
-        <span className="mr-1 font-[family-name:var(--font-mono)] text-sm tracking-wide">
+        <span className="mr-1 font-label text-sm tracking-wide">
           {servicesIntro.eyebrow}
         </span>
         <span className="text-black">
@@ -88,7 +88,7 @@ export default function Services() {
               >
                 <div className="flex w-full items-center justify-between">
                   <h3
-                    className={`inline-block w-fit rounded-full border border-white/10 bg-black/70 px-4 font-[family-name:var(--font-manrope)] text-white backdrop-blur-xl backdrop-saturate-150 transition-[font-size,line-height,padding] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] ${
+                    className={`inline-block w-fit rounded-full border border-white/10 bg-black/70 px-4 font-display text-white backdrop-blur-xl backdrop-saturate-150 transition-[font-size,line-height,padding] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] ${
                       isOpen ? "py-1.5 text-xl sm:text-2xl" : "py-1 text-lg sm:text-xl"
                     }`}
                   >
@@ -149,7 +149,7 @@ export default function Services() {
                       </ul>
 
                       <div className="mt-3 flex items-center gap-2">
-                        <span className="font-[family-name:var(--font-mono)] text-xs font-semibold tracking-widest text-white/50 uppercase">
+                        <span className="font-label text-xs font-semibold tracking-widest text-white/50 uppercase">
                           Tools
                         </span>
                         <span className="text-sm text-white/80">

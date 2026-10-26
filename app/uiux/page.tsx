@@ -29,11 +29,11 @@ export default function UiUxPage() {
             ← Back to home
           </HoleLink>
 
-          <p className="mt-8 font-[family-name:var(--font-mono)] text-xs font-medium tracking-widest text-neutral-400 uppercase sm:mt-10">
+          <p className="mt-8 font-label text-xs font-medium tracking-widest text-neutral-400 uppercase sm:mt-10">
             {uiuxHero.eyebrow}
           </p>
           <h1
-            className="mt-3 max-w-2xl font-[family-name:var(--font-manrope)] font-semibold tracking-tight text-neutral-900"
+            className="mt-3 max-w-2xl font-display font-semibold tracking-tight text-neutral-900"
             style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", lineHeight: 1.05 }}
           >
             <EmphasizeLast text={uiuxHero.category} />

@@ -42,7 +42,7 @@ export default function NextProjectPreview({
           />
         </div>
         <div>
-          <h2 data-vt-title className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900">
+          <h2 data-vt-title className="font-display text-2xl font-semibold text-neutral-900">
             {title}
           </h2>
           <p className="mt-2 max-w-sm text-base leading-relaxed text-neutral-600">

@@ -129,7 +129,7 @@ export default function AboutPanel({ width }: { width: number }) {
             <div className="rounded-2xl bg-white p-4 pr-12 sm:p-5">
               <div className="flex items-center gap-5">
                 <PhotoStack />
-                <p className="font-[family-name:var(--font-manrope)] text-base font-semibold text-neutral-900">
+                <p className="font-display text-base font-semibold text-neutral-900">
                   Hannah Roxas
                 </p>
               </div>
@@ -169,7 +169,7 @@ export default function AboutPanel({ width }: { width: number }) {
             {/* Timeline — one minimal, non-scrolling section with a connecting rail */}
             <div className="rounded-2xl bg-white p-4 sm:p-5">
               <div className="flex items-center justify-between">
-                <p className="font-[family-name:var(--font-mono)] text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+                <p className="font-label text-xs font-semibold tracking-widest text-neutral-400 uppercase">
                   Experience
                 </p>
                 <a
@@ -214,7 +214,7 @@ export default function AboutPanel({ width }: { width: number }) {
                       </p>
                       <p className="truncate text-xs text-neutral-500">{entry.context}</p>
                     </div>
-                    <span className="shrink-0 font-[family-name:var(--font-mono)] text-xs text-neutral-400">
+                    <span className="shrink-0 font-label text-xs text-neutral-400">
                       {entry.dates}
                     </span>
                   </div>
@@ -224,7 +224,7 @@ export default function AboutPanel({ width }: { width: number }) {
 
             {/* Contact — pinned to the bottom on desktop's fixed-height sidebar; flows normally on mobile's scrollable stack */}
             <div className="rounded-2xl bg-white p-4 sm:mt-auto sm:p-5">
-              <p className="font-[family-name:var(--font-mono)] text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+              <p className="font-label text-xs font-semibold tracking-widest text-neutral-400 uppercase">
                 Contact
               </p>
               <div className="mt-3 flex flex-col gap-2">

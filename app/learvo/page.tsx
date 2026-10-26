@@ -113,7 +113,7 @@ export default function LearvoPage() {
             ← Back to home
           </HoleLink>
 
-          <h1 data-vt-target className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
+          <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
             {learvoHero.title}
           </h1>
 
@@ -180,7 +180,7 @@ export default function LearvoPage() {
 
         {/* Timeline */}
         <section id="timeline" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {timelineSection.heading}
           </h2>
 
@@ -191,7 +191,7 @@ export default function LearvoPage() {
                 <p className="text-xs font-medium tracking-wide text-neutral-400 uppercase">
                   {item.date}
                 </p>
-                <h3 className="mt-1 font-[family-name:var(--font-manrope)] text-lg font-semibold text-neutral-900">
+                <h3 className="mt-1 font-display text-lg font-semibold text-neutral-900">
                   {item.title}
                 </h3>
                 <p className="mt-1 max-w-2xl text-base leading-relaxed text-neutral-700">
@@ -204,7 +204,7 @@ export default function LearvoPage() {
 
         {/* My Role & Impact */}
         <section id="role-impact" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {roleAndImpact.heading}
           </h2>
           <div className="mt-8 grid grid-cols-1 items-start gap-3 sm:grid-cols-3">
@@ -238,7 +238,7 @@ export default function LearvoPage() {
 
         {/* What I Shipped */}
         <section id="what-i-shipped" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {featuresSection.heading}
           </h2>
 
@@ -253,7 +253,7 @@ export default function LearvoPage() {
                 id={cat.slug}
                 className="scroll-mt-28 border-t border-black/[0.06] pt-12 first:border-t-0 first:pt-0"
               >
-                <h3 className="font-[family-name:var(--font-manrope)] text-xl font-semibold text-neutral-900">
+                <h3 className="font-display text-xl font-semibold text-neutral-900">
                   {cat.title}
                 </h3>
 
@@ -384,7 +384,7 @@ export default function LearvoPage() {
 
         {/* Brand Identity */}
         <section id="brand-identity" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {brandIdentitySection.heading}
           </h2>
 
@@ -423,7 +423,7 @@ export default function LearvoPage() {
                       />
                     )}
                   </div>
-                  <h3 className="mt-4 font-[family-name:var(--font-manrope)] text-lg font-semibold text-neutral-900">
+                  <h3 className="mt-4 font-display text-lg font-semibold text-neutral-900">
                     {el.title}
                   </h3>
                   <p className="mt-2 max-w-2xl text-sm leading-relaxed text-neutral-700">{el.body}</p>
@@ -440,7 +440,7 @@ export default function LearvoPage() {
         {/* What I Learned from Users — renders only once real research is filled in */}
         {showUserResearch && (
           <section id="user-research" className="max-w-4xl py-16">
-            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
               {userResearch.heading}
             </h2>
 
@@ -467,7 +467,7 @@ export default function LearvoPage() {
 
         {/* What I'd Do Next */}
         <section id="next-steps" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {nextStepsSection.heading}
           </h2>
 

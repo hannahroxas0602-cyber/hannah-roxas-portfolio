@@ -35,7 +35,7 @@ export default function TypographyDictionaryPage() {
               ← Back to home
             </HoleLink>
 
-            <h1 data-vt-target className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
+            <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
               {typographyHero.title}
             </h1>
 
@@ -61,7 +61,7 @@ export default function TypographyDictionaryPage() {
         {/* Spreads */}
         <section className="pb-16 sm:pb-24">
           <div className="mx-auto max-w-4xl px-6 sm:px-10">
-            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
               {spreads.heading}
             </h2>
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -87,7 +87,7 @@ export default function TypographyDictionaryPage() {
         {/* Book mockup */}
         <section className="pb-16 sm:pb-24">
           <div className="mx-auto max-w-4xl px-6 sm:px-10">
-            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
               {bookMockup.heading}
             </h2>
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -113,7 +113,7 @@ export default function TypographyDictionaryPage() {
         {/* Dictionary specimens */}
         <section className="pb-16 sm:pb-24">
           <div className="mx-auto max-w-6xl px-6 sm:px-10">
-            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
               {specimens.heading}
             </h2>
             <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -156,7 +156,7 @@ export default function TypographyDictionaryPage() {
                 sizes="(min-width: 640px) 320px, 100vw"
               />
             </div>
-            <h2 className="mt-5 font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900">
+            <h2 className="mt-5 font-display text-2xl font-semibold text-neutral-900">
               {nextProject.title}
             </h2>
             <p className="mt-2 max-w-xl text-base leading-relaxed text-neutral-600">

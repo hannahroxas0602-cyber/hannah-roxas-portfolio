@@ -3,21 +3,21 @@ import { filled } from "@/app/data/placeholder";
 import { social } from "@/app/data/social";
 
 const label =
-  "font-[family-name:var(--font-mono)] text-xs font-semibold tracking-widest text-neutral-400 uppercase";
+  "font-label text-xs font-semibold tracking-widest text-neutral-400 uppercase";
 
 // Full-page version of the About side panel, so /about can be linked and indexed.
 export default function About() {
   return (
     <section id="about" className="mx-auto max-w-6xl scroll-mt-24 px-6 pb-16 sm:px-10 sm:pb-24">
       <p className="text-lg text-neutral-500">
-        <span className="mr-1 font-[family-name:var(--font-mono)] text-sm tracking-wide">
+        <span className="mr-1 font-label text-sm tracking-wide">
           {aboutIntro.eyebrow}
         </span>
         <span className="text-black">{aboutIntro.title}</span>
       </p>
 
       <h1
-        className="mt-6 max-w-2xl font-[family-name:var(--font-manrope)] font-semibold tracking-tight text-neutral-900"
+        className="mt-6 max-w-2xl font-display font-semibold tracking-tight text-neutral-900"
         style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", lineHeight: 1.05 }}
       >
         Hannah Roxas
@@ -51,10 +51,10 @@ export default function About() {
           <div key={entry.slug} className="relative pb-14 pl-8 last:pb-0 sm:pl-12">
             <span className="absolute top-1.5 left-0 h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2 border-black bg-[var(--background)]" />
 
-            <p className="font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400 uppercase">
+            <p className="font-label text-xs tracking-wide text-neutral-400 uppercase">
               {entry.dates}
             </p>
-            <h2 className="mt-2 font-[family-name:var(--font-manrope)] text-2xl text-black sm:text-3xl">
+            <h2 className="mt-2 font-display text-2xl text-black sm:text-3xl">
               {entry.role}
             </h2>
             <p className="mt-2 max-w-xl text-base leading-relaxed text-neutral-500">

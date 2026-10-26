@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { CURSOR_DEEP, backdropLuminanceAt, colorFor, monoFor } from "@/app/components/cursorBackdrop";
+import HoverKey from "@/app/components/HoverKey";
 
 const IDLE_DELAY_MS = 120;
 
@@ -114,9 +115,22 @@ export default function CustomCursor() {
           initial={{ width: 8, height: 8, paddingInline: 0 }}
           animate={{ width: "auto", height: 32, paddingInline: 12 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="flex items-center justify-center rounded-full"
+          className="relative flex items-center justify-center rounded-full"
           style={{ backgroundColor: mode === "pink" ? CURSOR_COLOR : "#111111" }}
         >
+          {/* A key floats just above every hover label, in the label's color. */}
+          <motion.span
+            aria-hidden
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.08, duration: 0.3, ease: "easeOut" }}
+            className="pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2"
+          >
+            <HoverKey
+              color={mode === "pink" ? CURSOR_COLOR : "#111111"}
+              className="hover-key"
+            />
+          </motion.span>
           <motion.span
             initial={{ opacity: 0, color: "#000000" }}
             animate={{ opacity: 1, color: "#ffffff" }}

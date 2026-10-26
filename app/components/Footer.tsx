@@ -33,7 +33,7 @@ export default function Footer() {
           viewport={LANDING_VIEWPORT}
           transition={THUMP}
         >
-          <p className="mb-6 font-[family-name:var(--font-manrope)] text-lg font-medium tracking-tight text-neutral-900 sm:mb-8 sm:text-xl">
+          <p className="mb-6 font-display text-lg font-medium tracking-tight text-neutral-900 sm:mb-8 sm:text-xl">
             Thump! The fall is over.
           </p>
 
@@ -45,11 +45,11 @@ export default function Footer() {
             data-cursor="Email me"
             className="group block"
           >
-            <p className="font-[family-name:var(--font-mono)] text-xs font-medium tracking-widest text-neutral-500 uppercase">
+            <p className="font-label text-xs font-medium tracking-widest text-neutral-500 uppercase">
               Open to full-time Product Designer / Design Engineer roles
             </p>
             <h2
-              className="mt-3 font-[family-name:var(--font-manrope)] leading-[0.95] tracking-tight text-neutral-900 transition-colors duration-300 group-hover:text-[var(--footer-hover)]"
+              className="mt-3 font-display leading-[0.95] tracking-tight text-neutral-900 transition-colors duration-300 group-hover:text-[var(--footer-hover)]"
               style={
                 {
                   fontSize: "clamp(1.75rem, 5vw, 3rem)",

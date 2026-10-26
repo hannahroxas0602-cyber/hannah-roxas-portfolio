@@ -22,10 +22,10 @@ export default function NotFound() {
           />
         </div>
 
-        <p className="mt-10 font-[family-name:var(--font-mono)] text-xs font-medium tracking-widest text-neutral-400 uppercase">
+        <p className="mt-10 font-label text-xs font-medium tracking-widest text-neutral-400 uppercase">
           Error 404
         </p>
-        <h1 className="mt-3 font-[family-name:var(--font-manrope)] text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+        <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
           Which way ought I to go from <Em>here?</Em>
         </h1>
         <p className="mt-4 max-w-md text-base leading-relaxed text-neutral-600">

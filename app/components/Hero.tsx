@@ -11,6 +11,7 @@ import {
 } from "motion/react";
 import { social } from "@/app/data/social";
 import { Em } from "@/app/components/Em";
+import HoleSwirl from "@/app/components/HoleSwirl";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
 
 const wordVariants = {
@@ -129,22 +130,8 @@ export default function Hero() {
           className="absolute inset-0 z-10"
           style={animate ? { scale: holeScale } : undefined}
         >
-          {/* Black oval with sleeping rabbit */}
-          <div className="absolute inset-[21%] z-10 overflow-hidden rounded-[50%] bg-black">
-            <div className="absolute inset-[12%]">
-              <Image
-                src="/images/bunny_hero.png"
-                alt="A sleeping white rabbit curled up in a dark burrow"
-                fill
-                sizes="(min-width: 640px) 500px, 70vw"
-                className="object-contain"
-                priority
-              />
-            </div>
-          </div>
-
-          {/* Scrim — keeps the headline readable over the bunny photo */}
-          <div className="absolute inset-[21%] z-10 rounded-[50%] bg-gradient-to-b from-black/55 via-black/35 to-black/55" />
+          {/* The hole: a spiral in the logo's lavender, with the headline on top in black */}
+          <HoleSwirl className="absolute inset-[14%] z-10 h-[72%] w-[72%]" />
 
           {/* Headline overlay */}
           <div className="absolute inset-[23%] z-20 flex flex-col items-center justify-center text-center">
@@ -152,7 +139,7 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               transition={{ staggerChildren: 0.045, delayChildren: 0.1 }}
-              className="font-[family-name:var(--font-manrope)] text-xs leading-snug font-bold text-white sm:text-lg lg:text-[clamp(0.9rem,2.05svh,1.15rem)]"
+              className="font-display text-xs leading-snug font-bold text-neutral-950 sm:text-lg lg:text-[clamp(0.9rem,2.05svh,1.15rem)]"
             >
               <motion.span
                 variants={wordVariants}

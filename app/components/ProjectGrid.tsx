@@ -15,10 +15,10 @@ export default function ProjectGrid({
   return (
     <section id={id} className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-24">
       <div className="flex items-baseline gap-4 border-b border-black/[0.08] pb-4">
-        <span className="font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400 uppercase">
+        <span className="font-label text-xs tracking-wide text-neutral-400 uppercase">
           01
         </span>
-        <h2 className="font-[family-name:var(--font-manrope)] text-3xl text-neutral-900 sm:text-4xl">
+        <h2 className="font-display text-3xl text-neutral-900 sm:text-4xl">
           {title}
         </h2>
       </div>

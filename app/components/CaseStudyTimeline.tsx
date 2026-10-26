@@ -29,7 +29,7 @@ export default function CaseStudyTimeline({
 
   return (
     <section id="timeline" className="mx-auto max-w-4xl px-6 py-24 sm:px-10 sm:py-32">
-      <h2 className="font-[family-name:var(--font-manrope)] text-3xl font-semibold text-neutral-900 sm:text-4xl">
+      <h2 className="font-display text-3xl font-semibold text-neutral-900 sm:text-4xl">
         {heading}
       </h2>
 

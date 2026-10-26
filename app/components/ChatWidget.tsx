@@ -98,7 +98,7 @@ export default function ChatWidget({ className = "" }: { className?: string }) {
             >
               {/* Header */}
               <div className="flex items-center justify-between border-b border-black/[0.06] px-5 py-4">
-                <p className="font-[family-name:var(--font-manrope)] text-sm font-semibold text-neutral-900">
+                <p className="font-display text-sm font-semibold text-neutral-900">
                   Ask about Hannah
                 </p>
                 <button

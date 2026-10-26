@@ -20,8 +20,8 @@ html {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-mono);
+  --font-sans: var(--font-archivo);
+  --font-mono: var(--font-archivo);
   --shadow-soft: 0px 16px 34px rgba(0, 0, 0, 0.03), 0px 6px 16px rgba(0, 0, 0, 0.04),
     0px 1px 2px rgba(0, 0, 0, 0.04);
 }
@@ -29,7 +29,8 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-family: var(--font-archivo), Arial, Helvetica, sans-serif;
+  font-stretch: 85%;
 }
 
 /* The storybook voice (Griffy, a quirky curled display face), for emphasis only:
@@ -41,6 +42,17 @@ body {
   font-weight: 400;
   font-size: 1.12em;
   letter-spacing: 0.005em;
+}
+
+/* Archivo's widths: headings run narrowest, small labels a touch wider, body
+   in between (set on body above). Tune the three numbers to taste. */
+.font-display {
+  font-family: var(--font-archivo), Arial, Helvetica, sans-serif;
+  font-stretch: 72%;
+}
+.font-label {
+  font-family: var(--font-archivo), Arial, Helvetica, sans-serif;
+  font-stretch: 78%;
 }
 
 .scrollbar-none {
@@ -506,5 +518,23 @@ html.iris-fallback-backdrop body {
   }
   100% {
     transform: scale(1, 1) rotate(0deg);
+  }
+}
+
+/* The key above the hover label drifts up and down, and sways a few degrees, as
+   if floating. Reduce Motion keeps it still. */
+@media (prefers-reduced-motion: no-preference) {
+  .hover-key {
+    animation: key-float 2.8s ease-in-out infinite;
+    transform-origin: 30% 50%;
+  }
+}
+@keyframes key-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2.5deg);
+  }
+  50% {
+    transform: translateY(-3.5px) rotate(2.5deg);
   }
 }

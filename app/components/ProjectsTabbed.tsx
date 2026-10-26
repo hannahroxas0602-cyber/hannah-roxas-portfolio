@@ -213,7 +213,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
               <div className="flex flex-wrap gap-x-5 gap-y-1.5 sm:gap-x-8 sm:gap-y-2">
                 {stats.map((stat, i) => (
                   <div key={`${stat.label}-${i}`}>
-                    <div className="font-[family-name:var(--font-manrope)] text-lg leading-tight font-semibold text-white sm:text-2xl sm:leading-8">
+                    <div className="font-display text-lg leading-tight font-semibold text-white sm:text-2xl sm:leading-8">
                       {stat.value}
                     </div>
                     <div className="text-[11px] leading-tight text-white/80 sm:text-xs sm:leading-4">
@@ -244,7 +244,7 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
     <section id={id} className="mx-auto max-w-7xl scroll-mt-24 px-6 pt-10 pb-16 sm:px-10 sm:pt-14 sm:pb-24 lg:pt-8">
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[2fr_3fr] lg:gap-12">
         <div className="lg:sticky lg:top-24 lg:self-start">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             <Em>Selected</Em>{" "}
             Projects
           </h2>
@@ -285,11 +285,11 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
                 data-cursor="Enter →"
                 className="group flex items-baseline gap-4 border-b border-neutral-200 py-6 transition-colors duration-200 hover:border-neutral-300"
               >
-                <span className="font-[family-name:var(--font-mono)] text-xs font-medium text-neutral-300">
+                <span className="font-label text-xs font-medium text-neutral-300">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <span data-vt-title className="link-underline w-fit font-[family-name:var(--font-manrope)] text-xl font-medium text-neutral-900 transition-colors duration-300 sm:text-2xl">
+                  <span data-vt-title className="link-underline w-fit font-display text-xl font-medium text-neutral-900 transition-colors duration-300 sm:text-2xl">
                     {project.title}
                   </span>
                   <p className="mt-1.5 text-sm text-neutral-400">

@@ -53,7 +53,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
 
-        <h3 data-vt-title className="link-underline mt-4 w-fit font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+        <h3 data-vt-title className="link-underline mt-4 w-fit font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
           {project.title}
         </h3>
 

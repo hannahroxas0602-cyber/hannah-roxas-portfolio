@@ -30,7 +30,7 @@ export default function DearBelovedPage() {
               ← Back to home
             </HoleLink>
 
-            <h1 data-vt-target className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
+            <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
               {dearBelovedHero.title}
             </h1>
 
@@ -68,7 +68,7 @@ export default function DearBelovedPage() {
         {/* Highlights — static copies of key slides for those skipping the slideshow */}
         <section className="pb-16 sm:pb-24">
           <div className="mx-auto max-w-4xl px-6 sm:px-10">
-            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
               {highlights.heading}
             </h2>
             <div className="mt-8 flex flex-col gap-6">

@@ -99,7 +99,7 @@ export default function ContinuumPage() {
               ← Back to home
             </HoleLink>
 
-            <h1 data-vt-target className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
+            <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
               {continuumHero.title}
             </h1>
 
@@ -167,7 +167,7 @@ export default function ContinuumPage() {
 
           {/* My Role & Impact */}
           <section id="role-impact" className="max-w-4xl py-16">
-            <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
               {roleAndImpact.heading}
             </h2>
             <div className={`mt-8 grid grid-cols-1 gap-3 ${roleGridCols[roleColumns.length]}`}>
@@ -201,7 +201,7 @@ export default function ContinuumPage() {
 
           {/* The Problem */}
           <section id="problem" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {problemSection.heading}
           </h2>
 
@@ -239,7 +239,7 @@ export default function ContinuumPage() {
 
         {/* 3 Critical Design Decisions */}
         <section id="decisions" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {decisionsSection.heading}
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-500">
@@ -252,7 +252,7 @@ export default function ContinuumPage() {
                 key={decision.slug}
                 className="rounded-2xl bg-neutral-900 p-8 text-white sm:p-10"
               >
-                <h3 className="font-[family-name:var(--font-manrope)] text-xl font-semibold">
+                <h3 className="font-display text-xl font-semibold">
                   {decision.title}
                 </h3>
                 <ul className="mt-5 space-y-3 text-sm leading-relaxed text-neutral-300">
@@ -283,7 +283,7 @@ export default function ContinuumPage() {
 
         {/* Designing for Multiple Stakeholders */}
         <section id="stakeholders" className="max-w-6xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {stakeholdersSection.heading}
           </h2>
 
@@ -313,7 +313,7 @@ export default function ContinuumPage() {
                   <span className="font-mono text-xs font-medium tracking-widest text-neutral-400 uppercase">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-3 font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+                  <h3 className="mt-3 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
                     {s.name}
                   </h3>
                   <p className="mt-2 text-sm font-medium text-neutral-500">
@@ -335,7 +335,7 @@ export default function ContinuumPage() {
 
         {/* Design System */}
         <section id="design-system" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {designSystemSection.heading}
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-500">
@@ -362,7 +362,7 @@ export default function ContinuumPage() {
 
         {/* What I'd Do Next */}
         <section id="next-steps" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {nextStepsSection.heading}
           </h2>
 

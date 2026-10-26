@@ -80,7 +80,7 @@ export default function GoodFriendsPage() {
             ← Back to home
           </HoleLink>
 
-          <h1 data-vt-target className="mt-8 font-[family-name:var(--font-manrope)] text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
+          <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
             {goodHero.title}
           </h1>
 
@@ -144,7 +144,7 @@ export default function GoodFriendsPage() {
 
         {/* My Role & Impact */}
         <section id="role-impact" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {roleAndImpact.heading}
           </h2>
           <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -201,7 +201,7 @@ export default function GoodFriendsPage() {
             ))}
           </div>
 
-          <h2 className="mt-10 font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="mt-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {problemSection.heading}
           </h2>
 
@@ -232,7 +232,7 @@ export default function GoodFriendsPage() {
 
         {/* Research gallery */}
         <section id="research" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {researchGallery.heading}
           </h2>
 
@@ -248,7 +248,7 @@ export default function GoodFriendsPage() {
 
         {/* Design Goal */}
         <section id="design-goal" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {designGoal.heading}
           </h2>
 
@@ -275,14 +275,14 @@ export default function GoodFriendsPage() {
 
         {/* Design Solutions */}
         <section id="design-solutions" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {designSolutions.heading}
           </h2>
 
           <div className="mt-10 space-y-14">
             {designSolutions.categories.map((cat) => (
               <div key={cat.slug}>
-                <h3 className="font-[family-name:var(--font-manrope)] text-xl font-semibold text-neutral-900">
+                <h3 className="font-display text-xl font-semibold text-neutral-900">
                   {cat.title}
                 </h3>
                 <ul className="mt-4 space-y-2">
@@ -312,7 +312,7 @@ export default function GoodFriendsPage() {
 
         {/* Design Decisions & Interactions */}
         <section id="design-decisions" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {designDecisions.heading}
           </h2>
 
@@ -329,7 +329,7 @@ export default function GoodFriendsPage() {
             {designDecisions.bridgeIntro}
           </p>
 
-          <h3 className="mt-8 font-[family-name:var(--font-manrope)] text-xl font-semibold text-neutral-900">
+          <h3 className="mt-8 font-display text-xl font-semibold text-neutral-900">
             {designDecisions.touchpointsHeading}
           </h3>
 
@@ -364,7 +364,7 @@ export default function GoodFriendsPage() {
 
         {/* What I'd Do Next */}
         <section id="next-steps" className="max-w-4xl py-16">
-          <h2 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {nextStepsSection.heading}
           </h2>
 

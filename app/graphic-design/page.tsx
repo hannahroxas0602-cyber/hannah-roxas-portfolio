@@ -34,11 +34,11 @@ export default function GraphicDesignPage() {
             ← Back to home
           </HoleLink>
 
-          <p className="mt-8 font-[family-name:var(--font-mono)] text-xs font-medium tracking-widest text-neutral-400 uppercase sm:mt-10">
+          <p className="mt-8 font-label text-xs font-medium tracking-widest text-neutral-400 uppercase sm:mt-10">
             {graphicDesignHero.eyebrow}
           </p>
           <h1
-            className="mt-3 max-w-2xl font-[family-name:var(--font-manrope)] font-semibold tracking-tight text-neutral-900"
+            className="mt-3 max-w-2xl font-display font-semibold tracking-tight text-neutral-900"
             style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", lineHeight: 1.05 }}
           >
             <EmphasizeLast text={graphicDesignHero.category} />
@@ -57,10 +57,10 @@ export default function GraphicDesignPage() {
           <div className="mx-auto max-w-6xl px-6 sm:px-10">
             {/* Projects */}
             <div className="flex items-baseline gap-4 border-b border-black/[0.08] pb-4">
-              <span className="font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400 uppercase">
+              <span className="font-label text-xs tracking-wide text-neutral-400 uppercase">
                 01
               </span>
-              <h2 className="font-[family-name:var(--font-manrope)] text-3xl text-neutral-900 sm:text-4xl">
+              <h2 className="font-display text-3xl text-neutral-900 sm:text-4xl">
                 Projects
               </h2>
             </div>
@@ -73,10 +73,10 @@ export default function GraphicDesignPage() {
 
             {/* Edited Videos */}
             <div id="edited-videos" className="mt-24 flex items-baseline gap-4 border-b border-black/[0.08] pb-4 scroll-mt-24">
-              <span className="font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400 uppercase">
+              <span className="font-label text-xs tracking-wide text-neutral-400 uppercase">
                 02
               </span>
-              <h2 className="font-[family-name:var(--font-manrope)] text-3xl text-neutral-900 sm:text-4xl">
+              <h2 className="font-display text-3xl text-neutral-900 sm:text-4xl">
                 Edited Videos
               </h2>
             </div>
@@ -99,10 +99,10 @@ export default function GraphicDesignPage() {
 
             {/* Experimental */}
             <div className="mt-24 flex items-baseline gap-4 border-b border-black/[0.08] pb-4">
-              <span className="font-[family-name:var(--font-mono)] text-xs tracking-wide text-neutral-400 uppercase">
+              <span className="font-label text-xs tracking-wide text-neutral-400 uppercase">
                 03
               </span>
-              <h2 className="font-[family-name:var(--font-manrope)] text-3xl text-neutral-900 sm:text-4xl">
+              <h2 className="font-display text-3xl text-neutral-900 sm:text-4xl">
                 Experimental
               </h2>
             </div>

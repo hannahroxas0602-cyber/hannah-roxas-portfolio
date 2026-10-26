@@ -109,7 +109,7 @@ export default function CaseStudyHighlights({
 }) {
   return (
     <section id="highlights" className="mx-auto max-w-4xl px-6 py-24 sm:px-10 sm:py-32">
-      <h2 className="font-[family-name:var(--font-manrope)] text-3xl font-semibold text-neutral-900 sm:text-4xl">
+      <h2 className="font-display text-3xl font-semibold text-neutral-900 sm:text-4xl">
         {heading}
       </h2>
 
@@ -143,7 +143,7 @@ export default function CaseStudyHighlights({
             key={i}
             className="rounded-2xl border border-black/[0.06] bg-white p-5 shadow-soft"
           >
-            <span className="font-[family-name:var(--font-manrope)] text-xs font-semibold tracking-wide text-neutral-300">
+            <span className="font-display text-xs font-semibold tracking-wide text-neutral-300">
               {String(i + 1).padStart(2, "0")}
             </span>
             <p className="mt-2 text-sm leading-relaxed text-neutral-700">{outcome}</p>
@@ -155,7 +155,7 @@ export default function CaseStudyHighlights({
       <div className="mt-6 flex flex-col gap-6 rounded-2xl border border-black/[0.06] bg-neutral-900 p-8 sm:flex-row sm:gap-16 sm:p-10">
         {stats.map((stat) => (
           <div key={stat.label}>
-            <p className="font-[family-name:var(--font-manrope)] text-5xl font-semibold text-white">
+            <p className="font-display text-5xl font-semibold text-white">
               {stat.value}
             </p>
             <p className="mt-2 max-w-[12rem] text-sm leading-snug text-white/60">{stat.label}</p>
