@@ -543,16 +543,13 @@ html.iris-fallback-backdrop body {
   position: absolute;
   border-radius: 50%;
 }
-/* The rim: a lavender lip with a soft glow, so the hole reads as a light well. */
+/* The hole: solid black, with a hair of depth at the far edge. */
 .hole-rim {
-  inset: 0;
-  background: #eacdf3;
-  box-shadow: 0 0 1.8rem 0.1rem color-mix(in oklab, #eacdf3 70%, transparent);
+  display: none;
 }
-/* The pit: black, set lower inside the rim so you see the near lip. */
 .hole-pit {
-  inset: 9% 6% 4% 6%;
-  background: radial-gradient(ellipse at 50% 30%, #1d1424 0%, #07040a 62%, #000 100%);
+  inset: 0;
+  background: #000;
 }
 /* The rabbit, mid-leap, nose pointing down toward the hole. */
 .rabbit {
@@ -561,8 +558,8 @@ html.iris-fallback-backdrop body {
   top: 30%;
   width: min(34cqw, 5.4rem);
   aspect-ratio: 1.27;
-  background: #18121e;
+  background: var(--accent);
   -webkit-mask: url(/images/moving.png) center / contain no-repeat;
   mask: url(/images/moving.png) center / contain no-repeat;
-  transform: translateX(-50%) rotate(-100deg) scaleX(-1); /* head down: diving in */
+  transform: translateX(-50%) rotate(-72deg); /* the sprite faces left, so this turns the nose down into the hole */
 }

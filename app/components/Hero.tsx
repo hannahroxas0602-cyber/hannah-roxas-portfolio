@@ -21,8 +21,8 @@ export default function Hero() {
             className="link-underline"
           >
             Hannah Roxas
-          </a>{" "}
-          is a product designer who ships her own <em>front-end code.</em>
+          </a>
+          {" "}designs it, then <em>ships it to production</em>, front end and back.
         </h1>
 
         <RabbitHole className="h-36 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:h-44" />
@@ -31,7 +31,7 @@ export default function Hero() {
           <div>
             <dt className="text-neutral-400">Currently</dt>
             <dd className="mt-1 leading-snug text-neutral-700">
-              Sole designer @ Learvo, an ed-tech startup. Building in React.
+              Sole designer @ Learvo, designing and building in React and the API.
             </dd>
           </div>
           <div>

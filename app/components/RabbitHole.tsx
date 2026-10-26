@@ -1,4 +1,4 @@
-// The hero's picture: one rabbit diving head-first into a hole with a lavender rim, and a
+// The hero's picture: one rabbit diving head-first into an all-black hole, and a
 // dotted arc showing the jump. A still illustration, no animation. The rabbit is the
 // cursor's own sprite, so it reads as a rabbit even when small. Decorative.
 export default function RabbitHole({ className }: { className?: string }) {
@@ -15,7 +15,6 @@ export default function RabbitHole({ className }: { className?: string }) {
         />
       </svg>
       <div className="hole">
-        <span className="hole-rim" />
         <span className="hole-pit" />
       </div>
       <span className="rabbit" />
