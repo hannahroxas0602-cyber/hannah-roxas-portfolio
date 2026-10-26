@@ -15,7 +15,7 @@ export default function Error({
 
   return (
     <div className="flex min-h-screen flex-1 flex-col items-center justify-center gap-4 bg-background px-6 text-center">
-      <p className="text-sm font-medium text-neutral-500">Something went wrong.</p>
+      <p className="text-sm font-medium text-neutral-500">Oh dear, that didn&apos;t work.</p>
       <button
         type="button"
         onClick={() => reset()}

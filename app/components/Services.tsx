@@ -56,7 +56,7 @@ export default function Services() {
             <div
               key={service.slug}
               onMouseEnter={canHover ? () => setOpenSlug(service.slug) : undefined}
-              className="relative overflow-hidden rounded-2xl border border-black/[0.08]"
+              className="group/svc relative overflow-hidden rounded-2xl border border-black/[0.08]"
             >
               {/* Halftone artwork — full-bleed background, always visible, drifts on hover */}
               <motion.div
@@ -83,7 +83,7 @@ export default function Services() {
                 onClick={() => setOpenSlug(isOpen ? null : service.slug)}
                 className="relative z-10 flex w-full flex-col px-6 py-4 text-left sm:px-8 sm:py-5"
               >
-                <div className="flex w-full items-center justify-between">
+                <div className="flex w-full items-center justify-between gap-3">
                   <h3
                     className={`inline-block w-fit rounded-full border border-white/10 bg-black/70 px-4 font-[family-name:var(--font-manrope)] text-white backdrop-blur-xl backdrop-saturate-150 transition-[font-size,line-height,padding] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] ${
                       isOpen ? "py-1.5 text-xl sm:text-2xl" : "py-1 text-lg sm:text-xl"
@@ -91,6 +91,15 @@ export default function Services() {
                   >
                     {service.title}
                   </h3>
+                  {/* Opening is growing and closing is shrinking, so a closed box says
+                      "eat me" (the cake) and an open one "drink me" (the bottle). Shown on
+                      hover only, so touch screens stay uncluttered. */}
+                  <span
+                    aria-hidden
+                    className="ml-auto hidden rounded-full border border-white/10 bg-black/70 px-3 py-1 font-[family-name:var(--font-inter)] text-xs text-white/90 italic opacity-0 backdrop-blur-xl backdrop-saturate-150 transition-opacity duration-300 group-hover/svc:opacity-100 [@media(hover:hover)]:block"
+                  >
+                    {isOpen ? "drink me" : "eat me"}
+                  </span>
                   <motion.span
                     animate={{ rotate: isOpen ? 45 : 0 }}
                     transition={ACCORDION}

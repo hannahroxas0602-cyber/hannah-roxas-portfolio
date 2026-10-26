@@ -45,22 +45,26 @@ body {
   position: relative;
 }
 
+/* A hand-drawn underline instead of a ruler-straight one: a wobbly pen stroke
+   (an SVG path used as a mask, so it takes the link's own color) that draws in
+   left to right on hover. */
 .link-underline::after {
   content: "";
   position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 100%;
-  height: 1px;
+  left: -1px;
+  right: -1px;
+  bottom: -5px;
+  height: 6px;
   background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 300ms ease-in-out;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M1 3.7C10 1.7 18 5 29 3.1S49 1.6 61 3.9 84 2 99 3.2' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M1 3.7C10 1.7 18 5 29 3.1S49 1.6 61 3.9 84 2 99 3.2' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 380ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .link-underline:hover::after,
 .group:hover .link-underline::after {
-  transform: scaleX(1);
+  clip-path: inset(0 0 0 0);
 }
 
 /* Touch devices have no hover — reveal hover-only content on press-and-hold instead. */
@@ -357,5 +361,90 @@ html.iris-fallback-backdrop body {
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+
+/* ─── Rabbit details ─── */
+/* The sleeping rabbit breathes: a slow, tiny swell, not an animation you notice
+   until you stop and look. */
+@media (prefers-reduced-motion: no-preference) {
+  .rabbit-breathe {
+    animation: rabbit-breathe 4.2s ease-in-out infinite;
+    transform-origin: 50% 70%;
+  }
+}
+@keyframes rabbit-breathe {
+  50% {
+    transform: scale(1.035);
+  }
+}
+
+/* Loading: the rabbit hops. It only appears if loading drags on, so a quick
+   page change never flashes it. */
+.loading-hop {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  opacity: 0;
+  animation: loading-in 300ms ease 700ms forwards;
+}
+.loading-hop > span {
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  background: var(--accent);
+  -webkit-mask: center / contain no-repeat;
+  mask: center / contain no-repeat;
+}
+.loading-hop .sit {
+  width: 36px;
+  height: 29px;
+  margin-left: -18px;
+  -webkit-mask-image: url(/images/not_moving.png);
+  mask-image: url(/images/not_moving.png);
+}
+.loading-hop .leap {
+  width: 44px;
+  height: 35px;
+  margin-left: -22px;
+  transform: rotate(-18deg);
+  opacity: 0;
+  -webkit-mask-image: url(/images/moving.png);
+  mask-image: url(/images/moving.png);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .loading-hop .sit {
+    animation: hop-sit 1.1s ease-in-out infinite;
+  }
+  .loading-hop .leap {
+    animation: hop-leap 1.1s ease-in-out infinite;
+  }
+}
+@keyframes loading-in {
+  to {
+    opacity: 1;
+  }
+}
+/* The two poses cut between each other instantly, so they never show together. */
+@keyframes hop-sit {
+  0%, 34.9%, 65.1%, 100% {
+    opacity: 1;
+  }
+  35%, 65% {
+    opacity: 0;
+  }
+}
+@keyframes hop-leap {
+  0%, 34.9%, 65.1%, 100% {
+    opacity: 0;
+    transform: rotate(-18deg) translateY(0);
+  }
+  35%, 65% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+    transform: rotate(-18deg) translateY(-16px);
   }
 }

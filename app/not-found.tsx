@@ -11,7 +11,7 @@ export default function NotFound() {
       <Header />
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-6 py-20 text-center sm:px-10 sm:py-28">
         {/* The same opening as the homepage hero: the rabbit, asleep at the bottom */}
-        <div className="relative h-36 w-36 overflow-hidden rounded-full bg-black sm:h-44 sm:w-44">
+        <div className="rabbit-breathe relative h-36 w-36 overflow-hidden rounded-full bg-black sm:h-44 sm:w-44">
           <Image
             src="/images/bunny_hero.png"
             alt="A sleeping white rabbit curled up in a dark burrow"
@@ -25,10 +25,11 @@ export default function NotFound() {
           Error 404
         </p>
         <h1 className="mt-3 font-[family-name:var(--font-manrope)] text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
-          You&apos;ve fallen a little too far.
+          Which way ought I to go from here?
         </h1>
         <p className="mt-4 max-w-md text-base leading-relaxed text-neutral-600">
-          This page doesn&apos;t exist, or it has moved.
+          That depends a good deal on where you want to get to. This page doesn&apos;t
+          exist, or it has moved.
         </p>
 
         <HoleLink
