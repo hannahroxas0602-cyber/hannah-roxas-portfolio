@@ -8,10 +8,6 @@ import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { navLinks } from "@/app/data/social";
 import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
 
-// Where the floating nav sits on desktop: centered, or in the right corner
-// across from the logo.
-const NAV_ALIGN: "center" | "right" = "center";
-
 const glassEdge =
   "border border-black/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl backdrop-saturate-150";
 const glass = `bg-white/85 ${glassEdge}`;
@@ -41,20 +37,21 @@ export default function Header() {
     // The menu opening and the nav pill are small, tap-triggered UI motion, so
     // they keep animating under Reduce Motion (which otherwise makes them snap).
     <MotionConfig reducedMotion="never">
-      {/* The logo and the nav both stay put as you scroll. The logo is big and
-          free-standing at the top of the page; once you scroll it shrinks into a
-          frosted chip so it stays readable over content. The header ignores the
+      {/* The logo and the nav both stay put as you scroll: the logo in the left
+          corner, the nav in the right. The logo is big and free-standing at the
+          top of the page; once you scroll it shrinks into a frosted chip so it
+          stays readable over content. The header ignores the
           pointer; only the logo and the nav take it. */}
       <header
         className="pointer-events-none sticky top-0 z-50 h-20 w-full"
         style={{ viewTransitionName: "site-header" }}
       >
-        <div className="relative mx-auto max-w-6xl">
+        <div className="relative">
           <HoleLink
             direction="out"
             href="/"
             aria-label="Hannah Roxas, home"
-            className={`group pointer-events-auto absolute top-4 left-6 block transition-all duration-300 ease-out sm:left-10 ${
+            className={`group pointer-events-auto absolute top-4 left-5 block transition-all duration-300 ease-out sm:left-8 ${
               scrolled
                 ? `h-[3.25rem] w-20 rounded-2xl p-2 ${glass}`
                 : "h-14 w-24 rounded-2xl border border-transparent p-0 sm:h-[4.5rem] sm:w-[7.75rem]"
@@ -70,11 +67,7 @@ export default function Header() {
               priority
             />
           </HoleLink>
-        <div
-          className={`flex px-6 pt-4 md:px-10 ${
-            NAV_ALIGN === "center" ? "justify-end md:justify-center" : "justify-end"
-          }`}
-        >
+        <div className="flex justify-end px-5 pt-4 md:px-8">
           {/* Desktop nav */}
           <nav
             className={`pointer-events-auto hidden items-center gap-1 rounded-full p-1.5 md:flex ${glass}`}
@@ -165,7 +158,7 @@ export default function Header() {
               exit={{ height: 0, opacity: 0 }}
               // Eases in as well as out, so the panel opens gradually.
               transition={{ duration: 0.5, ease: [0.45, 0, 0.15, 1] }}
-              className="pointer-events-auto absolute top-[4.75rem] right-6 w-[min(18rem,calc(100vw-3rem))] overflow-hidden md:hidden"
+              className="pointer-events-auto absolute top-[4.75rem] right-5 w-[min(18rem,calc(100vw-2.5rem))] overflow-hidden md:hidden"
             >
               <nav className={`flex flex-col gap-1 rounded-2xl bg-white p-3 ${glassEdge}`}>
                 {navLinks.map((link) =>
