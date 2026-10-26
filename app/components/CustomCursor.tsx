@@ -2,11 +2,14 @@
 
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { CURSOR_DEEP, cursorColorAt } from "@/app/components/cursorBackdrop";
 
 const IDLE_DELAY_MS = 120;
 // The site accent (see --accent in globals.css; keep in sync). A literal, not
-// the CSS variable, so motion can animate it.
-export const CURSOR_COLOR = "#CA1CC0";
+// the CSS variable, so motion can animate it. The bunny itself shifts to a
+// brighter pink over dark backgrounds (cursorBackdrop.ts); labels, badges and
+// text always use this one.
+export const CURSOR_COLOR = CURSOR_DEEP;
 
 export default function CustomCursor() {
   const [label, setLabel] = useState<string | null>(null);
@@ -32,6 +35,16 @@ export default function CustomCursor() {
     setIsTouch(coarse);
     if (coarse) return;
 
+    // The backdrop is read at most once per frame, however fast the mouse moves.
+    let frame = 0;
+    let pointer: { target: Element | null; x: number; y: number } | null = null;
+    const updateColor = () => {
+      frame = 0;
+      if (!pointer) return;
+      const inverted = (pointer.target as HTMLElement | null)?.closest("[data-cursor-invert]");
+      setCursorColor(inverted ? "#000000" : cursorColorAt(pointer.x, pointer.y));
+    };
+
     const handleMove = (e: MouseEvent) => {
       x.set(e.clientX);
       y.set(e.clientY);
@@ -43,15 +56,14 @@ export default function CustomCursor() {
       const target = (e.target as HTMLElement)?.closest<HTMLElement>("[data-cursor]");
       setLabel(target?.dataset.cursor ?? null);
 
-      const inverted = (e.target as HTMLElement)?.closest<HTMLElement>(
-        "[data-cursor-invert]",
-      );
-      setCursorColor(inverted ? "#000000" : CURSOR_COLOR);
+      pointer = { target: e.target as Element | null, x: e.clientX, y: e.clientY };
+      if (!frame) frame = requestAnimationFrame(updateColor);
     };
 
     window.addEventListener("mousemove", handleMove);
     return () => {
       window.removeEventListener("mousemove", handleMove);
+      if (frame) cancelAnimationFrame(frame);
       if (idleTimer.current) clearTimeout(idleTimer.current);
     };
   }, [x, y]);

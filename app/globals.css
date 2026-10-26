@@ -173,6 +173,22 @@ body {
   }
 }
 
+/* Into a project, the page's first screen rises in piece by piece after the
+   circle opens (pageEnter.ts). Reduce Motion gets none of it. */
+@media (prefers-reduced-motion: no-preference) {
+  .rise-in {
+    animation: rise-in 560ms var(--ease-arrive) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
 @keyframes iris-grow {
   from {
     --iris-r: var(--iris-r0);

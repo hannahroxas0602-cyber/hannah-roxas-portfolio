@@ -52,7 +52,7 @@ export default function HoleLink({ direction = "in", onClick, ...props }: HoleLi
         // A handler can cancel the navigation (a tap that only previews a card).
         if (e.defaultPrevented) return;
         setIrisOrigin(e);
-        markHoleNavigation();
+        markHoleNavigation(direction);
         if (direction === "in") startTitleMorph(e.currentTarget);
       }}
     />
