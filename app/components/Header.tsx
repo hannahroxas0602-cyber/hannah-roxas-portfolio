@@ -6,7 +6,6 @@ import Link from "next/link";
 import HoleLink from "@/app/components/HoleLink";
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { navLinks } from "@/app/data/social";
-import { CURSOR_COLOR } from "@/app/components/CustomCursor";
 import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
 
 // Where the floating nav sits on desktop: centered, or in the right corner
@@ -57,35 +56,19 @@ export default function Header() {
             aria-label="Hannah Roxas, home"
             className={`group pointer-events-auto absolute top-4 left-6 block transition-all duration-300 ease-out sm:left-10 ${
               scrolled
-                ? `h-12 w-[4.25rem] rounded-2xl p-2 ${glass}`
-                : "h-14 w-[4.5rem] rounded-2xl border border-transparent p-0 sm:h-[4.5rem] sm:w-[5.5rem]"
+                ? `h-[3.25rem] w-20 rounded-2xl p-2 ${glass}`
+                : "h-14 w-24 rounded-2xl border border-transparent p-0 sm:h-[4.5rem] sm:w-[7.75rem]"
             }`}
           >
-            <span className="relative block h-full w-full">
-              <Image
-                src="/images/logo-mark.webp"
-                alt=""
-                width={192}
-                height={157}
-                sizes="88px"
-                className="h-full w-full object-contain opacity-100 transition-opacity duration-200 group-hover:opacity-0 group-active:opacity-0"
-                priority
-              />
-              <span
-                className="absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-active:opacity-100"
-                style={{
-                  backgroundColor: CURSOR_COLOR,
-                  WebkitMaskImage: "url(/images/logo-mark.webp)",
-                  maskImage: "url(/images/logo-mark.webp)",
-                  WebkitMaskSize: "contain",
-                  maskSize: "contain",
-                  WebkitMaskRepeat: "no-repeat",
-                  maskRepeat: "no-repeat",
-                  WebkitMaskPosition: "center",
-                  maskPosition: "center",
-                }}
-              />
-            </span>
+            <Image
+              src="/images/claylogo.webp"
+              alt=""
+              width={800}
+              height={463}
+              sizes="124px"
+              className="logo-clay h-full w-full object-contain"
+              priority
+            />
           </HoleLink>
         <div
           className={`flex px-6 pt-4 md:px-10 ${
