@@ -6,7 +6,7 @@ import RabbitHole from "@/app/components/RabbitHole";
 // Nothing in it moves. It shares its width and left edge with the projects below.
 export default function Hero() {
   return (
-    <section className="mx-auto max-w-7xl px-6 pt-8 pb-4 sm:px-10 sm:pt-10 lg:pt-12 lg:pb-8">
+    <section className="mx-auto max-w-7xl px-6 pt-12 pb-6 sm:px-10 sm:pt-14 lg:pt-[4.25rem] lg:pb-12">
       <p className="welcome text-base text-neutral-500 italic sm:text-lg">
         Welcome to the rabbit hole <span aria-hidden>↓</span>
       </p>

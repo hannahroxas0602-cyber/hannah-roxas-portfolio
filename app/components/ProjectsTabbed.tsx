@@ -241,7 +241,7 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
     .sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
 
   return (
-    <section id={id} className="mx-auto max-w-7xl scroll-mt-24 px-6 pt-10 pb-16 sm:px-10 sm:pt-14 sm:pb-24 lg:pt-8">
+    <section id={id} className="mx-auto max-w-7xl scroll-mt-24 px-6 pt-14 pb-16 sm:px-10 sm:pt-20 sm:pb-24 lg:pt-14">
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[2fr_3fr] lg:gap-12">
         <div className="lg:sticky lg:top-24 lg:self-start">
           <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
