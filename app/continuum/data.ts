@@ -49,90 +49,28 @@ export const highlightsSection = {
   callout: "Less chaos, more continuity.",
 };
 
-import type {
-  TimelineAxisLabel,
-  TimelineBand,
-  TimelineTask,
-} from "@/app/components/caseStudyTypes";
 
 // Two phases: team research during the 10-week course, then solo design
 // afterward. The design phase has no stated week count, so the axis shows
 // dates instead of week numbers.
+// One row per phase, from the phases and tasks the course timeline already had.
 export const timelineSection = {
   heading: "Timeline",
-  totalWeeks: 14,
-  axisLabels: [
-    { atWeek: 0, label: "Jan 2025" },
-    { atWeek: 14, label: "Apr 2025" },
-  ] satisfies TimelineAxisLabel[],
-  bands: [
+  intro: "2 phases, Jan to Apr 2025.",
+  items: [
     {
-      label: "Course research · Jan–Mar 2025 · Team of 7",
-      colorClass: "bg-neutral-900",
-      startWeek: 0,
-      endWeek: 10,
+      slug: "timeline-research",
+      date: "Jan–Mar 2025",
+      title: "Course research · Team of 7",
+      body: "Stakeholder interviews, then the hospital systems sub-problem (my focus).",
     },
     {
-      label: "Solo design · Spring 2025",
-      colorClass: "bg-neutral-600",
-      startWeek: 10,
-      endWeek: 14,
+      slug: "timeline-design",
+      date: "Spring 2025",
+      title: "Solo design",
+      body: "Progressive disclosure, timeline-first communication, a design system draft, and frictionless check-ins.",
     },
-  ] satisfies TimelineBand[],
-  tasks: [
-    {
-      title: "Stakeholder interviews",
-      band: "Course research · Jan–Mar 2025 · Team of 7",
-      startWeek: 0,
-      endWeek: 10,
-      row: 0,
-      colorClass: "bg-neutral-200",
-    },
-    {
-      title: "Hospital systems sub-problem (my focus)",
-      band: "Course research · Jan–Mar 2025 · Team of 7",
-      startWeek: 0,
-      endWeek: 10,
-      row: 1,
-      colorClass: "bg-neutral-200",
-    },
-    {
-      title: "Progressive disclosure",
-      band: "Solo design · Spring 2025",
-      startWeek: 10,
-      endWeek: 14,
-      row: 0,
-      colorClass: "bg-neutral-100",
-      labelAlign: "end",
-    },
-    {
-      title: "Timeline-first communication",
-      band: "Solo design · Spring 2025",
-      startWeek: 10,
-      endWeek: 14,
-      row: 1,
-      colorClass: "bg-neutral-100",
-      labelAlign: "end",
-    },
-    {
-      title: "Design system draft",
-      band: "Solo design · Spring 2025",
-      startWeek: 10,
-      endWeek: 14,
-      row: 2,
-      colorClass: "bg-neutral-100",
-      labelAlign: "end",
-    },
-    {
-      title: "Frictionless check-ins",
-      band: "Solo design · Spring 2025",
-      startWeek: 10,
-      endWeek: 14,
-      row: 3,
-      colorClass: "bg-neutral-100",
-      labelAlign: "end",
-    },
-  ] satisfies TimelineTask[],
+  ],
 };
 
 export const roleAndImpact = {

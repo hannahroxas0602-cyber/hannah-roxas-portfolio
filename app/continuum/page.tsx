@@ -9,7 +9,7 @@ import CaseStudyTldr from "@/app/components/CaseStudyTldr";
 import CaseStudyRoleImpact from "@/app/components/CaseStudyRoleImpact";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
-import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
+import CaseStudyMilestones from "@/app/components/CaseStudyMilestones";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
 import { filled } from "@/app/data/placeholder";
 import { readingMinutes } from "@/app/data/readingTime";
@@ -146,16 +146,7 @@ export default function ContinuumPage() {
               callout={highlightsSection.callout}
             />
           </div>
-
-          <div className="max-w-4xl">
-            <CaseStudyTimeline
-              heading={timelineSection.heading}
-              totalWeeks={timelineSection.totalWeeks}
-              bands={timelineSection.bands}
-              tasks={timelineSection.tasks}
-              axisLabels={timelineSection.axisLabels}
-            />
-          </div>
+          <CaseStudyMilestones heading={timelineSection.heading} items={timelineSection.items} intro={timelineSection.intro} />
 
           <CaseStudyRoleImpact heading={roleAndImpact.heading} columns={roleAndImpact.columns} />
 

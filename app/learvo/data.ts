@@ -1,10 +1,5 @@
 import { projectDescription } from "@/app/data/projects";
-import type {
-  CaseStudyTldr,
-  TimelineAxisLabel,
-  TimelineBand,
-  TimelineTask,
-} from "@/app/components/caseStudyTypes";
+import type { CaseStudyTldr } from "@/app/components/caseStudyTypes";
 import type { TestimonialData } from "@/app/components/Testimonial";
 
 export const learvoHero = {
@@ -63,37 +58,46 @@ export const testimonial: TestimonialData = {
   title: "{{TODO: their role, e.g. Founding Engineer, Learvo}}",
 };
 
-// The same chart as Continuum and Good Friends (CaseStudyTimeline), with one unit per
-// month instead of per week: Oct 2025 is 0, Sep 2026 is 11. A milestone is a short pill
-// in its month; the doodle system is a span, since it is ongoing.
 export const timelineSection = {
   heading: "Timeline",
-  totalWeeks: 12,
-  axisLabels: [
-    { atWeek: 0, label: "Oct 2025" },
-    { atWeek: 6, label: "Apr 2026" },
-    { atWeek: 12, label: "Sep 2026" },
-  ] satisfies TimelineAxisLabel[],
-  bands: [
+  items: [
     {
-      label: "Learvo · Oct 2025 – Present · Sole designer",
-      colorClass: "bg-neutral-900",
-      startWeek: 0,
-      endWeek: 12,
+      slug: "timeline-lenny",
+      date: "Oct 2025",
+      title: "Lenny, the Mascot",
+      body: "Designed Lenny, Learvo's mascot, starting with sketches and landing on the final character design used across the product.",
     },
-  ] satisfies TimelineBand[],
-  tasks: [
-    { title: "Lenny, the mascot · Oct 2025", startWeek: 0, endWeek: 0.5, row: 0 },
-    { title: "Doodle system · Dec 2025, ongoing", startWeek: 2, endWeek: 12, row: 1 },
-    { title: "Landing page redesign · Jun 2026", startWeek: 8, endWeek: 8.5, row: 2, labelAlign: "end" as const },
-    { title: "Onboarding checklist · Jul 2026", startWeek: 9, endWeek: 9.5, row: 3, labelAlign: "end" as const },
-    { title: "Top nav · Aug 2026", startWeek: 10, endWeek: 10.5, row: 4, labelAlign: "end" as const },
-    { title: "Onboarding quiz flow · Sep 2026", startWeek: 11, endWeek: 11.5, row: 5, labelAlign: "end" as const },
-  ].map((t) => ({
-    ...t,
-    band: "Learvo · Oct 2025 – Present · Sole designer",
-    colorClass: "bg-neutral-200",
-  })) satisfies TimelineTask[],
+    {
+      slug: "timeline-doodles",
+      date: "Dec 2025, ongoing",
+      title: "Doodle System",
+      body: "Started designing Learvo's hand-drawn doodle system, extended over time into preset profile avatars and more illustration touchpoints.",
+    },
+    {
+      slug: "timeline-landing-page",
+      date: "June 2026",
+      title: "Landing Page Redesign",
+      body: "Redesigned the marketing landing page to reinforce Learvo's brand identity at the first touchpoint a new user sees.",
+    },
+    {
+      slug: "timeline-checklist",
+      date: "July 2026",
+      title: "Onboarding Checklist",
+      body: "Designed a persistent, decaying activation nudge for the 4 core actions, built to fade out for users who've already activated.",
+    },
+    {
+      slug: "timeline-top-nav",
+      date: "Aug 2026",
+      title: "Top Nav",
+      body: "Redesigned navigation across 5 core pages and shipped it through a long-diverged branch alongside other in-flight features.",
+    },
+    {
+      slug: "timeline-quiz-flow",
+      date: "Sep 2026",
+      title: "Onboarding Quiz Flow",
+      body: "Shipped the guided upload, goal, customize, generate flow, replacing the empty first-session dashboard.",
+    },
+  ],
 };
 
 export const roleAndImpact = {

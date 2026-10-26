@@ -18,7 +18,7 @@ export const goodHero = {
   imageHeight: 1246,
 };
 
-import type { CaseStudyTldr, TimelineBand, TimelineTask } from "@/app/components/caseStudyTypes";
+import type { CaseStudyTldr } from "@/app/components/caseStudyTypes";
 
 export const tldr: CaseStudyTldr = {
   problem:
@@ -52,65 +52,36 @@ export const highlightsSection = {
   callout: "Less hesitation, more confidence at the door.",
 };
 
+// One row per phase, from the phases and tasks the 10-week timeline already had.
 export const timelineSection = {
   heading: "Timeline",
-  totalWeeks: 10,
-  bands: [
-    { label: "Research", colorClass: "bg-neutral-900", startWeek: 0, endWeek: 2.5 },
-    { label: "Design", colorClass: "bg-neutral-700", startWeek: 2.5, endWeek: 7.5 },
-    { label: "Refine", colorClass: "bg-neutral-600", startWeek: 7.5, endWeek: 8.75 },
-    { label: "Handoff", colorClass: "bg-neutral-500", startWeek: 8.75, endWeek: 10 },
-  ] satisfies TimelineBand[],
-  tasks: [
+  intro: "4 phases over 10 weeks.",
+  items: [
     {
-      title: "In-store observation & interviews",
-      band: "Research",
-      startWeek: 0,
-      endWeek: 2.5,
-      row: 0,
-      colorClass: "bg-neutral-200",
+      slug: "timeline-research",
+      date: "Weeks 1–3",
+      title: "Research",
+      body: "In-store observation and interviews.",
     },
     {
-      title: "Design goal & wayfinding concepts",
-      band: "Design",
-      startWeek: 2.5,
-      endWeek: 5,
-      row: 1,
-      colorClass: "bg-neutral-200",
+      slug: "timeline-design",
+      date: "Weeks 3–8",
+      title: "Design",
+      body: "Design goal and wayfinding concepts, price transparency and menu flow, and customer service and engagement systems.",
     },
     {
-      title: "Price transparency & menu flow",
-      band: "Design",
-      startWeek: 3.125,
-      endWeek: 6.875,
-      row: 0,
-      colorClass: "bg-neutral-100",
+      slug: "timeline-refine",
+      date: "Weeks 8–9",
+      title: "Refine",
+      body: "Tangible touchpoints and packaging.",
     },
     {
-      title: "Customer service & engagement systems",
-      band: "Design",
-      startWeek: 4.375,
-      endWeek: 7.5,
-      row: 2,
-      colorClass: "bg-neutral-200",
-    },
-    {
-      title: "Tangible touchpoints & packaging",
-      band: "Refine",
-      startWeek: 6.875,
-      endWeek: 8.75,
-      row: 1,
-      colorClass: "bg-neutral-100",
-    },
-    {
+      slug: "timeline-handoff",
+      date: "Weeks 9–10",
       title: "Handoff",
-      band: "Handoff",
-      startWeek: 8.75,
-      endWeek: 10,
-      row: 0,
-      colorClass: "bg-neutral-200",
+      body: "Final handoff of the concepts.",
     },
-  ] satisfies TimelineTask[],
+  ],
 };
 
 export const roleAndImpact = {

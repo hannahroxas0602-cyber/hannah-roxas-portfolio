@@ -6,7 +6,7 @@ import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
-import CaseStudyTimeline from "@/app/components/CaseStudyTimeline";
+import CaseStudyMilestones from "@/app/components/CaseStudyMilestones";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
 import ImageSlideshow from "@/app/components/ImageSlideshow";
 import ReadingTime from "@/app/components/ReadingTime";
@@ -133,15 +133,7 @@ export default function GoodFriendsPage() {
             callout={highlightsSection.callout}
           />
         </div>
-
-        <div className="max-w-4xl">
-          <CaseStudyTimeline
-            heading={timelineSection.heading}
-            totalWeeks={timelineSection.totalWeeks}
-            bands={timelineSection.bands}
-            tasks={timelineSection.tasks}
-          />
-        </div>
+        <CaseStudyMilestones heading={timelineSection.heading} items={timelineSection.items} intro={timelineSection.intro} />
 
         <CaseStudyRoleImpact heading={roleAndImpact.heading} columns={roleAndImpact.columns} />
 
