@@ -11,7 +11,7 @@ import {
 } from "motion/react";
 import { social } from "@/app/data/social";
 import { Em } from "@/app/components/Em";
-import HoleSwirl from "@/app/components/HoleSwirl";
+import HoleHands from "@/app/components/HoleHands";
 import { CURSOR_COLOR } from "@/app/components/CustomCursor";
 
 const wordVariants = {
@@ -114,7 +114,7 @@ export default function Hero() {
         {/* Decorative photo ring — not interactive, so it doesn't read as clickable */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-[1%] z-0"
+          className="pointer-events-none absolute inset-[1%] z-[2]"
         >
           {ringImages.map((img) => (
             <RingCard
@@ -126,58 +126,14 @@ export default function Hero() {
           ))}
         </div>
 
+        {/* The hole: clock hands in the logo's lavender. They sit behind the pictures
+            (the numbers) and ease in a touch as you scroll. */}
         <motion.div
-          className="absolute inset-0 z-10"
+          aria-hidden
+          className="absolute inset-0 z-[1]"
           style={animate ? { scale: holeScale } : undefined}
         >
-          {/* The hole: a spiral in the logo's lavender, with the headline on top in black */}
-          <HoleSwirl className="absolute inset-[20%] z-10 h-[60%] w-[60%]" />
-
-          {/* Headline overlay */}
-          <div className="absolute inset-[23%] z-20 flex flex-col items-center justify-center text-center">
-            <motion.h1
-              initial="hidden"
-              animate="visible"
-              transition={{ staggerChildren: 0.045, delayChildren: 0.1 }}
-              className="font-display text-xs leading-snug font-bold text-neutral-950 sm:text-lg lg:text-[clamp(0.9rem,2.05svh,1.15rem)]"
-            >
-              <motion.span
-                variants={wordVariants}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className="inline-block"
-              >
-                I&apos;m
-              </motion.span>
-              {/* Real spaces between the inline-block words, so the heading's text
-                  reads as a sentence to search engines and screen readers. */}
-              {" "}
-              <motion.a
-                href={social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cursor="View LinkedIn"
-                variants={wordVariants}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className="link-underline inline-block"
-              >
-                Hannah
-              </motion.a>
-              {". Product designer who ships her own front-end code."
-                .split(" ")
-                .map((word, i, arr) => (
-                  <Fragment key={i}>
-                    <motion.span
-                      variants={wordVariants}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      className="inline-block"
-                    >
-                      {word}
-                    </motion.span>
-                    {i < arr.length - 1 && " "}
-                  </Fragment>
-                ))}
-            </motion.h1>
-          </div>
+          <HoleHands className="absolute inset-0 h-full w-full" />
         </motion.div>
 
         {/* Welcome to / the rabbit hole flanking labels */}
@@ -189,9 +145,51 @@ export default function Hero() {
         </span>
       </div>
 
-      {/* Role line + availability — plain and scannable, outside the ring */}
+      {/* The headline, the role line, and availability: plain and scannable, outside the ring */}
       {/* relative z-10 keeps this text above ring cards as they fly outward */}
-      <div className="relative z-10 mx-auto mt-9 flex flex-col items-center gap-3 text-center sm:mt-10 lg:mt-12">
+      <div className="relative z-10 mx-auto mt-9 flex flex-col items-center gap-4 text-center sm:mt-10 lg:mt-12">
+      <motion.h1
+        initial="hidden"
+        animate="visible"
+        transition={{ staggerChildren: 0.045, delayChildren: 0.1 }}
+        className="font-display max-w-3xl text-[1.7rem] leading-[1.12] font-semibold text-balance text-neutral-950 sm:text-4xl lg:text-5xl"
+      >
+        <motion.span
+          variants={wordVariants}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="inline-block"
+        >
+          I&apos;m
+        </motion.span>
+        {/* Real spaces between the inline-block words, so the heading's text
+            reads as a sentence to search engines and screen readers. */}
+        {" "}
+        <motion.a
+          href={social.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-cursor="View LinkedIn"
+          variants={wordVariants}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="link-underline inline-block"
+        >
+          Hannah
+        </motion.a>
+        {". Product designer who ships her own front-end code."
+          .split(" ")
+          .map((word, i, arr) => (
+            <Fragment key={i}>
+              <motion.span
+                variants={wordVariants}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="inline-block"
+              >
+                {word}
+              </motion.span>
+              {i < arr.length - 1 && " "}
+            </Fragment>
+          ))}
+      </motion.h1>
         <p className="max-w-2xl text-base leading-relaxed text-balance text-neutral-600 sm:text-lg">
           Sole designer at Learvo, an ed-tech startup, where I designed and built
           onboarding, navigation, and the landing page in React.

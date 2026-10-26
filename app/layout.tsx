@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Griffy, Instrument_Sans } from "next/font/google";
+import { Griffy, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
@@ -7,19 +7,14 @@ import { AboutPanelProvider } from "@/app/components/AboutPanelContext";
 import AppShell from "@/app/components/AppShell";
 import { pageMetadata, siteDescription, siteName, siteUrl } from "@/app/data/seo";
 
-// The sans, in two voices. Bricolage Grotesque for headings: current and a little
-// quirky, with an optical-size axis so large type gets its finer, tighter cut
-// (the .font-display class in globals.css). Instrument Sans for everything else:
-// body, nav, small labels (the default, and .font-label).
-const display = Bricolage_Grotesque({
-  variable: "--font-display",
+// The sans: one family, Inter, used the way Apple uses SF. Its optical-size axis
+// gives large type a tighter, finer cut ("display") and small type a sturdier,
+// looser one ("text"), so headings and body are the same typeface at two
+// voices (.font-display and the default in globals.css).
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   axes: ["opsz"],
-});
-
-const body = Instrument_Sans({
-  variable: "--font-body",
-  subsets: ["latin"],
 });
 
 // The storybook voice: Griffy, a quirky display face with curled letters, used
@@ -53,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${display.variable} ${body.variable} ${serif.variable} h-full antialiased`}
+      className={`${inter.variable} ${serif.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col overflow-x-clip overscroll-y-contain md:cursor-none">
         <AboutPanelProvider>
