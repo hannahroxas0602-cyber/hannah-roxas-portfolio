@@ -3,13 +3,10 @@
 :root {
   --background: #fafcfd;
   --foreground: #1c2430;
-  /* The site accent, a pair: a periwinkle for fills (cursor, badges, chat
-     bubbles, the featured ring) deep enough for white text (4.7:1) and for the
-     cursor to show on the white page without an outline (4.5:1); and a deep
-     indigo of the same hue for accent text and small marks on the white page
-     (13.5:1). Keep in sync with CustomCursor.tsx. */
-  --accent: #6963e4;
-  --accent-ink: #23206f;
+  /* The site accent: the original pink (cursor, badges, hover states, chat
+     bubbles, the featured ring). Keep in sync with CURSOR_COLOR in
+     CustomCursor.tsx. */
+  --accent: #e85fe0;
 }
 
 html {
@@ -22,7 +19,6 @@ html {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --color-accent-ink: var(--accent-ink);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-mono);
   --shadow-soft: 0px 16px 34px rgba(0, 0, 0, 0.03), 0px 6px 16px rgba(0, 0, 0, 0.04),
