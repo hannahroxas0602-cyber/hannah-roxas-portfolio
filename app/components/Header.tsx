@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import HoleLink from "@/app/components/HoleLink";
@@ -15,12 +15,25 @@ const NAV_ALIGN: "center" | "right" = "center";
 
 const glassEdge =
   "border border-black/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl backdrop-saturate-150";
-const glass = `bg-white/75 ${glassEdge}`;
+const glass = `bg-white/85 ${glassEdge}`;
 const linkBase = "relative rounded-full px-4 py-1.5 text-sm font-medium text-black transition-colors";
 const mobileLink =
   "rounded-xl px-4 py-3 text-left text-base font-medium text-black transition-colors hover:bg-black/[0.03]";
 
+// Past this scroll distance the logo shrinks into its chip.
+const SCROLLED_PX = 24;
+
+function subscribeToScroll(onChange: () => void) {
+  window.addEventListener("scroll", onChange, { passive: true });
+  return () => window.removeEventListener("scroll", onChange);
+}
+
 export default function Header() {
+  const scrolled = useSyncExternalStore(
+    subscribeToScroll,
+    () => window.scrollY > SCROLLED_PX,
+    () => false,
+  );
   const [hovered, setHovered] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const { open: openAbout } = useAboutPanel();
@@ -29,56 +42,59 @@ export default function Header() {
     // The menu opening and the nav pill are small, tap-triggered UI motion, so
     // they keep animating under Reduce Motion (which otherwise makes them snap).
     <MotionConfig reducedMotion="never">
-      {/* The logo: free-standing in the top-left corner, aligned with the page's
-          content edge, and part of the page, so it scrolls away instead of
-          sitting over the content. Zero height; the header below holds the space. */}
-      <div className="relative z-40 mx-auto h-0 w-full max-w-6xl">
-        <HoleLink
-          direction="out"
-          href="/"
-          aria-label="Hannah Roxas, home"
-          className="group absolute top-4 left-6 block h-14 w-[4.5rem] sm:left-10 sm:h-[4.5rem] sm:w-[5.5rem]"
-        >
-          <Image
-            src="/images/logo-mark.webp"
-            alt=""
-            width={192}
-            height={157}
-            sizes="88px"
-            className="h-full w-full object-contain opacity-100 transition-opacity duration-200 group-hover:opacity-0 group-active:opacity-0"
-            priority
-          />
-          <div
-            className="absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-active:opacity-100"
-            style={{
-              backgroundColor: CURSOR_COLOR,
-              WebkitMaskImage: "url(/images/logo-mark.webp)",
-              maskImage: "url(/images/logo-mark.webp)",
-              WebkitMaskSize: "contain",
-              maskSize: "contain",
-              WebkitMaskRepeat: "no-repeat",
-              maskRepeat: "no-repeat",
-              WebkitMaskPosition: "center",
-              maskPosition: "center",
-            }}
-          />
-        </HoleLink>
-      </div>
-
-      {/* The nav: its own floating pill that stays put as you scroll. The header
-          itself ignores the pointer, so it never blocks the logo behind it. */}
+      {/* The logo and the nav both stay put as you scroll. The logo is big and
+          free-standing at the top of the page; once you scroll it shrinks into a
+          frosted chip so it stays readable over content. The header ignores the
+          pointer; only the logo and the nav take it. */}
       <header
         className="pointer-events-none sticky top-0 z-50 h-20 w-full"
         style={{ viewTransitionName: "site-header" }}
       >
+        <div className="relative mx-auto max-w-6xl">
+          <HoleLink
+            direction="out"
+            href="/"
+            aria-label="Hannah Roxas, home"
+            className={`group pointer-events-auto absolute top-4 left-6 block transition-all duration-300 ease-out sm:left-10 ${
+              scrolled
+                ? `h-12 w-[4.25rem] rounded-2xl p-2 ${glass}`
+                : "h-14 w-[4.5rem] rounded-2xl border border-transparent p-0 sm:h-[4.5rem] sm:w-[5.5rem]"
+            }`}
+          >
+            <span className="relative block h-full w-full">
+              <Image
+                src="/images/logo-mark.webp"
+                alt=""
+                width={192}
+                height={157}
+                sizes="88px"
+                className="h-full w-full object-contain opacity-100 transition-opacity duration-200 group-hover:opacity-0 group-active:opacity-0"
+                priority
+              />
+              <span
+                className="absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-active:opacity-100"
+                style={{
+                  backgroundColor: CURSOR_COLOR,
+                  WebkitMaskImage: "url(/images/logo-mark.webp)",
+                  maskImage: "url(/images/logo-mark.webp)",
+                  WebkitMaskSize: "contain",
+                  maskSize: "contain",
+                  WebkitMaskRepeat: "no-repeat",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskPosition: "center",
+                  maskPosition: "center",
+                }}
+              />
+            </span>
+          </HoleLink>
         <div
-          className={`mx-auto flex max-w-6xl px-6 pt-4 sm:px-10 ${
-            NAV_ALIGN === "center" ? "justify-end sm:justify-center" : "justify-end"
+          className={`flex px-6 pt-4 md:px-10 ${
+            NAV_ALIGN === "center" ? "justify-end md:justify-center" : "justify-end"
           }`}
         >
           {/* Desktop nav */}
           <nav
-            className={`pointer-events-auto hidden items-center gap-1 rounded-full p-1.5 sm:flex ${glass}`}
+            className={`pointer-events-auto hidden items-center gap-1 rounded-full p-1.5 md:flex ${glass}`}
             onMouseLeave={() => setHovered(null)}
           >
             {navLinks.map((link) => {
@@ -141,7 +157,7 @@ export default function Header() {
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className={`pointer-events-auto flex h-12 w-12 flex-none flex-col items-center justify-center gap-1.5 rounded-full sm:hidden ${glass}`}
+            className={`pointer-events-auto flex h-12 w-12 flex-none flex-col items-center justify-center gap-1.5 rounded-full md:hidden ${glass}`}
           >
             <motion.span
               animate={{ rotate: menuOpen ? 45 : 0, y: menuOpen ? 3.5 : 0 }}
@@ -155,6 +171,7 @@ export default function Header() {
             />
           </button>
         </div>
+        </div>
 
         {/* Mobile dropdown panel: floats under the button, over the page */}
         <AnimatePresence>
@@ -165,7 +182,7 @@ export default function Header() {
               exit={{ height: 0, opacity: 0 }}
               // Eases in as well as out, so the panel opens gradually.
               transition={{ duration: 0.5, ease: [0.45, 0, 0.15, 1] }}
-              className="pointer-events-auto absolute top-[4.75rem] right-6 w-[min(18rem,calc(100vw-3rem))] overflow-hidden sm:hidden"
+              className="pointer-events-auto absolute top-[4.75rem] right-6 w-[min(18rem,calc(100vw-3rem))] overflow-hidden md:hidden"
             >
               <nav className={`flex flex-col gap-1 rounded-2xl bg-white p-3 ${glassEdge}`}>
                 {navLinks.map((link) =>
