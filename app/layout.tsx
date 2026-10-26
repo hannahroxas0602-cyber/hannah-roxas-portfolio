@@ -5,7 +5,6 @@ import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
 import { AboutPanelProvider } from "@/app/components/AboutPanelContext";
 import AppShell from "@/app/components/AppShell";
-import InkFilter from "@/app/components/InkFilter";
 import { pageMetadata, siteDescription, siteName, siteUrl } from "@/app/data/seo";
 
 const inter = Inter({
@@ -68,7 +67,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${interDisplay.variable} ${interLabel.variable} ${serif.variable} ${script.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col overflow-x-clip overscroll-y-contain md:cursor-none">
-        <InkFilter />
         <AboutPanelProvider>
           <AppShell>{children}</AppShell>
         </AboutPanelProvider>

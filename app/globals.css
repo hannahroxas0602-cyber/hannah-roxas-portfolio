@@ -57,17 +57,14 @@ body {
   font-size: 1em;
 }
 
-/* Pen-script lettering, inked on paper: warm black, with the rough edge from
-   the #ink filter (InkFilter.tsx). Script runs small, so size it up where used. */
+/* Pen-script lettering, in a warm black. Script runs small, so size it up where
+   it's used. */
 .script {
   display: inline-block;
   font-family: var(--font-script), "Snell Roundhand", cursive;
   font-weight: 400;
   line-height: 1.15;
   color: #1d1a17;
-  /* A hair of stroke thickens the thin pen lines the way ink spreads into paper. */
-  -webkit-text-stroke: 0.5px currentColor;
-  filter: url(#ink);
 }
 
 .scrollbar-none {
