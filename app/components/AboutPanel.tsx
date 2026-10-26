@@ -146,7 +146,7 @@ export default function AboutPanel({ width }: { width: number }) {
                   >
                     <span
                       aria-hidden
-                      className="h-5 w-5 shrink-0 bg-accent-strong"
+                      className="h-5 w-5 shrink-0 bg-accent"
                       style={{
                         WebkitMaskImage: `url(https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${tool.slug}.svg)`,
                         maskImage: `url(https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${tool.slug}.svg)`,
@@ -158,7 +158,7 @@ export default function AboutPanel({ width }: { width: number }) {
                         maskPosition: "center",
                       }}
                     />
-                    <span className="text-sm font-medium whitespace-nowrap text-accent-strong">
+                    <span className="text-sm font-medium whitespace-nowrap text-accent">
                       {tool.name}
                     </span>
                   </div>

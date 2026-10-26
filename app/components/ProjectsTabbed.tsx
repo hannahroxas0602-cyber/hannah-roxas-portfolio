@@ -21,12 +21,11 @@ const TABS: Tab[] = [
 
 const SLIDE_INTERVAL_MS = 1200;
 
-// The featured project: the original pink ring (--accent in globals.css), and
-// the deeper pink (--accent-strong) for the badge with white text and for the
-// label on the white page, so both can be read.
+// The featured project uses the site accent (--accent in globals.css): the
+// ring, the badge with white text, and the label on the white page.
 const FEATURED_RING = "ring-accent";
-const FEATURED_BG = "bg-accent-strong";
-const FEATURED_TEXT = "text-accent-strong";
+const FEATURED_BG = "bg-accent";
+const FEATURED_TEXT = "text-accent";
 
 // Touch screens have no hover, so project cards behave differently there.
 const isTouchScreen = () => window.matchMedia("(hover: none)").matches;

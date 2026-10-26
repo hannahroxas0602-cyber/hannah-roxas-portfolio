@@ -4,11 +4,9 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 const IDLE_DELAY_MS = 120;
-// The site accent and its deeper twin for anything with words on or in it (see
-// --accent and --accent-strong in globals.css; keep in sync). Literals, not the
-// CSS variables, so motion can animate them.
-export const CURSOR_COLOR = "#E85FE0";
-export const CURSOR_STRONG = "#CA1CC0";
+// The site accent (see --accent in globals.css; keep in sync). A literal, not
+// the CSS variable, so motion can animate it.
+export const CURSOR_COLOR = "#CA1CC0";
 
 export default function CustomCursor() {
   const [label, setLabel] = useState<string | null>(null);
@@ -72,7 +70,7 @@ export default function CustomCursor() {
           animate={{ width: "auto", height: 32, paddingInline: 12 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           className="flex items-center justify-center rounded-full"
-          style={{ backgroundColor: CURSOR_STRONG }}
+          style={{ backgroundColor: CURSOR_COLOR }}
         >
           <motion.span
             initial={{ opacity: 0, color: "#000000" }}
