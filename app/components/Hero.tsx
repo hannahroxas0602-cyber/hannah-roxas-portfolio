@@ -11,7 +11,7 @@ export default function Hero() {
       </p>
 
       <div className="mt-3 flex flex-col items-center gap-y-7 text-center lg:mt-4 lg:gap-y-8">
-        <h1 className="welcome max-w-6xl text-[clamp(1.75rem,3.9vw,3.4rem)] leading-[1.06] tracking-[-0.022em] text-balance text-neutral-950">
+        <h1 className="welcome max-w-6xl text-[clamp(1.6rem,3.3vw,2.9rem)] leading-[1.06] tracking-[-0.022em] text-balance text-neutral-950">
           <a
             href={social.linkedin}
             target="_blank"
@@ -24,19 +24,16 @@ export default function Hero() {
           {" "}designs it, then <br className="hidden sm:block" /> <em>ships it to production</em>, front end and back.
         </h1>
 
-        <dl className="grid grid-cols-1 gap-x-14 gap-y-4 text-sm sm:grid-cols-[auto_auto] sm:justify-center">
+        <dl className="flex max-w-3xl flex-col gap-y-2.5 text-sm leading-snug text-neutral-700 sm:text-[0.95rem]">
           <div>
-            <dt className="text-neutral-400">Currently</dt>
-            <dd className="mt-1 leading-snug text-neutral-700">
-              Sole designer @ Learvo, designing and building in React and the API.
+            <dt className="inline text-neutral-400">Currently </dt>
+            <dd className="inline">
+              Sole designer @ Learvo. 4 features shipped to a live product, front end and API.
             </dd>
           </div>
           <div>
-            <dt className="text-neutral-400">Open to</dt>
-            <dd className="mt-1 flex items-start justify-center gap-2 leading-snug whitespace-nowrap text-neutral-700">
-              <span aria-hidden className="mt-[0.35rem] size-1.5 shrink-0 rounded-full bg-accent" />
-              Product Designer / Design Engineer roles
-            </dd>
+            <dt className="inline text-neutral-400">Open to </dt>
+            <dd className="inline">Product Designer / Design Engineer roles</dd>
           </div>
         </dl>
       </div>

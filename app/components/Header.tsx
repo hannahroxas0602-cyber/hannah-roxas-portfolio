@@ -236,9 +236,15 @@ export default function Header() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onMouseEnter={() => setHovered(link.label)}
-                    className={linkBase}
+                    // The resume is the one thing recruiters come for, so it is the one
+                    // solid button in the nav.
+                    className={
+                      link.label === "Resume"
+                        ? "relative ml-1 rounded-full bg-neutral-950 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-accent"
+                        : linkBase
+                    }
                   >
-                    {pill}
+                    {link.label === "Resume" ? null : pill}
                     <span className="relative z-10">{link.label}</span>
                   </a>
                 );

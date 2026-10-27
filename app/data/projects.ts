@@ -22,6 +22,8 @@ export type Project = {
   hideFromHome?: boolean;
   /** Highlighted (and listed first) on the homepage. */
   featured?: boolean;
+  /** One line on what the work achieved, shown under the featured project in the list. */
+  outcome?: string;
 };
 
 export const projects: Project[] = [
@@ -40,6 +42,7 @@ export const projects: Project[] = [
     imageAspect: "16/9",
     year: "Oct 2025 – Present",
     featured: true,
+    outcome: "Redesigned onboarding, the nav and the landing page, then shipped the code myself.",
     impactStats: [
       // {{TODO: outcome metric, e.g. { value: "X%", label: "onboarding completion rate" } (source: Metabase/Clarity)}}
       { value: "5", label: "core pages unified under one nav system" },

@@ -31,7 +31,7 @@ const FEATURED_TEXT = "text-accent";
 // Touch screens have no hover, so project cards behave differently there.
 const isTouchScreen = () => window.matchMedia("(hover: none)").matches;
 
-function ProjectThumbnail({ project }: { project: Project }) {
+function ProjectThumbnail({ project, priority = false }: { project: Project; priority?: boolean }) {
   const gallery = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
   const [activeIndex, setActiveIndex] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -137,6 +137,8 @@ function ProjectThumbnail({ project }: { project: Project }) {
               alt={project.imageAlt}
               width={project.imageWidth}
               height={project.imageHeight}
+              // The first project's image is the page's largest element, so it loads first.
+              priority={priority && activeIndex === 0}
               className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
               sizes="(min-width: 1024px) 45vw, 100vw"
             />
@@ -296,6 +298,9 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
                     {project.tags.join(" · ")}
                     {project.year && ` · ${project.year}`}
                   </p>
+                  {project.outcome && (
+                    <p className="mt-1.5 max-w-md text-sm leading-snug text-neutral-700">{project.outcome}</p>
+                  )}
                 </div>
                 <span
                   aria-hidden
@@ -310,8 +315,8 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
         </div>
 
         <div className="flex flex-col gap-6">
-          {visibleProjects.map((project) => (
-            <ProjectThumbnail key={project.slug} project={project} />
+          {visibleProjects.map((project, i) => (
+            <ProjectThumbnail key={project.slug} project={project} priority={i === 0} />
           ))}
         </div>
       </div>
