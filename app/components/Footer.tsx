@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import { social } from "@/app/data/social";
 import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
-import { CURSOR_COLOR } from "@/app/components/CustomCursor";
+import { CURSOR_INK } from "@/app/components/CustomCursor";
 
 // The bottom of the rabbit hole. When the footer scrolls in, its content lands
 // with a small "thump" (a short drop and settle) and the floor shadow spreads.
@@ -52,7 +52,7 @@ export default function Footer() {
               style={
                 {
                   fontSize: "clamp(2rem, 5.2vw, 3.4rem)",
-                  "--footer-hover": CURSOR_COLOR,
+                  "--footer-hover": CURSOR_INK,
                 } as React.CSSProperties
               }
             >

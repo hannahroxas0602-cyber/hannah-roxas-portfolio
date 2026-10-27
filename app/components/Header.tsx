@@ -108,14 +108,14 @@ export default function Header() {
               >
                 {navLinks.map((link, i) => {
                   const active = link.kind === "internal" && link.href === pathname;
-                  const row = `group flex items-baseline gap-4 py-2.5 font-[family-name:var(--font-welcome)] text-[2.5rem] leading-[1.1] tracking-[-0.015em] text-neutral-900 transition-colors active:text-accent`;
+                  const row = `group flex items-baseline gap-4 py-2.5 font-[family-name:var(--font-welcome)] text-[2.5rem] leading-[1.1] tracking-[-0.015em] text-neutral-900 transition-colors active:text-accent-ink`;
                   const inner = (
                     <>
                       <span className="w-6 shrink-0 font-label text-xs tracking-wide text-neutral-400">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span>{link.label}</span>
-                      {active && <span aria-hidden className="size-2 self-center rounded-full bg-accent" />}
+                      {active && <span aria-hidden className="size-2 self-center rounded-full bg-accent-deep" />}
                     </>
                   );
                   return (
@@ -240,7 +240,7 @@ export default function Header() {
                     // solid button in the nav.
                     className={
                       link.label === "Resume"
-                        ? "relative ml-1 rounded-full bg-neutral-950 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-accent"
+                        ? "relative ml-1 rounded-full bg-neutral-950 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-accent hover:text-black"
                         : linkBase
                     }
                   >

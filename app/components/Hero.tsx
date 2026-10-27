@@ -7,10 +7,11 @@ import { social } from "@/app/data/social";
 export default function Hero() {
   return (
     <section className="mx-auto max-w-7xl px-6 pt-12 pb-6 sm:px-10 sm:pt-14 lg:pt-[4.25rem] lg:pb-12">
-      {/* The welcome sits between two small pictures on one line: the clay rabbit diving
+      {/* The welcome sits between two small pictures on one line (the second is pulled
+          toward the words, because its slanted hole leaves blank space on its left): the clay rabbit diving
           into the hole (1), "Welcome to the rabbit hole", then the rabbit in the hole (2).
           The pictures are decorative, so the line itself is the only text. */}
-      <div className="flex items-center justify-center gap-3 sm:gap-6">
+      <div className="flex items-center justify-center gap-3 [--h:3rem] sm:gap-6 sm:[--h:5rem]">
         <div className="flex flex-1 justify-end">
           <Image
             aria-hidden
@@ -19,7 +20,7 @@ export default function Hero() {
             width={245}
             height={360}
             priority
-            className="h-14 w-auto sm:h-24"
+            className="h-[var(--h)] w-auto"
           />
         </div>
         <p className="welcome max-w-[11rem] shrink-0 text-center text-[0.95rem] leading-snug text-balance text-neutral-500 italic sm:max-w-none sm:text-xl">
@@ -33,7 +34,7 @@ export default function Hero() {
             width={304}
             height={360}
             priority
-            className="h-14 w-auto sm:h-24"
+            className="ml-[calc(var(--h)*-0.32)] h-[var(--h)] w-auto"
           />
         </div>
       </div>
@@ -66,7 +67,7 @@ export default function Hero() {
             <dd className="inline">
               <span
                 aria-hidden
-                className="mr-1.5 inline-block size-1.5 rounded-full bg-accent align-middle"
+                className="mr-1.5 inline-block size-1.5 rounded-full bg-accent-deep align-middle"
               />
               Product Designer / Design Engineer roles
             </dd>

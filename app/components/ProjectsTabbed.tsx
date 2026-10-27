@@ -24,9 +24,9 @@ const SLIDE_INTERVAL_MS = 1200;
 
 // The featured project uses the site accent (--accent in globals.css): the
 // ring, the badge with white text, and the label on the white page.
-const FEATURED_RING = "ring-accent";
+const FEATURED_RING = "ring-accent-deep";
 const FEATURED_BG = "bg-accent";
-const FEATURED_TEXT = "text-accent";
+const FEATURED_TEXT = "text-accent-ink";
 
 // Touch screens have no hover, so project cards behave differently there.
 const isTouchScreen = () => window.matchMedia("(hover: none)").matches;
@@ -181,7 +181,7 @@ function ProjectThumbnail({ project, priority = false }: { project: Project; pri
 
       {project.featured && (
         <span
-          className={`absolute top-4 left-4 z-10 rounded-full px-3 py-1 text-xs font-semibold text-white shadow-md ${FEATURED_BG}`}
+          className={`absolute top-4 left-4 z-10 rounded-full px-3 py-1 text-xs font-semibold text-black shadow-md ${FEATURED_BG}`}
         >
           Featured
         </span>

@@ -2,7 +2,7 @@
 
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { CURSOR_DEEP, backdropLuminanceAt, colorFor, monoFor } from "@/app/components/cursorBackdrop";
+import { backdropLuminanceAt, colorFor, monoFor } from "@/app/components/cursorBackdrop";
 import HoverKey from "@/app/components/HoverKey";
 
 const IDLE_DELAY_MS = 120;
@@ -28,7 +28,9 @@ function readMode(): CursorMode {
 // the CSS variable, so motion can animate it. The bunny itself shifts to a
 // brighter pink over dark backgrounds (cursorBackdrop.ts); labels, badges and
 // text always use this one.
-export const CURSOR_COLOR = CURSOR_DEEP;
+export const CURSOR_COLOR = "#E6F565"; // the lime fill: the hover label, bubbles (black text on it)
+export const CURSOR_MARK = "#E6F565"; // the key, the same lime as the label under it
+export const CURSOR_INK = "#5A6D03"; // olive, for colored text on white
 
 export default function CustomCursor() {
   const [label, setLabel] = useState<string | null>(null);
@@ -105,6 +107,9 @@ export default function CustomCursor() {
         y: springY,
         translateX: "-50%",
         translateY: "-50%",
+        // Lime is as light as the page, so the bunny gets a soft shadow (not an outline) to
+        // stay visible on white; on dark backgrounds the shadow simply disappears.
+        filter: "drop-shadow(0 1px 1.5px rgba(30,40,0,0.55)) drop-shadow(0 0 0.5px rgba(30,40,0,0.45))",
         // The invert look: a white bunny blended with "difference", so it shows as
         // the opposite of whatever is behind it. The label pill is never blended.
         mixBlendMode: mode === "invert" && !label ? "difference" : "normal",
@@ -127,13 +132,13 @@ export default function CustomCursor() {
             className="pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2"
           >
             <HoverKey
-              color={mode === "pink" ? CURSOR_COLOR : "#111111"}
+              color={mode === "pink" ? CURSOR_MARK : "#111111"}
               className="hover-key"
             />
           </motion.span>
           <motion.span
-            initial={{ opacity: 0, color: "#000000" }}
-            animate={{ opacity: 1, color: "#ffffff" }}
+            initial={{ opacity: 0, color: "#7a8a2a" }}
+            animate={{ opacity: 1, color: mode === "pink" ? "#000000" : "#ffffff" }}
             transition={{ opacity: { delay: 0.05 }, color: { duration: 0.3, delay: 0.1 } }}
             className="text-xs font-medium whitespace-nowrap"
           >

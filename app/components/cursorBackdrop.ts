@@ -2,12 +2,12 @@
 // backgrounds, a brighter pink on dark ones, whichever contrasts more. A solid
 // background is read from its computed color; a photo or video is sampled at
 // the pointer, so a dark corner of a bright photo still gets the bright pink.
-export const CURSOR_DEEP = "#D100CB";
-export const CURSOR_BRIGHT = "#FF7CFB"; // the pink in the What I Do pictures
+export const CURSOR_DEEP = "#E6F565"; // the bunny, on light backgrounds too (a soft shadow keeps it visible)
+export const CURSOR_BRIGHT = "#E6F565"; // the bunny on dark backgrounds: the lime fill
 
 // Relative luminance of the two pinks (WCAG), used to compare contrast.
-const DEEP_LUMINANCE = 0.179;
-const BRIGHT_LUMINANCE = 0.426;
+const DEEP_LUMINANCE = 0.36;
+const BRIGHT_LUMINANCE = 0.858;
 
 function linear(v: number) {
   const c = v / 255;

@@ -17,7 +17,7 @@ export default function CaseStudyTldr({ tldr }: { tldr: Tldr }) {
   return (
     <section aria-label="TL;DR" className="mt-8 max-w-3xl">
       <p className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600">
-        <span aria-hidden className="size-1.5 rounded-full bg-accent" />
+        <span aria-hidden className="size-1.5 rounded-full bg-accent-deep" />
         TL;DR
       </p>
       <dl className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">

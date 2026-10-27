@@ -19,7 +19,7 @@ export default function CaseStudySection({
   return (
     <section id={id} className="max-w-4xl scroll-mt-28 py-16 sm:py-20">
       <p className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600">
-        <span aria-hidden className="size-1.5 rounded-full bg-accent" />
+        <span aria-hidden className="size-1.5 rounded-full bg-accent-deep" />
         {kicker}
       </p>
       <h2 className="font-display mt-4 text-3xl font-semibold text-neutral-950 sm:text-4xl">

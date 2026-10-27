@@ -143,7 +143,7 @@ export default function CaseStudyHighlights({
           <li key={i} className={`${lightTile} flex gap-3 p-5`}>
             <span
               aria-hidden
-              className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent"
+              className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-accent-deep/15 text-accent-ink"
             >
               <svg viewBox="0 0 16 16" className="size-3" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3.5 8.5l3 3 6-7" />

@@ -37,7 +37,7 @@ export default function CaseStudyMilestones({
               <span
                 aria-hidden
                 className={`absolute top-[1.4rem] left-0 size-[11px] rounded-full ring-4 ring-background sm:left-[calc(7.5rem-5px)] ${
-                  latest ? "bg-accent" : "bg-neutral-300"
+                  latest ? "bg-accent-deep" : "bg-neutral-300"
                 }`}
               />
               <p className="font-label text-xs font-medium text-neutral-500 sm:pt-0.5 sm:pr-6 sm:text-right">
