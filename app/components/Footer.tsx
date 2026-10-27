@@ -35,19 +35,21 @@ export default function Footer() {
             Thump! The fall is over.
           </p>
 
-          {/* Headline — the focal moment, no card container */}
+          {/* Headline — the focal moment, no card container. Only the words (and the arrow)
+              are the link, so the hover stops at the end of the text instead of running to
+              the edge of the page. The email address below is its own link. */}
+          <p className="font-label text-xs font-medium tracking-widest text-neutral-500 uppercase">
+            Open to full-time Product Designer / Design Engineer roles
+          </p>
           <a
             href={`mailto:${social.email}`}
             target="_blank"
             rel="noopener noreferrer"
             data-cursor="Email me"
-            className="group block"
+            className="group mt-3 block w-fit"
           >
-            <p className="font-label text-xs font-medium tracking-widest text-neutral-500 uppercase">
-              Open to full-time Product Designer / Design Engineer roles
-            </p>
             <h2
-              className="welcome mt-3 leading-[1.02] tracking-[-0.02em] text-neutral-900"
+              className="welcome leading-[1.02] tracking-[-0.02em] text-neutral-900"
               style={{ fontSize: "clamp(2rem, 5.2vw, 3.4rem)" }}
             >
               {/* The same underline as the hero's name: it draws in when the link is hovered. */}
@@ -69,13 +71,18 @@ export default function Footer() {
                 />
               </svg>
             </h2>
-            <p className="mt-4 text-sm text-neutral-600 sm:text-base">
-              Looking for a full-time Product Designer / Design Engineer role.
-              Let&apos;s talk.
-            </p>
-            <p className="mt-1 text-sm font-medium text-neutral-600 sm:text-base">
-              {social.email}
-            </p>
+          </a>
+          <p className="mt-4 text-sm text-neutral-600 sm:text-base">
+            Looking for a full-time Product Designer / Design Engineer role. Let&apos;s talk.
+          </p>
+          <a
+            href={`mailto:${social.email}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="Email me"
+            className="link-underline mt-1 block w-fit text-sm font-medium text-neutral-600 sm:text-base"
+          >
+            {social.email}
           </a>
         </motion.div>
 
