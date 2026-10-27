@@ -11,7 +11,7 @@ export default function Hero() {
           toward the words, because its slanted hole leaves blank space on its left): the clay rabbit diving
           into the hole (1), "Welcome to the rabbit hole", then the rabbit in the hole (2).
           The pictures are decorative, so the line itself is the only text. */}
-      <div className="flex items-center justify-center gap-3 [--h:3rem] sm:gap-6 sm:[--h:5rem]">
+      <div className="flex items-center justify-center gap-3 [--h:2.5rem] sm:gap-6 sm:[--h:4rem]">
         <div className="flex flex-1 justify-end">
           <Image
             aria-hidden
@@ -39,7 +39,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="mt-4 flex flex-col items-center gap-y-7 text-center lg:mt-5 lg:gap-y-8">
+      <div className="mt-9 flex flex-col items-center gap-y-7 text-center sm:mt-11 lg:mt-12 lg:gap-y-8">
         <h1 className="welcome max-w-6xl text-[clamp(1.6rem,3.3vw,2.9rem)] leading-[1.06] tracking-[-0.022em] text-balance text-neutral-950">
           <a
             href={social.linkedin}
