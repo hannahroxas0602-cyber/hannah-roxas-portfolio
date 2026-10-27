@@ -193,7 +193,7 @@ function ProjectThumbnail({ project }: { project: Project }) {
       {/* Persistent title chip so the project reads without needing to hover */}
       <span
         data-vt-title
-        className={`absolute bottom-4 left-4 z-10 rounded-full border border-white/15 bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-xl backdrop-saturate-150 ${
+        className={`absolute bottom-4 left-4 z-10 rounded-full border border-white/15 bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-xl backdrop-saturate-150 transition-opacity duration-200 [@media(hover:hover)]:group-hover:opacity-0 ${
           // The touch preview panel covers the card; the chip would show through it.
           previewing ? "hidden" : ""
         }`}
@@ -202,30 +202,30 @@ function ProjectThumbnail({ project }: { project: Project }) {
       </span>
 
       <div
-        className={`touch-reveal z-10 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 sm:p-4 ${
+        className={`touch-reveal z-10 flex flex-col items-start justify-end p-2 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 sm:p-3 ${
           previewing ? "is-held relative col-start-1 row-start-1 min-w-0 self-end" : "absolute inset-0"
         }`}
       >
-        <div className="rounded-xl border border-white/15 bg-black/60 p-3 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl backdrop-saturate-150 sm:rounded-2xl sm:bg-black/45 sm:p-5">
+        {/* A small card in the corner, so most of the preview stays visible: stats on one
+            line each, the description capped at two lines. On touch it spans the width. */}
+        <div className="w-fit max-w-[min(100%,24rem)] rounded-xl border border-white/15 bg-black/60 px-3.5 py-2.5 shadow-[0_6px_24px_rgba(0,0,0,0.3)] backdrop-blur-xl backdrop-saturate-150 [@media(hover:none)]:w-full [@media(hover:none)]:max-w-none sm:bg-black/50">
           {stats.length > 0 && (
             // Right padding on touch keeps the stats clear of the corner arrow.
-            <div className="mb-2 sm:mb-4 [@media(hover:none)]:pr-11">
-              <div className="flex flex-wrap gap-x-5 gap-y-1.5 sm:gap-x-8 sm:gap-y-2">
-                {stats.map((stat, i) => (
-                  <div key={`${stat.label}-${i}`}>
-                    <div className="font-display text-lg leading-tight font-semibold text-white sm:text-2xl sm:leading-8">
-                      {stat.value}
-                    </div>
-                    <div className="text-[11px] leading-tight text-white/80 sm:text-xs sm:leading-4">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="flex flex-col gap-0.5 [@media(hover:none)]:pr-11">
+              {stats.map((stat, i) => (
+                <div key={`${stat.label}-${i}`} className="flex items-baseline gap-2">
+                  <span className="font-display text-base leading-tight font-semibold text-white">
+                    {stat.value}
+                  </span>
+                  <span className="text-[11px] leading-tight text-white/75">{stat.label}</span>
+                </div>
+              ))}
             </div>
           )}
 
-          <p className="max-w-md text-xs leading-snug text-white/90 sm:text-sm sm:leading-relaxed">
+          <p
+            className={`line-clamp-2 text-xs leading-snug text-white/85 ${stats.length > 0 ? "mt-2 border-t border-white/10 pt-2" : ""}`}
+          >
             {project.description}
           </p>
         </div>
