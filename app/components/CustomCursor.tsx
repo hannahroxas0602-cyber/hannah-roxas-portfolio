@@ -28,9 +28,9 @@ function readMode(): CursorMode {
 // the CSS variable, so motion can animate it. The bunny itself shifts to a
 // brighter pink over dark backgrounds (cursorBackdrop.ts); labels, badges and
 // text always use this one.
-export const CURSOR_COLOR = "#E6F565"; // the lime fill: the hover label, bubbles (black text on it)
-export const CURSOR_MARK = "#E6F565"; // the key, the same lime as the label under it
-export const CURSOR_INK = "#5A6D03"; // olive, for colored text on white
+export const CURSOR_COLOR = "#D678F6"; // the lilac fill: the hover label, bubbles (black text on it)
+export const CURSOR_MARK = "#D678F6"; // the key, the same lilac as the label under it
+export const CURSOR_INK = "#741A93"; // dark purple, for colored text on white
 
 export default function CustomCursor() {
   const [label, setLabel] = useState<string | null>(null);
@@ -107,9 +107,9 @@ export default function CustomCursor() {
         y: springY,
         translateX: "-50%",
         translateY: "-50%",
-        // Lime is as light as the page, so the bunny gets a soft shadow (not an outline) to
-        // stay visible on white; on dark backgrounds the shadow simply disappears.
-        filter: "drop-shadow(0 1px 1.5px rgba(30,40,0,0.55)) drop-shadow(0 0 0.5px rgba(30,40,0,0.45))",
+        // A soft shadow (not an outline) keeps the bunny crisp on white; on dark backgrounds
+        // it simply disappears.
+        filter: "drop-shadow(0 1px 1.5px rgba(60,10,90,0.4)) drop-shadow(0 0 0.5px rgba(60,10,90,0.35))",
         // The invert look: a white bunny blended with "difference", so it shows as
         // the opposite of whatever is behind it. The label pill is never blended.
         mixBlendMode: mode === "invert" && !label ? "difference" : "normal",

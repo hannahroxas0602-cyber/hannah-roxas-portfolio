@@ -3,16 +3,16 @@
 :root {
   --background: #fafcfd;
   --foreground: #1c2430;
-  /* The site accent is a lime, from the swatch #E6FE7D, used three ways:
-     --accent       the fill for pills with black text (18:1): the cursor's hover label,
+  /* The site accent is a lilac (from the swatch #E3A3F9, a little darker), used three ways:
+     --accent       the fill for pills with black text (7.9:1): the cursor's hover label,
                     badges, chat bubbles, the Resume hover. Too light to stand alone on white.
-     --accent-deep  a deeper lime for marks that stand alone on the white page: dots, the
-                    featured outline, the key (2.5:1 on white, 8:1 on black).
-     --accent-ink   a dark olive for colored text on white (5.6:1).
+     --accent-deep  a deeper lilac for marks that stand alone on the white page: dots, the
+                    featured outline.
+     --accent-ink   a dark purple for colored text on white.
      Keep in sync with CustomCursor.tsx and cursorBackdrop.ts. */
-  --accent: #e6f565;
-  --accent-deep: #8eae04;
-  --accent-ink: #5a6d03;
+  --accent: #d678f6;
+  --accent-deep: #c849f3;
+  --accent-ink: #741a93;
 }
 
 html {
