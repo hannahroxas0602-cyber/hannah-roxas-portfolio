@@ -73,7 +73,7 @@ export default function About() {
           {social.email}
         </a>
         {[
-          { label: "LinkedIn", href: social.linkedin, cursor: "Find me on LinkedIn" },
+          { label: "LinkedIn", href: social.linkedin, cursor: "Connect" },
           { label: "GitHub", href: social.github, cursor: "See my code" },
           { label: "Resume", href: social.resume, cursor: "View resume" },
         ].map((link) => (

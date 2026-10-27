@@ -112,7 +112,7 @@ export default function Footer() {
               href={social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              data-cursor="Find me on LinkedIn"
+              data-cursor="Connect"
               className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
             >
               LinkedIn
