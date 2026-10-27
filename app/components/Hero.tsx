@@ -24,16 +24,19 @@ export default function Hero() {
           {" "}designs it, then <br className="hidden sm:block" /> <em>ships it to production</em>, front end and back.
         </h1>
 
-        <dl className="flex max-w-3xl flex-col gap-y-2.5 text-sm leading-snug text-neutral-700 sm:text-[0.95rem]">
+        <dl className="flex max-w-3xl flex-col gap-y-2.5 text-[0.8rem] leading-snug text-neutral-700 min-[400px]:text-sm sm:text-[0.95rem]">
           <div>
             <dt className="inline text-neutral-400">Currently </dt>
             <dd className="inline">
               Sole designer @ Learvo. 4 features shipped to a live product, front end and API.
             </dd>
           </div>
-          <div>
+          <div className="whitespace-nowrap">
             <dt className="inline text-neutral-400">Open to </dt>
-            <dd className="inline">Product Designer / Design Engineer roles</dd>
+            <dd className="inline">
+              <span aria-hidden className="mr-1.5 inline-block size-1.5 rounded-full bg-accent align-middle" />
+              Product Designer / Design Engineer roles
+            </dd>
           </div>
         </dl>
       </div>
