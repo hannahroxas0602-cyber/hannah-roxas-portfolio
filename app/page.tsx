@@ -18,8 +18,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function Home() {
   return (
-    // The page takes on a faint wash of the logo's lilac as you scroll down it (.home-tint).
-    <div className="home-tint flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col bg-background">
       <ScrollToHash />
       <Header />
       <main className="flex-1">
