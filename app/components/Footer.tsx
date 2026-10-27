@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import { social } from "@/app/data/social";
 import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
-import { CURSOR_INK } from "@/app/components/CustomCursor";
 
 // The bottom of the rabbit hole. When the footer scrolls in, its content lands
 // with a small "thump" (a short drop and settle) and the floor shadow spreads.
@@ -48,17 +47,12 @@ export default function Footer() {
               Open to full-time Product Designer / Design Engineer roles
             </p>
             <h2
-              className="welcome mt-3 leading-[1.02] tracking-[-0.02em] text-neutral-900 transition-colors duration-300 group-hover:text-[var(--footer-hover)]"
-              style={
-                {
-                  fontSize: "clamp(2rem, 5.2vw, 3.4rem)",
-                  "--footer-hover": CURSOR_INK,
-                } as React.CSSProperties
-              }
+              className="welcome mt-3 leading-[1.02] tracking-[-0.02em] text-neutral-900"
+              style={{ fontSize: "clamp(2rem, 5.2vw, 3.4rem)" }}
             >
               {/* The same underline as the hero's name: it draws in when the link is hovered. */}
               <span className="link-underline">
-                Curiouser and <em>curiouser.</em>
+                <em>Curiouser and curiouser.</em>
               </span>{" "}
               <svg
                 aria-hidden
