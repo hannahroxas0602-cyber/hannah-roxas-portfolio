@@ -41,7 +41,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="mt-9 flex flex-col items-center gap-y-7 text-center sm:mt-11 lg:mt-12 lg:gap-y-8">
+      <div className="mt-3 flex flex-col items-center gap-y-7 text-center sm:mt-2 min-[1100px]:mt-4 lg:gap-y-8">
         {/* The headline hugs its own width, and on wide screens the two pictures sit on
             either side of it: the rabbit leaping in on the left, the hole waiting on the
             right, so the sentence reads between them. */}
