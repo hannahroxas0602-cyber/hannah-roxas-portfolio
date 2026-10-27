@@ -86,14 +86,14 @@ export default function Hero() {
             </dd>
           </div>
           <div className="whitespace-nowrap">
-            <dt className="inline text-neutral-400">Open to </dt>
-            <dd className="inline">
+            <dt className="inline text-neutral-400">
               <span
                 aria-hidden
                 className="mr-1.5 inline-block size-1.5 rounded-full bg-accent-deep align-middle"
               />
-              Product Designer / Design Engineer roles
-            </dd>
+              Open to{" "}
+            </dt>
+            <dd className="inline">Product Designer / Design Engineer roles</dd>
           </div>
         </dl>
       </div>
