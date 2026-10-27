@@ -81,7 +81,7 @@ export default function Hero() {
           <div>
             <dt className="inline text-neutral-400">Currently </dt>
             <dd className="inline">
-              Sole designer @ Learvo. 4 features shipped to a live product,
+              Product designer @ Learvo. 4 features shipped to a live product,
               front end and API.
             </dd>
           </div>

@@ -24,15 +24,24 @@ const SLIDE_INTERVAL_MS = 1200;
 
 // The featured project uses the site accent (--accent in globals.css): the
 // ring, the badge with white text, and the label on the white page.
-const FEATURED_RING = "ring-accent-deep";
+const FEATURED_RING = "ring-accent-deep/70";
 const FEATURED_BG = "bg-accent";
 const FEATURED_TEXT = "text-accent-ink";
 
 // Touch screens have no hover, so project cards behave differently there.
 const isTouchScreen = () => window.matchMedia("(hover: none)").matches;
 
-function ProjectThumbnail({ project, priority = false }: { project: Project; priority?: boolean }) {
-  const gallery = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
+function ProjectThumbnail({
+  project,
+  priority = false,
+}: {
+  project: Project;
+  priority?: boolean;
+}) {
+  const gallery =
+    project.gallery && project.gallery.length > 0
+      ? project.gallery
+      : [project.image];
   const [activeIndex, setActiveIndex] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   // Touch only: set once the card has been tapped, which reveals the info panel.
@@ -66,7 +75,9 @@ function ProjectThumbnail({ project, priority = false }: { project: Project; pri
   useEffect(() => () => stopCycle(), []);
 
   const hasVideo = gallery.some((src) => src.endsWith(".mp4"));
-  const stats = (project.impactStats ?? []).filter((s) => filled(s.value) && filled(s.label));
+  const stats = (project.impactStats ?? []).filter(
+    (s) => filled(s.value) && filled(s.label),
+  );
 
   // Defer mounting the videos until the card is near the viewport, so the
   // homepage doesn't download every demo up front.
@@ -102,7 +113,7 @@ function ProjectThumbnail({ project, priority = false }: { project: Project; pri
       // very small phones the panel is taller than 16:9 and would be clipped.
       className={`group relative w-full overflow-hidden rounded-2xl bg-neutral-100 ${
         previewing ? "grid grid-cols-1" : "block aspect-[16/9]"
-      } ${project.featured ? `ring-2 ${FEATURED_RING} ring-offset-4 ring-offset-background` : ""}`}
+      } ${project.featured ? `ring-1 ${FEATURED_RING} ring-offset-2 ring-offset-background` : ""}`}
     >
       {/* Once the card is near view, videos stay mounted (and autoplaying) so hover playback starts instantly. */}
       {hasVideo &&
@@ -147,17 +158,16 @@ function ProjectThumbnail({ project, priority = false }: { project: Project; pri
       </AnimatePresence>
 
       {gallery.length > 1 && (
-          <div className="absolute top-4 right-4 z-10 flex gap-1.5 [@media(hover:none)]:top-6 [@media(hover:none)]:right-16">
-            {gallery.map((_, i) => (
-              <span
-                key={i}
-                className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
-                  i === activeIndex ? "bg-white" : "bg-white/40"
-                }`}
-              />
-            ))}
-          </div>
-
+        <div className="absolute top-4 right-4 z-10 flex gap-1.5 [@media(hover:none)]:top-6 [@media(hover:none)]:right-16">
+          {gallery.map((_, i) => (
+            <span
+              key={i}
+              className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
+                i === activeIndex ? "bg-white" : "bg-white/40"
+              }`}
+            />
+          ))}
+        </div>
       )}
 
       {/* Touch screens: the arrow is what opens the case study (a tap anywhere else previews). */}
@@ -189,7 +199,10 @@ function ProjectThumbnail({ project, priority = false }: { project: Project; pri
 
       {/* Keeps the previewed card at least 16:9 (see the grid note above). */}
       {previewing && (
-        <span aria-hidden className="col-start-1 row-start-1 block aspect-[16/9] w-full" />
+        <span
+          aria-hidden
+          className="col-start-1 row-start-1 block aspect-[16/9] w-full"
+        />
       )}
 
       {/* Persistent title chip so the project reads without needing to hover */}
@@ -205,7 +218,9 @@ function ProjectThumbnail({ project, priority = false }: { project: Project; pri
 
       <div
         className={`touch-reveal z-10 flex flex-col items-start justify-end p-2 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 sm:p-3 ${
-          previewing ? "is-held relative col-start-1 row-start-1 min-w-0 self-end" : "absolute inset-0"
+          previewing
+            ? "is-held relative col-start-1 row-start-1 min-w-0 self-end"
+            : "absolute inset-0"
         }`}
       >
         {/* A small card in the corner, so most of the preview stays visible: stats on one
@@ -215,11 +230,16 @@ function ProjectThumbnail({ project, priority = false }: { project: Project; pri
             // Right padding on touch keeps the stats clear of the corner arrow.
             <div className="flex flex-col gap-0.5 [@media(hover:none)]:pr-11">
               {stats.map((stat, i) => (
-                <div key={`${stat.label}-${i}`} className="flex items-baseline gap-2">
+                <div
+                  key={`${stat.label}-${i}`}
+                  className="flex items-baseline gap-2"
+                >
                   <span className="font-display text-base leading-tight font-semibold text-white">
                     {stat.value}
                   </span>
-                  <span className="text-[11px] leading-tight text-white/75">{stat.label}</span>
+                  <span className="text-[11px] leading-tight text-white/75">
+                    {stat.label}
+                  </span>
                 </div>
               ))}
             </div>
@@ -243,39 +263,47 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
     .sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
 
   return (
-    <section id={id} className="mx-auto max-w-7xl scroll-mt-24 px-6 pt-14 pb-16 sm:px-10 sm:pt-20 sm:pb-24 lg:pt-14">
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[2fr_3fr] lg:gap-12">
-        <div className="lg:sticky lg:top-24 lg:self-start">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-            <Em>Selected</Em>{" "}
-            Projects
-          </h2>
+    <section
+      id={id}
+      className="mx-auto max-w-7xl scroll-mt-24 px-6 pt-14 pb-16 sm:px-10 sm:pt-20 sm:pb-24 lg:pt-14"
+    >
+      {/* The heading and tabs are centred, on the same axis as the hero above them; the
+          list and the previews sit below in two columns. */}
+      <div className="flex flex-col items-center text-center">
+        <h2 className="font-display text-3xl font-semibold text-neutral-900 sm:text-4xl">
+          <Em>Selected</Em> Projects
+        </h2>
 
-          <div className="mt-6 flex gap-8 border-b border-neutral-200">
-            {TABS.map((tab) => {
-              const isActive = tab.key === activeTab;
-              return (
-                <button
-                  key={tab.key}
-                  type="button"
-                  onClick={() => setActiveTab(tab.key)}
-                  className={`relative -mb-px pb-4 text-base font-medium transition-colors duration-200 ${
-                    isActive ? "text-neutral-900" : "text-neutral-400 hover:text-neutral-600"
-                  }`}
-                >
-                  {tab.label}
-                  {isActive && (
-                    <motion.span
-                      layoutId="projects-tab-underline"
-                      className="absolute inset-x-0 -bottom-px h-0.5 bg-neutral-900"
-                      transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                    />
-                  )}
-                </button>
-              );
-            })}
-          </div>
+        <div className="mt-6 flex gap-8 border-b border-neutral-200">
+          {TABS.map((tab) => {
+            const isActive = tab.key === activeTab;
+            return (
+              <button
+                key={tab.key}
+                type="button"
+                onClick={() => setActiveTab(tab.key)}
+                className={`relative -mb-px pb-4 text-base font-medium transition-colors duration-200 ${
+                  isActive
+                    ? "text-neutral-900"
+                    : "text-neutral-400 hover:text-neutral-600"
+                }`}
+              >
+                {tab.label}
+                {isActive && (
+                  <motion.span
+                    layoutId="projects-tab-underline"
+                    className="absolute inset-x-0 -bottom-px h-0.5 bg-neutral-900"
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
 
+      <div className="mt-6 grid grid-cols-1 gap-10 sm:mt-14 lg:grid-cols-[2fr_3fr] lg:gap-12">
+        <div className="lg:sticky lg:top-24 lg:-mt-4 lg:self-start">
           <div className="flex flex-col">
             {visibleProjects.map((project, i) => (
               <HoleLink
@@ -288,18 +316,25 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <span data-vt-title className="link-underline w-fit font-display text-xl font-medium text-neutral-900 transition-colors duration-300 sm:text-2xl">
+                  <span
+                    data-vt-title
+                    className="link-underline w-fit font-display text-xl font-medium text-neutral-900 transition-colors duration-300 sm:text-2xl"
+                  >
                     {project.title}
                   </span>
                   <p className="mt-1.5 text-sm text-neutral-400">
                     {project.featured && (
-                      <span className={`mr-2 font-semibold ${FEATURED_TEXT}`}>Featured ·</span>
+                      <span className={`mr-2 font-semibold ${FEATURED_TEXT}`}>
+                        Featured ·
+                      </span>
                     )}
                     {project.tags.join(" · ")}
                     {project.year && ` · ${project.year}`}
                   </p>
                   {project.outcome && (
-                    <p className="mt-1.5 max-w-md text-sm leading-snug text-neutral-700">{project.outcome}</p>
+                    <p className="mt-1.5 max-w-md text-sm leading-snug text-neutral-700">
+                      {project.outcome}
+                    </p>
                   )}
                 </div>
                 <span
@@ -307,7 +342,9 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
                   className="cta-swap flex-none justify-items-end text-neutral-300 transition-colors duration-300 group-hover:text-neutral-900"
                 >
                   <span>→</span>
-                  <span className="text-sm font-medium whitespace-nowrap">Enter →</span>
+                  <span className="text-sm font-medium whitespace-nowrap">
+                    Enter →
+                  </span>
                 </span>
               </HoleLink>
             ))}
@@ -316,7 +353,11 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
 
         <div className="flex flex-col gap-6">
           {visibleProjects.map((project, i) => (
-            <ProjectThumbnail key={project.slug} project={project} priority={i === 0} />
+            <ProjectThumbnail
+              key={project.slug}
+              project={project}
+              priority={i === 0}
+            />
           ))}
         </div>
       </div>
