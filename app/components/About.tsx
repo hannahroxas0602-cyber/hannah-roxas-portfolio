@@ -17,8 +17,8 @@ export default function About() {
       </p>
 
       <h1
-        className="mt-6 max-w-2xl font-display font-semibold tracking-tight text-neutral-900"
-        style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", lineHeight: 1.05 }}
+        className="welcome mt-6 max-w-2xl tracking-[-0.02em] text-neutral-950"
+        style={{ fontSize: "clamp(2.25rem, 4.6vw, 3.6rem)", lineHeight: 1.04 }}
       >
         Hannah Roxas
       </h1>

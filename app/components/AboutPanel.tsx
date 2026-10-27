@@ -243,6 +243,14 @@ export default function AboutPanel({ width }: { width: number }) {
                 >
                   LinkedIn
                 </a>
+                <a
+                  href={social.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-underline w-fit text-sm font-medium text-neutral-700"
+                >
+                  GitHub
+                </a>
               </div>
             </div>
           </motion.div>
