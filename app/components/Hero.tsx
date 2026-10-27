@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { social } from "@/app/data/social";
 
 // The hero is built for the first three seconds of a recruiter's visit: one statement
@@ -9,6 +10,27 @@ export default function Hero() {
       <p className="welcome text-center text-base text-neutral-500 italic sm:text-lg">
         Welcome to the rabbit hole <span aria-hidden>↓</span>
       </p>
+
+      {/* A small two-step picture between the welcome and the headline: the clay rabbit
+          mid-leap, then the hole it jumps into. Order matters (1 then 2). */}
+      <div aria-hidden className="mt-4 flex items-end justify-center gap-3 sm:gap-4">
+        <Image
+          src="/images/hero/hero-1.webp"
+          alt=""
+          width={334}
+          height={360}
+          priority
+          className="h-[4.5rem] w-auto sm:h-24"
+        />
+        <Image
+          src="/images/hero/hero-2.webp"
+          alt=""
+          width={304}
+          height={360}
+          priority
+          className="h-[4.5rem] w-auto sm:h-24"
+        />
+      </div>
 
       <div className="mt-3 flex flex-col items-center gap-y-7 text-center lg:mt-4 lg:gap-y-8">
         <h1 className="welcome max-w-6xl text-[clamp(1.6rem,3.3vw,2.9rem)] leading-[1.06] tracking-[-0.022em] text-balance text-neutral-950">
