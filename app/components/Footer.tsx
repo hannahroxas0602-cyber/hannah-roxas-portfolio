@@ -56,7 +56,10 @@ export default function Footer() {
                 } as React.CSSProperties
               }
             >
-              Curiouser and <em>curiouser.</em>{" "}
+              {/* The same underline as the hero's name: it draws in when the link is hovered. */}
+              <span className="link-underline">
+                Curiouser and <em>curiouser.</em>
+              </span>{" "}
               <svg
                 aria-hidden
                 viewBox="0 0 24 24"
