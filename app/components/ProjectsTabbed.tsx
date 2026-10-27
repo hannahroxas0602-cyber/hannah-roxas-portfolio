@@ -16,8 +16,8 @@ type Tab = {
 };
 
 const TABS: Tab[] = [
-  { key: "UIUX", label: "UIUX Projects" },
-  { key: "Graphic Design", label: "Graphic Design Projects" },
+  { key: "UIUX", label: "UIUX" },
+  { key: "Graphic Design", label: "Graphic Design" },
 ];
 
 const SLIDE_INTERVAL_MS = 1200;

@@ -112,6 +112,7 @@ export default function Footer() {
               href={social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
+              data-cursor="Find me on LinkedIn"
               className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
             >
               LinkedIn
@@ -120,6 +121,7 @@ export default function Footer() {
               href={social.github}
               target="_blank"
               rel="noopener noreferrer"
+              data-cursor="See my code"
               className="link-underline w-fit text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
             >
               GitHub

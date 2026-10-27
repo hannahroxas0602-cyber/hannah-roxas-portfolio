@@ -73,15 +73,16 @@ export default function About() {
           {social.email}
         </a>
         {[
-          { label: "LinkedIn", href: social.linkedin },
-          { label: "GitHub", href: social.github },
-          { label: "Resume", href: social.resume },
+          { label: "LinkedIn", href: social.linkedin, cursor: "Find me on LinkedIn" },
+          { label: "GitHub", href: social.github, cursor: "See my code" },
+          { label: "Resume", href: social.resume, cursor: "View resume" },
         ].map((link) => (
           <a
             key={link.label}
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
+            data-cursor={link.cursor}
             className="link-underline w-fit text-sm font-medium text-neutral-700"
           >
             {link.label}
