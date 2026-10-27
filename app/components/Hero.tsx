@@ -62,7 +62,7 @@ export default function Hero() {
             height={360}
             className="absolute top-1/2 left-full ml-[calc(2.5rem-var(--fh)*0.37)] hidden h-[var(--fh)] w-auto -translate-y-1/2 min-[1100px]:block"
           />
-          <h1 className="welcome max-w-6xl text-[clamp(1.45rem,2.9vw,2.55rem)] leading-[1.06] tracking-[-0.022em] text-balance text-neutral-950">
+          <h1 className="welcome max-w-6xl text-[clamp(1.55rem,3.15vw,2.8rem)] leading-[1.06] tracking-[-0.022em] text-balance text-neutral-950">
             <a
               href={social.linkedin}
               target="_blank"

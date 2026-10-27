@@ -3,8 +3,9 @@ export const aboutIntro = {
   title: "About",
   tagline:
     "A curious, detail-obsessed designer who treats every project like a rabbit hole worth falling into.",
-  // Shown on /about once filled.
-  bio: "{{TODO: 2–3 sentence bio in your own words: background, what you're drawn to, what you want next}}",
+  // Shown on /about. Written only from what the site and the Learvo repos already say, so
+  // it claims nothing new; edit it freely, or add a line on what pulled you to design.
+  bio: "I'm a product designer who builds what I design. At Learvo I designed onboarding, navigation and the landing page, then shipped them in React, and I've written features in the API too. Before that I researched surrogacy care for Continuum, directed PR and marketing for a student-run gallery at UC Davis, and interned at IL TEAM STUDIO ARK.",
 };
 
 export const process = {
