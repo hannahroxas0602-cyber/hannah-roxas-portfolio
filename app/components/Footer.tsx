@@ -38,7 +38,7 @@ export default function Footer() {
           {/* Headline — the focal moment, no card container. Only the words (and the arrow)
               are the link, so the hover stops at the end of the text instead of running to
               the edge of the page. The email address below is its own link. */}
-          <p className="font-label text-xs font-medium tracking-widest text-neutral-500 uppercase">
+          <p className="font-label text-xs font-medium tracking-widest text-neutral-600 uppercase">
             Open to full-time Product Designer / Design Engineer roles
           </p>
           <a

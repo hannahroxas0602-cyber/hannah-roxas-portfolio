@@ -531,3 +531,19 @@ html.iris-fallback-backdrop body {
     filter: drop-shadow(0 12px 7px rgba(110, 70, 150, 0.12));
   }
 }
+
+/* The homepage descends into the logo's lilac: white at the top, holding until about a
+   fifth of the way down, then a slow fade to a very pale tint at the footer ("the fall is
+   over"). A gradient over the page's full height is the same as a scroll-linked fade,
+   with no script. Kept faint so every text color keeps its contrast; white cards stay
+   white and so stand out a little more. */
+.home-tint {
+  --tint-end: 7%;
+  background-color: var(--background);
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 18%,
+    color-mix(in oklab, #d678f6 var(--tint-end), transparent) 100%
+  );
+}
