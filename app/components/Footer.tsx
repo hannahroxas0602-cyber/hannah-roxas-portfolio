@@ -90,12 +90,12 @@ export default function Footer() {
             so it stays in the clay's own color. Reduce Motion gets a still frame. */}
         <div className="relative mt-6 inline-block">
           <picture>
-            <source media="(prefers-reduced-motion: reduce)" srcSet="/clayfooter-still.png" />
+            <source media="(prefers-reduced-motion: reduce)" srcSet="/footer-bunnies-still.png" />
             <img
-              src="/clayfooter.png"
+              src="/footer-bunnies.png"
               alt=""
               width={1000}
-              height={303}
+              height={306}
               className="relative h-8 w-auto sm:h-11"
             />
           </picture>

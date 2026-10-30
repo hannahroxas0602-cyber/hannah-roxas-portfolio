@@ -188,10 +188,10 @@ export default function Header() {
               onAnimationIteration={() => leaving.current && setFloating(false)}
             >
               <Image
-                src="/images/claylogo.webp"
+                src="/images/logo.webp"
                 alt=""
                 width={800}
-                height={463}
+                height={458}
                 sizes="124px"
                 className="h-full w-full object-contain"
                 priority

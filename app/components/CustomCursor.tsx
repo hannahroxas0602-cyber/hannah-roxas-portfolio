@@ -28,9 +28,9 @@ function readMode(): CursorMode {
 // the CSS variable, so motion can animate it. The bunny itself shifts to a
 // brighter pink over dark backgrounds (cursorBackdrop.ts); labels, badges and
 // text always use this one.
-export const CURSOR_COLOR = "#D678F6"; // the lilac fill: the hover label, bubbles (black text on it)
-export const CURSOR_MARK = "#D678F6"; // the key, the same lilac as the label under it
-export const CURSOR_INK = "#741A93"; // dark purple, for colored text on white
+export const CURSOR_COLOR = "#B3D2D9"; // the icy fill: the hover label, bubbles (black text on it)
+export const CURSOR_MARK = "#7AA6AE"; // the key: the deeper blue-gray, so it shows on white
+export const CURSOR_INK = "#2B5560"; // dark slate, for colored text on white
 
 export default function CustomCursor() {
   const [label, setLabel] = useState<string | null>(null);
@@ -109,7 +109,7 @@ export default function CustomCursor() {
         translateY: "-50%",
         // A soft shadow (not an outline) keeps the bunny crisp on white; on dark backgrounds
         // it simply disappears.
-        filter: "drop-shadow(0 1px 1.5px rgba(60,10,90,0.4)) drop-shadow(0 0 0.5px rgba(60,10,90,0.35))",
+        filter: "drop-shadow(0 1px 1.5px rgba(25,60,72,0.5)) drop-shadow(0 0 0.5px rgba(25,60,72,0.4))",
         // The invert look: a white bunny blended with "difference", so it shows as
         // the opposite of whatever is behind it. The label pill is never blended.
         mixBlendMode: mode === "invert" && !label ? "difference" : "normal",
@@ -137,7 +137,7 @@ export default function CustomCursor() {
             />
           </motion.span>
           <motion.span
-            initial={{ opacity: 0, color: "#7a8a2a" }}
+            initial={{ opacity: 0, color: "#000000" }}
             animate={{ opacity: 1, color: mode === "pink" ? "#000000" : "#ffffff" }}
             transition={{ opacity: { delay: 0.05 }, color: { duration: 0.3, delay: 0.1 } }}
             className="text-xs font-medium whitespace-nowrap"
