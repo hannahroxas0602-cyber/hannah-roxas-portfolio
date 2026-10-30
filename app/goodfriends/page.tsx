@@ -68,10 +68,10 @@ export default function GoodFriendsPage() {
   return (
     <div className="flex flex-1 flex-col bg-background">
       <Header />
-      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-12 px-6 sm:px-10 md:flex-row">
+      <main className="flex w-full max-w-[100rem] flex-1 flex-col gap-12 px-6 sm:px-8 md:flex-row">
         <CaseStudyNav sections={sections} />
 
-        <div className="min-w-0 flex-1">
+        <div className="mx-auto min-w-0 w-full max-w-5xl flex-1 [&>*]:max-w-none">
         {/* Hero */}
         <section id="overview" className="max-w-4xl pt-16 pb-8 sm:pt-24">
           <HoleLink direction="out"
