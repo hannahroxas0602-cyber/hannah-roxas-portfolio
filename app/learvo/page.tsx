@@ -194,34 +194,44 @@ export default function LearvoPage() {
             {featuresSection.heading}
           </h2>
 
-          <div className="mt-10 space-y-16">
+          <div className="mt-12 space-y-24">
             {(featuresSection.categories as FeatureCategory[])
               .filter((cat) => !cat.isHidden)
-              .map((cat) => {
+              .map((cat, index) => {
                 const showBigImage = !cat.video && !cat.slides;
                 return (
               <div
                 key={cat.slug}
                 id={cat.slug}
-                className="scroll-mt-28 border-t border-black/[0.06] pt-12 first:border-t-0 first:pt-0"
+                className="scroll-mt-28 border-t border-black/[0.06] pt-16 first:border-t-0 first:pt-0"
               >
-                <h3 className="font-display text-xl font-semibold text-neutral-900">
+                <p className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600">
+                  <span aria-hidden className="size-1.5 rounded-full bg-accent-deep" />
+                  Shipped {String(index + 1).padStart(2, "0")}
+                </p>
+                <h3 className="font-display mt-4 text-2xl font-semibold text-neutral-900 sm:text-3xl">
                   {cat.title}
                 </h3>
 
-                <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700">
-                  <span className="font-semibold text-neutral-900">Problem: </span>
-                  {cat.problem}
-                </p>
+                {/* The problem and the call sit side by side, so each feature opens with its
+                    reason and its decision in one glance. */}
+                <div className="mt-8 grid gap-6 md:grid-cols-2">
+                  <p className="text-base leading-relaxed text-neutral-700">
+                    <span className="block text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+                      Problem
+                    </span>
+                    <span className="mt-3 block">{cat.problem}</span>
+                  </p>
 
-                <div className="mt-6 max-w-2xl rounded-2xl border border-black/[0.06] bg-neutral-900 p-6">
-                  <h4 className="text-xs font-semibold tracking-widest text-white/50 uppercase">
-                    The Call
-                  </h4>
-                  <p className="mt-3 text-base leading-relaxed text-white/90">{cat.decision}</p>
+                  <div className="rounded-2xl border border-black/[0.06] bg-neutral-900 p-6">
+                    <h4 className="text-xs font-semibold tracking-widest text-white/50 uppercase">
+                      The Call
+                    </h4>
+                    <p className="mt-3 text-base leading-relaxed text-white/90">{cat.decision}</p>
+                  </div>
                 </div>
 
-                <ul className="mt-6 space-y-3">
+                <ul className="mt-8 space-y-3">
                   {cat.supportingPoints.map((item, i) => (
                     <li key={i} className="max-w-2xl text-base leading-relaxed text-neutral-700">
                       <span className="font-semibold text-neutral-900">{item.label} </span>
@@ -311,8 +321,10 @@ export default function LearvoPage() {
                   </div>
                 )}
 
-                <p className="mt-6 max-w-2xl rounded-2xl border border-black/[0.06] bg-neutral-50 p-5 text-base leading-relaxed text-neutral-700">
-                  <span className="font-semibold text-neutral-900">Impact: </span>
+                <p className="mt-10 max-w-2xl border-l-2 border-accent-deep pl-5 font-display text-lg leading-snug text-neutral-900 sm:text-xl">
+                  <span className="mb-2 block font-sans text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+                    Impact
+                  </span>
                   {cat.impact}
                   {filled(cat.impactMetric) && ` ${cat.impactMetric}`}
                 </p>
