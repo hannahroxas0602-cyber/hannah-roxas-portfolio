@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
+import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
@@ -98,6 +99,18 @@ export default function ContinuumPage() {
             <p className="mt-6 max-w-2xl text-xl leading-relaxed text-neutral-700">
               {continuumHero.subtitle}
             </p>
+
+            {/* The picture comes first, so the page opens on the work. */}
+            <div className="relative mt-10 mb-2 aspect-[1600/738] w-full overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100">
+              <Image
+                src="/images/continuum/welcome-screen-mockup.png"
+                alt="Continuum's welcome screen: three roles to choose from, a support summary and a daily inspiration card"
+                fill
+                priority
+                className="object-cover"
+                sizes="(min-width: 1024px) 1024px, 100vw"
+              />
+            </div>
 
             <CaseStudyTldr tldr={tldr} />
 

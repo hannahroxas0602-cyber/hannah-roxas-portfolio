@@ -89,6 +89,10 @@ export default function GoodFriendsPage() {
             {goodHero.subtitle}
           </p>
 
+          {/* Text on the left, the portrait picture beside it, so the work is on screen at once. */}
+          <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-start lg:gap-12">
+            <div className="min-w-0">
+
           <CaseStudyTldr tldr={tldr} />
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-500">
@@ -110,8 +114,8 @@ export default function GoodFriendsPage() {
               </div>
             ))}
           </dl>
-
-          <div className="relative mt-10 aspect-[1086/1246] w-full max-w-md overflow-hidden rounded-2xl bg-neutral-100">
+            </div>
+          <div className="relative mt-10 aspect-[1086/1246] w-full max-w-md lg:sticky lg:top-28 lg:mt-0 overflow-hidden rounded-2xl bg-neutral-100">
             <Image
               src={goodHero.image}
               alt={goodHero.imageAlt}
@@ -121,6 +125,7 @@ export default function GoodFriendsPage() {
               className="h-full w-full object-cover"
               sizes="(min-width: 640px) 448px, 100vw"
             />
+          </div>
           </div>
         </section>
 

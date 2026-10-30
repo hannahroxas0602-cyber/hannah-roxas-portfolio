@@ -125,6 +125,25 @@ export default function LearvoPage() {
             {learvoHero.subtitle}
           </p>
 
+          {/* The picture comes first, so the page opens on the work. */}
+          <div
+            className="relative mt-10 mb-2 w-full overflow-hidden rounded-2xl bg-neutral-100"
+            style={{ aspectRatio: `${learvoHero.imageWidth}/${learvoHero.imageHeight}` }}
+          >
+            {learvoHero.isPlaceholder ? (
+              <PlaceholderImage label="Hero" />
+            ) : (
+              <Image
+                src={learvoHero.image}
+                alt={learvoHero.imageAlt}
+                fill
+                priority
+                className="object-cover"
+                sizes="(min-width: 1024px) 896px, 100vw"
+              />
+            )}
+          </div>
+
           <CaseStudyTldr tldr={tldr} />
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-500">
@@ -146,24 +165,6 @@ export default function LearvoPage() {
               </div>
             ))}
           </dl>
-
-          <div
-            className="relative mt-10 w-full overflow-hidden rounded-2xl bg-neutral-100"
-            style={{ aspectRatio: `${learvoHero.imageWidth}/${learvoHero.imageHeight}` }}
-          >
-            {learvoHero.isPlaceholder ? (
-              <PlaceholderImage label="Hero" />
-            ) : (
-              <Image
-                src={learvoHero.image}
-                alt={learvoHero.imageAlt}
-                fill
-                priority
-                className="object-cover"
-                sizes="(min-width: 1024px) 896px, 100vw"
-              />
-            )}
-          </div>
         </section>
 
         <div className="max-w-4xl">
