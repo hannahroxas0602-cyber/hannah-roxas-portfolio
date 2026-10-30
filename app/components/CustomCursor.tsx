@@ -28,8 +28,8 @@ function readMode(): CursorMode {
 // the CSS variable, so motion can animate it. The bunny itself shifts to a
 // brighter pink over dark backgrounds (cursorBackdrop.ts); labels, badges and
 // text always use this one.
-export const CURSOR_COLOR = "#14B8FF"; // the hover label, bubbles (black text on it, 9:1)
-export const CURSOR_MARK = "#0A93E8"; // the key: a deeper, saturated blue
+export const CURSOR_COLOR = "#3EC3FF"; // the hover label, bubbles (black text on it, 10:1)
+export const CURSOR_MARK = "#2FA0F0"; // the key: a deeper, saturated blue
 export const CURSOR_INK = "#2B5560"; // dark slate, for colored text on white
 
 export default function CustomCursor() {
