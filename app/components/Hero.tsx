@@ -5,7 +5,7 @@ import { social } from "@/app/data/social";
 export default function Hero() {
   return (
     <section className="mx-auto max-w-7xl px-6 pt-12 pb-10 sm:px-10 sm:pt-16 lg:pt-20 lg:pb-14">
-      <div className="grid items-end gap-x-16 gap-y-8 lg:grid-cols-[1.7fr_1fr]">
+      <div className="grid items-center gap-x-16 gap-y-8 lg:grid-cols-[1.7fr_1fr]">
         <div>
           <p className="welcome text-[0.95rem] text-neutral-500 italic sm:text-lg">
             Welcome to the rabbit hole
@@ -24,7 +24,7 @@ export default function Hero() {
           </h1>
         </div>
 
-        <dl className="flex max-w-md flex-col gap-y-3 text-sm leading-relaxed text-neutral-700 sm:text-base lg:pb-1">
+        <dl className="flex max-w-md flex-col gap-y-3 text-sm leading-relaxed text-neutral-700 sm:text-base">
           <div>
             <dt className="inline text-neutral-400">Currently </dt>
             <dd className="inline">
@@ -33,13 +33,7 @@ export default function Hero() {
             </dd>
           </div>
           <div>
-            <dt className="inline text-neutral-400">
-              <span
-                aria-hidden
-                className="mr-1.5 inline-block size-1.5 rounded-full bg-accent-deep align-middle"
-              />
-              Open to{" "}
-            </dt>
+            <dt className="inline font-medium text-accent-ink">Open to </dt>
             <dd className="inline">Product Designer / Design Engineer roles</dd>
           </div>
         </dl>
