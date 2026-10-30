@@ -267,9 +267,9 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
       id={id}
       className="mx-auto max-w-7xl scroll-mt-24 px-6 pt-14 pb-16 sm:px-10 sm:pt-20 sm:pb-24 lg:pt-14"
     >
-      {/* The heading and tabs are centred, on the same axis as the hero above them; the
+      {/* The heading and tabs are left-aligned with the hero and the list; the
           list and the previews sit below in two columns. */}
-      <div className="flex flex-col items-center text-center">
+      <div className="flex flex-col items-start text-left">
         <h2 className="font-display text-3xl font-semibold text-neutral-900 sm:text-4xl">
           <Em>Selected</Em> Projects
         </h2>

@@ -127,6 +127,7 @@ export const projects: Project[] = [
       "/images/dear-beloved/gallery/photo-28.jpg",
       "/images/dear-beloved/gallery/photo-12.jpg",
       "/images/dear-beloved/gallery/photo-19.jpg",
+      "/images/graphic-design/dear-beloved-card.png",
       "/images/dear-beloved/gallery/photo-20.jpg",
       "/images/dear-beloved/gallery/photo-25.jpg",
       "/images/dear-beloved/gallery/photo-26.jpg",

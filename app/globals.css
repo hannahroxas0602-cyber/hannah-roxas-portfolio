@@ -11,9 +11,9 @@
                     featured outline, the key (2.5:1 on white).
      --accent-ink   a dark slate for colored text on white (7.4:1).
      Keep in sync with CustomCursor.tsx and cursorBackdrop.ts. */
-  --accent: #b3d2d9;
-  --accent-deep: #7aa6ae;
-  --accent-ink: #2b5560;
+  --accent: #5bc9e8;
+  --accent-deep: #1ea7cf;
+  --accent-ink: #0a5f7c;
 }
 
 html {
