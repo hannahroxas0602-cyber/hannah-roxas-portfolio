@@ -1,4 +1,6 @@
 import Image from "next/image";
+import DemoVideo from "@/app/components/DemoVideo";
+import HoleLink from "@/app/components/HoleLink";
 import { social } from "@/app/data/social";
 
 // The hero is built for the first three seconds of a recruiter's visit: one statement
@@ -96,7 +98,44 @@ export default function Hero() {
             <dd className="inline">Product Designer / Design Engineer roles</dd>
           </div>
         </dl>
+
+        {/* Two buttons, one clear primary: see the work, or take the resume. */}
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="#works"
+            className="rounded-full bg-neutral-950 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
+          >
+            View my work
+          </a>
+          <a
+            href={social.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="View resume"
+            className="rounded-full border border-black/15 bg-white/60 px-6 py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:border-black/30 hover:bg-white"
+          >
+            Resume
+          </a>
+        </div>
       </div>
+
+      {/* The hero's one visual: the work itself. A real Learvo flow, looping, in a big
+          rounded frame that opens the case study. */}
+      <HoleLink
+        href="/learvo"
+        data-cursor="Enter →"
+        className="group relative mx-auto mt-12 block w-full max-w-5xl overflow-hidden rounded-3xl border border-black/[0.08] bg-neutral-100 shadow-[0_24px_60px_-24px_rgba(20,50,60,0.35)] sm:mt-14"
+        style={{ aspectRatio: "1228 / 720" }}
+      >
+        <DemoVideo
+          src="/images/learvo/onboarding-flow-demo.mp4"
+          alt="The Learvo onboarding flow: upload notes, choose a goal, customize, generate."
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+        />
+        <span className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-black/55 px-3.5 py-1.5 text-xs font-medium text-white backdrop-blur-xl">
+          Learvo · onboarding flow
+        </span>
+      </HoleLink>
     </section>
   );
 }
