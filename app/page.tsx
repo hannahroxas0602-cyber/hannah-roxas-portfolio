@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Header from "@/app/components/Header";
 import Hero from "@/app/components/Hero";
 import ProjectsTabbed from "@/app/components/ProjectsTabbed";
-import Services from "@/app/components/Services";
 import Footer from "@/app/components/Footer";
 import FadeIn from "@/app/components/FadeIn";
 import ScrollToHash from "@/app/components/ScrollToHash";
@@ -34,9 +33,6 @@ export default function Home() {
             </section>
           </FadeIn>
         )}
-        <FadeIn>
-          <Services />
-        </FadeIn>
       </main>
       <Footer />
     </div>

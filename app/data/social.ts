@@ -13,7 +13,6 @@ type NavLink =
 export const navLinks: NavLink[] = [
   { label: "UI/UX", href: "/uiux", kind: "internal" },
   { label: "Graphics", href: "/graphic-design", kind: "internal" },
-  { label: "What I Do", href: "/#what-i-do", kind: "internal" },
   { label: "About", href: "/about", kind: "about" },
   { label: "Resume", href: social.resume, kind: "external" },
 ];
