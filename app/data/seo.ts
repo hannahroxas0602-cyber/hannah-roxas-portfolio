@@ -4,12 +4,12 @@ export const siteUrl = "https://www.hannahroxas.com";
 export const targetRole = "Product Designer / Design Engineer";
 export const siteName = `Hannah Roxas | ${targetRole}`;
 export const siteDescription =
-  "Hannah Roxas is a product designer who ships her own front-end code. Sole designer at Learvo, an ed-tech startup, where she designed and built onboarding, navigation, and the landing page.";
+  "Hannah Roxas is a product designer who ships her own front-end code. Product designer at Learvo, an ed-tech startup, where she designed and built onboarding, navigation, and the landing page.";
 
 const previewImage = {
-  url: "/images/Link_preview_final.png",
-  width: 2846,
-  height: 1512,
+  url: "/images/Link_preview_home.png",
+  width: 2400,
+  height: 1260,
   alt: `Hannah Roxas, ${targetRole} — Portfolio`,
 };
 

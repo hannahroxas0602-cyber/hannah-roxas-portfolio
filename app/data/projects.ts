@@ -31,7 +31,7 @@ export const projects: Project[] = [
     slug: "learvo",
     title: "Learvo",
     description:
-      "Designing for college students turning their own notes into quizzes, flashcards, summaries, and mnemonics, as the sole product designer (intern) at an ed-tech startup.",
+      "Designing for college students turning their own notes into quizzes, flashcards, summaries, and mnemonics, as a product designer (intern) at an ed-tech startup.",
     tags: ["UX/UI", "Product Design"],
     category: "UIUX",
     href: "/learvo",

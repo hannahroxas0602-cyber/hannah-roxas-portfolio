@@ -29,7 +29,7 @@ export type ExperienceEntry = {
 export const experience: ExperienceEntry[] = [
   {
     slug: "learvo",
-    role: "Product Designer (Intern) · Sole designer",
+    role: "Product Designer (Intern)",
     context: "Learvo (EdTech SaaS Startup)",
     dates: "Oct 2025 – Present",
   },

@@ -85,7 +85,7 @@ export const metadata: Metadata = pageMetadata({
   path: "/learvo",
   ogTitle: "Learvo: onboarding, navigation, and a landing page, designed and shipped",
   ogDescription:
-    "Sole product designer (intern) at an ed-tech startup. I redesigned the first session, the nav, and the landing page, then shipped the code myself.",
+    "Product designer (intern) at an ed-tech startup. I redesigned the first session, the nav, and the landing page, then shipped the code myself.",
 });
 
 function PlaceholderImage({ label }: { label: string }) {
