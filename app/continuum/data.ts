@@ -9,9 +9,9 @@ export const continuumHero = {
     label: "The Gist:",
     text: "Most surrogacy tools manage paperwork. Continuum manages the human experience.",
   },
-  date: "Course research Jan 2025 · Redesigned Oct to Nov 2026",
+  date: "Jan 2025 to Nov 2026 · Course research, then independent design",
   myRole:
-    "I researched the problem with a class team of 7, focusing on how hospital systems handle surrogacy. I then designed Continuum on my own and, in 2026, rebuilt it as a responsive, clickable prototype with a design system. I translated highly sensitive, multi-stakeholder emotional anxieties into clear, quiet UI patterns that protect trust.",
+    "I researched the problem with a class team of 7, focusing on how hospital systems handle surrogacy. I then designed Continuum on my own, as a responsive, clickable prototype with a design system. I translated highly sensitive, multi-stakeholder emotional anxieties into clear, quiet UI patterns that protect trust.",
   // Items with a null value are hidden until filled.
   meta: [
     { label: "COURSE", value: "MGT 120: Managing and Using Information Technology" },
@@ -49,11 +49,11 @@ export const highlightsSection = {
   callout: "Less chaos, more continuity.",
 };
 
-// Two phases of work: team research during the 10-week course, solo design
-// after it, and a redesign in autumn 2026.
+// Three phases of work: team research during the 10-week course, solo design
+// after it, and a responsive prototype with a design system in autumn 2026.
 export const timelineSection = {
   heading: "Timeline",
-  intro: "3 phases: course research and design in 2025, then a redesign in autumn 2026.",
+  intro: "3 phases: course research, solo design, and a responsive prototype with a design system.",
   items: [
     {
       slug: "timeline-research",
@@ -68,10 +68,10 @@ export const timelineSection = {
       body: "Progressive disclosure, timeline-first communication, a design system draft, and frictionless check-ins.",
     },
     {
-      slug: "timeline-redesign",
+      slug: "timeline-prototype",
       date: "Oct to Nov 2026",
-      title: "Redesign and clickable prototype",
-      body: "Rebuilt as a responsive prototype: one thing to do first for every role, a shared timeline, daily symptom logging, and a coordinator workspace.",
+      title: "Responsive prototype and design system",
+      body: "A clickable prototype across phone, dual-screen, and desktop: one thing to do first for every role, a shared timeline, daily symptom logging, and a coordinator workspace.",
     },
   ],
 };
@@ -229,7 +229,6 @@ export const designSystemSection = {
       body: "for larger text, reduced motion and transparency, and higher contrast.",
     },
   ],
-  note: "The course version used a warm green palette. I replaced it with this neutral base so real photography and the key action carry the warmth.",
   images: [
     {
       src: "/images/continuum/v2/design-system-bento.webp",
@@ -244,32 +243,12 @@ export const designSystemSection = {
   imageHeight: 1350,
 };
 
-// A short "then and now". The new pictures are used through the case itself,
-// so this only says what changed. Nothing here is a tested result.
-export const thenNowSection = {
-  heading: "Then and Now",
-  kicker: "Course concept to prototype",
-  intro:
-    "The course version was a dashboard-first concept in warm green. The redesign makes the first action the point, makes every screen responsive, and adds the tools coordinators actually need.",
-  image: "/images/continuum/v2/then-now.webp",
-  imageAlt:
-    "Left, the course version: a green welcome screen and a dashboard-first coordinator view. Right, the 2026 redesign: the neutral coordinator case view on desktop and phone",
-  changes: [
-    { title: "Dashboard-first became action-first.", body: "Each role opens on one thing to do." },
-    { title: "One layout became responsive.", body: "Phone, dual-screen, and desktop share one system." },
-    {
-      title: "Concept became working tools.",
-      body: "A board with nudges, a calendar, messages, a symptom log, and a way to find a certified coordinator.",
-    },
-  ],
-  caveats: [
-    "A clickable prototype with fictional people, agencies, and data.",
-    "Not yet tested with real users, so no outcomes are claimed.",
-    "The clinical content (symptom list, call-now guidance, hard-news script) is an unreviewed draft.",
-  ],
+// Shown once, under the hero. Nothing in this case study is a tested result.
+export const prototypeNote = {
+  text: "A clickable prototype with fictional people, agencies, and data. Not yet tested with users, and the clinical content (symptom list, call-now guidance) is an unreviewed draft.",
   // Optional. Hidden until you deploy the prototype and add the link.
-  prototypeUrl: null as string | null,
-  prototypeLabel: "Try the prototype",
+  url: null as string | null,
+  label: "Try the prototype",
 };
 
 export const nextStepsSection = {

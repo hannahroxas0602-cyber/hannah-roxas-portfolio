@@ -24,7 +24,7 @@ import {
   decisionsSection,
   stakeholdersSection,
   designSystemSection,
-  thenNowSection,
+  prototypeNote,
   nextStepsSection,
   nextProject,
 } from "@/app/continuum/data";
@@ -38,7 +38,6 @@ const sections = [
   { id: "decisions", title: "Design Decisions" },
   { id: "stakeholders", title: "Stakeholders" },
   { id: "design-system", title: "Design System" },
-  { id: "then-now", title: "Then & Now" },
   { id: "next-steps", title: "What's Next" },
 ];
 
@@ -61,7 +60,6 @@ const minutesToRead = readingMinutes(
   decisionsSection,
   stakeholdersSection,
   designSystemSection,
-  thenNowSection,
   nextStepsSection,
 );
 
@@ -102,20 +100,28 @@ export default function ContinuumPage() {
               {continuumHero.subtitle}
             </p>
 
-            {/* The picture comes first, so the page opens on the work: two roles, one plan, on a dual-screen concept. */}
-            <div className="mt-10 mb-2 overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100">
+            {/* The picture comes first, so the page opens on the work: one phone, with the pieces of the system around it. */}
+            <div className="mt-10 mb-2">
               <Image
-                src="/images/continuum/v2/hero-duo.webp"
-                alt="Continuum on a dual-screen concept device: the surrogate's Today page on the left screen and the intended parents' home on the right, both with their gradient focal cards"
+                src="/images/continuum/v2/hero-umi.webp"
+                alt="Continuum on a phone, surrounded by the pieces of the system: the daily check-in, symptom chips, the coordinator's 'Do this first' card, gradient widgets, a certified-coordinator tag, privacy switches, and the shared timeline"
                 width={2400}
                 height={1350}
                 priority
-                className="h-auto w-full"
+                className="h-auto w-full mix-blend-multiply"
                 sizes="(min-width: 1024px) 1024px, 100vw"
               />
             </div>
-            <p className="mt-3 text-xs text-neutral-400">
-              Dual-screen concept mockup. The same system runs on phone, dual-screen, and desktop.
+            <p className="mt-3 max-w-2xl text-xs leading-relaxed text-neutral-400">
+              {prototypeNote.text}
+              {filled(prototypeNote.url) && (
+                <>
+                  {" "}
+                  <a href={prototypeNote.url} target="_blank" rel="noopener noreferrer" className="font-medium text-neutral-600 underline underline-offset-4">
+                    {prototypeNote.label} ↗
+                  </a>
+                </>
+              )}
             </p>
 
             <CaseStudyTldr tldr={tldr} />
@@ -175,13 +181,13 @@ export default function ContinuumPage() {
             {problemSection.heading}
           </h2>
 
-          <div className="mt-8 overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
+          <div className="mt-8">
             <Image
               src={problemSection.image}
               alt={problemSection.imageAlt}
               width={problemSection.imageWidth}
               height={problemSection.imageHeight}
-              className="h-auto w-full"
+              className="h-auto w-full mix-blend-multiply"
               sizes="(min-width: 1024px) 1024px, 100vw"
             />
           </div>
@@ -222,13 +228,13 @@ export default function ContinuumPage() {
           <div className="mt-10 space-y-8">
             {decisionsSection.decisions.map((decision) => (
               <div key={decision.slug} className="flex flex-col gap-3">
-                <div className="overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
+                <div>
                   <Image
                     src={decision.image}
                     alt={decision.imageAlt}
                     width={2400}
                     height={1600}
-                    className="h-auto w-full"
+                    className="h-auto w-full mix-blend-multiply"
                     sizes="(min-width: 1024px) 1024px, 100vw"
                   />
                 </div>
@@ -270,13 +276,13 @@ export default function ContinuumPage() {
           <div className="mt-12 space-y-16 sm:space-y-20">
             {stakeholdersSection.stakeholders.map((s, i) => (
               <div key={s.slug}>
-                <div className="overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
+                <div>
                   <Image
                     src={s.image}
                     alt={s.imageAlt}
                     width={2400}
                     height={1166}
-                    className="h-auto w-full"
+                    className="h-auto w-full mix-blend-multiply"
                     sizes="(min-width: 1024px) 1024px, 100vw"
                   />
                 </div>
@@ -319,72 +325,20 @@ export default function ContinuumPage() {
             ))}
           </ul>
 
-          <p className="mt-6 max-w-2xl text-sm leading-relaxed text-neutral-500">{designSystemSection.note}</p>
-
           <div className="mt-10 space-y-6">
             {designSystemSection.images.map((img) => (
-              <div key={img.src} className="overflow-hidden rounded-3xl">
+              <div key={img.src}>
                 <Image
                   src={img.src}
                   alt={img.alt}
                   width={designSystemSection.imageWidth}
                   height={designSystemSection.imageHeight}
-                  className="h-auto w-full"
+                  className="h-auto w-full mix-blend-multiply"
                   sizes="(min-width: 1024px) 1024px, 100vw"
                 />
               </div>
             ))}
           </div>
-        </section>
-
-        {/* Then and now: a short note on what changed since the course */}
-        <section id="then-now" className="max-w-4xl scroll-mt-28 py-16 sm:py-20">
-          <p className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600">
-            <span aria-hidden className="size-1.5 rounded-full bg-accent-deep" />
-            {thenNowSection.kicker}
-          </p>
-          <h2 className="font-display mt-4 text-3xl font-semibold text-neutral-950 sm:text-4xl">
-            {thenNowSection.heading}
-          </h2>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-neutral-500">{thenNowSection.intro}</p>
-
-          <div className="mt-10 overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
-            <Image
-              src={thenNowSection.image}
-              alt={thenNowSection.imageAlt}
-              width={2400}
-              height={1350}
-              className="h-auto w-full"
-              sizes="(min-width: 1024px) 1024px, 100vw"
-            />
-          </div>
-
-          <ul className="mt-8 space-y-3">
-            {thenNowSection.changes.map((c) => (
-              <li key={c.title} className="text-base leading-relaxed text-neutral-700">
-                <span className="font-semibold text-neutral-900">{c.title}</span> {c.body}
-              </li>
-            ))}
-          </ul>
-
-          <ul className="mt-6 flex flex-wrap gap-2">
-            {thenNowSection.caveats.map((c) => (
-              <li key={c} className="rounded-full bg-neutral-100 px-3 py-1.5 text-xs leading-snug text-neutral-600">
-                {c}
-              </li>
-            ))}
-          </ul>
-
-          {filled(thenNowSection.prototypeUrl) && (
-            <a
-              href={thenNowSection.prototypeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-block text-sm font-medium text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-600"
-            >
-              {thenNowSection.prototypeLabel} ↗
-            </a>
-          )}
         </section>
 
         {/* What I'd Do Next */}
