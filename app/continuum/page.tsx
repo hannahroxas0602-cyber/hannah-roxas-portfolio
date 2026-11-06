@@ -24,6 +24,7 @@ import {
   problemSection,
   decisionsSection,
   stakeholdersSection,
+  redesignSection,
   designSystemSection,
   nextStepsSection,
   nextProject,
@@ -37,6 +38,7 @@ const sections = [
   { id: "problem", title: "The Problem" },
   { id: "decisions", title: "Design Decisions" },
   { id: "stakeholders", title: "Stakeholders" },
+  { id: "redesign", title: "The Redesign" },
   { id: "design-system", title: "Design System" },
   { id: "next-steps", title: "What's Next" },
 ];
@@ -59,6 +61,7 @@ const minutesToRead = readingMinutes(
   problemSection,
   decisionsSection,
   stakeholdersSection,
+  redesignSection,
   designSystemSection,
   nextStepsSection,
 );
@@ -293,6 +296,78 @@ export default function ContinuumPage() {
                   </ul>
                 </div>
               </div>
+            ))}
+          </div>
+        </section>
+
+        {/* The redesign (autumn 2026): showcase pictures of the current prototype */}
+        <section id="redesign" className="max-w-5xl scroll-mt-28 py-16 sm:py-20">
+          <p className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600">
+            <span aria-hidden className="size-1.5 rounded-full bg-accent-deep" />
+            {redesignSection.kicker}
+          </p>
+          <h2 className="font-display mt-4 text-3xl font-semibold text-neutral-950 sm:text-4xl">
+            {redesignSection.heading}
+          </h2>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-neutral-500">{redesignSection.intro}</p>
+
+          <div className="mt-10 overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
+            <Image
+              src={redesignSection.heroImage}
+              alt={redesignSection.heroAlt}
+              width={redesignSection.heroWidth}
+              height={redesignSection.heroHeight}
+              className="h-auto w-full"
+              sizes="(min-width: 1024px) 1024px, 100vw"
+            />
+          </div>
+
+          <ul className="mt-6 flex flex-wrap gap-2">
+            {redesignSection.caveats.map((c) => (
+              <li key={c} className="rounded-full bg-neutral-100 px-3 py-1.5 text-xs leading-snug text-neutral-600">
+                {c}
+              </li>
+            ))}
+          </ul>
+
+          {filled(redesignSection.prototypeUrl) && (
+            <a
+              href={redesignSection.prototypeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-block text-sm font-medium text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-600"
+            >
+              {redesignSection.prototypeLabel} ↗
+            </a>
+          )}
+
+          <div className="mt-16 space-y-16 sm:space-y-20">
+            {redesignSection.shots.map((shot, i) => (
+              <figure key={shot.slug} id={shot.slug} className="scroll-mt-28">
+                <div className="overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
+                  <Image
+                    src={shot.image}
+                    alt={shot.alt}
+                    width={2400}
+                    height={1350}
+                    className="h-auto w-full"
+                    sizes="(min-width: 1024px) 1024px, 100vw"
+                  />
+                </div>
+                <figcaption className="mt-6 grid gap-4 sm:grid-cols-[3rem_1fr] sm:gap-x-6">
+                  <span className="font-mono text-xs font-medium tracking-widest text-neutral-400 uppercase sm:pt-2">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="max-w-2xl">
+                    <h3 className="font-display text-xl font-semibold text-neutral-900 sm:text-2xl">{shot.title}</h3>
+                    <p className="mt-3 text-base leading-relaxed text-neutral-700">{shot.body}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-neutral-500">
+                      <span className="font-semibold text-neutral-700">Why: </span>
+                      {shot.why}
+                    </p>
+                  </div>
+                </figcaption>
+              </figure>
             ))}
           </div>
         </section>
