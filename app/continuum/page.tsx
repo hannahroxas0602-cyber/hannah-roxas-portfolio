@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
 import Image from "next/image";
 import Link from "next/link";
+import ContinuumHero from "@/app/continuum/ContinuumHero";
 import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
@@ -102,16 +103,7 @@ export default function ContinuumPage() {
 
             {/* The picture comes first, so the page opens on the work: one phone, with the pieces of the system around it. */}
             <div className="mt-10 mb-2">
-              <Image
-                src="/images/continuum/v2/hero-umi.webp"
-                alt="Continuum on a phone, surrounded by the pieces of the system: the daily check-in, symptom chips, the coordinator's 'Do this first' card, gradient widgets, a certified-coordinator tag, privacy switches, and the shared timeline"
-                width={2400}
-                height={1350}
-                priority
-                unoptimized
-                className="h-auto w-full mix-blend-multiply"
-                sizes="(min-width: 1024px) 1024px, 100vw"
-              />
+              <ContinuumHero />
             </div>
             <p className="mt-3 max-w-2xl text-xs leading-relaxed text-neutral-400">
               {prototypeNote.text}
