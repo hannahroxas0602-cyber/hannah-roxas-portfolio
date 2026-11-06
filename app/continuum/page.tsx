@@ -286,7 +286,7 @@ export default function ContinuumPage() {
                     sizes="(min-width: 1024px) 1024px, 100vw"
                   />
                 </div>
-                <div className="mt-8 grid gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] sm:gap-12">
+                <div className="mt-8 grid items-start gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] sm:gap-12">
                   <div>
                     <span className="font-mono text-xs font-medium tracking-widest text-neutral-400 uppercase">
                       {String(i + 1).padStart(2, "0")}
@@ -294,10 +294,10 @@ export default function ContinuumPage() {
                     <h3 className="mt-3 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">{s.name}</h3>
                     <p className="mt-2 text-sm font-medium text-neutral-500">Core need: {s.coreNeed}</p>
                   </div>
-                  <ul className="space-y-3 text-base leading-relaxed text-neutral-600">
+                  <ul className="space-y-3 text-base leading-relaxed text-neutral-600 sm:pt-[2.15rem]">
                     {s.features.map((f, j) => (
-                      <li key={j} className="flex gap-3">
-                        <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-neutral-300" />
+                      <li key={j} className="flex items-start gap-3">
+                        <span className="mt-[0.7rem] h-1 w-1 shrink-0 rounded-full bg-neutral-400" />
                         <span>{f}</span>
                       </li>
                     ))}

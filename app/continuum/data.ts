@@ -145,7 +145,7 @@ export const decisionsSection = {
       tradeoff: "Conversation moves out of the chat, which feels slower, but it removes the urgency of an always-on group thread.",
       image: "/images/continuum/v2/decision-timeline.webp",
       imageAlt:
-        "The shared timeline as a connected line on the surrogate's desktop and on the intended parent's phone",
+        "The shared timeline as a connected line on desktop, and the same steps as a month calendar on a phone",
     },
     {
       slug: "frictionless-checkins",
