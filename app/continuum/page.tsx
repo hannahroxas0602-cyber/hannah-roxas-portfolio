@@ -108,6 +108,7 @@ export default function ContinuumPage() {
                 width={2400}
                 height={1350}
                 priority
+                unoptimized
                 className="h-auto w-full mix-blend-multiply"
                 sizes="(min-width: 1024px) 1024px, 100vw"
               />
@@ -187,6 +188,7 @@ export default function ContinuumPage() {
               alt={problemSection.imageAlt}
               width={problemSection.imageWidth}
               height={problemSection.imageHeight}
+              unoptimized
               className="h-auto w-full mix-blend-multiply"
               sizes="(min-width: 1024px) 1024px, 100vw"
             />
@@ -234,6 +236,7 @@ export default function ContinuumPage() {
                     alt={decision.imageAlt}
                     width={2400}
                     height={1600}
+                    unoptimized
                     className="h-auto w-full mix-blend-multiply"
                     sizes="(min-width: 1024px) 1024px, 100vw"
                   />
@@ -282,6 +285,7 @@ export default function ContinuumPage() {
                     alt={s.imageAlt}
                     width={2400}
                     height={1166}
+                    unoptimized
                     className="h-auto w-full mix-blend-multiply"
                     sizes="(min-width: 1024px) 1024px, 100vw"
                   />
@@ -333,6 +337,7 @@ export default function ContinuumPage() {
                   alt={img.alt}
                   width={designSystemSection.imageWidth}
                   height={designSystemSection.imageHeight}
+                  unoptimized
                   className="h-auto w-full mix-blend-multiply"
                   sizes="(min-width: 1024px) 1024px, 100vw"
                 />
