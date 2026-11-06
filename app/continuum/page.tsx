@@ -5,7 +5,6 @@ import Link from "next/link";
 import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
-import DemoVideo from "@/app/components/DemoVideo";
 import CaseStudyTldr from "@/app/components/CaseStudyTldr";
 import CaseStudyRoleImpact from "@/app/components/CaseStudyRoleImpact";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
@@ -24,8 +23,8 @@ import {
   problemSection,
   decisionsSection,
   stakeholdersSection,
-  redesignSection,
   designSystemSection,
+  thenNowSection,
   nextStepsSection,
   nextProject,
 } from "@/app/continuum/data";
@@ -38,8 +37,8 @@ const sections = [
   { id: "problem", title: "The Problem" },
   { id: "decisions", title: "Design Decisions" },
   { id: "stakeholders", title: "Stakeholders" },
-  { id: "redesign", title: "The Redesign" },
   { id: "design-system", title: "Design System" },
+  { id: "then-now", title: "Then & Now" },
   { id: "next-steps", title: "What's Next" },
 ];
 
@@ -61,8 +60,8 @@ const minutesToRead = readingMinutes(
   problemSection,
   decisionsSection,
   stakeholdersSection,
-  redesignSection,
   designSystemSection,
+  thenNowSection,
   nextStepsSection,
 );
 
@@ -103,17 +102,21 @@ export default function ContinuumPage() {
               {continuumHero.subtitle}
             </p>
 
-            {/* The picture comes first, so the page opens on the work. */}
-            <div className="relative mt-10 mb-2 aspect-[1600/738] w-full overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100">
+            {/* The picture comes first, so the page opens on the work: two roles, one plan, on a dual-screen concept. */}
+            <div className="mt-10 mb-2 overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100">
               <Image
-                src="/images/continuum/welcome-screen-mockup.png"
-                alt="Continuum's welcome screen: three roles to choose from, a support summary and a daily inspiration card"
-                fill
+                src="/images/continuum/v2/hero-duo.webp"
+                alt="Continuum on a dual-screen concept device: the surrogate's Today page on the left screen and the intended parents' home on the right, both with their gradient focal cards"
+                width={2400}
+                height={1350}
                 priority
-                className="object-cover"
+                className="h-auto w-full"
                 sizes="(min-width: 1024px) 1024px, 100vw"
               />
             </div>
+            <p className="mt-3 text-xs text-neutral-400">
+              Dual-screen concept mockup. The same system runs on phone, dual-screen, and desktop.
+            </p>
 
             <CaseStudyTldr tldr={tldr} />
 
@@ -167,16 +170,19 @@ export default function ContinuumPage() {
           <CaseStudyRoleImpact heading={roleAndImpact.heading} columns={roleAndImpact.columns} />
 
           {/* The Problem */}
-          <section id="problem" className="max-w-4xl py-16">
+          <section id="problem" className="max-w-5xl py-16">
           <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {problemSection.heading}
           </h2>
 
-          <div className="relative mt-8 aspect-[2098/1120] w-full overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
-            <DemoVideo
+          <div className="mt-8 overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
+            <Image
               src={problemSection.image}
               alt={problemSection.imageAlt}
-              className="h-full w-full object-cover"
+              width={problemSection.imageWidth}
+              height={problemSection.imageHeight}
+              className="h-auto w-full"
+              sizes="(min-width: 1024px) 1024px, 100vw"
             />
           </div>
 
@@ -205,7 +211,7 @@ export default function ContinuumPage() {
         </section>
 
         {/* 3 Critical Design Decisions */}
-        <section id="decisions" className="max-w-4xl py-16">
+        <section id="decisions" className="max-w-5xl py-16">
           <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {decisionsSection.heading}
           </h2>
@@ -213,29 +219,36 @@ export default function ContinuumPage() {
             {decisionsSection.intro}
           </p>
 
-          <div className="mt-10 space-y-6">
+          <div className="mt-10 space-y-8">
             {decisionsSection.decisions.map((decision) => (
-              <div
-                key={decision.slug}
-                className="rounded-2xl bg-neutral-900 p-8 text-white sm:p-10"
-              >
-                <h3 className="font-display text-xl font-semibold">
-                  {decision.title}
-                </h3>
-                <ul className="mt-5 space-y-3 text-sm leading-relaxed text-neutral-300">
-                  <li>
-                    <span className="font-semibold text-white">The Anxiety: </span>
-                    {decision.anxiety}
-                  </li>
-                  <li>
-                    <span className="font-semibold text-white">The UI Fix: </span>
-                    {decision.fix}
-                  </li>
-                  <li>
-                    <span className="font-semibold text-white">The Tradeoff: </span>
-                    {decision.tradeoff}
-                  </li>
-                </ul>
+              <div key={decision.slug} className="flex flex-col gap-3">
+                <div className="overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
+                  <Image
+                    src={decision.image}
+                    alt={decision.imageAlt}
+                    width={2400}
+                    height={1600}
+                    className="h-auto w-full"
+                    sizes="(min-width: 1024px) 1024px, 100vw"
+                  />
+                </div>
+                <div className="rounded-2xl bg-neutral-900 p-8 text-white sm:p-10">
+                  <h3 className="font-display text-xl font-semibold">{decision.title}</h3>
+                  <ul className="mt-5 space-y-3 text-sm leading-relaxed text-neutral-300">
+                    <li>
+                      <span className="font-semibold text-white">The Anxiety: </span>
+                      {decision.anxiety}
+                    </li>
+                    <li>
+                      <span className="font-semibold text-white">The UI Fix: </span>
+                      {decision.fix}
+                    </li>
+                    <li>
+                      <span className="font-semibold text-white">The Tradeoff: </span>
+                      {decision.tradeoff}
+                    </li>
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
@@ -256,37 +269,26 @@ export default function ContinuumPage() {
 
           <div className="mt-12 space-y-16 sm:space-y-20">
             {stakeholdersSection.stakeholders.map((s, i) => (
-              <div
-                key={s.slug}
-                className={`flex flex-col items-center gap-8 sm:gap-12 lg:gap-16 ${
-                  i % 2 === 1 ? "lg:flex-row-reverse" : "lg:flex-row"
-                }`}
-              >
-                <div className="relative aspect-[2068/1002] w-full overflow-hidden rounded-2xl bg-neutral-100 lg:w-3/5">
-                  {s.demoVideo ? (
-                    <DemoVideo
-                      src={s.demoVideo}
-                      alt={s.demoVideoAlt}
-                      className="h-full w-full object-contain"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center text-sm text-neutral-400">
-                      Coming soon
-                    </div>
-                  )}
+              <div key={s.slug}>
+                <div className="overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
+                  <Image
+                    src={s.image}
+                    alt={s.imageAlt}
+                    width={2400}
+                    height={1166}
+                    className="h-auto w-full"
+                    sizes="(min-width: 1024px) 1024px, 100vw"
+                  />
                 </div>
-
-                <div className="w-full lg:w-2/5">
-                  <span className="font-mono text-xs font-medium tracking-widest text-neutral-400 uppercase">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-3 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-                    {s.name}
-                  </h3>
-                  <p className="mt-2 text-sm font-medium text-neutral-500">
-                    Core need: {s.coreNeed}
-                  </p>
-                  <ul className="mt-6 space-y-3 text-base leading-relaxed text-neutral-600">
+                <div className="mt-8 grid gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] sm:gap-12">
+                  <div>
+                    <span className="font-mono text-xs font-medium tracking-widest text-neutral-400 uppercase">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="mt-3 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">{s.name}</h3>
+                    <p className="mt-2 text-sm font-medium text-neutral-500">Core need: {s.coreNeed}</p>
+                  </div>
+                  <ul className="space-y-3 text-base leading-relaxed text-neutral-600">
                     {s.features.map((f, j) => (
                       <li key={j} className="flex gap-3">
                         <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-neutral-300" />
@@ -300,80 +302,8 @@ export default function ContinuumPage() {
           </div>
         </section>
 
-        {/* The redesign (autumn 2026): showcase pictures of the current prototype */}
-        <section id="redesign" className="max-w-5xl scroll-mt-28 py-16 sm:py-20">
-          <p className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600">
-            <span aria-hidden className="size-1.5 rounded-full bg-accent-deep" />
-            {redesignSection.kicker}
-          </p>
-          <h2 className="font-display mt-4 text-3xl font-semibold text-neutral-950 sm:text-4xl">
-            {redesignSection.heading}
-          </h2>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-neutral-500">{redesignSection.intro}</p>
-
-          <div className="mt-10 overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
-            <Image
-              src={redesignSection.heroImage}
-              alt={redesignSection.heroAlt}
-              width={redesignSection.heroWidth}
-              height={redesignSection.heroHeight}
-              className="h-auto w-full"
-              sizes="(min-width: 1024px) 1024px, 100vw"
-            />
-          </div>
-
-          <ul className="mt-6 flex flex-wrap gap-2">
-            {redesignSection.caveats.map((c) => (
-              <li key={c} className="rounded-full bg-neutral-100 px-3 py-1.5 text-xs leading-snug text-neutral-600">
-                {c}
-              </li>
-            ))}
-          </ul>
-
-          {filled(redesignSection.prototypeUrl) && (
-            <a
-              href={redesignSection.prototypeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-block text-sm font-medium text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-600"
-            >
-              {redesignSection.prototypeLabel} ↗
-            </a>
-          )}
-
-          <div className="mt-16 space-y-16 sm:space-y-20">
-            {redesignSection.shots.map((shot, i) => (
-              <figure key={shot.slug} id={shot.slug} className="scroll-mt-28">
-                <div className="overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
-                  <Image
-                    src={shot.image}
-                    alt={shot.alt}
-                    width={2400}
-                    height={1350}
-                    className="h-auto w-full"
-                    sizes="(min-width: 1024px) 1024px, 100vw"
-                  />
-                </div>
-                <figcaption className="mt-6 grid gap-4 sm:grid-cols-[3rem_1fr] sm:gap-x-6">
-                  <span className="font-mono text-xs font-medium tracking-widest text-neutral-400 uppercase sm:pt-2">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="max-w-2xl">
-                    <h3 className="font-display text-xl font-semibold text-neutral-900 sm:text-2xl">{shot.title}</h3>
-                    <p className="mt-3 text-base leading-relaxed text-neutral-700">{shot.body}</p>
-                    <p className="mt-3 text-sm leading-relaxed text-neutral-500">
-                      <span className="font-semibold text-neutral-700">Why: </span>
-                      {shot.why}
-                    </p>
-                  </div>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>
-
         {/* Design System */}
-        <section id="design-system" className="max-w-4xl py-16">
+        <section id="design-system" className="max-w-5xl py-16">
           <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {designSystemSection.heading}
           </h2>
@@ -389,14 +319,72 @@ export default function ContinuumPage() {
             ))}
           </ul>
 
-          <div className="relative mt-10 aspect-[908/902] w-full max-w-md overflow-hidden rounded-2xl bg-neutral-100">
-            <DemoVideo
-              src={designSystemSection.image}
-              alt={designSystemSection.imageAlt}
-              sizes="448px"
-              className="h-full w-full object-cover"
+          <p className="mt-6 max-w-2xl text-sm leading-relaxed text-neutral-500">{designSystemSection.note}</p>
+
+          <div className="mt-10 space-y-6">
+            {designSystemSection.images.map((img) => (
+              <div key={img.src} className="overflow-hidden rounded-3xl">
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  width={designSystemSection.imageWidth}
+                  height={designSystemSection.imageHeight}
+                  className="h-auto w-full"
+                  sizes="(min-width: 1024px) 1024px, 100vw"
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Then and now: a short note on what changed since the course */}
+        <section id="then-now" className="max-w-4xl scroll-mt-28 py-16 sm:py-20">
+          <p className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600">
+            <span aria-hidden className="size-1.5 rounded-full bg-accent-deep" />
+            {thenNowSection.kicker}
+          </p>
+          <h2 className="font-display mt-4 text-3xl font-semibold text-neutral-950 sm:text-4xl">
+            {thenNowSection.heading}
+          </h2>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-neutral-500">{thenNowSection.intro}</p>
+
+          <div className="mt-10 overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
+            <Image
+              src={thenNowSection.image}
+              alt={thenNowSection.imageAlt}
+              width={2400}
+              height={1350}
+              className="h-auto w-full"
+              sizes="(min-width: 1024px) 1024px, 100vw"
             />
           </div>
+
+          <ul className="mt-8 space-y-3">
+            {thenNowSection.changes.map((c) => (
+              <li key={c.title} className="text-base leading-relaxed text-neutral-700">
+                <span className="font-semibold text-neutral-900">{c.title}</span> {c.body}
+              </li>
+            ))}
+          </ul>
+
+          <ul className="mt-6 flex flex-wrap gap-2">
+            {thenNowSection.caveats.map((c) => (
+              <li key={c} className="rounded-full bg-neutral-100 px-3 py-1.5 text-xs leading-snug text-neutral-600">
+                {c}
+              </li>
+            ))}
+          </ul>
+
+          {filled(thenNowSection.prototypeUrl) && (
+            <a
+              href={thenNowSection.prototypeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-block text-sm font-medium text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-600"
+            >
+              {thenNowSection.prototypeLabel} ↗
+            </a>
+          )}
         </section>
 
         {/* What I'd Do Next */}
