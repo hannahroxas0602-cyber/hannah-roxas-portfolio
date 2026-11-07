@@ -1,5 +1,5 @@
 import { projectDescription } from "@/app/data/projects";
-import type { CaseStudyTldr } from "@/app/components/caseStudyTypes";
+import type { CaseStudyTldr, AiProcess } from "@/app/components/caseStudyTypes";
 import type { TestimonialData } from "@/app/components/Testimonial";
 
 export const learvoHero = {
@@ -13,14 +13,42 @@ export const learvoHero = {
   date: "Oct 2025 – Present",
   meta: [
     { label: "ROLE", value: "Product Designer (Intern)" },
-    { label: "TEAM", value: "Learvo, product designer shipping directly into a live codebase" },
+    { label: "TEAM", value: "Learvo. Landing page with one teammate; shipped into the live codebase." },
     { label: "SCOPE", value: "Landing page, onboarding activation, navigation system, quiz review UX" },
   ],
-  image: "/images/learvo/learvo_hero.png",
-  imageAlt: "Learvo's redesigned landing page, showing the hero section with Lenny, the doodle system, and a live quiz preview",
+  image: "/images/learvo/learvo_hero_v2.png",
+  imageAlt: "Learvo's redesigned landing page: \"Learn with Sources\", a tabbed live demo, Lenny and the doodle system",
   imageWidth: 2880,
-  imageHeight: 1544,
+  imageHeight: 1550,
   isPlaceholder: false,
+  // The hero is a bento of cropped pieces of the work and two photos (see LearvoHeroBento).
+  // Every picture is a sharp original from the repo, not a screenshot of a screenshot.
+  bento: {
+    landing: {
+      src: "/images/learvo/learvo_hero_v2.png",
+      alt: "The redesigned Learvo landing page: \"Learn with Sources\" and a tabbed product demo",
+    },
+    lenny: {
+      src: "/images/learvo/bento-lenny.webp",
+      alt: "Lenny, the Learvo sprout mascot, waving",
+    },
+    avatar: {
+      src: "/images/learvo/bento-avatar.webp",
+      alt: "A hand-drawn preset profile avatar of a student holding a telescope",
+    },
+    pencil: {
+      src: "/images/learvo/bento-pencil.webp",
+      alt: "Two hand-drawn students carrying a giant pencil, from the doodle system",
+    },
+    calendar: {
+      src: "/images/learvo/bento-calendar.webp",
+      alt: "A hand-drawn student circling an exam date on a wall calendar",
+    },
+    students: {
+      src: "/images/learvo/bento-students.webp",
+      alt: "Two students sitting on the grass, one smiling at a laptop while the other writes in a notebook",
+    },
+  },
 };
 
 export const tldr: CaseStudyTldr = {
@@ -28,7 +56,7 @@ export const tldr: CaseStudyTldr = {
     "New users landed on an empty dashboard, and returning users hit a nav that changed from page to page.",
   role: "Product Designer (Intern). I designed it and shipped the front-end code myself.",
   whatIDid:
-    "Redesigned the landing page, built a guided onboarding flow and a self-retiring activation checklist, and unified the nav across 5 pages.",
+    "Redesigned the landing page (with a teammate), built a guided onboarding flow and a self-retiring activation checklist, and unified the nav across 5 pages.",
   result:
     "Four features shipped to the live product. The nav alone merged through 121 diverged commits without blocking three other in-flight features.",
   resultMetric: "{{TODO: metric, e.g. onboarding completion rate before → after (source: Metabase/Clarity)}}",
@@ -41,6 +69,7 @@ export const highlightsSection = {
     "Replaced a cold, empty first session with a guided flow tied to real backend generation state",
     "Designed an activation nudge that decays on its own instead of nagging long-term users forever",
     "Shipped one consistent nav system across 5 pages while merging through 121 diverged commits",
+    "Redesigned the landing page with a teammate, then used live funnel data to see where visitors decide",
     "Cut a fake \"streak\" feature rather than ship engagement numbers with nothing real behind them",
   ],
   stats: [
@@ -97,6 +126,12 @@ export const timelineSection = {
       title: "Onboarding Quiz Flow",
       body: "Shipped the guided upload, goal, customize, generate flow, replacing the empty first-session dashboard.",
     },
+    {
+      slug: "timeline-landing-page-v2",
+      date: "Nov 2026",
+      title: "Landing Page, Round Two",
+      body: "With a teammate, rebuilt the landing page around feedback and funnel data.",
+    },
   ],
 };
 
@@ -109,11 +144,11 @@ export const roleAndImpact = {
     },
     {
       label: "Solution",
-      body: "A guided first-session flow backed by real generation state, an activation nudge with built-in decay, one consistent top nav across the app, and a quiz review system that replaced encouragement copy and fake streaks with real, data-backed status.",
+      body: "A landing page that shows the product first, a guided first-session flow backed by real generation state, an activation nudge with built-in decay, one consistent top nav across the app, and a quiz review system that replaced encouragement copy and fake streaks with real, data-backed status.",
     },
     {
       label: "Impact",
-      body: "I shipped the code myself, so every decision had to survive a real, changing codebase. I learned Git and opened pull requests across frontend and backend, working directly with engineers instead of handing off static designs.",
+      body: "I shipped the code myself on onboarding and the nav, so every decision had to survive a real, changing codebase. The landing page I redesigned with one other teammate, and then read its analytics to see what worked. I learned Git and opened pull requests across frontend and backend, working directly with engineers instead of handing off static designs.",
     },
   ],
 };
@@ -128,6 +163,38 @@ export type BeforeAfterImage = {
 export type BeforeAfter = {
   before: BeforeAfterImage;
   after: BeforeAfterImage;
+};
+
+// "AI in my process" for the landing page. Every field is a {{TODO}} placeholder: hidden on the
+// live site, a dashed box in local development. Fill in the real details; don't guess.
+const landingPageAi: AiProcess = {
+  tools: ["Claude Code", "Claude Design"],
+  usedFor:
+    "Claude Code: researched how learning and content algorithms work for Gen Z students and pulled out insights that shaped the product direction. Claude Design: built rough draft prototypes live in front of the team and changed them in real time during feedback sessions, so the team reacted to real screens instead of describing ideas.",
+  fellShort:
+    "Claude Design didn't deliver Gen Z designs that were up to par. It missed that the page should be short for students who value quality and efficiency, especially on mobile, and it didn't keep up with today's UI trends.",
+  whatIChanged:
+    "Brought back the tabbed hero, with added text context and sub-feature previews for each feature, so the product showcase isn't overpowering because it is split up. Shortened the hero copy so the showcase moves to the top, for learning more at a glance.",
+  before: {
+    src: "/images/learvo/ai-before-hero.png",
+    alt: "The top of the rough Claude Design draft of the Learvo landing page: the headline \"Turn your notes into a quiz in 30 seconds\", a quiz preview card and a row of school names",
+    caption: "The rough Claude Design draft.",
+  },
+  after: {
+    src: "/images/learvo/ai-after.png",
+    alt: "The final Learvo landing page hero: \"Learn with Sources\", a Quiz me on my notes button, and a tabbed product demo for quizzes, flashcards, summaries and mnemonics",
+    caption: "The final design: the product showcase sits at the top, split into tabs.",
+  },
+  impact:
+    "We explored at least ten versions, and this one got the feedback that it was the best version the team has seen so far. It felt more modern without changing the design system or branding. Just launched, and I'm excited to see how the experiments go.",
+};
+
+export type DataInsights = {
+  heading: string;
+  intro: string;
+  stats: { value: string; label: string }[];
+  findings: { label: string; body: string }[];
+  note: string;
 };
 
 export type FeatureCategory = {
@@ -147,6 +214,8 @@ export type FeatureCategory = {
   video?: { src: string; width: number; height: number };
   slides?: { src: string; alt: string; width: number; height: number }[];
   isHidden?: boolean;
+  dataInsights?: DataInsights;
+  aiProcess?: AiProcess;
 };
 
 export const featuresSection = {
@@ -156,50 +225,74 @@ export const featuresSection = {
       slug: "landing-page",
       title: "Landing Page Redesign",
       problem:
-        "The old page read as a generic, gradient-heavy \"startup website\" with no color, mascot, or brand identity. Analytics showed most visitors never scrolled past the fold, so the product's value never reached them.",
+        "The old page looked like any startup site, and most visitors never scrolled past the fold. It also never answered the one question a skeptical student has: why not just ask a chatbot?",
       decision:
-        "College students decide in seconds whether a study tool is worth their time, usually while stressed or between classes. I led with speed over a feature list and restructured the page around one promise: turn your notes into a quiz or flashcard deck almost instantly.",
+        "Show the product instead of describing it. With one teammate, I put a clickable demo in the hero, then answered the chatbot question straight away: \"Learvo isn't a chatbot. That's the point.\"",
       supportingPoints: [
         {
-          label: "Brand identity replaced generic gradients:",
-          body: "Rebuilt the page around Learvo's palette, Lenny, and the doodle system so it reads as built for college students, not a generic SaaS template.",
+          label: "Try it, don't read about it:",
+          body: "The hero is a live demo with tabs for quizzes, flashcards, summaries and mnemonics.",
         },
         {
-          label: "Copy rewritten around a real pain point:",
-          body: "Reframed messaging around not spending money and not losing study time, instead of generic productivity language.",
+          label: "Trust before features:",
+          body: "Social proof, the chatbot comparison and the FAQ come before the feature grid.",
         },
         {
-          label: "Structured navigation, not a hope-they-scroll page:",
-          body: "Added a hero CTA to the value section, a second CTA to the FAQ, and a sticky nav CTA, so value is reachable from anywhere on the page.",
+          label: "One button, one outcome:",
+          body: "\"Quiz me on my notes\" in the nav, hero, FAQ and close.",
         },
       ],
       impact:
-        "Rebuilt the page around getting a busy, skeptical student to the value proposition fast.",
+        "A page that gets a busy, skeptical student to the point fast, then measured to see if it did.",
+      aiProcess: landingPageAi,
+      dataInsights: {
+        heading: "First 10 days of data",
+        intro: "Oct 27 to Nov 6, bots excluded.",
+        stats: [
+          { value: "232", label: "real visitors" },
+          { value: "64%", label: "clicked a button" },
+          { value: "17%", label: "started onboarding" },
+          { value: "72%", label: "click rate on phones, vs 56% on desktop" },
+        ],
+        findings: [
+          {
+            label: "People decide early.",
+            body: "Only 15% reach the feature grid; 83% of first clicks come at or before social proof.",
+          },
+          {
+            label: "The hero button wins.",
+            body: "81 people clicked it, the most of any button.",
+          },
+          {
+            label: "People try to tap the demo.",
+            body: "29 phone visitors tapped the selected Quizzes tab 75 times, expecting it to respond.",
+          },
+        ],
+        note: "Tracking began with this version, so there is no before-and-after yet.",
+      },
       // Appended to the Impact text once filled.
       impactMetric:
-        "{{TODO: landing-page scroll depth before → after, e.g. \"Scroll past the fold rose from X% to Y%.\" (source: Metabase/Clarity)}}",
+        "",
       beforeAfter: {
         before: {
-          src: "/images/learvo/landing-page-before.png",
-          alt: "Learvo landing page before the redesign",
-          // PLACEHOLDER: short caption for the old page
-          caption: null,
+          src: "/images/learvo/learvo_hero.png",
+          alt: "Learvo landing page, round one (June 2026): \"Learning You Can Trust\" with feature tabs and a Start button",
+          caption: "Round one, June 2026. A trust claim (\"Learning You Can Trust\") and a generic Start button.",
         },
         after: {
-          src: "/images/learvo/landing-page-after.png",
-          alt: "Learvo landing page after the redesign",
-          // PLACEHOLDER: short caption for the new page
-          caption: null,
+          src: "/images/learvo/learvo_hero_v2.png",
+          alt: "Learvo landing page, round two (Nov 2026): \"Learn with Sources\" and a tabbed live demo",
+          caption: "Round two, Nov 2026. The proof is in the headline (\"Learn with Sources\") and the button says the outcome.",
         },
       },
-      image: "/images/learvo/learvo_hero.png",
-      imageAlt: "Learvo's redesigned landing page, showing the hero section with Lenny, the doodle system, and a live quiz preview",
+      image: "/images/learvo/learvo_hero_v2.png",
+      imageAlt: "Learvo's redesigned landing page: \"Learn with Sources\", a tabbed live demo, Lenny and the doodle system",
       imageWidth: 2880,
-      imageHeight: 1544,
+      imageHeight: 1550,
       isPlaceholder: false,
       video: {
-        src: "/images/learvo/landing-page-demo.mp4",
-        width: 1196,
+        src: "/images/learvo/landing-page-v2-demo.mp4",
+        width: 1388,
         height: 720,
       },
     },
@@ -460,6 +553,14 @@ export const userResearch: {
 export const nextStepsSection = {
   heading: "What I'd Do Next",
   items: [
+    {
+      title: "Make the hero demo answer a tap:",
+      body: "Phone visitors already tap it. It should answer.",
+    },
+    {
+      title: "Shorten the middle of the landing page:",
+      body: "Only 15% reach the feature grid. Test a shorter page.",
+    },
     {
       title: "Instrument the onboarding funnel:",
       body: "Add step-level analytics to the guided quiz flow to replace the current qualitative impact story with real drop-off and completion numbers.",

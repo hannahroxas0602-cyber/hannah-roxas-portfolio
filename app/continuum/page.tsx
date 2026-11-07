@@ -7,7 +7,7 @@ import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
 import DemoVideo from "@/app/components/DemoVideo";
 import CaseStudyTldr from "@/app/components/CaseStudyTldr";
-import CaseStudyRoleImpact from "@/app/components/CaseStudyRoleImpact";
+import CaseStudyAiProcess, { hasAiProcess } from "@/app/components/CaseStudyAiProcess";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import CaseStudyMilestones from "@/app/components/CaseStudyMilestones";
@@ -20,24 +20,24 @@ import {
   tldr,
   highlightsSection,
   timelineSection,
-  roleAndImpact,
   problemSection,
   decisionsSection,
   stakeholdersSection,
   designSystemSection,
   nextStepsSection,
+  aiProcess,
   nextProject,
 } from "@/app/continuum/data";
 
 const sections = [
   { id: "overview", title: "Overview" },
   { id: "highlights", title: "Highlights" },
-  { id: "timeline", title: "Timeline" },
-  { id: "role-impact", title: "My Role & Impact" },
   { id: "problem", title: "The Problem" },
   { id: "decisions", title: "Design Decisions" },
+  ...(hasAiProcess(aiProcess) ? [{ id: "ai-process", title: "AI in My Process" }] : []),
   { id: "stakeholders", title: "Stakeholders" },
   { id: "design-system", title: "Design System" },
+  { id: "timeline", title: "Timeline" },
   { id: "next-steps", title: "What's Next" },
 ];
 
@@ -55,7 +55,6 @@ const minutesToRead = readingMinutes(
   tldr,
   highlightsSection,
   timelineSection,
-  roleAndImpact,
   problemSection,
   decisionsSection,
   stakeholdersSection,
@@ -84,7 +83,7 @@ export default function ContinuumPage() {
 
         <div className="mx-auto min-w-0 w-full max-w-5xl flex-1 [&>*]:max-w-none">
           {/* Hero / Overview */}
-          <section id="overview" className="max-w-4xl pt-16 pb-8 sm:pt-24">
+          <section id="overview" className="max-w-4xl pt-16 pb-8 sm:pt-24 md:pt-[31px]">
             <HoleLink direction="out"
               href="/"
               className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
@@ -118,27 +117,8 @@ export default function ContinuumPage() {
               {continuumHero.date} · <ReadingTime minutes={minutesToRead} />
             </p>
 
-            <div className="mt-10 grid grid-cols-1 gap-10 border-t border-black/[0.08] pt-10 sm:grid-cols-2">
-              <div>
-                <h2 className="text-sm font-medium tracking-wide text-neutral-400 uppercase">
-                  Project Overview
-                </h2>
-                <p className="mt-3 text-base leading-relaxed text-neutral-700">
-                  {continuumHero.gist.text}
-                </p>
-              </div>
-              <div className="sm:border-l sm:border-black/[0.08] sm:pl-10">
-                <h2 className="text-sm font-medium tracking-wide text-neutral-400 uppercase">
-                  My Role
-                </h2>
-                <p className="mt-3 text-base leading-relaxed text-neutral-700">
-                  {continuumHero.myRole}
-                </p>
-              </div>
-            </div>
-
             <dl
-              className={`mt-10 grid grid-cols-1 gap-6 border-t border-black/[0.08] pt-8 ${metaGridCols[meta.length]}`}
+              className={`mt-6 grid grid-cols-1 gap-6 border-t border-black/[0.08] pt-8 ${metaGridCols[meta.length]}`}
             >
               {meta.map((item) => (
                 <div key={item.label}>
@@ -159,9 +139,7 @@ export default function ContinuumPage() {
               callout={highlightsSection.callout}
             />
           </div>
-          <CaseStudyMilestones heading={timelineSection.heading} items={timelineSection.items} intro={timelineSection.intro} />
 
-          <CaseStudyRoleImpact heading={roleAndImpact.heading} columns={roleAndImpact.columns} />
 
           {/* The Problem */}
           <section id="problem" className="max-w-4xl py-16">
@@ -245,6 +223,8 @@ export default function ContinuumPage() {
           </Link>
         </section>
 
+        <CaseStudyAiProcess ai={aiProcess} />
+
         {/* Designing for Multiple Stakeholders */}
         <section id="stakeholders" className="max-w-6xl py-16">
           <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
@@ -323,6 +303,8 @@ export default function ContinuumPage() {
             />
           </div>
         </section>
+
+          <CaseStudyMilestones heading={timelineSection.heading} items={timelineSection.items} intro={timelineSection.intro} />
 
         {/* What I'd Do Next */}
         <section id="next-steps" className="max-w-4xl py-16">

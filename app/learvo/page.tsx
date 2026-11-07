@@ -8,8 +8,9 @@ import Footer from "@/app/components/Footer";
 import DemoVideo from "@/app/components/DemoVideo";
 import CaseStudyTldr from "@/app/components/CaseStudyTldr";
 import CaseStudyMilestones from "@/app/components/CaseStudyMilestones";
-import CaseStudyRoleImpact from "@/app/components/CaseStudyRoleImpact";
 import Testimonial, { hasTestimonial } from "@/app/components/Testimonial";
+import CaseStudyAiProcess from "@/app/components/CaseStudyAiProcess";
+import LearvoHeroBento from "@/app/components/LearvoHeroBento";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
@@ -20,13 +21,13 @@ import {
   testimonial,
   userResearch,
   timelineSection,
-  roleAndImpact,
   featuresSection,
   brandIdentitySection,
   nextStepsSection,
   nextProject,
   type FeatureCategory,
 } from "@/app/learvo/data";
+import { darkTile, lightTile } from "@/app/components/CaseStudySection";
 import { filled } from "@/app/data/placeholder";
 import { publicFileExists } from "@/app/data/publicFile";
 import { readingMinutes } from "@/app/data/readingTime";
@@ -44,7 +45,6 @@ const minutesToRead = readingMinutes(
   highlightsSection,
   showTestimonial ? testimonial : null,
   timelineSection,
-  roleAndImpact,
   featuresSection,
   brandIdentitySection,
   showUserResearch ? userResearch : null,
@@ -62,8 +62,6 @@ function hasBeforeAfter(cat: FeatureCategory) {
 const sections = [
   { id: "overview", title: "Overview" },
   { id: "highlights", title: "Highlights" },
-  { id: "timeline", title: "Timeline" },
-  { id: "role-impact", title: "My Role & Impact" },
   {
     id: "what-i-shipped",
     title: "What I Shipped",
@@ -76,6 +74,7 @@ const sections = [
   },
   { id: "brand-identity", title: "Brand Identity" },
   ...(showUserResearch ? [{ id: "user-research", title: "What I Learned" }] : []),
+  { id: "timeline", title: "Timeline" },
   { id: "next-steps", title: "What's Next" },
 ];
 
@@ -109,7 +108,7 @@ export default function LearvoPage() {
 
         <div className="mx-auto min-w-0 w-full max-w-5xl flex-1 [&>*]:max-w-none">
         {/* Hero */}
-        <section id="overview" className="max-w-4xl pt-16 pb-8 sm:pt-24">
+        <section id="overview" className="max-w-4xl pt-16 pb-8 sm:pt-24 md:pt-[31px]">
           <HoleLink direction="out"
             href="/"
             className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
@@ -125,31 +124,10 @@ export default function LearvoPage() {
             {learvoHero.subtitle}
           </p>
 
-          {/* The picture comes first, so the page opens on the work. */}
-          <div
-            className="relative mt-10 mb-2 w-full overflow-hidden rounded-2xl bg-neutral-100"
-            style={{ aspectRatio: `${learvoHero.imageWidth}/${learvoHero.imageHeight}` }}
-          >
-            {learvoHero.isPlaceholder ? (
-              <PlaceholderImage label="Hero" />
-            ) : (
-              <Image
-                src={learvoHero.image}
-                alt={learvoHero.imageAlt}
-                fill
-                priority
-                className="object-cover"
-                sizes="(min-width: 1024px) 896px, 100vw"
-              />
-            )}
-          </div>
+          {/* The work first: a bento of tiny screenshots and brand pieces, each linking to its section. */}
+          <LearvoHeroBento />
 
           <CaseStudyTldr tldr={tldr} />
-
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-500">
-            <span className="font-medium text-neutral-900">{learvoHero.gist.label}</span>{" "}
-            {learvoHero.gist.text}
-          </p>
 
           <p className="mt-8 text-sm text-neutral-400">
             {learvoHero.date} · <ReadingTime minutes={minutesToRead} />
@@ -183,13 +161,7 @@ export default function LearvoPage() {
           </section>
         )}
 
-        <CaseStudyMilestones
-          heading={timelineSection.heading}
-          items={timelineSection.items}
-          intro="6 milestones, Oct 2025 to Sep 2026."
-        />
 
-        <CaseStudyRoleImpact heading={roleAndImpact.heading} columns={roleAndImpact.columns} />
 
         {/* What I Shipped */}
         <section id="what-i-shipped" className="max-w-4xl py-16">
@@ -324,6 +296,36 @@ export default function LearvoPage() {
                   </div>
                 )}
 
+                {cat.dataInsights && (
+                  <div className="mt-10">
+                    <h4 className="font-display text-xl font-semibold text-neutral-900">
+                      {cat.dataInsights.heading}
+                    </h4>
+                    <p className="mt-2 max-w-2xl text-sm leading-relaxed text-neutral-500">
+                      {cat.dataInsights.intro}
+                    </p>
+                    <div className="mt-5 grid grid-cols-2 gap-2.5 lg:grid-cols-4">
+                      {cat.dataInsights.stats.map((stat) => (
+                        <div key={stat.label} className={`${darkTile} p-5`}>
+                          <p className="font-display text-4xl font-semibold text-white">{stat.value}</p>
+                          <p className="mt-3 max-w-[16rem] text-sm leading-snug text-white/60">{stat.label}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <ul className="mt-2.5 grid grid-cols-1 gap-2.5 md:grid-cols-3">
+                      {cat.dataInsights.findings.map((f) => (
+                        <li key={f.label} className={`${lightTile} p-5 text-sm leading-relaxed text-neutral-700`}>
+                          <span className="font-semibold text-neutral-900">{f.label} </span>
+                          {f.body}
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="mt-3 max-w-2xl text-xs leading-relaxed text-neutral-400">
+                      {cat.dataInsights.note}
+                    </p>
+                  </div>
+                )}
+
                 <p className="mt-10 max-w-2xl border-l-2 border-accent-deep pl-5 font-display text-lg leading-snug text-neutral-900 sm:text-xl">
                   <span className="mb-2 block font-sans text-xs font-semibold tracking-widest text-neutral-400 uppercase">
                     Impact
@@ -342,6 +344,15 @@ export default function LearvoPage() {
                     {brandIdentitySection.liveLink.label}
                     <span aria-hidden>→</span>
                   </Link>
+                )}
+
+                {cat.aiProcess && (
+                  <CaseStudyAiProcess
+                    ai={cat.aiProcess}
+                    id={`${cat.slug}-ai`}
+                    heading="AI in the landing page"
+                    inline
+                  />
                 )}
               </div>
                 );
@@ -431,6 +442,12 @@ export default function LearvoPage() {
             </p>
           </section>
         )}
+
+        <CaseStudyMilestones
+          heading={timelineSection.heading}
+          items={timelineSection.items}
+          intro="7 milestones, Oct 2025 to Nov 2026."
+        />
 
         {/* What I'd Do Next */}
         <section id="next-steps" className="max-w-4xl py-16">

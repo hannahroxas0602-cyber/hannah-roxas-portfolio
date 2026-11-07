@@ -4,6 +4,7 @@ import Image from "next/image";
 import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
+import CaseStudyAiProcess, { hasAiProcess } from "@/app/components/CaseStudyAiProcess";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import CaseStudyMilestones from "@/app/components/CaseStudyMilestones";
@@ -11,20 +12,19 @@ import NextProjectPreview from "@/app/components/NextProjectPreview";
 import ImageSlideshow from "@/app/components/ImageSlideshow";
 import ReadingTime from "@/app/components/ReadingTime";
 import CaseStudyTldr from "@/app/components/CaseStudyTldr";
-import CaseStudyRoleImpact from "@/app/components/CaseStudyRoleImpact";
 import { readingMinutes } from "@/app/data/readingTime";
 import {
   goodHero,
   tldr,
   highlightsSection,
   timelineSection,
-  roleAndImpact,
   problemSection,
   researchGallery,
   designGoal,
   designSolutions,
   designDecisions,
   nextStepsSection,
+  aiProcess,
   nextProject,
 } from "@/app/goodfriends/data";
 
@@ -33,7 +33,6 @@ const minutesToRead = readingMinutes(
   tldr,
   highlightsSection,
   timelineSection,
-  roleAndImpact,
   problemSection,
   researchGallery,
   designGoal,
@@ -45,13 +44,13 @@ const minutesToRead = readingMinutes(
 const sections = [
   { id: "overview", title: "Overview" },
   { id: "highlights", title: "Highlights" },
-  { id: "timeline", title: "Timeline" },
-  { id: "role-impact", title: "My Role & Impact" },
   { id: "problem", title: "The Problem" },
   { id: "research", title: "Research" },
   { id: "design-goal", title: "Design Goal" },
   { id: "design-solutions", title: "Design Solutions" },
+  ...(hasAiProcess(aiProcess) ? [{ id: "ai-process", title: "AI in My Process" }] : []),
   { id: "design-decisions", title: "Design Decisions" },
+  { id: "timeline", title: "Timeline" },
   { id: "next-steps", title: "What's Next" },
 ];
 
@@ -73,7 +72,7 @@ export default function GoodFriendsPage() {
 
         <div className="mx-auto min-w-0 w-full max-w-5xl flex-1 [&>*]:max-w-none">
         {/* Hero */}
-        <section id="overview" className="max-w-4xl pt-16 pb-8 sm:pt-24">
+        <section id="overview" className="max-w-4xl pt-16 pb-8 sm:pt-24 md:pt-[31px]">
           <HoleLink direction="out"
             href="/"
             className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
@@ -95,10 +94,6 @@ export default function GoodFriendsPage() {
 
           <CaseStudyTldr tldr={tldr} />
 
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-500">
-            <span className="font-medium text-neutral-900">{goodHero.gist.label}</span>{" "}
-            {goodHero.gist.text}
-          </p>
 
           <p className="mt-8 text-sm text-neutral-400">
             {goodHero.date} · <ReadingTime minutes={minutesToRead} />
@@ -138,9 +133,7 @@ export default function GoodFriendsPage() {
             callout={highlightsSection.callout}
           />
         </div>
-        <CaseStudyMilestones heading={timelineSection.heading} items={timelineSection.items} intro={timelineSection.intro} />
 
-        <CaseStudyRoleImpact heading={roleAndImpact.heading} columns={roleAndImpact.columns} />
 
         {/* The Problem */}
         <section id="problem" className="max-w-4xl py-16">
@@ -226,17 +219,6 @@ export default function GoodFriendsPage() {
               </li>
             ))}
           </ul>
-
-          <div className="relative mt-8 aspect-[9388/11623] w-full max-w-sm overflow-hidden rounded-2xl bg-neutral-100">
-            <Image
-              src={designGoal.image}
-              alt={designGoal.imageAlt}
-              width={designGoal.imageWidth}
-              height={designGoal.imageHeight}
-              className="h-full w-full object-contain"
-              sizes="(min-width: 640px) 384px, 100vw"
-            />
-          </div>
         </section>
 
         {/* Design Solutions */}
@@ -275,6 +257,8 @@ export default function GoodFriendsPage() {
             ))}
           </div>
         </section>
+
+        <CaseStudyAiProcess ai={aiProcess} />
 
         {/* Design Decisions & Interactions */}
         <section id="design-decisions" className="max-w-4xl py-16">
@@ -327,6 +311,8 @@ export default function GoodFriendsPage() {
             ))}
           </div>
         </section>
+
+        <CaseStudyMilestones heading={timelineSection.heading} items={timelineSection.items} intro={timelineSection.intro} />
 
         {/* What I'd Do Next */}
         <section id="next-steps" className="max-w-4xl py-16">

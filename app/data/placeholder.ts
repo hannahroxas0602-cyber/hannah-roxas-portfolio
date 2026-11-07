@@ -10,3 +10,13 @@ const TEMPLATE_TOKEN = /\[[^\]]*\]|\bTBD\b|PLACEHOLDER|\{\{TODO/i;
 export function filled(value: string | null | undefined): value is string {
   return typeof value === "string" && value.trim() !== "" && !TEMPLATE_TOKEN.test(value);
 }
+
+// Local development only: unfilled `{{TODO: ...}}` fields are drawn as dashed boxes so you
+// can see where content goes. In production they stay hidden, as `filled()` already does.
+export const SHOW_TODOS = process.env.NODE_ENV !== "production";
+
+// "{{TODO: what AI got wrong}}" -> "TODO: what AI got wrong" (for the dev-only boxes).
+export function todoLabel(value: string | null | undefined): string {
+  const text = (value ?? "").replace(/^\s*\{\{\s*|\s*\}\}\s*$/g, "").trim();
+  return text || "TODO";
+}

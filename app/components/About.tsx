@@ -1,5 +1,5 @@
-import { aboutIntro, availability, experience, process } from "@/app/about/data";
-import { filled } from "@/app/data/placeholder";
+import { aboutIntro, aiBlurb, availability, experience, process } from "@/app/about/data";
+import { SHOW_TODOS, filled, todoLabel } from "@/app/data/placeholder";
 import { social } from "@/app/data/social";
 
 const label =
@@ -40,6 +40,19 @@ export default function About() {
             {process.steps.join(" → ")}
           </p>
           <p className="mt-2 max-w-md text-sm leading-relaxed text-neutral-500">{process.summary}</p>
+
+          {(filled(aiBlurb) || SHOW_TODOS) && (
+            <div className="mt-8">
+              <p className={label}>How I work with AI</p>
+              {filled(aiBlurb) ? (
+                <p className="mt-3 max-w-md text-base leading-relaxed text-neutral-700">{aiBlurb}</p>
+              ) : (
+                <p className="mt-3 max-w-md rounded-xl border border-dashed border-neutral-400 px-3 py-2 text-sm leading-relaxed text-neutral-600">
+                  {todoLabel(aiBlurb)}
+                </p>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

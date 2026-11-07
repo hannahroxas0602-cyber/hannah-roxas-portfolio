@@ -18,7 +18,7 @@ export const goodHero = {
   imageHeight: 1246,
 };
 
-import type { CaseStudyTldr } from "@/app/components/caseStudyTypes";
+import type { CaseStudyTldr, AiProcess } from "@/app/components/caseStudyTypes";
 
 export const tldr: CaseStudyTldr = {
   problem:
@@ -273,7 +273,7 @@ export const designDecisions = {
     },
   ],
   bridgeIntro:
-    "A great digital interface is useless if the physical space contradicts it. The proposed system bridges both:",
+    "A digital menu fails if the room contradicts it, so the system covers both:",
   touchpointsHeading: "Tangible Touchpoints",
   touchpoints: [
     {
@@ -310,11 +310,11 @@ export const nextStepsSection = {
   items: [
     {
       title: "A/B Test the Kiosk Layout:",
-      body: "Compare order completion speeds of a text-heavy menu layout versus our highly-visual, icon-led setup.",
+      body: "Compare order speed on the text-heavy menu against the icon-led one.",
     },
     {
       title: "Track Store Analytics:",
-      body: "Measure order-to-table turnaround times during peak 12:00 PM to 1:30 PM lunch rushes to measure whether the redesign improves throughput.",
+      body: "Measure order-to-table time during the 12:00 to 1:30 PM rush.",
     },
   ],
 };
@@ -325,8 +325,28 @@ export const nextProject = {
   description:
     "A care-centered platform keeping surrogates, parents, and coordinators in sync after pregnancy confirmation.",
   href: "/continuum",
-  image: "/images/projects/continuum.png",
-  imageAlt: "Continuum surrogacy platform interface showing coordination dashboard",
-  imageWidth: 1264,
-  imageHeight: 848,
+  image: "/images/projects/continuum-thumb.webp",
+  imageAlt: "Continuum's \"Your week, gently\" dashboard on a laptop",
+  imageWidth: 2048,
+  imageHeight: 1152,
+};
+
+// "AI in my process": every field is a `{{TODO: ...}}` placeholder, hidden on the live site and
+// shown as a dashed box in local development. Fill in the real details; don't guess.
+export const aiProcess: AiProcess = {
+  tools: ["{{TODO: tool name}}"],
+  usedFor: "{{TODO: what I used AI for on this project}}",
+  fellShort: "{{TODO: where AI got it wrong or fell short}}",
+  whatIChanged: "{{TODO: what I changed, and why}}",
+  before: {
+    src: "/images/good-friends/ai-before.png",
+    alt: "{{TODO: alt text for the raw AI output}}",
+    caption: "{{TODO: one line on the raw AI output}}",
+  },
+  after: {
+    src: "/images/good-friends/ai-after.png",
+    alt: "{{TODO: alt text for my final version}}",
+    caption: "{{TODO: one line on what I shipped instead}}",
+  },
+  impact: "{{TODO: what it saved or made possible (time, options explored, a working prototype)}}",
 };

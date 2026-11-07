@@ -1,5 +1,5 @@
 import { projectDescription } from "@/app/data/projects";
-import type { CaseStudyTldr } from "@/app/components/caseStudyTypes";
+import type { CaseStudyTldr, AiProcess } from "@/app/components/caseStudyTypes";
 
 export const continuumHero = {
   title: "Continuum",
@@ -115,8 +115,8 @@ export type DesignDecision = {
 };
 
 export const decisionsSection = {
-  heading: "3 Critical Design Decisions (And the Tradeoffs)",
-  intro: "Instead of showing every wireframe, here are the strategic decisions that shaped the product:",
+  heading: "3 Design Decisions and Their Tradeoffs",
+  intro: "The three calls that shaped the product.",
   researchLinkLabel: "View full research",
   researchLinkHref: "/continuum-research-notes",
   decisions: [
@@ -198,7 +198,7 @@ export const stakeholdersSection = {
 export const designSystemSection = {
   heading: "Design System: Designing for Emotional Safety",
   intro:
-    "To lower cognitive load during high-stress medical moments, the visual system prioritizes calm:",
+    "Built to stay calm in high-stress medical moments:",
   principles: [
     {
       title: "Warm, non-clinical tones",
@@ -228,7 +228,7 @@ export const nextStepsSection = {
     },
     {
       title: "Measure success",
-      body: "by tracking if the platform reduces the volume of anxious, off-channel messages sent to coordinators.",
+      body: "by tracking whether anxious, off-channel messages to coordinators drop.",
     },
   ],
 };
@@ -242,4 +242,24 @@ export const nextProject = {
   imageAlt: "Good Friends Poke fast-casual dining experience redesign",
   imageWidth: 2446,
   imageHeight: 1376,
+};
+
+// "AI in my process": every field is a `{{TODO: ...}}` placeholder, hidden on the live site and
+// shown as a dashed box in local development. Fill in the real details; don't guess.
+export const aiProcess: AiProcess = {
+  tools: ["{{TODO: tool name}}"],
+  usedFor: "{{TODO: what I used AI for on this project}}",
+  fellShort: "{{TODO: where AI got it wrong or fell short}}",
+  whatIChanged: "{{TODO: what I changed, and why}}",
+  before: {
+    src: "/images/continuum/ai-before.png",
+    alt: "{{TODO: alt text for the raw AI output}}",
+    caption: "{{TODO: one line on the raw AI output}}",
+  },
+  after: {
+    src: "/images/continuum/ai-after.png",
+    alt: "{{TODO: alt text for my final version}}",
+    caption: "{{TODO: one line on what I shipped instead}}",
+  },
+  impact: "{{TODO: what it saved or made possible (time, options explored, a working prototype)}}",
 };

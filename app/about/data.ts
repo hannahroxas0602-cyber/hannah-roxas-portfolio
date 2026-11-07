@@ -14,6 +14,11 @@ export const process = {
   steps: ["Research", "Design", "Refine", "Handoff"],
 };
 
+// "How I work with AI": 2-3 sentences. Hidden on the live site until the {{TODO}} is replaced
+// with your own words; shown as a dashed box in local development.
+export const aiBlurb =
+  "{{TODO: 2-3 sentences. Draft: AI speeds up my exploration (name what you use it for and one concrete example). The decisions about users, trade-offs and quality are mine.}}";
+
 export const availability = {
   summary:
     "Open to full-time Product Designer / Design Engineer roles. Currently splitting time between LA and the Bay Area, and open to relocating.",
