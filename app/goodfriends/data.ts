@@ -325,10 +325,10 @@ export const nextProject = {
   description:
     "A care-centered platform keeping surrogates, parents, and coordinators in sync after pregnancy confirmation.",
   href: "/continuum",
-  image: "/images/projects/continuum-4x3.webp",
-  imageAlt: "Continuum surrogacy platform interface showing coordination dashboard",
-  imageWidth: 2400,
-  imageHeight: 1800,
+  image: "/images/projects/continuum-thumb.webp",
+  imageAlt: "Continuum's \"Your week, gently\" dashboard on a laptop",
+  imageWidth: 2048,
+  imageHeight: 1152,
 };
 
 // "AI in my process": every field is a `{{TODO: ...}}` placeholder, hidden on the live site and

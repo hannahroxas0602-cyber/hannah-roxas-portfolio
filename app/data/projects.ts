@@ -87,10 +87,10 @@ export const projects: Project[] = [
     tags: ["UX/UI", "Product Strategy"],
     category: "UIUX",
     href: "/continuum",
-    image: "/images/projects/continuum.webp",
-    imageAlt: "Continuum on a phone, surrounded by its symptom chips, certified-coordinator tag, gradient tiles and shared calendar",
-    imageWidth: 2400,
-    imageHeight: 1350,
+    image: "/images/projects/continuum-thumb.webp",
+    imageAlt: "Continuum's \"Your week, gently\" dashboard on a laptop resting on a wooden chair",
+    imageWidth: 2048,
+    imageHeight: 1152,
     imageAspect: "16/9",
     year: "2025 · Course concept",
     impactStats: [
@@ -98,7 +98,7 @@ export const projects: Project[] = [
       // {{TODO: outcome metric, e.g. a usability test or stakeholder feedback result}}
     ],
     gallery: [
-      "/images/projects/continuum.webp",
+      "/images/projects/continuum-thumb.webp",
       "/images/projects/continuum-product.webp",
       "/images/projects/continuum-problem.webp",
       "/images/projects/continuum-system.webp",
