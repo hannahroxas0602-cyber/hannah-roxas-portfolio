@@ -118,6 +118,11 @@ body {
   inherits: false;
   initial-value: 0px;
 }
+@property --iris-a {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
 
 :root {
   --iris-x: 50vw;
@@ -125,7 +130,7 @@ body {
   --iris-page-y: 50vh;
   --iris-r0: 0px;
   --iris-r1: 150vmax;
-  --iris-feather: 28px;
+  --iris-feather: 44px;
   /* Arriving eases out and settles; leaving accelerates away, and is quicker.
      The circle's radius gets a balanced ease of its own: area grows with the
      square of the radius, so a front-loaded curve fills the screen in a frame
@@ -150,10 +155,27 @@ body {
   }
   ::view-transition-new(.iris-open) {
     transform-origin: var(--iris-x) var(--iris-y);
-    mask-image: radial-gradient(
+    /* A lumpy blob, not a circle: four overlapping lobes that turn as it grows. */
+    mask-image:
+    radial-gradient(
       circle at var(--iris-x) var(--iris-y),
       #000 calc(var(--iris-r) - var(--iris-feather)),
       transparent var(--iris-r)
+    ),
+    radial-gradient(
+      circle at calc(var(--iris-x) + var(--iris-r) * 0.3 * cos(var(--iris-a))) calc(var(--iris-y) + var(--iris-r) * 0.3 * sin(var(--iris-a))),
+      #000 calc(var(--iris-r) * 0.78 - var(--iris-feather)),
+      transparent calc(var(--iris-r) * 0.78)
+    ),
+    radial-gradient(
+      circle at calc(var(--iris-x) + var(--iris-r) * 0.3 * cos(var(--iris-a) + 140deg)) calc(var(--iris-y) + var(--iris-r) * 0.3 * sin(var(--iris-a) + 140deg)),
+      #000 calc(var(--iris-r) * 0.7 - var(--iris-feather)),
+      transparent calc(var(--iris-r) * 0.7)
+    ),
+    radial-gradient(
+      circle at calc(var(--iris-x) + var(--iris-r) * 0.3 * cos(var(--iris-a) + 250deg)) calc(var(--iris-y) + var(--iris-r) * 0.3 * sin(var(--iris-a) + 250deg)),
+      #000 calc(var(--iris-r) * 0.6 - var(--iris-feather)),
+      transparent calc(var(--iris-r) * 0.6)
     );
     animation:
       iris-grow var(--dur-arrive) var(--ease-iris) both,
@@ -167,10 +189,26 @@ body {
     z-index: 2;
   }
   ::view-transition-old(.iris-close) {
-    mask-image: radial-gradient(
+    mask-image:
+    radial-gradient(
       circle at var(--iris-x) var(--iris-page-y),
       #000 calc(var(--iris-r) - var(--iris-feather)),
       transparent var(--iris-r)
+    ),
+    radial-gradient(
+      circle at calc(var(--iris-x) + var(--iris-r) * 0.3 * cos(var(--iris-a))) calc(var(--iris-page-y) + var(--iris-r) * 0.3 * sin(var(--iris-a))),
+      #000 calc(var(--iris-r) * 0.78 - var(--iris-feather)),
+      transparent calc(var(--iris-r) * 0.78)
+    ),
+    radial-gradient(
+      circle at calc(var(--iris-x) + var(--iris-r) * 0.3 * cos(var(--iris-a) + 140deg)) calc(var(--iris-page-y) + var(--iris-r) * 0.3 * sin(var(--iris-a) + 140deg)),
+      #000 calc(var(--iris-r) * 0.7 - var(--iris-feather)),
+      transparent calc(var(--iris-r) * 0.7)
+    ),
+    radial-gradient(
+      circle at calc(var(--iris-x) + var(--iris-r) * 0.3 * cos(var(--iris-a) + 250deg)) calc(var(--iris-page-y) + var(--iris-r) * 0.3 * sin(var(--iris-a) + 250deg)),
+      #000 calc(var(--iris-r) * 0.6 - var(--iris-feather)),
+      transparent calc(var(--iris-r) * 0.6)
     );
     animation: iris-shrink var(--dur-leave) var(--ease-leave) both;
   }
@@ -213,9 +251,11 @@ body {
 @keyframes iris-grow {
   from {
     --iris-r: var(--iris-r0);
+    --iris-a: 0deg;
   }
   to {
     --iris-r: var(--iris-r1);
+    --iris-a: 120deg;
   }
 }
 
@@ -228,9 +268,11 @@ body {
 @keyframes iris-shrink {
   from {
     --iris-r: var(--iris-r1);
+    --iris-a: 120deg;
   }
   to {
     --iris-r: 0px;
+    --iris-a: 0deg;
   }
 }
 
@@ -311,52 +353,6 @@ html.iris-fallback-backdrop body {
 
 /* Under Reduce Motion the page transition becomes a short crossfade (above),
    and the hero zoom, drifting objects, and portal rings switch off. */
-/* ─── Portal hover on project cards (Portal.tsx) ─── */
-.portal {
-  display: none;
-}
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .portal {
-    display: block;
-  }
-}
-/* Invisible at rest; on hover two rings ripple out from the center. */
-.portal-ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 34%;
-  aspect-ratio: 1;
-  border: 1.5px solid rgba(255, 255, 255, 0.85);
-  border-radius: 50%;
-  box-shadow:
-    0 0 24px rgba(255, 255, 255, 0.35),
-    inset 0 0 18px rgba(255, 255, 255, 0.25);
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.15);
-}
-.group:hover .portal-ring,
-.group:focus-visible .portal-ring {
-  animation: portal-ripple 1100ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.group:hover .portal-ring-late,
-.group:focus-visible .portal-ring-late {
-  animation-delay: 180ms;
-}
-@keyframes portal-ripple {
-  0% {
-    transform: translate(-50%, -50%) scale(0.15);
-    opacity: 0;
-  }
-  25% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(2.6);
-    opacity: 0;
-  }
-}
-
 /* Project CTAs swap to "Enter →" on hover; both labels share one grid cell so nothing shifts. */
 .cta-swap {
   display: inline-grid;
@@ -559,3 +555,275 @@ html.iris-fallback-backdrop body {
 }
 @keyframes pb-bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-5px); opacity: 1; } }
 @keyframes pb-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-4px) rotate(-2deg); } 40% { transform: translateX(4px) rotate(2deg); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+
+/* ═══ Orb theme (home page) ═══
+   After the gradient-orb reference: pale mint ground; mint, periwinkle and rose gradients;
+   a dark pinpoint at the center of every sphere. Scoped to .orb-theme (the home page), so
+   case studies keep the site accent. */
+.orb-theme,
+:root {
+  --orb-ground: #fbfdfc;
+  --orb-mint: #a8d6c8;
+  --orb-blue: #9fb3da;
+  --orb-peri: #b9b6dc;
+  --orb-rose: #e1998f;
+  --orb-pink: #f3cfdc;
+  --orb-ink: #1b1519;
+  --accent: #8ec9ff;
+  --accent-deep: #5aaeff;
+  --accent-ink: #1f74d6;
+  /* The sphere: dark core, rose halo, blue-gray falloff that fades to nothing. */
+  --orb-gradient: radial-gradient(
+    circle at 50% 50%,
+    var(--orb-ink) 0 10%,
+    #d98a7e 28%,
+    #b9a8cf 52%,
+    #a9c6d9 76%,
+    rgba(190, 222, 224, 0) 100%
+  );
+}
+
+/* Scroll rail */
+.rail-track {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(185, 160, 190, 0.45);
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+}
+.rail-node-orb {
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(170, 150, 185, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+  transition: background 300ms ease, transform 300ms ease, box-shadow 300ms ease;
+}
+.rail-node-orb[data-passed="true"] {
+  background: var(--orb-gradient);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+.rail-node:hover .rail-node-orb,
+.rail-node:focus-visible .rail-node-orb {
+  transform: scale(1.5);
+  box-shadow: 0 0 0 4px rgba(225, 153, 143, 0.28);
+}
+.rail-thumb {
+  background: var(--orb-gradient);
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.85), 0 4px 14px rgba(160, 120, 150, 0.35);
+}
+
+/* Orb hover on the home previews (OrbHover.tsx) */
+.orb-hover {
+  display: none;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .orb-hover {
+    display: block;
+  }
+}
+.orb-hover > * {
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+.group:hover .orb-hover > *,
+.group:focus-visible .orb-hover > * {
+  opacity: 1;
+}
+.orb-wash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle 260px at var(--ox, 50%) var(--oy, 50%),
+      rgba(243, 207, 220, 0.55),
+      rgba(159, 179, 218, 0.3) 45%,
+      rgba(168, 214, 200, 0) 75%
+    ),
+    linear-gradient(180deg, rgba(233, 241, 239, 0.12), rgba(233, 241, 239, 0.28));
+  mix-blend-mode: soft-light;
+}
+.orb-frame {
+  position: absolute;
+  inset: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.18);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease !important;
+}
+.group:hover .orb-frame,
+.group:focus-visible .orb-frame {
+  clip-path: inset(0 0 0 0);
+}
+.orb-cross {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  transform: translate(-50%, -50%) rotate(45deg) scale(0);
+  transition: opacity 400ms ease, transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+.orb-cross::before,
+.orb-cross::after {
+  content: "";
+  position: absolute;
+  background: #f4b4a8;
+  box-shadow: 0 0 6px rgba(244, 180, 168, 0.8);
+}
+.orb-cross::before { left: 5px; top: 0; width: 1.5px; height: 11px; }
+.orb-cross::after { top: 5px; left: 0; height: 1.5px; width: 11px; }
+.group:hover .orb-cross,
+.group:focus-visible .orb-cross {
+  transform: translate(-50%, -50%) rotate(45deg) scale(1);
+}
+.orb-cross:nth-of-type(3) { transition-delay: 120ms !important; }
+.orb-cross:nth-of-type(4) { transition-delay: 220ms !important; }
+.orb-sphere {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.06) 60%);
+  box-shadow: 0 0 28px rgba(255, 255, 255, 0.4), inset 0 0 18px rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(3px) saturate(1.5);
+}
+.orb-sphere-tight {
+  width: 92px;
+  height: 92px;
+}
+.orb-sphere-lazy {
+  width: 44px;
+  height: 44px;
+  border-color: rgba(243, 207, 220, 0.95);
+  background: radial-gradient(circle at 40% 35%, rgba(243, 207, 220, 0.6), rgba(243, 207, 220, 0.1) 70%);
+}
+.orb-sphere-core {
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  background: var(--orb-gradient);
+}
+.orb-ripple {
+  position: absolute;
+  top: var(--oy, 50%);
+  left: var(--ox, 50%);
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: radial-gradient(circle, rgba(243, 207, 220, 0.2), rgba(243, 207, 220, 0) 70%);
+  transform: translate(-50%, -50%) scale(0.4);
+}
+.group:hover .orb-ripple,
+.group:focus-visible .orb-ripple {
+  animation: orb-ripple 1400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.group:hover .orb-ripple-late,
+.group:focus-visible .orb-ripple-late {
+  animation-delay: 220ms;
+}
+@keyframes orb-ripple {
+  0% { transform: translate(-50%, -50%) scale(0.4); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(3.4); opacity: 0; }
+}
+
+/* The home page's cursor sphere (CustomCursor.tsx). The cursor sits outside .orb-theme, so
+   it carries its own copy of the gradient. */
+.orb-cursor-core {
+  background: radial-gradient(
+    circle at 50% 50%,
+    #1b1519 0 11%,
+    #d98a7e 30%,
+    #b9a8cf 54%,
+    #a9c6d9 78%,
+    rgba(190, 222, 224, 0.35) 100%
+  );
+}
+
+/* Over the colored backdrop the lightest greys need a little more weight to stay readable. */
+.orb-theme .text-neutral-400,
+.orb-theme .text-neutral-300 {
+  color: #66707c;
+}
+.orb-theme .text-neutral-500 {
+  color: #4f5965;
+}
+
+/* About: the slide-in panel and the /about page (AboutPanel.tsx, About.tsx). */
+.orb-dot {
+  background: var(--orb-gradient);
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.85), 0 0 10px rgba(225, 153, 143, 0.4);
+}
+
+/* A sphere on a rail (CaseStudyNav, the milestone timelines). Idle is clear glass; passed
+   and active are the gradient sphere, and the active one swells and breathes. */
+.rail-dot {
+  display: block;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(170, 150, 185, 0.6);
+  box-shadow: 0 0 0 3px var(--background);
+  transition: scale 350ms cubic-bezier(0.34, 1.56, 0.64, 1), background 300ms ease;
+}
+.rail-dot[data-state="passed"],
+.rail-dot[data-state="active"] {
+  background: var(--orb-gradient);
+  border-color: rgba(255, 255, 255, 0.85);
+}
+.rail-dot[data-state="active"] {
+  scale: 1.3;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rail-dot[data-state="active"] {
+    animation: rail-breathe 2.6s ease-in-out infinite;
+  }
+}
+@keyframes rail-breathe {
+  50% { box-shadow: 0 0 0 3px var(--background), 0 0 0 7px rgba(225, 153, 143, 0.22); }
+}
+
+
+
+
+/* The fused tiles behind the case-study highlights (GooCluster.tsx): a soft shadow under
+   the whole mass, and each shape breathes a little, so the necks between them shift. */
+.goo-svg {
+  filter: drop-shadow(0 14px 28px rgba(110, 125, 200, 0.16));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .goo-breathe {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: goo-breathe 6s ease-in-out infinite alternate;
+  }
+}
+@keyframes goo-breathe {
+  to { transform: scale(1.028); }
+}
+
+/* The Resume button: the cursor's gradient (rose, lilac, blue-gray) on a wider ground that
+   slides across on hover. */
+.resume-gradient {
+  background: linear-gradient(110deg, #e39a8d 0%, #c3aed6 38%, #a9c6d9 68%, #e39a8d 100%);
+  background-size: 220% 100%;
+  background-position: 0% 0;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6) inset, 0 4px 14px rgba(190, 140, 160, 0.3);
+  transition: background-position 600ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms ease;
+}
+.resume-gradient:hover {
+  background-position: 100% 0;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7) inset, 0 6px 20px rgba(190, 140, 160, 0.42);
+}
+
+
+
+
+/* Small static discs beside the hero's status bubbles. */
+.status-disc {
+  border-radius: 50%;
+  border: 2px solid #e6d2f0;
+  background: radial-gradient(circle at 50% 50%, #eaa99d 0, #cdbbe0 55%, #a9c6d9 100%);
+  box-shadow: 0 6px 16px rgba(120, 130, 190, 0.18);
+}

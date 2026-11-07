@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import HoleLink from "@/app/components/HoleLink";
-import Portal from "@/app/components/Portal";
+import OrbHover from "@/app/components/OrbHover";
 import DemoVideo from "@/app/components/DemoVideo";
 import { AnimatePresence, motion } from "motion/react";
 import { projects, type Project } from "@/app/data/projects";
@@ -187,7 +187,7 @@ function ProjectThumbnail({
         </svg>
       </span>
 
-      <Portal />
+      <OrbHover />
 
       {project.featured && (
         <span
@@ -208,7 +208,7 @@ function ProjectThumbnail({
       {/* Persistent title chip so the project reads without needing to hover */}
       <span
         data-vt-title
-        className={`absolute bottom-4 left-4 z-10 rounded-full border border-white/15 bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-xl backdrop-saturate-150 transition-opacity duration-200 [@media(hover:hover)]:group-hover:opacity-0 ${
+        className={`absolute bottom-4 left-4 z-10 rounded-full border border-white/70 bg-white/55 px-3 py-1.5 text-xs font-medium text-neutral-900 shadow-[0_4px_18px_rgba(120,140,160,0.18)] backdrop-blur-xl backdrop-saturate-150 transition-opacity duration-200 [@media(hover:hover)]:group-hover:opacity-0 ${
           // The touch preview panel covers the card; the chip would show through it.
           previewing ? "hidden" : ""
         }`}
@@ -225,7 +225,7 @@ function ProjectThumbnail({
       >
         {/* A small card in the corner, so most of the preview stays visible: stats on one
             line each, the description capped at two lines. On touch it spans the width. */}
-        <div className="w-fit max-w-[min(100%,24rem)] rounded-xl border border-white/15 bg-black/60 px-3.5 py-2.5 shadow-[0_6px_24px_rgba(0,0,0,0.3)] backdrop-blur-xl backdrop-saturate-150 [@media(hover:none)]:w-full [@media(hover:none)]:max-w-none sm:bg-black/50">
+        <div className="w-fit max-w-[min(100%,24rem)] rounded-xl border border-white/70 bg-white/60 px-3.5 py-2.5 shadow-[0_6px_28px_rgba(120,140,160,0.25)] backdrop-blur-xl backdrop-saturate-150 [@media(hover:none)]:w-full [@media(hover:none)]:max-w-none">
           {stats.length > 0 && (
             // Right padding on touch keeps the stats clear of the corner arrow.
             <div className="flex flex-col gap-0.5 [@media(hover:none)]:pr-11">
@@ -234,10 +234,10 @@ function ProjectThumbnail({
                   key={`${stat.label}-${i}`}
                   className="flex items-baseline gap-2"
                 >
-                  <span className="font-display text-base leading-tight font-semibold text-white">
+                  <span className="font-display text-base leading-tight font-semibold text-neutral-900">
                     {stat.value}
                   </span>
-                  <span className="text-[11px] leading-tight text-white/75">
+                  <span className="text-[11px] leading-tight text-neutral-600">
                     {stat.label}
                   </span>
                 </div>
@@ -246,7 +246,7 @@ function ProjectThumbnail({
           )}
 
           <p
-            className={`line-clamp-2 text-xs leading-snug text-white/85 ${stats.length > 0 ? "mt-2 border-t border-white/10 pt-2" : ""}`}
+            className={`line-clamp-2 text-xs leading-snug text-neutral-700 ${stats.length > 0 ? "mt-2 border-t border-neutral-900/10 pt-2" : ""}`}
           >
             {project.description}
           </p>
@@ -265,7 +265,8 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
   return (
     <section
       id={id}
-      className="mx-auto max-w-7xl scroll-mt-24 px-6 pt-14 pb-16 sm:px-10 sm:pt-20 sm:pb-24 lg:pt-14"
+      data-rail="Projects"
+      className="mx-auto max-w-7xl scroll-mt-24 px-6 pt-8 pb-16 sm:px-10 sm:pt-10 sm:pb-24 lg:pt-6"
     >
       {/* The heading and tabs are left-aligned with the hero and the list; the
           list and the previews sit below in two columns. */}
@@ -306,8 +307,13 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
         <div className="lg:sticky lg:top-24 lg:-mt-4 lg:self-start">
           <div className="flex flex-col">
             {visibleProjects.map((project, i) => (
+              <motion.div
+                key={`${activeTab}-${project.slug}`}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: i * 0.07 }}
+              >
               <HoleLink
-                key={project.slug}
                 href={project.href}
                 data-cursor="Enter →"
                 className="group flex items-baseline gap-4 border-b border-neutral-200 py-6 transition-colors duration-200 hover:border-neutral-300"
@@ -347,6 +353,7 @@ export default function ProjectsTabbed({ id = "works" }: { id?: string }) {
                   </span>
                 </span>
               </HoleLink>
+              </motion.div>
             ))}
           </div>
         </div>

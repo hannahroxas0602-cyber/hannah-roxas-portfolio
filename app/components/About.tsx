@@ -1,6 +1,7 @@
 import { aboutIntro, aiBlurb, availability, experience, process } from "@/app/about/data";
 import { SHOW_TODOS, filled, todoLabel } from "@/app/data/placeholder";
 import { social } from "@/app/data/social";
+import ScrollFillList from "@/app/components/ScrollFillList";
 
 const label =
   "font-label text-xs font-semibold tracking-widest text-neutral-400 uppercase";
@@ -28,13 +29,13 @@ export default function About() {
       )}
 
       <div className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-2">
-        <div>
+        <div className="border-t border-neutral-900/10 pt-5">
           <p className={label}>Availability</p>
           <p className="mt-3 max-w-md text-base leading-relaxed text-neutral-700">
             {availability.summary}
           </p>
         </div>
-        <div>
+        <div className="border-t border-neutral-900/10 pt-5">
           <p className={label}>Process</p>
           <p className="mt-3 max-w-md text-base leading-relaxed text-neutral-700">
             {process.steps.join(" → ")}
@@ -57,25 +58,25 @@ export default function About() {
       </div>
 
       <p className={`mt-16 ${label}`}>Experience</p>
-      <div className="relative mt-8 ml-3 sm:ml-6">
-        <div className="absolute top-2 bottom-2 left-0 w-px bg-black/[0.1]" />
-
-        {experience.map((entry) => (
-          <div key={entry.slug} className="relative pb-14 pl-8 last:pb-0 sm:pl-12">
-            <span className="absolute top-1.5 left-0 h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2 border-black bg-[var(--background)]" />
-
-            <p className="font-label text-xs tracking-wide text-neutral-400 uppercase">
+      <ScrollFillList
+        className="mt-8 ml-3 sm:ml-6"
+        trackClassName="top-2 bottom-2 left-0 -translate-x-1/2"
+      >
+        {experience.map((entry, i) => (
+          <li key={entry.slug} className="relative pb-14 pl-8 last:pb-0 sm:pl-12">
+            <span
+              aria-hidden
+              className="rail-dot absolute top-[0.3rem] left-0 size-[13px] -translate-x-1/2"
+              data-state={i === 0 ? "active" : "passed"}
+            />
+            <p className="font-label text-xs leading-6 tracking-wide text-neutral-500 uppercase">
               {entry.dates}
             </p>
-            <h2 className="mt-2 font-display text-2xl text-black sm:text-3xl">
-              {entry.role}
-            </h2>
-            <p className="mt-2 max-w-xl text-base leading-relaxed text-neutral-500">
-              {entry.context}
-            </p>
-          </div>
+            <h2 className="mt-2 font-display text-2xl text-black sm:text-3xl">{entry.role}</h2>
+            <p className="mt-2 max-w-xl text-base leading-relaxed text-neutral-500">{entry.context}</p>
+          </li>
         ))}
-      </div>
+      </ScrollFillList>
 
       <div className="mt-16 flex flex-wrap gap-x-8 gap-y-3 border-t border-black/[0.08] pt-6">
         <a

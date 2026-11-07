@@ -114,7 +114,7 @@ export default function AboutPanel({ width }: { width: number }) {
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 32 }}
             style={{ "--panel-width": `${width}px` } as React.CSSProperties}
-            className="fixed inset-4 z-[91] flex max-h-[calc(100svh-2rem)] flex-col gap-2 overflow-y-auto overscroll-contain rounded-3xl border border-white/40 bg-neutral-100 p-3 shadow-[0_8px_40px_rgba(0,0,0,0.12)] sm:inset-y-0 sm:inset-x-auto sm:right-0 sm:w-[var(--panel-width)] sm:max-w-[92vw] sm:max-h-none sm:gap-3 sm:overflow-visible sm:rounded-none sm:border-0 sm:border-l sm:border-l-white/40 sm:p-5"
+            className="fixed inset-4 z-[91] flex max-h-[calc(100svh-2rem)] flex-col gap-2 overflow-y-auto overscroll-contain rounded-3xl border border-black/[0.06] bg-[#f4f6f8] p-3 shadow-[0_8px_40px_rgba(0,0,0,0.1)] sm:inset-y-0 sm:inset-x-auto sm:right-0 sm:w-[var(--panel-width)] sm:max-w-[92vw] sm:max-h-none sm:gap-3 sm:overflow-visible sm:rounded-none sm:border-0 sm:border-l sm:border-l-black/[0.06] sm:p-5"
           >
             <button
               type="button"
@@ -126,7 +126,7 @@ export default function AboutPanel({ width }: { width: number }) {
             </button>
 
             {/* Photo + name inline, bio below */}
-            <div className="rounded-2xl bg-white p-4 pr-12 sm:p-5">
+            <div className="rounded-2xl bg-white ring-1 ring-black/[0.05] p-4 pr-12 sm:p-5">
               <div className="flex items-center gap-5">
                 <PhotoStack />
                 <p className="font-display text-base font-semibold text-neutral-900">
@@ -137,16 +137,17 @@ export default function AboutPanel({ width }: { width: number }) {
             </div>
 
             {/* Tool marquee — real logos + names via Simple Icons, scrolling in one line */}
-            <div className="overflow-hidden rounded-2xl bg-white py-4 sm:py-5">
+            <div className="flex h-16 items-center overflow-hidden rounded-2xl bg-white ring-1 ring-black/[0.05]">
+              <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_10%,#000_90%,transparent)]">
               <div className="flex w-max animate-[marquee_28s_linear_infinite] items-center motion-reduce:animate-none">
                 {[...tools, ...tools].map((tool, i) => (
                   <div
                     key={`${tool.slug}-${i}`}
-                    className="flex shrink-0 items-center gap-2.5 px-4"
+                    className="flex h-6 shrink-0 items-center gap-2.5 px-5"
                   >
                     <span
                       aria-hidden
-                      className="h-5 w-5 shrink-0 bg-accent-ink"
+                      className="block size-5 shrink-0 bg-accent-deep"
                       style={{
                         WebkitMaskImage: `url(https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${tool.slug}.svg)`,
                         maskImage: `url(https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${tool.slug}.svg)`,
@@ -158,16 +159,17 @@ export default function AboutPanel({ width }: { width: number }) {
                         maskPosition: "center",
                       }}
                     />
-                    <span className="text-sm font-medium whitespace-nowrap text-accent-ink">
+                    <span className="text-sm leading-none font-medium whitespace-nowrap text-neutral-800">
                       {tool.name}
                     </span>
                   </div>
                 ))}
               </div>
+              </div>
             </div>
 
             {/* Timeline — one minimal, non-scrolling section with a connecting rail */}
-            <div className="rounded-2xl bg-white p-4 sm:p-5">
+            <div className="rounded-2xl bg-white ring-1 ring-black/[0.05] p-4 sm:p-5">
               <div className="flex items-center justify-between">
                 <p className="font-label text-xs font-semibold tracking-widest text-neutral-400 uppercase">
                   Experience
@@ -196,34 +198,39 @@ export default function AboutPanel({ width }: { width: number }) {
                   </svg>
                 </a>
               </div>
-              <div className="relative mt-3 flex flex-col gap-3 sm:mt-4 sm:gap-4">
-                <div className="absolute top-1 bottom-1 left-[3px] w-px bg-neutral-200" />
+              <ol className="relative mt-4">
+                <span
+                  aria-hidden
+                  className="rail-track absolute top-[10px] bottom-[10px] left-[5px] w-[3px] overflow-hidden rounded-full"
+                >
+                  <span className="absolute inset-0 rounded-full" style={{ background: "linear-gradient(to bottom, #f3cfdc, #b9b6dc 55%, #9fb3da)" }} />
+                </span>
                 {experience.map((entry, i) => (
-                  <div
+                  <li
                     key={entry.slug}
-                    className="relative flex items-baseline justify-between gap-3 pl-5"
+                    className="relative flex items-baseline justify-between gap-3 pb-4 pl-7 last:pb-0"
                   >
                     <span
-                      className={`absolute top-1.5 left-0 h-[7px] w-[7px] rounded-full ring-4 ring-white ${
-                        i === 0 ? "bg-accent-deep" : "bg-neutral-300"
-                      }`}
+                      aria-hidden
+                      className="rail-dot absolute top-[4px] left-0 size-[13px]"
+                      data-state={i === 0 ? "active" : "passed"}
                     />
                     <div className="min-w-0">
-                      <p className="truncate text-sm font-medium text-neutral-900">
+                      <p className="truncate text-sm leading-5 font-medium text-neutral-900">
                         {entry.role}
                       </p>
-                      <p className="truncate text-xs text-neutral-500">{entry.context}</p>
+                      <p className="truncate text-xs leading-5 text-neutral-500">{entry.context}</p>
                     </div>
-                    <span className="shrink-0 font-label text-xs text-neutral-400">
+                    <span className="shrink-0 font-label text-xs leading-5 text-neutral-400">
                       {entry.dates}
                     </span>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ol>
             </div>
 
             {/* Contact — pinned to the bottom on desktop's fixed-height sidebar; flows normally on mobile's scrollable stack */}
-            <div className="rounded-2xl bg-white p-4 sm:mt-auto sm:p-5">
+            <div className="rounded-2xl bg-white ring-1 ring-black/[0.05] p-4 sm:mt-auto sm:p-5">
               <p className="font-label text-xs font-semibold tracking-widest text-neutral-400 uppercase">
                 Contact
               </p>

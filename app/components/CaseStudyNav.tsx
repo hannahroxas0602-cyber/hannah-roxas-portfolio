@@ -13,6 +13,25 @@ export default function CaseStudyNav({ sections }: { sections: CaseStudySection[
   const mobileScrollRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
 
+  const rows = useMemo(
+    () =>
+      sections.flatMap((s) => [
+        { s, depth: 0 },
+        ...(s.children ?? []).map((c) => ({ s: c, depth: 1 })),
+      ]),
+    [sections],
+  );
+  const activeIndex = rows.findIndex((r) => r.s.id === activeId);
+  const desktopRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const [fillHeight, setFillHeight] = useState(0);
+
+  // The fill reaches the middle of the active row. Rows are positioned against the
+  // rail wrapper (the nearest positioned ancestor), so offsetTop is already relative.
+  useEffect(() => {
+    const el = desktopRefs.current.get(activeId);
+    setFillHeight(el ? el.offsetTop + el.offsetHeight / 2 : 0);
+  }, [activeId]);
+
   const flatSections = useMemo(
     () => sections.flatMap((s) => [s, ...(s.children ?? [])]),
     [sections],
@@ -56,9 +75,6 @@ export default function CaseStudyNav({ sections }: { sections: CaseStudySection[
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
-  const isChildActive = (s: CaseStudySection) =>
-    activeId === s.id || (s.children?.some((c) => c.id === activeId) ?? false);
-
   return (
     <>
       {/* Mobile: fixed horizontal scroll bar, pinned to the bottom of the viewport */}
@@ -90,41 +106,56 @@ export default function CaseStudyNav({ sections }: { sections: CaseStudySection[
       {/* Room for this bar at the end of the page is added under the footer in
           globals.css ([data-bottom-bar]), so it never covers the footer links. */}
 
-      {/* Desktop: sticky vertical sidebar */}
-      <nav className="hidden md:sticky md:top-28 md:block md:h-fit md:w-40 md:shrink-0">
-        <div className="flex flex-col items-start gap-2.5">
-          {sections.map((s) => (
-            <div key={s.id} className="w-full">
+      {/* Desktop: sticky vertical rail. A sphere per section on a glass line; the gradient
+          fill climbs to the section you're in, and the ones behind you stay lit. */}
+      <nav
+        aria-label="Sections"
+        className="hidden md:sticky md:top-28 md:block md:h-fit md:w-44 md:shrink-0"
+      >
+        <div className="relative pl-7">
+          <span
+            aria-hidden
+            className="rail-track absolute top-1 bottom-1 left-[3px] w-[5px] overflow-hidden rounded-full"
+          >
+            <span
+              className="absolute inset-x-0 top-0 rounded-full transition-[height] duration-500 ease-out"
+              style={{
+                height: fillHeight,
+                background: "linear-gradient(to bottom, #f3cfdc, #b9b6dc 55%, #9fb3da)",
+              }}
+            />
+          </span>
+          <div className="flex flex-col items-start gap-3">
+            {rows.map(({ s, depth }, i) => (
               <button
+                key={s.id}
+                ref={(el) => {
+                  if (el) desktopRefs.current.set(s.id, el);
+                  else desktopRefs.current.delete(s.id);
+                }}
                 onClick={() => scrollTo(s.id)}
-                className={`cursor-pointer text-left text-sm transition-colors duration-150 ease-in-out ${
-                  isChildActive(s)
+                aria-current={activeId === s.id ? "location" : undefined}
+                className={`group/node relative cursor-pointer text-left transition-[color,transform] duration-300 ease-out hover:translate-x-0.5 ${
+                  depth ? "ml-3 text-xs" : "text-sm"
+                } ${
+                  activeId === s.id
                     ? "font-medium text-neutral-900"
-                    : "text-neutral-400 hover:text-neutral-600"
+                    : i < activeIndex
+                      ? "text-neutral-600"
+                      : "text-neutral-400 hover:text-neutral-700"
                 }`}
               >
+                <span
+                  aria-hidden
+                  className={`rail-dot absolute top-1/2 -translate-y-1/2 ${depth ? "size-[9px]" : "size-[13px]"}`}
+                  // Centered on the track: the track sits 5.5px in from the rail's left edge.
+                  style={{ left: depth ? "-2.44rem" : "-1.8rem" }}
+                  data-state={activeId === s.id ? "active" : i < activeIndex ? "passed" : "idle"}
+                />
                 {s.title}
               </button>
-
-              {s.children && (
-                <div className="mt-2 flex flex-col items-start gap-2 border-l border-black/[0.08] pl-3">
-                  {s.children.map((c) => (
-                    <button
-                      key={c.id}
-                      onClick={() => scrollTo(c.id)}
-                      className={`cursor-pointer text-left text-xs transition-colors duration-150 ease-in-out ${
-                        activeId === c.id
-                          ? "font-medium text-neutral-900"
-                          : "text-neutral-400 hover:text-neutral-600"
-                      }`}
-                    >
-                      {c.title}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </nav>
     </>

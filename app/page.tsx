@@ -4,6 +4,7 @@ import Hero from "@/app/components/Hero";
 import ProjectsTabbed from "@/app/components/ProjectsTabbed";
 import Footer from "@/app/components/Footer";
 import FadeIn from "@/app/components/FadeIn";
+import ScrollRail from "@/app/components/ScrollRail";
 import ScrollToHash from "@/app/components/ScrollToHash";
 import Testimonial, { hasTestimonial } from "@/app/components/Testimonial";
 import { testimonial } from "@/app/learvo/data";
@@ -17,10 +18,11 @@ export const metadata: Metadata = pageMetadata({
 
 export default function Home() {
   return (
-    <div className="flex flex-1 flex-col bg-background">
+    <div className="orb-theme relative flex flex-1 flex-col">
+      <ScrollRail />
       <ScrollToHash />
       <Header />
-      <main className="flex-1">
+      <main className="relative flex-1">
         <Hero />
         <FadeIn>
           <ProjectsTabbed id="works" />

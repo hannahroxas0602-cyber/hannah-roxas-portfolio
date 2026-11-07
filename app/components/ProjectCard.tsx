@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import HoleLink from "@/app/components/HoleLink";
-import Portal from "@/app/components/Portal";
+import OrbHover from "@/app/components/OrbHover";
 import DemoVideo from "@/app/components/DemoVideo";
 import { AnimatePresence, motion } from "motion/react";
 import type { Project } from "@/app/data/projects";
@@ -140,7 +140,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           </div>
         )}
 
-        {!isExternal && <Portal />}
+        {!isExternal && <OrbHover />}
 
       </div>
     </div>

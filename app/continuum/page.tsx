@@ -8,7 +8,6 @@ import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
 import CaseStudyTldr from "@/app/components/CaseStudyTldr";
-import CaseStudyAiProcess, { hasAiProcess } from "@/app/components/CaseStudyAiProcess";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import CaseStudyMilestones from "@/app/components/CaseStudyMilestones";
@@ -28,7 +27,6 @@ import {
   prototypeNote,
   heroLook,
   nextStepsSection,
-  aiProcess,
   nextProject,
 } from "@/app/continuum/data";
 
@@ -37,7 +35,6 @@ const sections = [
   { id: "highlights", title: "Highlights" },
   { id: "problem", title: "The Problem" },
   { id: "decisions", title: "Design Decisions" },
-  ...(hasAiProcess(aiProcess) ? [{ id: "ai-process", title: "AI in My Process" }] : []),
   { id: "stakeholders", title: "Stakeholders" },
   { id: "design-system", title: "Design System" },
   { id: "timeline", title: "Timeline" },
@@ -248,8 +245,6 @@ export default function ContinuumPage() {
             {decisionsSection.researchLinkLabel}
           </Link>
         </section>
-
-        <CaseStudyAiProcess ai={aiProcess} />
 
         {/* Designing for Multiple Stakeholders */}
         <section id="stakeholders" className="max-w-6xl py-16">

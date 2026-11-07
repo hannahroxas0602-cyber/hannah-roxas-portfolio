@@ -240,7 +240,7 @@ export default function Header() {
                     // solid button in the nav.
                     className={
                       link.label === "Resume"
-                        ? "relative ml-1 rounded-full bg-neutral-950 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-accent hover:text-black"
+                        ? "resume-gradient relative ml-1 rounded-full px-4 py-1.5 text-sm font-medium text-neutral-950"
                         : linkBase
                     }
                   >

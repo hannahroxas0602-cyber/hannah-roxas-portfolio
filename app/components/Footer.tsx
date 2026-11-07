@@ -23,7 +23,7 @@ export default function Footer() {
   const pathname = usePathname();
 
   return (
-    <footer className="relative overflow-hidden">
+    <footer data-rail="Contact" className="relative overflow-hidden">
       <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-8 sm:px-10 sm:pt-16 sm:pb-10">
         <motion.div
           initial={{ y: -16 }}

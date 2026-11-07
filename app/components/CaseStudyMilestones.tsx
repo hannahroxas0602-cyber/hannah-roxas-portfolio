@@ -1,4 +1,5 @@
 import CaseStudySection from "@/app/components/CaseStudySection";
+import ScrollFillList from "@/app/components/ScrollFillList";
 
 // A dated milestone list, built to be read in one glance: the span up top, then one
 // tight row per milestone (date on the left, a rail with a dot, then the title and one
@@ -24,8 +25,7 @@ export default function CaseStudyMilestones({
       heading={heading}
       intro={intro}
     >
-      <ol className="relative">
-        <span aria-hidden className="absolute top-3 bottom-3 left-[5px] w-px bg-black/[0.1] sm:left-[7.5rem]" />
+      <ScrollFillList>
         {items.map((item, i) => {
           const latest = i === items.length - 1;
           return (
@@ -36,9 +36,8 @@ export default function CaseStudyMilestones({
             >
               <span
                 aria-hidden
-                className={`absolute top-[1.4rem] left-0 size-[11px] rounded-full ring-4 ring-background sm:left-[calc(7.5rem-5px)] ${
-                  latest ? "bg-accent-deep" : "bg-neutral-300"
-                }`}
+                className={`rail-dot absolute top-[1.4rem] left-0 size-[13px] sm:left-[calc(7.5rem-6.5px)]`}
+                data-state={latest ? "active" : "passed"}
               />
               <p className="font-label text-xs font-medium text-neutral-500 sm:pt-0.5 sm:pr-6 sm:text-right">
                 {item.date}
@@ -50,7 +49,7 @@ export default function CaseStudyMilestones({
             </li>
           );
         })}
-      </ol>
+      </ScrollFillList>
     </CaseStudySection>
   );
 }

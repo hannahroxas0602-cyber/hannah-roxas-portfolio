@@ -4,7 +4,6 @@ import Image from "next/image";
 import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
-import CaseStudyAiProcess, { hasAiProcess } from "@/app/components/CaseStudyAiProcess";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
 import CaseStudyHighlights from "@/app/components/CaseStudyHighlights";
 import CaseStudyMilestones from "@/app/components/CaseStudyMilestones";
@@ -24,7 +23,6 @@ import {
   designSolutions,
   designDecisions,
   nextStepsSection,
-  aiProcess,
   nextProject,
 } from "@/app/goodfriends/data";
 
@@ -48,7 +46,6 @@ const sections = [
   { id: "research", title: "Research" },
   { id: "design-goal", title: "Design Goal" },
   { id: "design-solutions", title: "Design Solutions" },
-  ...(hasAiProcess(aiProcess) ? [{ id: "ai-process", title: "AI in My Process" }] : []),
   { id: "design-decisions", title: "Design Decisions" },
   { id: "timeline", title: "Timeline" },
   { id: "next-steps", title: "What's Next" },
@@ -257,8 +254,6 @@ export default function GoodFriendsPage() {
             ))}
           </div>
         </section>
-
-        <CaseStudyAiProcess ai={aiProcess} />
 
         {/* Design Decisions & Interactions */}
         <section id="design-decisions" className="max-w-4xl py-16">

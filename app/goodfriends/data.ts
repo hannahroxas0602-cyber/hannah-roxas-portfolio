@@ -18,7 +18,7 @@ export const goodHero = {
   imageHeight: 1246,
 };
 
-import type { CaseStudyTldr, AiProcess } from "@/app/components/caseStudyTypes";
+import type { CaseStudyTldr } from "@/app/components/caseStudyTypes";
 
 export const tldr: CaseStudyTldr = {
   problem:
@@ -331,22 +331,3 @@ export const nextProject = {
   imageHeight: 1152,
 };
 
-// "AI in my process": every field is a `{{TODO: ...}}` placeholder, hidden on the live site and
-// shown as a dashed box in local development. Fill in the real details; don't guess.
-export const aiProcess: AiProcess = {
-  tools: ["{{TODO: tool name}}"],
-  usedFor: "{{TODO: what I used AI for on this project}}",
-  fellShort: "{{TODO: where AI got it wrong or fell short}}",
-  whatIChanged: "{{TODO: what I changed, and why}}",
-  before: {
-    src: "/images/good-friends/ai-before.png",
-    alt: "{{TODO: alt text for the raw AI output}}",
-    caption: "{{TODO: one line on the raw AI output}}",
-  },
-  after: {
-    src: "/images/good-friends/ai-after.png",
-    alt: "{{TODO: alt text for my final version}}",
-    caption: "{{TODO: one line on what I shipped instead}}",
-  },
-  impact: "{{TODO: what it saved or made possible (time, options explored, a working prototype)}}",
-};
