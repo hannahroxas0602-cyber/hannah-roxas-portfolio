@@ -85,7 +85,7 @@ export default function LearvoHeroBento() {
               priority
               sizes="(min-width: 768px) 440px, 100vw"
               className={`object-cover`}
-              style={{ objectPosition: "0% 0%" }}
+              style={{ objectPosition: "50% 45%" }}
             />
           </Linked>
         </li>

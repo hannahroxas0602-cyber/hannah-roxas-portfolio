@@ -25,8 +25,8 @@ export const learvoHero = {
   // Every picture is a sharp original from the repo, not a screenshot of a screenshot.
   bento: {
     landing: {
-      src: "/images/learvo/learvo_hero_v2.png",
-      alt: "The redesigned Learvo landing page: \"Learn with Sources\" and a tabbed product demo",
+      src: "/images/learvo_thumb5.png",
+      alt: "The redesigned Learvo landing page, \"Learn with Sources\" and its tabbed product demo, open on a laptop on a green velvet pouf",
     },
     lenny: {
       src: "/images/learvo/bento-lenny.webp",
