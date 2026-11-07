@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
 import Image from "next/image";
 import Link from "next/link";
+import ContinuumProblem from "@/app/continuum/ContinuumProblem";
+import ContinuumHero from "@/app/continuum/ContinuumHero";
 import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
-import DemoVideo from "@/app/components/DemoVideo";
 import CaseStudyTldr from "@/app/components/CaseStudyTldr";
 import CaseStudyAiProcess, { hasAiProcess } from "@/app/components/CaseStudyAiProcess";
 import CaseStudyNav from "@/app/components/CaseStudyNav";
@@ -24,6 +25,8 @@ import {
   decisionsSection,
   stakeholdersSection,
   designSystemSection,
+  prototypeNote,
+  heroLook,
   nextStepsSection,
   aiProcess,
   nextProject,
@@ -70,6 +73,16 @@ const metaGridCols: Record<number, string> = {
   4: "sm:grid-cols-2 lg:grid-cols-4",
 };
 
+function Look({ children }: { children: string }) {
+  const [lead, rest] = children.startsWith("Look at:") ? ["Look at:", children.slice(8)] : ["", children];
+  return (
+    <p className="mt-3 max-w-2xl text-sm leading-relaxed text-neutral-500">
+      {lead && <span className="font-mono text-xs font-medium tracking-wide text-neutral-900 uppercase">Look at </span>}
+      {rest}
+    </p>
+  );
+}
+
 export default function ContinuumPage() {
   const meta = continuumHero.meta.flatMap((item) =>
     filled(item.value) ? [{ label: item.label, value: item.value }] : [],
@@ -99,17 +112,22 @@ export default function ContinuumPage() {
               {continuumHero.subtitle}
             </p>
 
-            {/* The picture comes first, so the page opens on the work. */}
-            <div className="relative mt-10 mb-2 aspect-[1600/738] w-full overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100">
-              <Image
-                src="/images/continuum/welcome-screen-mockup.png"
-                alt="Continuum's welcome screen: three roles to choose from, a support summary and a daily inspiration card"
-                fill
-                priority
-                className="object-cover"
-                sizes="(min-width: 1024px) 1024px, 100vw"
-              />
+            {/* The picture comes first, so the page opens on the work: one phone, with the pieces of the system around it. */}
+            <div className="mt-10 mb-2">
+              <ContinuumHero />
+              <Look>{heroLook}</Look>
             </div>
+            <p className="mt-3 max-w-2xl text-xs leading-relaxed text-neutral-400">
+              {prototypeNote.text}
+              {filled(prototypeNote.url) && (
+                <>
+                  {" "}
+                  <a href={prototypeNote.url} target="_blank" rel="noopener noreferrer" className="font-medium text-neutral-600 underline underline-offset-4">
+                    {prototypeNote.label} ↗
+                  </a>
+                </>
+              )}
+            </p>
 
             <CaseStudyTldr tldr={tldr} />
 
@@ -142,17 +160,16 @@ export default function ContinuumPage() {
 
 
           {/* The Problem */}
-          <section id="problem" className="max-w-4xl py-16">
+          <section id="problem" className="max-w-5xl py-16">
           <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {problemSection.heading}
           </h2>
 
-          <div className="relative mt-8 aspect-[2098/1120] w-full overflow-hidden rounded-2xl border border-black/[0.06] bg-neutral-100 shadow-soft">
-            <DemoVideo
-              src={problemSection.image}
-              alt={problemSection.imageAlt}
-              className="h-full w-full object-cover"
-            />
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-700">{problemSection.paragraphs[0]}</p>
+
+          <div className="mt-8">
+            <ContinuumProblem />
+            <Look>{problemSection.look}</Look>
           </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-2 rounded-xl border border-black/[0.06] bg-neutral-50 px-4 py-3 font-mono text-xs text-neutral-500 sm:text-sm">
@@ -171,7 +188,7 @@ export default function ContinuumPage() {
           </div>
 
           <div className="mt-8 space-y-4">
-            {problemSection.paragraphs.map((p, i) => (
+            {problemSection.paragraphs.slice(1).map((p, i) => (
               <p key={i} className="max-w-2xl text-base leading-relaxed text-neutral-700">
                 {p}
               </p>
@@ -180,7 +197,7 @@ export default function ContinuumPage() {
         </section>
 
         {/* 3 Critical Design Decisions */}
-        <section id="decisions" className="max-w-4xl py-16">
+        <section id="decisions" className="max-w-5xl py-16">
           <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {decisionsSection.heading}
           </h2>
@@ -188,29 +205,38 @@ export default function ContinuumPage() {
             {decisionsSection.intro}
           </p>
 
-          <div className="mt-10 space-y-6">
+          <div className="mt-10 space-y-8">
             {decisionsSection.decisions.map((decision) => (
-              <div
-                key={decision.slug}
-                className="rounded-2xl bg-neutral-900 p-8 text-white sm:p-10"
-              >
-                <h3 className="font-display text-xl font-semibold">
-                  {decision.title}
-                </h3>
-                <ul className="mt-5 space-y-3 text-sm leading-relaxed text-neutral-300">
-                  <li>
-                    <span className="font-semibold text-white">The Anxiety: </span>
-                    {decision.anxiety}
-                  </li>
-                  <li>
-                    <span className="font-semibold text-white">The UI Fix: </span>
-                    {decision.fix}
-                  </li>
-                  <li>
-                    <span className="font-semibold text-white">The Tradeoff: </span>
-                    {decision.tradeoff}
-                  </li>
-                </ul>
+              <div key={decision.slug} className="flex flex-col gap-3">
+                <div>
+                  <Image
+                    src={decision.image}
+                    alt={decision.imageAlt}
+                    width={2400}
+                    height={1600}
+                    unoptimized
+                    className="h-auto w-full mix-blend-multiply"
+                    sizes="(min-width: 1024px) 1024px, 100vw"
+                  />
+                  <Look>{decision.look}</Look>
+                </div>
+                <div className="rounded-2xl bg-neutral-900 p-8 text-white sm:p-10">
+                  <h3 className="font-display text-xl font-semibold">{decision.title}</h3>
+                  <ul className="mt-5 space-y-3 text-sm leading-relaxed text-neutral-300">
+                    <li>
+                      <span className="font-semibold text-white">The Anxiety: </span>
+                      {decision.anxiety}
+                    </li>
+                    <li>
+                      <span className="font-semibold text-white">The UI Fix: </span>
+                      {decision.fix}
+                    </li>
+                    <li>
+                      <span className="font-semibold text-white">The Tradeoff: </span>
+                      {decision.tradeoff}
+                    </li>
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
@@ -233,40 +259,31 @@ export default function ContinuumPage() {
 
           <div className="mt-12 space-y-16 sm:space-y-20">
             {stakeholdersSection.stakeholders.map((s, i) => (
-              <div
-                key={s.slug}
-                className={`flex flex-col items-center gap-8 sm:gap-12 lg:gap-16 ${
-                  i % 2 === 1 ? "lg:flex-row-reverse" : "lg:flex-row"
-                }`}
-              >
-                <div className="relative aspect-[2068/1002] w-full overflow-hidden rounded-2xl bg-neutral-100 lg:w-3/5">
-                  {s.demoVideo ? (
-                    <DemoVideo
-                      src={s.demoVideo}
-                      alt={s.demoVideoAlt}
-                      className="h-full w-full object-contain"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center text-sm text-neutral-400">
-                      Coming soon
-                    </div>
-                  )}
+              <div key={s.slug}>
+                <div>
+                  <Image
+                    src={s.image}
+                    alt={s.imageAlt}
+                    width={2400}
+                    height={1166}
+                    unoptimized
+                    className="h-auto w-full mix-blend-multiply"
+                    sizes="(min-width: 1024px) 1024px, 100vw"
+                  />
+                  <Look>{s.look}</Look>
                 </div>
-
-                <div className="w-full lg:w-2/5">
-                  <span className="font-mono text-xs font-medium tracking-widest text-neutral-400 uppercase">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-3 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
-                    {s.name}
-                  </h3>
-                  <p className="mt-2 text-sm font-medium text-neutral-500">
-                    Core need: {s.coreNeed}
-                  </p>
-                  <ul className="mt-6 space-y-3 text-base leading-relaxed text-neutral-600">
+                <div className="mt-8 grid items-start gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] sm:gap-12">
+                  <div>
+                    <span className="font-mono text-xs font-medium tracking-widest text-neutral-400 uppercase">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="mt-3 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">{s.name}</h3>
+                    <p className="mt-2 text-sm font-medium text-neutral-500">Core need: {s.coreNeed}</p>
+                  </div>
+                  <ul className="space-y-3 text-base leading-relaxed text-neutral-600 sm:pt-[2.15rem]">
                     {s.features.map((f, j) => (
-                      <li key={j} className="flex gap-3">
-                        <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-neutral-300" />
+                      <li key={j} className="flex items-start gap-3">
+                        <span className="mt-[0.7rem] h-1 w-1 shrink-0 rounded-full bg-neutral-400" />
                         <span>{f}</span>
                       </li>
                     ))}
@@ -278,7 +295,7 @@ export default function ContinuumPage() {
         </section>
 
         {/* Design System */}
-        <section id="design-system" className="max-w-4xl py-16">
+        <section id="design-system" className="max-w-5xl py-16">
           <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
             {designSystemSection.heading}
           </h2>
@@ -294,13 +311,21 @@ export default function ContinuumPage() {
             ))}
           </ul>
 
-          <div className="relative mt-10 aspect-[908/902] w-full max-w-md overflow-hidden rounded-2xl bg-neutral-100">
-            <DemoVideo
-              src={designSystemSection.image}
-              alt={designSystemSection.imageAlt}
-              sizes="448px"
-              className="h-full w-full object-cover"
-            />
+          <div className="mt-10 space-y-6">
+            {designSystemSection.images.map((img) => (
+              <div key={img.src}>
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  width={designSystemSection.imageWidth}
+                  height={designSystemSection.imageHeight}
+                  unoptimized
+                  className="h-auto w-full mix-blend-multiply"
+                  sizes="(min-width: 1024px) 1024px, 100vw"
+                />
+                <Look>{img.look}</Look>
+              </div>
+            ))}
           </div>
         </section>
 

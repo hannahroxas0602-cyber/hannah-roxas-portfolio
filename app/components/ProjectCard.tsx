@@ -119,6 +119,7 @@ export default function ProjectCard({ project }: { project: Project }) {
                 alt={project.imageAlt}
                 width={project.imageWidth}
                 height={project.imageHeight}
+                unoptimized={gallery[activeIndex].endsWith(".webp")}
                 className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 sizes="(min-width: 1024px) 45vw, 100vw"
               />

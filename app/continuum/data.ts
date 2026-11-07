@@ -1,6 +1,8 @@
 import { projectDescription } from "@/app/data/projects";
 import type { CaseStudyTldr, AiProcess } from "@/app/components/caseStudyTypes";
 
+export const heroLook = "One phone, and the pieces around it. Watch the chips, the step and the calendar: they behave like the real app.";
+
 export const continuumHero = {
   title: "Continuum",
   subtitle:
@@ -9,38 +11,38 @@ export const continuumHero = {
     label: "The Gist:",
     text: "Most surrogacy tools manage paperwork. Continuum manages the human experience.",
   },
-  date: "Jan 2025 · Course research, independent design",
+  date: "Jan 2025 to Nov 2026 · Course research, then independent design",
   myRole:
-    "I researched this with a class team of 7, focusing on how hospital systems handle surrogacy, then independently designed Continuum after the course, building on that research. Translated highly sensitive, multi-stakeholder emotional anxieties into clear, quiet UI patterns that protect user trust.",
+    "I researched the problem with a class team of 7, focusing on how hospital systems handle surrogacy. I then designed Continuum on my own, as a responsive, clickable prototype with a design system. I translated highly sensitive, multi-stakeholder emotional anxieties into clear, quiet UI patterns that protect trust.",
   // Items with a null value are hidden until filled.
   meta: [
     { label: "COURSE", value: "MGT 120: Managing and Using Information Technology" },
-    { label: "ROLE", value: "Researcher (team), then solo Product Designer" },
+    { label: "ROLE", value: "Researcher (team), then solo product designer" },
     {
       label: "TEAM",
       value: "7 (research) · Solo (design)",
     },
-    { label: "SERVICE", value: "UX Research, Journey Mapping, Interaction Design, Design Systems" },
+    { label: "SERVICE", value: "UX research, journey mapping, interaction design, design system" },
   ] satisfies { label: string; value: string | null }[],
 };
 
 export const tldr: CaseStudyTldr = {
   problem:
     "Surrogacy support fades the moment pregnancy is confirmed, right when emotional labor and uncertainty spike.",
-  role: "Researcher on a 7-person class team, then solo product designer after the course.",
+  role: "Researcher on a 7-person class team, then solo product designer and prototype builder.",
   whatIDid:
-    "Mapped 9 months of the journey across 3 stakeholder groups, then designed one shared timeline, progressive disclosure, and one-tap emotional check-ins.",
+    "Mapped 9 months of the journey for 3 roles, then designed one first action per role, one shared timeline, and one-tap daily check-ins, as a responsive prototype.",
   result:
-    "Course concept: role-based dashboards for intended parents, surrogates, and coordinators, all built on one shared timeline.",
+    "A clickable prototype and design system for all three roles, ready to test. Not yet tested with users.",
   resultMetric: "{{TODO: metric, e.g. usability test or stakeholder feedback result}}",
 };
 
 export const highlightsSection = {
   heading: "Highlights",
   outcomes: [
-    "Single shared timeline for parents, surrogates, and coordinators",
-    "Progressive disclosure model: only the next task is ever shown",
-    "One-tap, emoji-based emotional check-ins for surrogates",
+    "One thing to do first, for every role",
+    "One shared timeline, as a line or a calendar, that all three roles see",
+    "A one-tap daily check-in and symptom log, with an urgent path to the coordinator",
   ],
   stats: [
     { value: "3", label: "stakeholder groups designed for" },
@@ -49,14 +51,11 @@ export const highlightsSection = {
   callout: "Less chaos, more continuity.",
 };
 
-
-// Two phases: team research during the 10-week course, then solo design
-// afterward. The design phase has no stated week count, so the axis shows
-// dates instead of week numbers.
-// One row per phase, from the phases and tasks the course timeline already had.
+// Three phases of work: team research during the 10-week course, solo design
+// after it, and a responsive prototype with a design system in autumn 2026.
 export const timelineSection = {
   heading: "Timeline",
-  intro: "2 phases, Jan to Apr 2025.",
+  intro: "3 phases: course research, solo design, and a responsive prototype with a design system.",
   items: [
     {
       slug: "timeline-research",
@@ -70,6 +69,12 @@ export const timelineSection = {
       title: "Solo design",
       body: "Progressive disclosure, timeline-first communication, a design system draft, and frictionless check-ins.",
     },
+    {
+      slug: "timeline-prototype",
+      date: "Oct to Nov 2026",
+      title: "Responsive prototype and design system",
+      body: "A clickable prototype across phone, dual-screen, and desktop: one thing to do first for every role, a shared timeline, daily symptom logging, and a coordinator workspace.",
+    },
   ],
 };
 
@@ -82,7 +87,7 @@ export const roleAndImpact = {
     },
     {
       label: "Solution",
-      body: "A shared mobile and web platform that replaces chaos with a unified, stress-free timeline, proactive coordinator tools, and lightweight wellness tracking.",
+      body: "A responsive platform for phone, dual-screen, and desktop that replaces chaos with one shared timeline, a first action for every role, and lightweight daily check-ins.",
     },
     {
       label: "Intended Impact",
@@ -91,19 +96,20 @@ export const roleAndImpact = {
   ] satisfies { label: string; body: string | null }[],
 };
 
-
 export const problemSection = {
   heading: "The Problem",
   flow: "[Onboarding: High Support] ---> [Confirmation] ---> [The Drop-Off: Chaos & Isolation]",
   paragraphs: [
-    "Through our team's stakeholder interviews, we found a major gap: Support fades the moment pregnancy is confirmed exactly when emotional labor and uncertainty spike.",
+    "Through our team's stakeholder interviews, we found a major gap: support fades the moment pregnancy is confirmed, exactly when emotional labor and uncertainty spike.",
     "I led the 'Hospital Systems Don't Understand Surrogacy' sub-problem: hospital staff often aren't trained for surrogacy, so surrogates get misrecognized and intended parents miss critical updates and bonding moments.",
-    "The answer wasn't a better administration tool. It was a care system that sustained trust over nine months.",
+    "Families fill the gap with group texts, spreadsheets, and email threads. The answer wasn't a better administration tool. It was a care system that sustained trust over nine months.",
   ],
-  image: "/images/continuum/problem-flow.mp4",
-  imageAlt: "Animated diagram showing the onboarding, confirmation, and support drop-off flow",
-  imageWidth: 2098,
-  imageHeight: 1120,
+  image: "/images/continuum/v2/problem.webp",
+  imageAlt:
+    "Illustrative collage of the problem: a support curve that drops after pregnancy is confirmed, a late-night group text, a messy task spreadsheet, a chain of email subjects, and the research finding about hospital staff",
+  imageWidth: 2400,
+  imageHeight: 1350,
+  look: "The purple bars are the support families had before confirmation. The orange ones are what they have after. Each tool below is a piece of the gap.",
 };
 
 export type DesignDecision = {
@@ -112,34 +118,52 @@ export type DesignDecision = {
   anxiety: string;
   fix: string;
   tradeoff: string;
+  image: string;
+  imageAlt: string;
+  look: string;
 };
 
 export const decisionsSection = {
-  heading: "3 Design Decisions and Their Tradeoffs",
-  intro: "The three calls that shaped the product.",
+  heading: "3 Critical Design Decisions (And the Tradeoffs)",
+  intro: "Instead of showing every screen, here are the strategic decisions that shaped the product:",
   researchLinkLabel: "View full research",
   researchLinkHref: "/continuum-research-notes",
   decisions: [
     {
-      slug: "progressive-disclosure",
-      title: "1. Progressive Disclosure (Legal Tasks)",
-      anxiety: "Parents were overwhelmed by massive, complex legal checklists.",
-      fix: "I show only the immediate next task; future steps are hidden.",
-      tradeoff: 'Parents lose the "big picture" view, but gain daily peace of mind.',
+      slug: "one-thing-first",
+      title: "1. One Thing To Do First (Every Role)",
+      anxiety:
+        "Parents faced long legal checklists, coordinators faced a wall of cases, and surrogates faced a screen of options.",
+      fix: "Each role opens on one focal action: the next legal step, the coordinator's 'Do this first' card, the daily check-in. Everything else waits behind a tab.",
+      tradeoff: "People lose the big picture at a glance, but gain daily calm and a clear place to start.",
+      image: "/images/continuum/v2/decision-first.webp",
+      imageAlt:
+        "The coordinator's desktop view with a gradient 'Do this first' card next to the surrogate's phone, where the daily check-in is the focal card",
+      look: "Look at: the one glowing card on the coordinator's screen, and the one check-in card on the phone. Each role has one place to start.",
     },
     {
-      slug: "timeline-default",
-      title: "2. Timeline Default (Communication)",
-      anxiety: "Group chats created pressure for instant replies, spiking stress.",
-      fix: "Made an auto-updating shared timeline the default homepage.",
-      tradeoff: "Communication is slower, but it eliminates conversational urgency.",
+      slug: "shared-timeline",
+      title: "2. One Shared Timeline (Communication)",
+      anxiety:
+        "Group chats created pressure for instant replies, and different people held different versions of the plan.",
+      fix: "One timeline, drawn as a connected line or a calendar, that all three roles see. Any step opens what it is, why it matters, what to prepare, documents, and a place to ask.",
+      tradeoff: "Conversation moves out of the chat, which feels slower, but it removes the urgency of an always-on group thread.",
+      image: "/images/continuum/v2/decision-timeline.webp",
+      imageAlt:
+        "The shared timeline as a connected line on desktop, and the same steps as a month calendar on a phone",
+      look: "Look at: the same steps drawn two ways, as a connected line on desktop (left) and as a month calendar on the phone (right).",
     },
     {
       slug: "frictionless-checkins",
-      title: "3. Frictionless Check-ins (Surrogate Care)",
+      title: "3. Frictionless Check-ins, With One Exception",
       anxiety: 'Surrogates wanted support but hated feeling monitored or given "homework."',
-      fix: "One-tap, emoji-based mood checks with optional short notes.",
-      tradeoff: "I gave up more granular health data in exchange for authentic participation.",
+      fix: "One tap for mood, one tap for 'Nothing today', tap-to-set symptoms with a voice note. Urgent signs are the exception: they show who to call and alert the coordinator at once.",
+      tradeoff:
+        "I gave up granular health data in exchange for real participation. The symptom list and call guidance are a draft that needs clinical review.",
+      image: "/images/continuum/v2/decision-checkin.webp",
+      imageAlt:
+        "The surrogate's urgent-sign alert on a phone next to the coordinator's desktop view, where that case has jumped to the top with a call as the first action",
+      look: "Look at: the red alert on the phone, and that same case jumping to the top of the coordinator's screen with a call as its first action.",
     },
   ] satisfies DesignDecision[],
 };
@@ -149,8 +173,9 @@ export type Stakeholder = {
   name: string;
   coreNeed: string;
   features: string[];
-  demoVideo?: string;
-  demoVideoAlt?: string;
+  image: string;
+  imageAlt: string;
+  look: string;
 };
 
 export const stakeholdersSection = {
@@ -161,62 +186,82 @@ export const stakeholdersSection = {
       name: "Intended Parents",
       coreNeed: "Reassurance & Clarity",
       features: [
-        "Shared access to timelines, calendars, and documents",
-        "Guided prompts to ask the right questions at the right time",
-        "Reduced need for constant messaging",
+        "One next step, with why it matters and when it is due",
+        "The same full timeline the surrogate sees, as a line or calendar",
+        "Documents, signatures, and the hospital handoff card in one place",
       ],
-      demoVideo: "/images/continuum/intended-parent-dashboard-demo.mp4",
-      demoVideoAlt: "Walkthrough of the Continuum Intended Parent dashboard",
+      image: "/images/continuum/v2/stakeholder-parents.webp",
+      imageAlt: "The intended parents' home on desktop and phone: the one next step, a shared timeline, and how Maya is",
+      look: "Look at: the three gradient tiles at the top. They answer where we are, what is due, and how Maya is, before anything else.",
     },
     {
       slug: "surrogates",
       name: "Surrogates",
       coreNeed: "Autonomy & Care",
       features: [
-        "Emotional check-ins and wellbeing signals",
-        "Clear expectations and consent-based visibility",
-        "Reduced feeling of being monitored",
+        "A one-tap mood check-in and a quick daily symptom log",
+        "Consent-based visibility: she chooses who sees what, with a live preview",
+        "A birth-day flow that tells everyone she names in one tap",
       ],
-      demoVideo: "/images/continuum/surrogate-dashboard-demo.mp4",
-      demoVideoAlt: "Walkthrough of the Continuum Surrogate dashboard",
+      image: "/images/continuum/v2/stakeholder-surrogates.webp",
+      imageAlt: "The surrogate's Today page on desktop and phone with the focal check-in card",
+      look: "Look at: \"How are you feeling today?\" One tap is the whole check-in, and who can see it is stated underneath.",
     },
     {
       slug: "care-coordinators",
       name: "Care Coordinators",
-      coreNeed: "Risk Detection",
+      coreNeed: "Risk Detection & Focus",
       features: [
-        "Live case dashboard with alerts",
-        "Tools to track readiness, alignment, and blockers",
-        "Centralized communication loops",
+        "A 'Do this first' card for each case, sorted by urgency",
+        "Board, calendar, and messages, with a one-tap nudge for whoever is holding things up",
+        "A certified-coordinator tag so families know who they are working with",
       ],
-      demoVideo: "/images/continuum/care-coordinator-dashboard-demo.mp4",
-      demoVideoAlt: "Walkthrough of the Continuum Care Coordinator dashboard",
+      image: "/images/continuum/v2/stakeholder-coordinators.webp",
+      imageAlt: "The coordinator's case view on desktop and the case list on phone",
+      look: "Look at: slim case cards with one status each, and the selected case opening on a single \"Do this first\" card.",
     },
   ] satisfies Stakeholder[],
 };
 
 export const designSystemSection = {
   heading: "Design System: Designing for Emotional Safety",
-  intro:
-    "Built to stay calm in high-stress medical moments:",
+  intro: "To lower cognitive load during high-stress moments, the system favors calm and restraint:",
   principles: [
     {
-      title: "Warm, non-clinical tones",
-      body: "to avoid looking like a sterile medical portal or tracker.",
+      title: "A calm neutral base, gradient only for what matters most,",
+      body: "so the one important thing is the one thing that stands out. Each palette means one thing.",
     },
     {
-      title: "Mobile-first layouts",
-      body: "optimized for quick, one-handed use in waiting rooms.",
+      title: "Colour never works alone:",
+      body: "every colour meaning has a label or an icon, and text on gradients is white and checked for contrast.",
     },
     {
-      title: "Large, readable typography",
-      body: "and soft microcopy that feels supportive, not authoritative.",
+      title: "Large type, large targets, and display settings",
+      body: "for larger text, reduced motion and transparency, and higher contrast.",
     },
   ],
-  image: "/images/continuum/design-system-moodboard.mp4",
-  imageAlt: "Continuum design system moodboard showing UI components, icons, buttons, and color palette",
-  imageWidth: 908,
-  imageHeight: 902,
+  images: [
+    {
+      src: "/images/continuum/v2/design-system-bento.webp",
+      look: "Look at: each gradient palette has one meaning, and the solid green is kept for \"certified\" only.",
+      alt: "Design system overview: the logo, warm real photography, the Geist type specimen, the gradient widget palette, and the one-tap mood list",
+    },
+    {
+      src: "/images/continuum/v2/components-bento.webp",
+      look: "Look at: the parts the app is built from. Symptom chips and timeline states carry a label as well as a colour.",
+      alt: "Components: buttons, tags and the certified-coordinator tag, gradient widgets, switches, symptom chips, timeline states, and colour meaning",
+    },
+  ],
+  imageWidth: 2400,
+  imageHeight: 1350,
+};
+
+// Shown once, under the hero. Nothing in this case study is a tested result.
+export const prototypeNote = {
+  text: "A clickable prototype with fictional people, agencies, and data. Not yet tested with users, and the clinical content (symptom list, call-now guidance) is an unreviewed draft.",
+  // Optional. Hidden until you deploy the prototype and add the link.
+  url: null as string | null,
+  label: "Try the prototype",
 };
 
 export const nextStepsSection = {
@@ -229,6 +274,10 @@ export const nextStepsSection = {
     {
       title: "Measure success",
       body: "by tracking whether anxious, off-channel messages to coordinators drop.",
+    },
+    {
+      title: "Get clinical and accessibility review",
+      body: "of the symptom list and call guidance, and run a screen-reader and keyboard-only pass.",
     },
   ],
 };
