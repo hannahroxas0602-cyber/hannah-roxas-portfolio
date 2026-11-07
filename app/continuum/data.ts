@@ -1,6 +1,8 @@
 import { projectDescription } from "@/app/data/projects";
 import type { CaseStudyTldr } from "@/app/components/caseStudyTypes";
 
+export const heroLook = "One phone, and the pieces around it. Watch the chips, the step and the calendar: they behave like the real app.";
+
 export const continuumHero = {
   title: "Continuum",
   subtitle:
@@ -107,6 +109,7 @@ export const problemSection = {
     "Illustrative collage of the problem: a support curve that drops after pregnancy is confirmed, a late-night group text, a messy task spreadsheet, a chain of email subjects, and the research finding about hospital staff",
   imageWidth: 2400,
   imageHeight: 1350,
+  look: "The purple bars are the support families had before confirmation. The orange ones are what they have after. Each tool below is a piece of the gap.",
 };
 
 export type DesignDecision = {
@@ -117,6 +120,7 @@ export type DesignDecision = {
   tradeoff: string;
   image: string;
   imageAlt: string;
+  look: string;
 };
 
 export const decisionsSection = {
@@ -135,6 +139,7 @@ export const decisionsSection = {
       image: "/images/continuum/v2/decision-first.webp",
       imageAlt:
         "The coordinator's desktop view with a gradient 'Do this first' card next to the surrogate's phone, where the daily check-in is the focal card",
+      look: "Look at: the one glowing card on the coordinator's screen, and the one check-in card on the phone. Each role has one place to start.",
     },
     {
       slug: "shared-timeline",
@@ -146,6 +151,7 @@ export const decisionsSection = {
       image: "/images/continuum/v2/decision-timeline.webp",
       imageAlt:
         "The shared timeline as a connected line on desktop, and the same steps as a month calendar on a phone",
+      look: "Look at: the same steps drawn two ways, as a connected line on desktop (left) and as a month calendar on the phone (right).",
     },
     {
       slug: "frictionless-checkins",
@@ -157,6 +163,7 @@ export const decisionsSection = {
       image: "/images/continuum/v2/decision-checkin.webp",
       imageAlt:
         "The surrogate's urgent-sign alert on a phone next to the coordinator's desktop view, where that case has jumped to the top with a call as the first action",
+      look: "Look at: the red alert on the phone, and that same case jumping to the top of the coordinator's screen with a call as its first action.",
     },
   ] satisfies DesignDecision[],
 };
@@ -168,6 +175,7 @@ export type Stakeholder = {
   features: string[];
   image: string;
   imageAlt: string;
+  look: string;
 };
 
 export const stakeholdersSection = {
@@ -184,6 +192,7 @@ export const stakeholdersSection = {
       ],
       image: "/images/continuum/v2/stakeholder-parents.webp",
       imageAlt: "The intended parents' home on desktop and phone: the one next step, a shared timeline, and how Maya is",
+      look: "Look at: the three gradient tiles at the top. They answer where we are, what is due, and how Maya is, before anything else.",
     },
     {
       slug: "surrogates",
@@ -196,6 +205,7 @@ export const stakeholdersSection = {
       ],
       image: "/images/continuum/v2/stakeholder-surrogates.webp",
       imageAlt: "The surrogate's Today page on desktop and phone with the focal check-in card",
+      look: "Look at: \"How are you feeling today?\" One tap is the whole check-in, and who can see it is stated underneath.",
     },
     {
       slug: "care-coordinators",
@@ -208,6 +218,7 @@ export const stakeholdersSection = {
       ],
       image: "/images/continuum/v2/stakeholder-coordinators.webp",
       imageAlt: "The coordinator's case view on desktop and the case list on phone",
+      look: "Look at: slim case cards with one status each, and the selected case opening on a single \"Do this first\" card.",
     },
   ] satisfies Stakeholder[],
 };
@@ -232,10 +243,12 @@ export const designSystemSection = {
   images: [
     {
       src: "/images/continuum/v2/design-system-bento.webp",
+      look: "Look at: each gradient palette has one meaning, and the solid green is kept for \"certified\" only.",
       alt: "Design system overview: the logo, warm real photography, the Geist type specimen, the gradient widget palette, and the one-tap mood list",
     },
     {
       src: "/images/continuum/v2/components-bento.webp",
+      look: "Look at: the parts the app is built from. Symptom chips and timeline states carry a label as well as a colour.",
       alt: "Components: buttons, tags and the certified-coordinator tag, gradient widgets, switches, symptom chips, timeline states, and colour meaning",
     },
   ],

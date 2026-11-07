@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { caseStudyTitle, pageMetadata } from "@/app/data/seo";
 import Image from "next/image";
 import Link from "next/link";
+import ContinuumProblem from "@/app/continuum/ContinuumProblem";
 import ContinuumHero from "@/app/continuum/ContinuumHero";
 import Header from "@/app/components/Header";
 import HoleLink from "@/app/components/HoleLink";
@@ -26,6 +27,7 @@ import {
   stakeholdersSection,
   designSystemSection,
   prototypeNote,
+  heroLook,
   nextStepsSection,
   nextProject,
 } from "@/app/continuum/data";
@@ -72,6 +74,16 @@ const metaGridCols: Record<number, string> = {
   4: "sm:grid-cols-2 lg:grid-cols-4",
 };
 
+function Look({ children }: { children: string }) {
+  const [lead, rest] = children.startsWith("Look at:") ? ["Look at:", children.slice(8)] : ["", children];
+  return (
+    <p className="mt-3 max-w-2xl text-sm leading-relaxed text-neutral-500">
+      {lead && <span className="font-mono text-xs font-medium tracking-wide text-neutral-900 uppercase">Look at </span>}
+      {rest}
+    </p>
+  );
+}
+
 export default function ContinuumPage() {
   const meta = continuumHero.meta.flatMap((item) =>
     filled(item.value) ? [{ label: item.label, value: item.value }] : [],
@@ -104,6 +116,7 @@ export default function ContinuumPage() {
             {/* The picture comes first, so the page opens on the work: one phone, with the pieces of the system around it. */}
             <div className="mt-10 mb-2">
               <ContinuumHero />
+              <Look>{heroLook}</Look>
             </div>
             <p className="mt-3 max-w-2xl text-xs leading-relaxed text-neutral-400">
               {prototypeNote.text}
@@ -174,16 +187,11 @@ export default function ContinuumPage() {
             {problemSection.heading}
           </h2>
 
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-700">{problemSection.paragraphs[0]}</p>
+
           <div className="mt-8">
-            <Image
-              src={problemSection.image}
-              alt={problemSection.imageAlt}
-              width={problemSection.imageWidth}
-              height={problemSection.imageHeight}
-              unoptimized
-              className="h-auto w-full mix-blend-multiply"
-              sizes="(min-width: 1024px) 1024px, 100vw"
-            />
+            <ContinuumProblem />
+            <Look>{problemSection.look}</Look>
           </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-2 rounded-xl border border-black/[0.06] bg-neutral-50 px-4 py-3 font-mono text-xs text-neutral-500 sm:text-sm">
@@ -202,7 +210,7 @@ export default function ContinuumPage() {
           </div>
 
           <div className="mt-8 space-y-4">
-            {problemSection.paragraphs.map((p, i) => (
+            {problemSection.paragraphs.slice(1).map((p, i) => (
               <p key={i} className="max-w-2xl text-base leading-relaxed text-neutral-700">
                 {p}
               </p>
@@ -232,6 +240,7 @@ export default function ContinuumPage() {
                     className="h-auto w-full mix-blend-multiply"
                     sizes="(min-width: 1024px) 1024px, 100vw"
                   />
+                  <Look>{decision.look}</Look>
                 </div>
                 <div className="rounded-2xl bg-neutral-900 p-8 text-white sm:p-10">
                   <h3 className="font-display text-xl font-semibold">{decision.title}</h3>
@@ -281,6 +290,7 @@ export default function ContinuumPage() {
                     className="h-auto w-full mix-blend-multiply"
                     sizes="(min-width: 1024px) 1024px, 100vw"
                   />
+                  <Look>{s.look}</Look>
                 </div>
                 <div className="mt-8 grid items-start gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] sm:gap-12">
                   <div>
@@ -333,6 +343,7 @@ export default function ContinuumPage() {
                   className="h-auto w-full mix-blend-multiply"
                   sizes="(min-width: 1024px) 1024px, 100vw"
                 />
+                <Look>{img.look}</Look>
               </div>
             ))}
           </div>

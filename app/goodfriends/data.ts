@@ -325,8 +325,8 @@ export const nextProject = {
   description:
     "A care-centered platform keeping surrogates, parents, and coordinators in sync after pregnancy confirmation.",
   href: "/continuum",
-  image: "/images/projects/continuum.png",
+  image: "/images/projects/continuum-4x3.webp",
   imageAlt: "Continuum surrogacy platform interface showing coordination dashboard",
-  imageWidth: 1264,
-  imageHeight: 848,
+  imageWidth: 2400,
+  imageHeight: 1800,
 };

@@ -110,6 +110,7 @@ export default function ContinuumHero() {
   if (!still) for (let k = 0; k <= t % (script.length + 2) - 1 && k < script.length; k++) lv[script[k][0]] = script[k][1];
   const pick = still ? 11 : PICKS[t % PICKS.length];
   const done = !still && fill >= 1;
+  const typing = !still && t % 5 >= 3;
   const labels = ["Nausea", "Tired", "Headache", "Back pain", "Cramps", "Sleep"];
 
   const abs = (x: number, y: number, w: number, h: number, delay: number): CSSProperties => ({ position: "absolute", left: x - 80, top: y - 30, width: w, height: h, ["--d" as string]: `${delay}s` });
@@ -134,7 +135,12 @@ export default function ContinuumHero() {
         {/* left column */}
         <div className="ch-in grid place-items-center rounded-[24px]" style={{ ...abs(110, 138, 212, 196, 0.15), background: CARD }}>
           <div className="flex flex-col items-center gap-3">
-            <svg width="76" height="76" viewBox="0 0 100 100" aria-hidden><path d="M78 24A38 38 0 1 0 78 76" fill="none" stroke={INK} strokeWidth="13" strokeLinecap="round" /><circle cx="52" cy="50" r="10.5" fill={INK} className="ch-dot" /></svg>
+            <svg width="76" height="76" viewBox="0 0 100 100" aria-hidden style={{ overflow: "visible" }}>
+              <path className="ch-ring" pathLength={100} d="M78 24A38 38 0 1 0 78 76" fill="none" stroke={INK} strokeWidth="13" strokeLinecap="round" />
+              <circle className="ch-ripple" cx="52" cy="50" r="10.5" fill="none" stroke={INK} strokeWidth="2" />
+              <circle className="ch-ripple" cx="52" cy="50" r="10.5" fill="none" stroke={INK} strokeWidth="2" style={{ animationDelay: "0.45s" }} />
+              <circle className="ch-dot" cx="52" cy="50" r="10.5" fill={INK} />
+            </svg>
             <p className="font-medium" style={{ fontSize: 20, letterSpacing: "-0.03em" }}>Continuum</p>
           </div>
         </div>
@@ -143,7 +149,8 @@ export default function ContinuumHero() {
           <span style={{ fontSize: 13, ...sub }}>This week</span>
           <div>
             <p className="font-medium leading-none tabular-nums" style={{ fontSize: 32, letterSpacing: "-0.03em", ...shadow }}>{week} of 40</p>
-            <p style={{ fontSize: 12, marginTop: 4, ...sub }}>with Maya</p>
+            <Swap lines={["with Maya", "12 weeks to go"]} i={still ? 0 : t % 4 < 2 ? 0 : 1} style={{ fontSize: 12, marginTop: 4, ...sub }} />
+            <span className="mt-2 block overflow-hidden rounded-full" style={{ height: 4, background: "rgba(255,255,255,.28)" }}><span className="block h-full rounded-full bg-white" style={{ width: `${(week / 40) * 100}%` }} /></span>
           </div>
         </div>
 
@@ -158,7 +165,10 @@ export default function ContinuumHero() {
               P
               <span className="ch-online absolute rounded-full" style={{ right: -1, bottom: -1, width: 12, height: 12, background: "#1FA971", boxShadow: `0 0 0 2px ${CARD}` }} />
             </span>
-            <div className="leading-tight"><p className="font-medium" style={{ fontSize: 17, letterSpacing: "-0.02em" }}>Priya Raman</p><p style={{ fontSize: 12, color: MUTED }}>Your coordinator · replies within a day</p></div>
+            <div className="leading-tight"><p className="font-medium" style={{ fontSize: 17, letterSpacing: "-0.02em" }}>Priya Raman</p><span className="relative block" style={{ height: 16, fontSize: 12, color: MUTED }}>
+                <span className="absolute left-0 top-0 whitespace-nowrap transition-all duration-700" style={{ opacity: typing ? 0 : 1, transform: typing ? "translateY(-5px)" : "none" }}>Your coordinator · replies within a day</span>
+                <span className="absolute left-0 top-0 flex items-center gap-[3px] whitespace-nowrap transition-all duration-700" style={{ opacity: typing ? 1 : 0, transform: typing ? "none" : "translateY(5px)" }}>Priya is typing <i className="ch-type" /><i className="ch-type" style={{ animationDelay: ".15s" }} /><i className="ch-type" style={{ animationDelay: ".3s" }} /></span>
+              </span></div>
           </div>
           <span key={still ? "s" : Math.floor(t / 3)} className="inline-flex w-fit items-center gap-[6px] rounded-full text-white" style={{ background: "#0B6E45", padding: "6px 12px", fontSize: 12, fontWeight: 500 }}>
             <svg width="16" height="16" viewBox="0 0 24 24" {...stroke}><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /><path d="m9 12 2 2 4-4" className="ch-check" /></svg>
