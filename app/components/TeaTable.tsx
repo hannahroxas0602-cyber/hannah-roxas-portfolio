@@ -119,8 +119,8 @@ export function Cookie() {
         type="button"
         onClick={copy}
         data-cursor={copied ? "Copied" : "Copy my email"}
-        aria-label={copied ? "Copied my email" : "Contact me: copy my email address"}
-        className="cookie relative aspect-[2/3] w-[3.4rem] shrink-0 rotate-[-7deg] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e8638f] sm:w-[3.9rem]"
+        aria-label={copied ? "Copied my email address" : "Email me: copy my email address"}
+        className="cookie relative aspect-[2/3] w-[5.2rem] shrink-0 rotate-[-7deg] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e8638f] sm:w-[6.2rem]"
       >
         <svg viewBox="0 0 200 300" className="size-full overflow-visible drop-shadow-[0_8px_8px_rgba(60,40,20,0.28)]">
           <defs>
@@ -135,8 +135,8 @@ export function Cookie() {
             <mask id={`${uid}-text`}>
               <rect width="200" height="300" fill="#000" />
               <g fill="#fff" fontFamily="var(--font-inter), Arial, sans-serif" fontWeight="700" textAnchor="middle">
-                <text x="100" y="146" fontSize="50" letterSpacing="-1.5">contact</text>
-                <text x="100" y="200" fontSize="50" letterSpacing="-1.5">me</text>
+                <text x="100" y="146" fontSize="58" letterSpacing="-1.5">email</text>
+                <text x="100" y="204" fontSize="58" letterSpacing="-1.5">me</text>
               </g>
             </mask>
             <mask id={`${uid}-bite`}>

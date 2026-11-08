@@ -5,7 +5,6 @@ import { useRef } from "react";
 import { services } from "@/app/services/data";
 import { Em } from "@/app/components/Em";
 import Melt from "@/app/components/Melt";
-import ToolsMarquee from "@/app/components/ToolsMarquee";
 import { LOGO_BLUE, PRIM } from "@/app/components/hallColor";
 import { social } from "@/app/data/social";
 
@@ -13,6 +12,17 @@ import { social } from "@/app/data/social";
 // it (a row of small diamonds marks the edge), and on the sheet a sticky statement on the left with the four
 // disciplines listed on the right: number, title, one line of proof, and the deliverables as plain text.
 // Hairlines draw themselves across as each row arrives. Quiet, with one clear action.
+const SKILLS = [
+  {
+    label: "Hard skills",
+    items: ["Product design", "UX research", "Design systems", "Prototyping", "Front end (React, Next.js, TypeScript)", "Framer", "Motion", "Branding"],
+  },
+  {
+    label: "Soft skills",
+    items: ["Curiosity", "Clear communication", "Cross-functional collaboration", "Ownership", "Taking feedback", "Storytelling"],
+  },
+];
+
 function Row({ index, title, deliverables, proof }: { index: number; title: string; deliverables: string[]; proof: string }) {
   const ref = useRef<HTMLLIElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 92%", "start 62%"] });
@@ -21,12 +31,12 @@ function Row({ index, title, deliverables, proof }: { index: number; title: stri
   return (
     <li ref={ref} className="group relative">
       <motion.span aria-hidden style={{ scaleX: line }} className="absolute top-0 left-0 h-px w-full origin-left bg-neutral-900" />
-      <div className="grid gap-x-8 gap-y-2 py-7 sm:grid-cols-[3rem_1fr] sm:py-8">
+      <div className="grid gap-x-8 gap-y-2 py-4 sm:grid-cols-[3rem_1fr] sm:py-5">
         <span className="font-label pt-2 text-xs text-neutral-400 tabular-nums">{String(index + 1).padStart(2, "0")}</span>
         <div className="transition-transform duration-500 group-hover:translate-x-2">
-          <h3 className="font-display text-[clamp(1.6rem,3vw,2.2rem)] leading-tight font-semibold tracking-[-0.02em] text-neutral-950">{title}</h3>
-          <p className="mt-2 max-w-md text-[0.95rem] leading-relaxed text-neutral-600">{proof}</p>
-          <p className="font-label mt-3 text-[11px] font-medium tracking-wider text-neutral-500 uppercase">{deliverables.join("  ·  ")}</p>
+          <h3 className="font-display text-[clamp(1.35rem,2.4vw,1.8rem)] leading-tight font-semibold tracking-[-0.02em] text-neutral-950">{title}</h3>
+          <p className="mt-1 max-w-md text-sm leading-relaxed text-neutral-600">{proof}</p>
+          <p className="font-label mt-2 text-[10.5px] font-medium tracking-wider text-neutral-500 uppercase">{deliverables.join("  ·  ")}</p>
         </div>
       </div>
     </li>
@@ -35,7 +45,7 @@ function Row({ index, title, deliverables, proof }: { index: number; title: stri
 
 export default function WhatIDo() {
   return (
-    <section id="what-i-do" data-rail="What I do" className="relative z-10 -mt-12 rounded-t-[2.5rem] bg-white px-5 pt-14 pb-16 shadow-[0_-24px_60px_-30px_rgba(0,0,0,0.35)] sm:px-10 sm:pt-20">
+    <section id="what-i-do" data-rail="What I do" className="relative z-10 -mt-12 rounded-t-[2.5rem] bg-white px-5 pt-12 pb-12 shadow-[0_-24px_60px_-30px_rgba(0,0,0,0.35)] sm:px-10 sm:pt-16">
       {/* a row of diamonds along the edge of the sheet */}
       <div aria-hidden className="absolute top-4 left-1/2 flex -translate-x-1/2 gap-1.5">
         {Array.from({ length: 9 }, (_, i) => (
@@ -77,8 +87,21 @@ export default function WhatIDo() {
         </ul>
       </div>
 
-      <div className="mx-auto mt-14 max-w-6xl border-y border-neutral-200 py-4">
-        <ToolsMarquee />
+      {/* Skills, plainly: what I can do with my hands, and how I work with other people. */}
+      <div className="mx-auto mt-10 grid max-w-6xl gap-8 border-t border-neutral-200 pt-8 sm:grid-cols-2">
+        {SKILLS.map((group) => (
+          <div key={group.label}>
+            <h3 className="font-label text-xs font-semibold tracking-widest text-neutral-500 uppercase">{group.label}</h3>
+            <p className="mt-3 text-[0.95rem] leading-relaxed text-neutral-800">
+              {group.items.map((item, i) => (
+                <span key={item}>
+                  {item}
+                  {i < group.items.length - 1 && <span aria-hidden className="mx-2 text-neutral-300">/</span>}
+                </span>
+              ))}
+            </p>
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -49,15 +49,7 @@ export default function Footer({ compact = false, aside }: { compact?: boolean; 
             If you need someone who can take a product from research to shipped code, let&apos;s talk.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-4">
-            <a
-              href={`mailto:${social.email}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor="Email me"
-              className="inline-flex items-center gap-2 rounded-full bg-neutral-950 px-6 py-3 text-sm font-medium text-white transition-transform duration-300 hover:-translate-y-0.5"
-            >
-              Email me <span aria-hidden>↗</span>
-            </a>
+            <Cookie />
             <a
               href={social.resume}
               target="_blank"
@@ -67,9 +59,8 @@ export default function Footer({ compact = false, aside }: { compact?: boolean; 
             >
               Resume
             </a>
-            <Cookie />
           </div>
-          <p className="mt-5 text-sm text-neutral-500">{social.email}</p>
+          <p className="mt-5 text-sm text-neutral-500">{social.email} <span className="text-neutral-400">· tap the biscuit to copy</span></p>
         </motion.div>
         )}
         {side}

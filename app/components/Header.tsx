@@ -31,8 +31,8 @@ const menuList = {
 // odd angles, each swinging in from one side and settling.
 // Arrows alternate black and blue; the text takes the other colour.
 const SIGN = [
-  { fill: "#0b0b0d", ink: "#3ec3ff" },
-  { fill: "#3ec3ff", ink: "#0b0b0d" },
+  { fill: "#0b0b0d", ink: "#8fc4c9" },
+  { fill: "#8fc4c9", ink: "#0b0b0d" },
 ];
 const menuItem = {
   hidden: (i: number) => ({ opacity: 0, x: i % 2 ? 40 : -40 }),
@@ -121,7 +121,6 @@ export default function Header() {
                       </svg>
                       <span style={{ color: SIGN[i % 2].ink }} className={`relative flex h-full items-center gap-1.5 font-display text-[1.15rem] font-semibold tracking-tight leading-none ${left ? "justify-end pr-11 pl-5" : "justify-start pr-5 pl-11"}`}>
                         {link.label}
-                        {link.kind === "external" && <span aria-hidden className="text-sm">↗</span>}
                         {active && <span aria-hidden className="size-1.5 rounded-full bg-current" />}
                       </span>
                     </>
