@@ -1,5 +1,6 @@
 import Image from "next/image";
 import HoleLink from "@/app/components/HoleLink";
+import Melt from "@/app/components/Melt";
 
 type NextProjectPreviewProps = {
   label: string;
@@ -42,9 +43,9 @@ export default function NextProjectPreview({
           />
         </div>
         <div>
-          <h2 data-vt-title className="font-display text-2xl font-semibold text-neutral-900">
+          <h2 data-vt-title className="font-display text-2xl font-semibold text-neutral-900"><Melt as="span" className="block">
             {title}
-          </h2>
+          </Melt></h2>
           <p className="mt-2 max-w-sm text-base leading-relaxed text-neutral-600">
             {description}
           </p>

@@ -32,6 +32,7 @@ import { filled } from "@/app/data/placeholder";
 import { publicFileExists } from "@/app/data/publicFile";
 import { readingMinutes } from "@/app/data/readingTime";
 import ReadingTime from "@/app/components/ReadingTime";
+import Melt from "@/app/components/Melt";
 
 const showTestimonial = hasTestimonial(testimonial);
 
@@ -116,12 +117,16 @@ export default function LearvoPage() {
             ← Back to home
           </HoleLink>
 
-          <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
+          <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl"><Melt as="span" className="block" mode="load" delay={0.3} maxBlur={3.4}>
             {learvoHero.title}
-          </h1>
+          </Melt></h1>
 
           <p className="mt-6 max-w-2xl text-xl leading-relaxed text-neutral-700">
             {learvoHero.subtitle}
+          </p>
+
+          <p className="mt-4 flex flex-wrap items-center gap-x-3 text-sm text-neutral-400">
+            {learvoHero.date} · <ReadingTime minutes={minutesToRead} />
           </p>
 
           {/* The work first: a bento of tiny screenshots and brand pieces, each linking to its section. */}
@@ -129,9 +134,6 @@ export default function LearvoPage() {
 
           <CaseStudyTldr tldr={tldr} />
 
-          <p className="mt-8 text-sm text-neutral-400">
-            {learvoHero.date} · <ReadingTime minutes={minutesToRead} />
-          </p>
 
           <dl className="mt-6 grid grid-cols-1 gap-6 border-t border-black/[0.08] pt-8 sm:grid-cols-3">
             {learvoHero.meta.map((item) => (
@@ -165,9 +167,9 @@ export default function LearvoPage() {
 
         {/* What I Shipped */}
         <section id="what-i-shipped" className="max-w-4xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {featuresSection.heading}
-          </h2>
+          </Melt></h2>
 
           <div className="mt-12 space-y-24">
             {(featuresSection.categories as FeatureCategory[])
@@ -362,9 +364,9 @@ export default function LearvoPage() {
 
         {/* Brand Identity */}
         <section id="brand-identity" className="max-w-4xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {brandIdentitySection.heading}
-          </h2>
+          </Melt></h2>
 
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700">
             <span className="font-semibold text-neutral-900">Problem: </span>
@@ -418,9 +420,9 @@ export default function LearvoPage() {
         {/* What I Learned from Users — renders only once real research is filled in */}
         {showUserResearch && (
           <section id="user-research" className="max-w-4xl py-16">
-            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
               {userResearch.heading}
-            </h2>
+            </Melt></h2>
 
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700">
               <span className="font-semibold text-neutral-900">Method: </span>
@@ -451,9 +453,9 @@ export default function LearvoPage() {
 
         {/* What I'd Do Next */}
         <section id="next-steps" className="max-w-4xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {nextStepsSection.heading}
-          </h2>
+          </Melt></h2>
 
           <ul className="mt-8 space-y-4">
             {nextStepsSection.items.map((item, i) => (

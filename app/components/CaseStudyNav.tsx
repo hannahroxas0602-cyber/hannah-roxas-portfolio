@@ -121,7 +121,7 @@ export default function CaseStudyNav({ sections }: { sections: CaseStudySection[
               className="absolute inset-x-0 top-0 rounded-full transition-[height] duration-500 ease-out"
               style={{
                 height: fillHeight,
-                background: "linear-gradient(to bottom, #f3cfdc, #b9b6dc 55%, #9fb3da)",
+                background: "linear-gradient(to bottom, #cfe6e9, #a4d3d6 55%, #9fc3ee)",
               }}
             />
           </span>

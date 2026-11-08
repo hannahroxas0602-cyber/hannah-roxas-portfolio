@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import CaseStudySection, { darkTile, lightTile } from "@/app/components/CaseStudySection";
+import CountUp from "@/app/components/CountUp";
 
 type Mockup = {
   image: string;
@@ -114,7 +115,9 @@ export default function CaseStudyHighlights({
       <div className={`grid grid-cols-1 gap-2.5 ${stats.length > 1 ? "sm:grid-cols-2" : ""}`}>
         {stats.map((stat) => (
           <div key={stat.label} className={`${darkTile} p-7 sm:p-8`}>
-            <p className="font-display text-6xl font-semibold text-white sm:text-7xl">{stat.value}</p>
+            <p className="font-display text-6xl font-semibold text-white sm:text-7xl">
+              <CountUp value={stat.value} />
+            </p>
             <p className="mt-3 max-w-[16rem] text-sm leading-snug text-white/60">{stat.label}</p>
           </div>
         ))}

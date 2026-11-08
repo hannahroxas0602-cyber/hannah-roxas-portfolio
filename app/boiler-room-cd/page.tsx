@@ -7,6 +7,7 @@ import HoleLink from "@/app/components/HoleLink";
 import Footer from "@/app/components/Footer";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
 import { boilerRoomHero, gallery, nextProject } from "@/app/boiler-room-cd/data";
+import Melt from "@/app/components/Melt";
 
 export const metadata: Metadata = pageMetadata({
   title: caseStudyTitle("Boiler Room Tokyo CD"),
@@ -29,9 +30,9 @@ export default function BoilerRoomCdPage() {
               ← Back to home
             </HoleLink>
 
-            <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
+            <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl"><Melt as="span" className="block" mode="load" delay={0.3} maxBlur={3.4}>
               {boilerRoomHero.title}
-            </h1>
+            </Melt></h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-600">
               {boilerRoomHero.narrative}

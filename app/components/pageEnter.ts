@@ -4,7 +4,7 @@
 //
 // Runs in the incoming page's layout effect, before the browser captures the
 // new page for the transition, so nothing flashes at full opacity first.
-const BASE_DELAY_MS = 200; // lets the circle get most of the way open
+const BASE_DELAY_MS = 420; // lets the hole get most of the way open
 const STEP_MS = 75;
 const MAX_UNITS = 10;
 const SAFETY_MS = 2500;

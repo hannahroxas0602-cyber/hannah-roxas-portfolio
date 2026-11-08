@@ -7,6 +7,7 @@ import { EmphasizeLast } from "@/app/components/Em";
 import ProjectGrid from "@/app/components/ProjectGrid";
 import { projects } from "@/app/data/projects";
 import { uiuxHero } from "@/app/uiux/data";
+import Melt from "@/app/components/Melt";
 
 export const metadata: Metadata = pageMetadata({
   title: caseStudyTitle("UI/UX"),
@@ -35,9 +36,9 @@ export default function UiUxPage() {
           <h1
             className="mt-3 max-w-2xl font-display font-semibold tracking-tight text-neutral-900"
             style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", lineHeight: 1.05 }}
-          >
+          ><Melt as="span" className="block" mode="load" delay={0.3} maxBlur={3.4}>
             <EmphasizeLast text={uiuxHero.category} />
-          </h1>
+          </Melt></h1>
 
           <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-500">
             {uiuxHero.intro}

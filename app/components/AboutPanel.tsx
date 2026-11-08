@@ -6,6 +6,7 @@ import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { useAboutPanel } from "@/app/components/AboutPanelContext";
 import { aboutIntro, experience } from "@/app/about/data";
 import { social } from "@/app/data/social";
+import ToolsMarquee from "@/app/components/ToolsMarquee";
 
 const stackPhotos = [
   {
@@ -21,7 +22,7 @@ const stackPhotos = [
 
 const STACK_INTERVAL_MS = 1800;
 
-function PhotoStack() {
+export function PhotoStack() {
   const [index, setIndex] = useState(0);
   const count = stackPhotos.length;
 
@@ -76,17 +77,6 @@ function PhotoStack() {
   );
 }
 
-const tools = [
-  { name: "Figma", slug: "figma" },
-  { name: "Adobe CC", slug: "adobecreativecloud" },
-  { name: "Slack", slug: "slack" },
-  { name: "GitHub", slug: "github" },
-  { name: "Cursor", slug: "cursor" },
-  { name: "Notion", slug: "notion" },
-  { name: "Linear", slug: "linear" },
-  { name: "VS Code", slug: "visualstudiocode" },
-];
-
 export default function AboutPanel({ width }: { width: number }) {
   const { isOpen, close } = useAboutPanel();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -138,34 +128,7 @@ export default function AboutPanel({ width }: { width: number }) {
 
             {/* Tool marquee — real logos + names via Simple Icons, scrolling in one line */}
             <div className="flex h-16 items-center overflow-hidden rounded-2xl bg-white ring-1 ring-black/[0.05]">
-              <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_10%,#000_90%,transparent)]">
-              <div className="flex w-max animate-[marquee_28s_linear_infinite] items-center motion-reduce:animate-none">
-                {[...tools, ...tools].map((tool, i) => (
-                  <div
-                    key={`${tool.slug}-${i}`}
-                    className="flex h-6 shrink-0 items-center gap-2.5 px-5"
-                  >
-                    <span
-                      aria-hidden
-                      className="block size-5 shrink-0 bg-accent-deep"
-                      style={{
-                        WebkitMaskImage: `url(https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${tool.slug}.svg)`,
-                        maskImage: `url(https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${tool.slug}.svg)`,
-                        WebkitMaskSize: "contain",
-                        maskSize: "contain",
-                        WebkitMaskRepeat: "no-repeat",
-                        maskRepeat: "no-repeat",
-                        WebkitMaskPosition: "center",
-                        maskPosition: "center",
-                      }}
-                    />
-                    <span className="text-sm leading-none font-medium whitespace-nowrap text-neutral-800">
-                      {tool.name}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              </div>
+              <ToolsMarquee />
             </div>
 
             {/* Timeline — one minimal, non-scrolling section with a connecting rail */}
@@ -203,7 +166,7 @@ export default function AboutPanel({ width }: { width: number }) {
                   aria-hidden
                   className="rail-track absolute top-[10px] bottom-[10px] left-[5px] w-[3px] overflow-hidden rounded-full"
                 >
-                  <span className="absolute inset-0 rounded-full" style={{ background: "linear-gradient(to bottom, #f3cfdc, #b9b6dc 55%, #9fb3da)" }} />
+                  <span className="absolute inset-0 rounded-full" style={{ background: "linear-gradient(to bottom, #cfe6e9, #a4d3d6 55%, #9fc3ee)" }} />
                 </span>
                 {experience.map((entry, i) => (
                   <li

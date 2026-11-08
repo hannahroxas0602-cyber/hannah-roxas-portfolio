@@ -2,6 +2,7 @@ import { aboutIntro, aiBlurb, availability, experience, process } from "@/app/ab
 import { SHOW_TODOS, filled, todoLabel } from "@/app/data/placeholder";
 import { social } from "@/app/data/social";
 import ScrollFillList from "@/app/components/ScrollFillList";
+import Melt from "@/app/components/Melt";
 
 const label =
   "font-label text-xs font-semibold tracking-widest text-neutral-400 uppercase";
@@ -20,9 +21,9 @@ export default function About() {
       <h1
         className="welcome mt-6 max-w-2xl tracking-[-0.02em] text-neutral-950"
         style={{ fontSize: "clamp(2.25rem, 4.6vw, 3.6rem)", lineHeight: 1.04 }}
-      >
+      ><Melt as="span" className="block" mode="load" delay={0.3} maxBlur={3.4}>
         Hannah Roxas
-      </h1>
+      </Melt></h1>
       <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-600">{aboutIntro.tagline}</p>
       {filled(aboutIntro.bio) && (
         <p className="mt-3 max-w-xl text-base leading-relaxed text-neutral-600">{aboutIntro.bio}</p>
@@ -72,7 +73,7 @@ export default function About() {
             <p className="font-label text-xs leading-6 tracking-wide text-neutral-500 uppercase">
               {entry.dates}
             </p>
-            <h2 className="mt-2 font-display text-2xl text-black sm:text-3xl">{entry.role}</h2>
+            <h2 className="mt-2 font-display text-2xl text-black sm:text-3xl"><Melt as="span" className="block">{entry.role}</Melt></h2>
             <p className="mt-2 max-w-xl text-base leading-relaxed text-neutral-500">{entry.context}</p>
           </li>
         ))}

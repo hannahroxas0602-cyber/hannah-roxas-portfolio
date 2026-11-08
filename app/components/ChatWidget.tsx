@@ -37,7 +37,45 @@ async function getReply(message: string, history: ChatMessage[]): Promise<string
   }
 }
 
-export default function ChatWidget({ className = "" }: { className?: string }) {
+// The White Rabbit as the way in: a small clay rabbit in the corner. Hover it and it stands up and offers
+// to answer questions; click it and the chat opens. Asking is the one job it has.
+function RabbitLauncher({ onOpen }: { onOpen: () => void }) {
+  const [up, setUp] = useState(false);
+  return (
+    <motion.button
+      type="button"
+      onClick={onOpen}
+      onMouseEnter={() => setUp(true)}
+      onMouseLeave={() => setUp(false)}
+      onFocus={() => setUp(true)}
+      onBlur={() => setUp(false)}
+      data-cursor="Ask the rabbit"
+      aria-label="Ask the White Rabbit about Hannah"
+      whileTap={{ scale: 0.95 }}
+      className="fixed right-3 bottom-3 z-40 flex items-end gap-2 sm:right-5 sm:bottom-5"
+    >
+      <span
+        className={`mb-3 rounded-full border border-white/70 bg-white/70 px-3.5 py-1.5 text-xs font-medium whitespace-nowrap text-neutral-900 shadow-[0_6px_22px_-8px_rgba(20,30,50,0.4)] backdrop-blur-xl transition-all duration-300 sm:text-sm ${
+          up ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-2 opacity-0"
+        }`}
+      >
+        Ask me anything
+      </span>
+      <span className="flex h-16 w-14 items-end justify-center sm:h-[4.5rem] sm:w-16">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={up ? "/images/guide/bunny-up.png" : "/images/guide/bunny-sit.png"}
+          alt=""
+          width={up ? 159 : 253}
+          height={240}
+          className="h-full w-auto drop-shadow-[0_6px_6px_rgba(60,90,100,0.25)] transition-transform duration-300"
+        />
+      </span>
+    </motion.button>
+  );
+}
+
+export default function ChatWidget({ className = "", variant = "button" }: { className?: string; variant?: "button" | "rabbit" }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
   const [askedPresets, setAskedPresets] = useState<string[]>([]);
@@ -188,6 +226,9 @@ export default function ChatWidget({ className = "" }: { className?: string }) {
         )}
       </AnimatePresence>
 
+      {variant === "rabbit" ? (
+        <RabbitLauncher onOpen={() => setIsOpen(true)} />
+      ) : (
       <motion.button
         type="button"
         onClick={() => setIsOpen(true)}
@@ -199,6 +240,7 @@ export default function ChatWidget({ className = "" }: { className?: string }) {
         Ask me anything
         <span aria-hidden>→</span>
       </motion.button>
+      )}
     </div>
   );
 }

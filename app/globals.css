@@ -426,7 +426,7 @@ html.iris-fallback-backdrop body {
   position: absolute;
   left: 50%;
   bottom: 4px;
-  background: var(--accent-deep);
+  background: #8fc4c9; /* the logo's aqua, so the loading bunny matches the footer bunnies */
   -webkit-mask: center / contain no-repeat;
   mask: center / contain no-repeat;
 }
@@ -557,7 +557,7 @@ html.iris-fallback-backdrop body {
 @keyframes pb-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-4px) rotate(-2deg); } 40% { transform: translateX(4px) rotate(2deg); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
 
 /* ═══ Orb theme (home page) ═══
-   After the gradient-orb reference: pale mint ground; mint, periwinkle and rose gradients;
+   After the gradient-orb reference: the logo's aqua, with blue and blue-gray;
    a dark pinpoint at the center of every sphere. Scoped to .orb-theme (the home page), so
    case studies keep the site accent. */
 .orb-theme,
@@ -565,18 +565,18 @@ html.iris-fallback-backdrop body {
   --orb-ground: #fbfdfc;
   --orb-mint: #a8d6c8;
   --orb-blue: #9fb3da;
-  --orb-peri: #b9b6dc;
-  --orb-rose: #e1998f;
-  --orb-pink: #f3cfdc;
+  --orb-peri: #b4cfe0;
+  --orb-rose: #86c0c5;
+  --orb-pink: #cfe6e9;
   --orb-ink: #1b1519;
   --accent: #8ec9ff;
   --accent-deep: #5aaeff;
   --accent-ink: #1f74d6;
-  /* The sphere: dark core, rose halo, blue-gray falloff that fades to nothing. */
+  /* The sphere: dark core, aqua halo, lilac ring, blue-gray falloff that fades to nothing. */
   --orb-gradient: radial-gradient(
     circle at 50% 50%,
     var(--orb-ink) 0 10%,
-    #d98a7e 28%,
+    #86c0c5 28%,
     #b9a8cf 52%,
     #a9c6d9 76%,
     rgba(190, 222, 224, 0) 100%
@@ -586,7 +586,7 @@ html.iris-fallback-backdrop body {
 /* Scroll rail */
 .rail-track {
   background: rgba(255, 255, 255, 0.45);
-  border: 1px solid rgba(185, 160, 190, 0.45);
+  border: 1px solid rgba(140, 190, 196, 0.5);
   box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(6px);
 }
@@ -606,11 +606,11 @@ html.iris-fallback-backdrop body {
 .rail-node:hover .rail-node-orb,
 .rail-node:focus-visible .rail-node-orb {
   transform: scale(1.5);
-  box-shadow: 0 0 0 4px rgba(225, 153, 143, 0.28);
+  box-shadow: 0 0 0 4px rgba(134, 192, 197, 0.3);
 }
 .rail-thumb {
   background: var(--orb-gradient);
-  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.85), 0 4px 14px rgba(160, 120, 150, 0.35);
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.85), 0 4px 14px rgba(100, 160, 168, 0.35);
 }
 
 /* Orb hover on the home previews (OrbHover.tsx) */
@@ -636,7 +636,7 @@ html.iris-fallback-backdrop body {
   background:
     radial-gradient(
       circle 260px at var(--ox, 50%) var(--oy, 50%),
-      rgba(243, 207, 220, 0.55),
+      rgba(190, 226, 230, 0.55),
       rgba(159, 179, 218, 0.3) 45%,
       rgba(168, 214, 200, 0) 75%
     ),
@@ -667,8 +667,8 @@ html.iris-fallback-backdrop body {
 .orb-cross::after {
   content: "";
   position: absolute;
-  background: #f4b4a8;
-  box-shadow: 0 0 6px rgba(244, 180, 168, 0.8);
+  background: #8fd0d6;
+  box-shadow: 0 0 6px rgba(143, 208, 214, 0.8);
 }
 .orb-cross::before { left: 5px; top: 0; width: 1.5px; height: 11px; }
 .orb-cross::after { top: 5px; left: 0; height: 1.5px; width: 11px; }
@@ -695,8 +695,8 @@ html.iris-fallback-backdrop body {
 .orb-sphere-lazy {
   width: 44px;
   height: 44px;
-  border-color: rgba(243, 207, 220, 0.95);
-  background: radial-gradient(circle at 40% 35%, rgba(243, 207, 220, 0.6), rgba(243, 207, 220, 0.1) 70%);
+  border-color: rgba(190, 226, 230, 0.95);
+  background: radial-gradient(circle at 40% 35%, rgba(190, 226, 230, 0.6), rgba(190, 226, 230, 0.1) 70%);
 }
 .orb-sphere-core {
   position: absolute;
@@ -712,7 +712,7 @@ html.iris-fallback-backdrop body {
   height: 92px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.8);
-  background: radial-gradient(circle, rgba(243, 207, 220, 0.2), rgba(243, 207, 220, 0) 70%);
+  background: radial-gradient(circle, rgba(190, 226, 230, 0.2), rgba(190, 226, 230, 0) 70%);
   transform: translate(-50%, -50%) scale(0.4);
 }
 .group:hover .orb-ripple,
@@ -735,7 +735,7 @@ html.iris-fallback-backdrop body {
   background: radial-gradient(
     circle at 50% 50%,
     #1b1519 0 11%,
-    #d98a7e 30%,
+    #86c0c5 30%,
     #b9a8cf 54%,
     #a9c6d9 78%,
     rgba(190, 222, 224, 0.35) 100%
@@ -754,7 +754,7 @@ html.iris-fallback-backdrop body {
 /* About: the slide-in panel and the /about page (AboutPanel.tsx, About.tsx). */
 .orb-dot {
   background: var(--orb-gradient);
-  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.85), 0 0 10px rgba(225, 153, 143, 0.4);
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.85), 0 0 10px rgba(134, 192, 197, 0.45);
 }
 
 /* A sphere on a rail (CaseStudyNav, the milestone timelines). Idle is clear glass; passed
@@ -781,7 +781,7 @@ html.iris-fallback-backdrop body {
   }
 }
 @keyframes rail-breathe {
-  50% { box-shadow: 0 0 0 3px var(--background), 0 0 0 7px rgba(225, 153, 143, 0.22); }
+  50% { box-shadow: 0 0 0 3px var(--background), 0 0 0 7px rgba(134, 192, 197, 0.28); }
 }
 
 
@@ -803,18 +803,18 @@ html.iris-fallback-backdrop body {
   to { transform: scale(1.028); }
 }
 
-/* The Resume button: the cursor's gradient (rose, lilac, blue-gray) on a wider ground that
+/* The Resume button: the cursor's gradient (aqua, pale aqua, blue-gray) on a wider ground that
    slides across on hover. */
 .resume-gradient {
-  background: linear-gradient(110deg, #e39a8d 0%, #c3aed6 38%, #a9c6d9 68%, #e39a8d 100%);
+  background: linear-gradient(110deg, #7fbcc2 0%, #a9d6d9 40%, #cfe6e9 70%, #7fbcc2 100%);
   background-size: 220% 100%;
   background-position: 0% 0;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6) inset, 0 4px 14px rgba(190, 140, 160, 0.3);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6) inset, 0 4px 14px rgba(110, 170, 178, 0.3);
   transition: background-position 600ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms ease;
 }
 .resume-gradient:hover {
   background-position: 100% 0;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7) inset, 0 6px 20px rgba(190, 140, 160, 0.42);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7) inset, 0 6px 20px rgba(110, 170, 178, 0.42);
 }
 
 
@@ -823,7 +823,226 @@ html.iris-fallback-backdrop body {
 /* Small static discs beside the hero's status bubbles. */
 .status-disc {
   border-radius: 50%;
-  border: 2px solid #e6d2f0;
-  background: radial-gradient(circle at 50% 50%, #eaa99d 0, #cdbbe0 55%, #a9c6d9 100%);
+  border: 2px solid #c4e1e4;
+  background: radial-gradient(circle at 50% 50%, #86c0c5 0, #aed6d9 55%, #cde4ea 100%);
   box-shadow: 0 6px 16px rgba(120, 130, 190, 0.18);
 }
+
+/* The live dot in the hero's local-time pill pulses outward, like a status light. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-live-ring { animation: hero-live 2.2s ease-out infinite; }
+}
+@keyframes hero-live {
+  0% { transform: scale(1); opacity: 0.6; }
+  80%, 100% { transform: scale(3); opacity: 0; }
+}
+
+/* ═══ The fall (Loader.tsx) ═══ */
+html[data-fell] .fall-loader { display: none; }
+@media (prefers-reduced-motion: reduce) { .fall-loader { display: none; } }
+.fall-ring { animation: fall-ring 2.75s linear infinite; opacity: 0; }
+@keyframes fall-ring {
+  0% { transform: scale(0.15); opacity: 0; }
+  15% { opacity: 0.9; }
+  100% { transform: scale(7); opacity: 0; }
+}
+.fall-object { opacity: 0; animation: fall-up linear infinite; will-change: transform; }
+@keyframes fall-up {
+  0% { transform: translateY(20vh) rotate(0deg); opacity: 0; }
+  12% { opacity: 0.85; }
+  88% { opacity: 0.85; }
+  100% { transform: translateY(-115vh) rotate(var(--spin)); opacity: 0; }
+}
+
+/* ═══ The hole (HoleHero.tsx) ═══ */
+@media (prefers-reduced-motion: no-preference) {
+  .hole-spin { animation: hole-spin 60s linear infinite; }
+  .orbit-arm { animation: orbit-turn linear infinite; }
+  .orbit-item { animation: orbit-back linear infinite; }
+}
+@keyframes hole-spin { to { transform: rotate(360deg); } }
+@keyframes orbit-turn { to { transform: rotate(360deg); } }
+@keyframes orbit-back { to { transform: rotate(-360deg); } }
+
+/* ═══ The hall of gates (Hall.tsx) ═══
+   The leaves are hinged on the frame's outer edges. Closed (a hair ajar) they cover the work; when the
+   gate scrolls into view (data-open) the key arrives and turns, and then they swing wide and lie flat to
+   either side. The delay on the way open is the key's turn. */
+.gate-leaf {
+  transition: transform 0.7s cubic-bezier(0.5, 0, 0.3, 1);
+  will-change: transform;
+  backface-visibility: visible;
+}
+.gate-leaf-l { transform-origin: 0 50%; transform: rotateY(-8deg); }
+.gate-leaf-r { transform-origin: 100% 50%; transform: rotateY(8deg); }
+.gate[data-open="true"] .gate-leaf-l {
+  transform: rotateY(-180deg) scale(0.58);
+  transition: transform 1.25s cubic-bezier(0.22, 1, 0.36, 1) 0.85s;
+}
+.gate[data-open="true"] .gate-leaf-r {
+  transform: rotateY(180deg) scale(0.58);
+  transition: transform 1.25s cubic-bezier(0.22, 1, 0.36, 1) 0.85s;
+}
+/* On a phone there is no room beside the work: the leaves swing open to a sliver at each edge instead. */
+@media (max-width: 1023px) {
+  .gate[data-open="true"] .gate-leaf-l { transform: rotateY(-100deg) scale(0.92); }
+  .gate[data-open="true"] .gate-leaf-r { transform: rotateY(100deg) scale(0.92); }
+}
+.gate-lock { transition: opacity 0.3s ease 0s; }
+.gate[data-open="true"] .gate-lock { opacity: 0; transition: opacity 0.3s ease 0.8s; }
+.gate-key { opacity: 0; transform: translate(-50%, -50%); }
+.gate[data-open="true"] .gate-key { animation: key-unlock 2.2s ease forwards; }
+@keyframes key-unlock {
+  0% { opacity: 0; transform: translate(-50%, 10%) rotate(-30deg) scale(0.9); }
+  22% { opacity: 1; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+  42% { opacity: 1; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+  62% { opacity: 1; transform: translate(-50%, -50%) rotate(90deg) scale(1); }
+  100% { opacity: 1; transform: translate(-50%, 70%) rotate(90deg) scale(0.6); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gate-leaf, .gate[data-open="true"] .gate-leaf-l, .gate[data-open="true"] .gate-leaf-r { transition-duration: 0.01ms; transition-delay: 0s; }
+  .gate-key { display: none; }
+}
+
+
+/* ═══ Scroll reveal on the case studies (ScrollReveal.tsx) ═══ */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-pre {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+  }
+  .reveal-pre.reveal-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ═══ Falling into a project (and climbing back out) ═══
+   The opening hole gets a lip: a dark rim with an aqua glow, drawn on a transparent full-screen layer
+   (.hole-ring, in layout.tsx) that is its own piece of the transition and is driven by the very same
+   radius as the reveal. The page you leave pushes in toward the hole as it dims and softens. It all runs a
+   little slower than before, so it reads as a fall. Reduce Motion keeps the crossfade. */
+:root {
+  --dur-arrive: 720ms;
+  --dur-leave: 480ms;
+}
+.hole-ring {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  view-transition-name: hole-ring;
+}
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(hole-ring),
+  ::view-transition-new(hole-ring) {
+    display: none;
+  }
+  html:active-view-transition-type(hole-in)::view-transition-group(hole-ring) {
+    z-index: 3;
+    background: radial-gradient(
+      circle at var(--iris-x) var(--iris-y),
+      transparent calc(var(--iris-r) - 14px),
+      rgba(12, 16, 20, 0.6) calc(var(--iris-r) + 2px),
+      rgba(134, 192, 197, 0.22) calc(var(--iris-r) + 26px),
+      transparent calc(var(--iris-r) + 80px)
+    );
+    animation: iris-grow var(--dur-arrive) var(--ease-iris) both;
+  }
+  html:active-view-transition-type(hole-out)::view-transition-group(hole-ring) {
+    z-index: 3;
+    background: radial-gradient(
+      circle at var(--iris-x) var(--iris-page-y),
+      transparent calc(var(--iris-r) - 14px),
+      rgba(12, 16, 20, 0.6) calc(var(--iris-r) + 2px),
+      rgba(134, 192, 197, 0.22) calc(var(--iris-r) + 26px),
+      transparent calc(var(--iris-r) + 80px)
+    );
+    animation: iris-shrink var(--dur-leave) var(--ease-leave) both;
+  }
+  /* Falling in: the old page pushes toward the hole, darkening and softening. */
+  ::view-transition-old(.iris-over) {
+    transform-origin: var(--iris-x) var(--iris-y);
+  }
+}
+@keyframes iris-dim {
+  to {
+    filter: brightness(0.72) blur(3px);
+    transform: scale(1.06);
+  }
+}
+@keyframes iris-undim {
+  from {
+    filter: brightness(0.72) blur(3px);
+    transform: scale(1.06);
+  }
+}
+
+/* ═══ The Cheshire Cat (not-found.tsx): the grin fades in and out, the eyes a beat later. ═══ */
+@media (prefers-reduced-motion: no-preference) {
+  .cheshire { animation: cheshire 5.5s ease-in-out infinite; }
+  .cheshire-eye { animation: cheshire-eye 5.5s ease-in-out infinite; }
+}
+@keyframes cheshire {
+  0%, 100% { opacity: 0.08; }
+  35%, 70% { opacity: 1; }
+}
+@keyframes cheshire-eye {
+  0%, 30%, 100% { opacity: 0; }
+  50%, 62% { opacity: 1; }
+}
+
+
+/* ═══ The tea table (TeaScene.tsx) ═══ */
+@media (prefers-reduced-motion: no-preference) {
+  .steam { animation: steam 3.2s ease-in-out infinite; }
+  .cookie { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .cookie:hover { transform: rotate(-2deg) scale(1.06); }
+  .cookie:active { transform: rotate(-7deg) scale(0.96); }
+  .bite { transform-box: fill-box; transform-origin: 80% 20%; animation: bite 0.28s cubic-bezier(0.3, 1.4, 0.5, 1) both; }
+  .crumbs { animation: crumbs 0.9s ease-out both; }
+}
+@keyframes steam {
+  0%, 100% { opacity: 0.2; transform: translateY(3px); }
+  50% { opacity: 0.8; transform: translateY(-5px); }
+}
+@keyframes bite { from { transform: scale(0.2); } to { transform: scale(1); } }
+@keyframes crumbs { from { opacity: 0; transform: translateY(-8px); } 30% { opacity: 1; } to { opacity: 0.9; transform: translateY(14px); } }
+
+/* ═══ The hero clock (WorkClock.tsx) ═══ */
+.work-clock { container-type: inline-size; }
+.work-thumb {
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, opacity 0.4s ease;
+}
+.work-thumb:hover,
+.work-thumb:focus-visible {
+  transform: scale(1.14);
+  z-index: 5;
+  box-shadow: 0 18px 34px -12px rgba(20, 20, 30, 0.5);
+}
+.work-clock:has(.work-thumb:hover) .work-thumb:not(:hover),
+.work-clock:has(.work-thumb:focus-visible) .work-thumb:not(:focus-visible) {
+  opacity: 0.45;
+}
+.hand {
+  transform-origin: 100px 100px;
+  transform-box: view-box;
+  transition: transform 0.9s cubic-bezier(0.34, 1.3, 0.5, 1);
+}
+.second-hand {
+  transform-origin: 100px 100px;
+  transform-box: view-box;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .second-hand { animation: second-sweep 60s linear infinite; }
+}
+@keyframes second-sweep { to { transform: rotate(360deg); } }
+
+/* The hero stopwatch's hand (Stopwatch.tsx): a lap a minute, stepping. */
+@media (prefers-reduced-motion: no-preference) {
+  .stopwatch-hand { animation: sw-tick 60s steps(60, end) infinite; }
+}
+@keyframes sw-tick { to { transform: rotate(360deg); } }

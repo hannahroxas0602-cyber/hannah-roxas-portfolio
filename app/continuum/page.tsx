@@ -29,6 +29,7 @@ import {
   nextStepsSection,
   nextProject,
 } from "@/app/continuum/data";
+import Melt from "@/app/components/Melt";
 
 const sections = [
   { id: "overview", title: "Overview" },
@@ -101,13 +102,17 @@ export default function ContinuumPage() {
               ← Back to home
             </HoleLink>
 
-            <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
+            <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl"><Melt as="span" className="block" mode="load" delay={0.3} maxBlur={3.4}>
               {continuumHero.title}
-            </h1>
+            </Melt></h1>
 
             <p className="mt-6 max-w-2xl text-xl leading-relaxed text-neutral-700">
               {continuumHero.subtitle}
             </p>
+
+          <p className="mt-4 flex flex-wrap items-center gap-x-3 text-sm text-neutral-400">
+            {continuumHero.date} · <ReadingTime minutes={minutesToRead} />
+          </p>
 
             {/* The picture comes first, so the page opens on the work: one phone, with the pieces of the system around it. */}
             <div className="mt-10 mb-2">
@@ -128,9 +133,6 @@ export default function ContinuumPage() {
 
             <CaseStudyTldr tldr={tldr} />
 
-            <p className="mt-8 text-sm text-neutral-400">
-              {continuumHero.date} · <ReadingTime minutes={minutesToRead} />
-            </p>
 
             <dl
               className={`mt-6 grid grid-cols-1 gap-6 border-t border-black/[0.08] pt-8 ${metaGridCols[meta.length]}`}
@@ -158,9 +160,9 @@ export default function ContinuumPage() {
 
           {/* The Problem */}
           <section id="problem" className="max-w-5xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {problemSection.heading}
-          </h2>
+          </Melt></h2>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-700">{problemSection.paragraphs[0]}</p>
 
@@ -195,9 +197,9 @@ export default function ContinuumPage() {
 
         {/* 3 Critical Design Decisions */}
         <section id="decisions" className="max-w-5xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {decisionsSection.heading}
-          </h2>
+          </Melt></h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-500">
             {decisionsSection.intro}
           </p>
@@ -248,9 +250,9 @@ export default function ContinuumPage() {
 
         {/* Designing for Multiple Stakeholders */}
         <section id="stakeholders" className="max-w-6xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {stakeholdersSection.heading}
-          </h2>
+          </Melt></h2>
 
           <div className="mt-12 space-y-16 sm:space-y-20">
             {stakeholdersSection.stakeholders.map((s, i) => (
@@ -291,9 +293,9 @@ export default function ContinuumPage() {
 
         {/* Design System */}
         <section id="design-system" className="max-w-5xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {designSystemSection.heading}
-          </h2>
+          </Melt></h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-500">
             {designSystemSection.intro}
           </p>
@@ -328,9 +330,9 @@ export default function ContinuumPage() {
 
         {/* What I'd Do Next */}
         <section id="next-steps" className="max-w-4xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {nextStepsSection.heading}
-          </h2>
+          </Melt></h2>
 
           <ul className="mt-8 space-y-4">
             {nextStepsSection.items.map((item, i) => (

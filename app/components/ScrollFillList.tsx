@@ -30,7 +30,7 @@ export default function ScrollFillList({
           className="absolute inset-0 origin-top rounded-full"
           style={{
             scaleY: fill,
-            background: "linear-gradient(to bottom, #f3cfdc, #b9b6dc 55%, #9fb3da)",
+            background: "linear-gradient(to bottom, #cfe6e9, #a4d3d6 55%, #9fc3ee)",
           }}
         />
       </span>

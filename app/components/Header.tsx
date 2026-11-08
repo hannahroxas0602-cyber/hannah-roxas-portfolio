@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import HoleLink from "@/app/components/HoleLink";
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
-import { navLinks, social } from "@/app/data/social";
+import { navLinks } from "@/app/data/social";
 import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
 
 const glassEdge =
@@ -27,9 +27,16 @@ const menuList = {
   hidden: {},
   show: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
 };
+// The mobile menu is a crooked signpost, like the one Alice meets at the fork: boards nailed to a pole at
+// odd angles, each swinging in from one side and settling.
+// Arrows alternate black and blue; the text takes the other colour.
+const SIGN = [
+  { fill: "#0b0b0d", ink: "#3ec3ff" },
+  { fill: "#3ec3ff", ink: "#0b0b0d" },
+];
 const menuItem = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const } },
+  hidden: (i: number) => ({ opacity: 0, x: i % 2 ? 40 : -40 }),
+  show: { opacity: 1, x: 0, transition: { type: "spring" as const, stiffness: 260, damping: 20 } },
 };
 
 export default function Header() {
@@ -93,52 +100,40 @@ export default function Header() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="pointer-events-auto fixed inset-0 flex flex-col overflow-y-auto overscroll-contain bg-background px-6 md:hidden"
-              style={{
-                paddingTop: "max(7rem, calc(env(safe-area-inset-top) + 6.5rem))",
-                paddingBottom: "max(1.75rem, env(safe-area-inset-bottom))",
-              }}
+              transition={{ duration: 0.2 }}
+              onClick={closeMenu}
+              className="pointer-events-auto fixed inset-0 bg-white/50 backdrop-blur-[3px] md:hidden"
             >
-              <motion.nav
-                variants={menuList}
-                initial="hidden"
-                animate="show"
-                className="flex flex-1 flex-col justify-center"
-              >
+              {/* Arrow signs, like the ones at the fork in the road: wavy boards pointing left and right,
+                  stacked under the menu button. They don't cover the page, just hang over it. */}
+              <motion.nav variants={menuList} initial="hidden" animate="show" onClick={(e) => e.stopPropagation()} className="absolute top-[4.6rem] right-4 flex w-[15.5rem] flex-col gap-1.5">
                 {navLinks.map((link, i) => {
                   const active = link.kind === "internal" && link.href === pathname;
-                  const row = `group flex items-baseline gap-4 py-2.5 font-[family-name:var(--font-welcome)] text-[2.5rem] leading-[1.1] tracking-[-0.015em] text-neutral-900 transition-colors active:text-accent-ink`;
+                  const left = i % 2 === 0;
+                  const row = "group relative block h-[3.6rem] text-neutral-950 transition-transform active:scale-[0.97]";
                   const inner = (
                     <>
-                      <span className="w-6 shrink-0 font-label text-xs tracking-wide text-neutral-400">
-                        {String(i + 1).padStart(2, "0")}
+                      <svg aria-hidden viewBox="0 0 200 60" preserveAspectRatio="none" className="absolute inset-0 size-full overflow-visible" style={{ transform: left ? "scaleX(-1)" : undefined }}>
+                        <path
+                          d="M6 15C42 8 84 21 142 12L140 2L196 30L140 58L142 47C90 55 48 42 6 51C14 39 14 27 6 15z"
+                          fill={SIGN[i % 2].fill}
+                        />
+                      </svg>
+                      <span style={{ color: SIGN[i % 2].ink }} className={`relative flex h-full items-center gap-1.5 font-display text-[1.15rem] font-semibold tracking-tight leading-none ${left ? "justify-end pr-11 pl-5" : "justify-start pr-5 pl-11"}`}>
+                        {link.label}
+                        {link.kind === "external" && <span aria-hidden className="text-sm">↗</span>}
+                        {active && <span aria-hidden className="size-1.5 rounded-full bg-current" />}
                       </span>
-                      <span>{link.label}</span>
-                      {active && <span aria-hidden className="size-2 self-center rounded-full bg-accent-deep" />}
                     </>
                   );
                   return (
-                    <motion.div key={link.label} variants={menuItem}>
+                    <motion.div key={link.label} custom={i} variants={menuItem} style={{ transformOrigin: left ? "100% 50%" : "0% 50%" }}>
                       {link.kind === "about" ? (
-                        <Link
-                          href={link.href}
-                          onClick={(e) => {
-                            closeMenu();
-                            openAboutOnPlainClick(e, openAbout);
-                          }}
-                          className={row}
-                        >
+                        <Link href={link.href} onClick={(e) => { closeMenu(); openAboutOnPlainClick(e, openAbout); }} className={row}>
                           {inner}
                         </Link>
                       ) : link.kind === "external" ? (
-                        <a
-                          href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={closeMenu}
-                          className={row}
-                        >
+                        <a href={link.href} target="_blank" rel="noopener noreferrer" onClick={closeMenu} className={row}>
                           {inner}
                         </a>
                       ) : (
@@ -150,15 +145,6 @@ export default function Header() {
                   );
                 })}
               </motion.nav>
-
-              <div className="mt-8 border-t border-black/[0.08] pt-5">
-                <p className="text-sm text-neutral-500">Open to Product Designer / Design Engineer roles</p>
-                <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm font-medium text-neutral-800">
-                  <a href={`mailto:${social.email}`} className="py-1.5">Email</a>
-                  <a href={social.linkedin} target="_blank" rel="noopener noreferrer" className="py-1.5">LinkedIn</a>
-                  <a href={social.github} target="_blank" rel="noopener noreferrer" className="py-1.5">GitHub</a>
-                </div>
-              </div>
             </motion.div>
           )}
         </AnimatePresence>

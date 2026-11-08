@@ -25,6 +25,7 @@ import {
   nextStepsSection,
   nextProject,
 } from "@/app/goodfriends/data";
+import Melt from "@/app/components/Melt";
 
 const minutesToRead = readingMinutes(
   goodHero,
@@ -77,12 +78,16 @@ export default function GoodFriendsPage() {
             ← Back to home
           </HoleLink>
 
-          <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
+          <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl"><Melt as="span" className="block" mode="load" delay={0.3} maxBlur={3.4}>
             {goodHero.title}
-          </h1>
+          </Melt></h1>
 
           <p className="mt-6 max-w-2xl text-xl leading-relaxed text-neutral-700">
             {goodHero.subtitle}
+          </p>
+
+          <p className="mt-4 flex flex-wrap items-center gap-x-3 text-sm text-neutral-400">
+            {goodHero.date} · <ReadingTime minutes={minutesToRead} />
           </p>
 
           {/* Text on the left, the portrait picture beside it, so the work is on screen at once. */}
@@ -92,9 +97,6 @@ export default function GoodFriendsPage() {
           <CaseStudyTldr tldr={tldr} />
 
 
-          <p className="mt-8 text-sm text-neutral-400">
-            {goodHero.date} · <ReadingTime minutes={minutesToRead} />
-          </p>
 
           <dl className="mt-6 grid grid-cols-1 gap-6 border-t border-black/[0.08] pt-8 sm:grid-cols-3">
             {goodHero.meta.map((item) => (
@@ -157,9 +159,9 @@ export default function GoodFriendsPage() {
             ))}
           </div>
 
-          <h2 className="mt-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="mt-10 font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {problemSection.heading}
-          </h2>
+          </Melt></h2>
 
           <div className="mt-6 rounded-2xl border border-black/[0.06] bg-white p-6 shadow-soft sm:p-8">
             <p className="max-w-2xl text-base leading-relaxed text-neutral-700">
@@ -188,9 +190,9 @@ export default function GoodFriendsPage() {
 
         {/* Research gallery */}
         <section id="research" className="max-w-4xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {researchGallery.heading}
-          </h2>
+          </Melt></h2>
 
           <div className="mt-8">
             <ImageSlideshow
@@ -204,9 +206,9 @@ export default function GoodFriendsPage() {
 
         {/* Design Goal */}
         <section id="design-goal" className="max-w-4xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {designGoal.heading}
-          </h2>
+          </Melt></h2>
 
           <ul className="mt-6 space-y-2">
             {designGoal.items.map((item, i) => (
@@ -220,9 +222,9 @@ export default function GoodFriendsPage() {
 
         {/* Design Solutions */}
         <section id="design-solutions" className="max-w-4xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {designSolutions.heading}
-          </h2>
+          </Melt></h2>
 
           <div className="mt-10 space-y-14">
             {designSolutions.categories.map((cat) => (
@@ -257,9 +259,9 @@ export default function GoodFriendsPage() {
 
         {/* Design Decisions & Interactions */}
         <section id="design-decisions" className="max-w-4xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {designDecisions.heading}
-          </h2>
+          </Melt></h2>
 
           <ul className="mt-6 space-y-3">
             {designDecisions.needs.map((item, i) => (
@@ -311,9 +313,9 @@ export default function GoodFriendsPage() {
 
         {/* What I'd Do Next */}
         <section id="next-steps" className="max-w-4xl py-16">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {nextStepsSection.heading}
-          </h2>
+          </Melt></h2>
 
           <ul className="mt-8 space-y-4">
             {nextStepsSection.items.map((item, i) => (

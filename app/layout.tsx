@@ -3,6 +3,8 @@ import { Inter, Newsreader } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
+import Loader from "@/app/components/Loader";
+import ScrollReveal from "@/app/components/ScrollReveal";
 import { AboutPanelProvider } from "@/app/components/AboutPanelContext";
 import AppShell from "@/app/components/AppShell";
 import { pageMetadata, siteDescription, siteName, siteUrl } from "@/app/data/seo";
@@ -51,12 +53,27 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
+      suppressHydrationWarning
       className={`${inter.variable} ${welcome.variable} h-full antialiased`}
     >
+      <head>
+        {/* A repeat visit in this tab skips the opening fall; mark it before first paint so the
+            loader never flashes (see Loader.tsx). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem("hannah-fell")&&!/[?&]fall\\b/.test(location.search))document.documentElement.dataset.fell="1"}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="flex min-h-full flex-col overflow-x-clip overscroll-y-contain md:cursor-none">
         <AboutPanelProvider>
           <AppShell>{children}</AppShell>
         </AboutPanelProvider>
+        <Loader />
+        {/* A transparent, fixed full-screen layer that only exists to be a named piece of the page
+            transition, so the lip of the opening hole can be drawn on top (see globals.css). */}
+        <div aria-hidden className="hole-ring" />
+        <ScrollReveal />
         <CustomCursor />
         <Analytics />
       </body>

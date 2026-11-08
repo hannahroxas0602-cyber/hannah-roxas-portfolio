@@ -8,6 +8,7 @@ import Footer from "@/app/components/Footer";
 import NextProjectPreview from "@/app/components/NextProjectPreview";
 import ImageSlideshow from "@/app/components/ImageSlideshow";
 import { dearBelovedHero, highlights, nextProject } from "@/app/dear-beloved/data";
+import Melt from "@/app/components/Melt";
 
 export const metadata: Metadata = pageMetadata({
   title: caseStudyTitle("Dear Beloved"),
@@ -30,9 +31,9 @@ export default function DearBelovedPage() {
               ← Back to home
             </HoleLink>
 
-            <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
+            <h1 data-vt-target className="mt-8 font-display text-5xl font-semibold tracking-tight text-neutral-900 sm:text-6xl"><Melt as="span" className="block" mode="load" delay={0.3} maxBlur={3.4}>
               {dearBelovedHero.title}
-            </h1>
+            </Melt></h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-600">
               {dearBelovedHero.narrative}
@@ -68,9 +69,9 @@ export default function DearBelovedPage() {
         {/* Highlights — static copies of key slides for those skipping the slideshow */}
         <section className="pb-16 sm:pb-24">
           <div className="mx-auto max-w-4xl px-6 sm:px-10">
-            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+            <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
               {highlights.heading}
-            </h2>
+            </Melt></h2>
             <div className="mt-8 flex flex-col gap-6">
               {highlights.images.map((src, i) => (
                 <div

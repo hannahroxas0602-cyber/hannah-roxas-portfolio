@@ -1,5 +1,6 @@
 import { projects as allProjects, type Project } from "@/app/data/projects";
 import ProjectCard from "@/app/components/ProjectCard";
+import Melt from "@/app/components/Melt";
 
 type ProjectGridProps = {
   projects?: Project[];
@@ -18,9 +19,9 @@ export default function ProjectGrid({
         <span className="font-label text-xs tracking-wide text-neutral-400 uppercase">
           01
         </span>
-        <h2 className="font-display text-3xl text-neutral-900 sm:text-4xl">
+        <h2 className="font-display text-3xl text-neutral-900 sm:text-4xl"><Melt as="span" className="block">
           {title}
-        </h2>
+        </Melt></h2>
       </div>
 
       <div className="mt-10 flex flex-col">

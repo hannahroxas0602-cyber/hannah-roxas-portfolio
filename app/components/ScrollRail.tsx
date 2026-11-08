@@ -3,9 +3,10 @@
 import { motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "motion/react";
 import { useEffect, useState } from "react";
 
-// The home page's scroll indicator: a slim glass line down the left edge with a sphere
-// for each section (Intro, Projects, Contact) and a bigger sphere that rides the line as
-// you scroll, leaving a gradient fill behind it. Nodes are buttons that scroll to their
+// The home page's scroll indicator, now a depth gauge: a slim glass line down the edge with a
+// sphere for each place on the way down (the edge, the hall, drink me, tea time) and a bigger
+// sphere that rides the line as you fall, reading out how many miles you've gone (four thousand
+// at the bottom, as in the book). Nodes are buttons that scroll to their
 // section. Sections opt in with a data-rail="Label" attribute. Wide screens only.
 type Stop = { label: string; at: number; el: HTMLElement };
 
@@ -13,6 +14,7 @@ export default function ScrollRail() {
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 26, mass: 0.4 });
   const thumbTop = useTransform(progress, (v) => `${Math.min(1, Math.max(0, v)) * 100}%`);
+  const miles = useTransform(progress, (v) => Math.round(Math.min(1, Math.max(0, v)) * 4000).toLocaleString("en-US"));
   const [stops, setStops] = useState<Stop[]>([]);
   const [active, setActive] = useState(0);
 
@@ -57,7 +59,7 @@ export default function ScrollRail() {
           className="absolute inset-0 origin-top rounded-full"
           style={{
             scaleY: progress,
-            background: "linear-gradient(to bottom, #f3cfdc, #b9b6dc 55%, #9fb3da)",
+            background: "linear-gradient(to bottom, #cfe6e9, #a4d3d6 55%, #9fc3ee)",
           }}
         />
       </div>
@@ -81,6 +83,13 @@ export default function ScrollRail() {
         className="rail-thumb absolute left-1/2 h-[22px] w-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{ top: thumbTop }}
       />
+      {/* How far you've fallen. */}
+      <motion.span
+        style={{ top: thumbTop }}
+        className="font-label absolute right-9 -translate-y-1/2 rounded-full bg-neutral-900/85 px-2.5 py-1 text-[10px] font-medium tracking-wide whitespace-nowrap text-white tabular-nums backdrop-blur"
+      >
+        <motion.span>{miles}</motion.span> mi
+      </motion.span>
     </nav>
   );
 }

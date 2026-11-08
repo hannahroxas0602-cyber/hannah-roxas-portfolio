@@ -10,6 +10,7 @@ import ClickToPlayVideo from "@/app/components/ClickToPlayVideo";
 import ScrollToHash from "@/app/components/ScrollToHash";
 import { projects } from "@/app/data/projects";
 import { graphicDesignHero, editedVideos, experimentalImages } from "@/app/graphic-design/data";
+import Melt from "@/app/components/Melt";
 
 const graphicDesignProjects = projects.filter((project) => project.category === "Graphic Design");
 
@@ -40,9 +41,9 @@ export default function GraphicDesignPage() {
           <h1
             className="mt-3 max-w-2xl font-display font-semibold tracking-tight text-neutral-900"
             style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", lineHeight: 1.05 }}
-          >
+          ><Melt as="span" className="block" mode="load" delay={0.3} maxBlur={3.4}>
             <EmphasizeLast text={graphicDesignHero.category} />
-          </h1>
+          </Melt></h1>
 
           <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-500">
             {graphicDesignHero.intro}
@@ -60,9 +61,9 @@ export default function GraphicDesignPage() {
               <span className="font-label text-xs tracking-wide text-neutral-400 uppercase">
                 01
               </span>
-              <h2 className="font-display text-3xl text-neutral-900 sm:text-4xl">
+              <h2 className="font-display text-3xl text-neutral-900 sm:text-4xl"><Melt as="span" className="block">
                 Projects
-              </h2>
+              </Melt></h2>
             </div>
 
             <div className="mt-10 flex flex-col">
@@ -76,9 +77,9 @@ export default function GraphicDesignPage() {
               <span className="font-label text-xs tracking-wide text-neutral-400 uppercase">
                 02
               </span>
-              <h2 className="font-display text-3xl text-neutral-900 sm:text-4xl">
+              <h2 className="font-display text-3xl text-neutral-900 sm:text-4xl"><Melt as="span" className="block">
                 Edited Videos
-              </h2>
+              </Melt></h2>
             </div>
 
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:h-40 sm:items-end sm:justify-center sm:gap-4 lg:h-48">
@@ -102,9 +103,9 @@ export default function GraphicDesignPage() {
               <span className="font-label text-xs tracking-wide text-neutral-400 uppercase">
                 03
               </span>
-              <h2 className="font-display text-3xl text-neutral-900 sm:text-4xl">
+              <h2 className="font-display text-3xl text-neutral-900 sm:text-4xl"><Melt as="span" className="block">
                 Experimental
-              </h2>
+              </Melt></h2>
             </div>
 
             <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">

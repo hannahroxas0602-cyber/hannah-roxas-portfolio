@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import ScrollWords from "@/app/components/ScrollWords";
+import Melt from "@/app/components/Melt";
 
 // The shared frame for a case study's overview sections (Highlights, Timeline,
 // My Role & Impact): a small kicker chip, the heading, an optional intro line,
@@ -22,10 +24,10 @@ export default function CaseStudySection({
         <span aria-hidden className="size-1.5 rounded-full bg-accent-deep" />
         {kicker}
       </p>
-      <h2 className="font-display mt-4 text-3xl font-semibold text-neutral-950 sm:text-4xl">
+      <h2 className="font-display mt-4 text-3xl font-semibold text-neutral-950 sm:text-4xl"><Melt as="span" className="block">
         {heading}
-      </h2>
-      {intro && <p className="mt-4 max-w-xl text-lg leading-relaxed text-neutral-500">{intro}</p>}
+      </Melt></h2>
+      {intro && <ScrollWords text={intro} className="mt-4 max-w-xl text-lg leading-relaxed text-neutral-900" />}
       <div className="mt-10">{children}</div>
     </section>
   );

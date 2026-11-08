@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 // The hover on a home-page project preview, after the gradient-orb reference: a pastel
 // wash blooms under the pointer, two glass spheres trail it (one tight, one lazy, like
 // the merged bubbles in the reference), a ring ripples out from where you entered, and
-// a thin frame with small rose crosses draws itself in. Everything is invisible at rest.
+// a thin frame with small aqua crosses draws itself in. Everything is invisible at rest.
 //
 // Place inside a positioned, overflow-hidden card that has the `group` class. Shown only
 // on devices with a real hover and without a reduced-motion preference (globals.css).

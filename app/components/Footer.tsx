@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import type { ReactNode } from "react";
+import TeaTable, { Cookie } from "@/app/components/TeaTable";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import { social } from "@/app/data/social";
 import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
+import Melt from "@/app/components/Melt";
 
 // The bottom of the rabbit hole. When the footer scrolls in, its content lands
 // with a small "thump" (a short drop and settle) and the floor shadow spreads.
@@ -18,73 +21,59 @@ const THUMP = {
   mass: 0.9,
 } as const;
 
-export default function Footer() {
+// `compact` drops the big contact block, for pages that have already said it. Beside it, on every page,
+// sits the tea set in silhouette and the biscuit that copies my email (TeaTable); `aside` swaps that.
+export default function Footer({ compact = false, aside }: { compact?: boolean; aside?: ReactNode }) {
+  // Every page ends with the tea set and the biscuit, unless a page passes something else.
+  const side = aside ?? (compact ? null : <TeaTable />);
   const { open: openAbout } = useAboutPanel();
   const pathname = usePathname();
 
   return (
-    <footer data-rail="Contact" className="relative overflow-hidden">
+    <footer id={compact ? undefined : "contact"} data-rail={compact ? undefined : "Contact"} className="relative scroll-mt-24 overflow-hidden">
       <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-8 sm:px-10 sm:pt-16 sm:pb-10">
-        <motion.div
-          initial={{ y: -16 }}
-          whileInView={{ y: 0 }}
-          viewport={LANDING_VIEWPORT}
-          transition={THUMP}
-        >
-          <p className="mb-6 font-display text-lg font-medium tracking-tight text-neutral-900 sm:mb-8 sm:text-xl">
-            Thump! The fall is over.
+        <div className={side ? "grid items-center gap-10 lg:grid-cols-[1.25fr_1fr]" : ""}>
+        {!compact && (
+        <motion.div initial={{ y: -16 }} whileInView={{ y: 0 }} viewport={LANDING_VIEWPORT} transition={THUMP}>
+          <p className="inline-flex items-center gap-2 font-label text-xs font-medium tracking-widest text-neutral-600 uppercase">
+            <span aria-hidden className="size-2 rounded-full bg-[#3ec3ff] shadow-[0_0_0_4px_rgba(62,195,255,0.25)]" />
+            Open to full-time roles
           </p>
-
-          {/* Headline — the focal moment, no card container. Only the words (and the arrow)
-              are the link, so the hover stops at the end of the text instead of running to
-              the edge of the page. The email address below is its own link. */}
-          <p className="font-label text-xs font-medium tracking-widest text-neutral-600 uppercase">
-            Open to full-time Product Designer / Design Engineer roles
+          <h2 className="mt-4 font-display text-[clamp(2.2rem,5vw,3.8rem)] leading-[1.02] font-semibold tracking-[-0.03em] text-neutral-950">
+            <Melt as="span" className="block">
+              Product Designer<br />
+              <em className="welcome font-normal">&amp; Design Engineer.</em>
+            </Melt>
+          </h2>
+          <p className="mt-4 max-w-md text-base leading-relaxed text-neutral-600">
+            If you need someone who can take a product from research to shipped code, let&apos;s talk.
           </p>
-          <a
-            href={`mailto:${social.email}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor="Email me"
-            className="group mt-3 block w-fit"
-          >
-            <h2
-              className="welcome leading-[1.02] tracking-[-0.02em] text-neutral-900"
-              style={{ fontSize: "clamp(2rem, 5.2vw, 3.4rem)" }}
+          <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-4">
+            <a
+              href={`mailto:${social.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="Email me"
+              className="inline-flex items-center gap-2 rounded-full bg-neutral-950 px-6 py-3 text-sm font-medium text-white transition-transform duration-300 hover:-translate-y-0.5"
             >
-              {/* The same underline as the hero's name: it draws in when the link is hovered. */}
-              <span className="link-underline">
-                <em>Curiouser and curiouser.</em>
-              </span>{" "}
-              <svg
-                aria-hidden
-                viewBox="0 0 24 24"
-                fill="none"
-                className="inline-block h-[0.7em] w-[0.7em] align-[0.05em] transition-transform duration-300 group-hover:translate-x-2 group-hover:-translate-y-2"
-              >
-                <path
-                  d="M7 17L17 7M17 7H8M17 7V16"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </h2>
-          </a>
-          <p className="mt-4 text-sm text-neutral-600 sm:text-base">
-            Looking for a full-time Product Designer / Design Engineer role. Let&apos;s talk.
-          </p>
-          <a
-            href={`mailto:${social.email}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor="Email me"
-            className="link-underline mt-1 block w-fit text-sm font-medium text-neutral-600 sm:text-base"
-          >
-            {social.email}
-          </a>
+              Email me <span aria-hidden>↗</span>
+            </a>
+            <a
+              href={social.resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="Resume"
+              className="inline-flex items-center gap-2 rounded-full border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-900"
+            >
+              Resume
+            </a>
+            <Cookie />
+          </div>
+          <p className="mt-5 text-sm text-neutral-500">{social.email}</p>
         </motion.div>
+        )}
+        {side}
+        </div>
 
         {/* The clay bunnies hopping along the floor of the hole: an animated PNG,
             so it stays in the clay's own color. Reduce Motion gets a still frame. */}
@@ -96,7 +85,7 @@ export default function Footer() {
               alt=""
               width={1000}
               height={306}
-              className="relative h-8 w-auto sm:h-11"
+              className="relative h-7 w-auto sm:h-9"
             />
           </picture>
         </div>

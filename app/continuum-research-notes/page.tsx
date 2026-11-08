@@ -16,6 +16,7 @@ import {
   closingReflection,
   closingCta,
 } from "@/app/continuum-research-notes/data";
+import Melt from "@/app/components/Melt";
 
 export const metadata: Metadata = pageMetadata({
   title: caseStudyTitle("Continuum Research Notes"),
@@ -46,9 +47,9 @@ export default function ContinnumNotesPage() {
             ))}
           </p>
 
-          <h1 className="mt-6 font-display text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
+          <h1 className="mt-6 font-display text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl"><Melt as="span" className="block" mode="load" delay={0.3} maxBlur={3.4}>
             {notesHero.headline}
-          </h1>
+          </Melt></h1>
 
           <p className="mt-6 text-sm text-neutral-400">{notesHero.date}</p>
 
@@ -66,9 +67,9 @@ export default function ContinnumNotesPage() {
 
         {/* Intro */}
         <section className="mx-auto max-w-3xl px-6 py-16 sm:px-10">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {intro.heading}
-          </h2>
+          </Melt></h2>
           <div className="mt-6 space-y-4">
             {intro.paragraphs.map((p, i) => (
               <p key={i} className="text-base leading-relaxed text-neutral-700">
@@ -80,9 +81,9 @@ export default function ContinnumNotesPage() {
 
         {/* What Is Surrogacy? */}
         <section className="mx-auto max-w-3xl px-6 py-16 sm:px-10">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {surrogacyOverview.heading}
-          </h2>
+          </Melt></h2>
           <p className="mt-4 text-base leading-relaxed text-neutral-700">
             {surrogacyOverview.intro}
           </p>
@@ -108,9 +109,9 @@ export default function ContinnumNotesPage() {
 
         {/* Who Holds the Power */}
         <section className="mx-auto max-w-3xl px-6 py-16 sm:px-10">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {stakeholderMap.heading}
-          </h2>
+          </Melt></h2>
           <p className="mt-4 text-base leading-relaxed text-neutral-700">
             {stakeholderMap.intro}
           </p>
@@ -125,9 +126,9 @@ export default function ContinnumNotesPage() {
 
         {/* The Hidden Frictions */}
         <section className="mx-auto max-w-3xl px-6 py-16 sm:px-10">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {problemsHeading.heading}
-          </h2>
+          </Melt></h2>
           <p className="mt-4 text-base leading-relaxed text-neutral-700">
             {problemsHeading.intro}
           </p>
@@ -180,9 +181,9 @@ export default function ContinnumNotesPage() {
 
         {/* Platform concept */}
         <section className="mx-auto max-w-3xl px-6 py-16 sm:px-10">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {platformConcept.heading}
-          </h2>
+          </Melt></h2>
           <p className="mt-4 text-base leading-relaxed text-neutral-700">
             {platformConcept.intro}
           </p>
@@ -200,9 +201,9 @@ export default function ContinnumNotesPage() {
 
         {/* Closing reflection */}
         <section className="mx-auto max-w-3xl px-6 py-16 sm:px-10">
-          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
             {closingReflection.heading}
-          </h2>
+          </Melt></h2>
           <div className="mt-4 space-y-4">
             {closingReflection.paragraphs.map((p, i) => (
               <p key={i} className="text-base leading-relaxed text-neutral-700">
@@ -215,9 +216,9 @@ export default function ContinnumNotesPage() {
         {/* Closing CTA */}
         <section className="mx-auto max-w-3xl px-6 py-16 text-center sm:px-10 sm:py-24">
           <div className="rounded-2xl border border-black/[0.08] px-8 py-12 sm:px-16">
-            <h2 className="font-display text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl"><Melt as="span" className="block">
               {closingCta.heading}
-            </h2>
+            </Melt></h2>
             <p className="mt-3 text-base text-neutral-500">{closingCta.subtext}</p>
             <Link
               href={closingCta.href}
