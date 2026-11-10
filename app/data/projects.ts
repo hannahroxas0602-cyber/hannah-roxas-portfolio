@@ -49,6 +49,7 @@ export const projects: Project[] = [
     ],
     gallery: [
       "/images/learvo_thumb5.png",
+      "/images/learvo/landing-page-v2-demo.mp4",
       "/images/learvo/onboarding-flow-demo.mp4",
       "/images/learvo/top-nav-demo.mp4",
       "/images/learvo/mascot-lenny.png",
