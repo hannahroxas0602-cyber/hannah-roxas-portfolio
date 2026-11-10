@@ -24,8 +24,8 @@ const SKILLS = [
 const SUITS = [
   { s: "♠", c: "text-neutral-950" },
   { s: "♥", c: "text-[#e5484d]" },
-  { s: "♦", c: "text-[#e5484d]" },
   { s: "♣", c: "text-neutral-950" },
+  { s: "♦", c: "text-[#e5484d]" },
 ];
 const RANKS = ["J", "Q", "K", "A"]; // a royal straight, each in a different suit
 const TILT = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2"];
