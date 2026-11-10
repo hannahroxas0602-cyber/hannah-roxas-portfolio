@@ -12,11 +12,11 @@ function Tile({ label, note, caption, i = 0, className = "", children }: { label
   return (
     <motion.div className={`flex flex-col ${className}`} initial={{ opacity: 0, y: 36 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7, delay: (i % 3) * 0.1, ease: [0.22, 1, 0.36, 1] }}>
       <div className="flex min-h-[18.5rem] flex-1 flex-col rounded-[1.4rem] bg-panel p-3.5 ring-1 ring-black/[0.05]">
-        {caption && <p className="font-label text-[10px] tracking-[0.14em] text-neutral-500 uppercase">{caption}</p>}
+        {caption && <p className="font-label text-[10px] tracking-[0.14em] text-neutral-600 uppercase">{caption}</p>}
         <div className="grid flex-1 place-items-center pt-1 [zoom:0.82]">{children}</div>
       </div>
       <p className="mt-3 text-sm font-semibold text-neutral-950">{label}</p>
-      <p className="text-[13px] text-neutral-500">{note}</p>
+      <p className="text-[13px] text-neutral-600">{note}</p>
     </motion.div>
   );
 }
@@ -34,7 +34,7 @@ function Checklist() {
   const [done, setDone] = useState(start);
   const n = done.filter(Boolean).length;
   return (
-    <div className="w-full max-w-[22rem] overflow-hidden rounded-3xl bg-white text-left shadow-[0_24px_50px_-28px_rgba(20,21,59,0.45)] ring-1 ring-black/5">
+    <div className="keep-light w-full max-w-[22rem] overflow-hidden rounded-3xl bg-white text-left shadow-[0_24px_50px_-28px_rgba(20,21,59,0.45)] ring-1 ring-black/5">
       <div className="flex items-center justify-between px-5 py-3.5">
         <p className="text-[15px] font-bold text-neutral-950">You&apos;re {Math.round((n / 4) * 100)}% set up!</p>
         <span aria-hidden className="text-neutral-400">×</span>
@@ -99,12 +99,12 @@ function Timeline() {
   };
   const word: Record<St, string> = { done: "Done", overdue: "Overdue", next: "Up next", later: "Later" };
   return (
-    <ol className="w-full max-w-[19rem]">
+    <ol className="keep-light w-full max-w-[19rem] rounded-3xl bg-white p-4 shadow-[0_24px_50px_-28px_rgba(20,21,59,0.35)] ring-1 ring-black/5">
       {TL.map((t, k) => (
         <li key={t} className="relative">
           {k < TL.length - 1 && <span aria-hidden className={`absolute top-9 left-[15px] h-[calc(100%-2.2rem)] w-px ${st[k] === "done" ? "bg-neutral-950" : "border-l border-dashed border-neutral-400"}`} />}
           <button onClick={() => tap(k)} className="flex w-full items-center gap-3 py-2 text-left">
-            <span className={`relative z-10 grid size-8 shrink-0 place-items-center rounded-full ring-[1.5px] transition-colors ${st[k] === "done" ? "bg-neutral-950 ring-neutral-950" : "bg-white"} ${st[k] === "done" ? "" : st[k] === "later" ? "ring-neutral-300" : st[k] === "next" ? "ring-neutral-400 ring-offset-2 ring-offset-panel" : "ring-neutral-950"}`}>
+            <span className={`relative z-10 grid size-8 shrink-0 place-items-center rounded-full ring-[1.5px] transition-colors ${st[k] === "done" ? "bg-neutral-950 ring-neutral-950" : "bg-white"} ${st[k] === "done" ? "" : st[k] === "later" ? "ring-neutral-300" : st[k] === "next" ? "ring-neutral-400 ring-offset-2 ring-offset-white" : "ring-neutral-950"}`}>
               {st[k] === "done" && (
                 <svg viewBox="0 0 12 12" className="size-3.5" fill="none" aria-hidden>
                   <motion.path d="M2.5 6.2l2.3 2.3L9.5 3.6" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.3 }} />
@@ -133,7 +133,7 @@ const MOODS = [
 function Mood() {
   const [m, setM] = useState(0);
   return (
-    <ul className="w-full max-w-[19rem] rounded-3xl bg-[#fafaf8] p-2 ring-1 ring-black/[0.04]">
+    <ul className="keep-light w-full max-w-[19rem] rounded-3xl bg-[#fafaf8] p-2 ring-1 ring-black/[0.04]">
       {MOODS.map((o, n) => (
         <li key={o.k} className="relative">
           {n === m && <motion.span layoutId="mood-hi" transition={{ type: "spring", stiffness: 420, damping: 34 }} className="absolute inset-0 rounded-2xl bg-white shadow-[0_6px_18px_-10px_rgba(0,0,0,0.25)] ring-1 ring-black/[0.05]" />}
@@ -186,7 +186,7 @@ function QuizBuilder() {
   const total = q.reduce((a, b) => a + b, 0);
   const lab = "font-label text-[10px] tracking-[0.12em] text-neutral-500 uppercase";
   return (
-    <div className="w-full max-w-[19rem] space-y-3 rounded-3xl bg-white p-4 shadow-[0_24px_50px_-28px_rgba(20,21,59,0.4)] ring-1 ring-black/5">
+    <div className="keep-light w-full max-w-[19rem] space-y-3 rounded-3xl bg-white p-4 shadow-[0_24px_50px_-28px_rgba(20,21,59,0.4)] ring-1 ring-black/5">
       {["Multiple choice", "True or false", "Free-response"].map((l, n) => (
         <Stepper key={l} label={l} v={q[n]} set={(v) => { setMade(false); setQ((a) => a.map((x, j) => (j === n ? v : x))); }} />
       ))}
@@ -232,7 +232,7 @@ function Timer() {
   const ss = String(left % 60).padStart(2, "0");
   const chip = (on: boolean) => `rounded-full px-3.5 py-1.5 text-[12.5px] font-semibold ring-1 transition-colors ${on ? "text-[#3b4aa8] ring-[#5b6fd6]" : "bg-white text-neutral-700 ring-neutral-300"}`;
   return (
-    <div className="w-full max-w-[19rem] rounded-3xl bg-white p-5 text-center shadow-[0_24px_50px_-28px_rgba(20,21,59,0.4)] ring-1 ring-black/5">
+    <div className="keep-light w-full max-w-[19rem] rounded-3xl bg-white p-5 text-center shadow-[0_24px_50px_-28px_rgba(20,21,59,0.4)] ring-1 ring-black/5">
       <div className="flex items-center justify-between text-left">
         <p className="text-[15px] font-semibold text-neutral-900">Study Timer</p>
         <span aria-hidden className="text-neutral-400">×</span>

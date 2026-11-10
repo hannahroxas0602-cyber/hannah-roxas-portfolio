@@ -43,6 +43,7 @@
 }
 /* Parts that stay on a light "paper" in dark mode, like the playing cards: put the light palette back. */
 .dark .keep-light {
+  color: #171717;
   --panel: #f1f1f2;
   --panel-2: #ebebed;
   --color-white: #ffffff;
