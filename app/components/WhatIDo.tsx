@@ -27,7 +27,7 @@ const SUITS = [
   { s: "♦", c: "text-[#e5484d]" },
   { s: "♣", c: "text-neutral-950" },
 ];
-const RANKS = ["A", "2", "3", "4"];
+const RANKS = ["J", "Q", "K", "A"]; // a royal straight, each in a different suit
 const TILT = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2"];
 
 // A playing card for each discipline: rank and suit in the corners, the title across the middle, one line of
