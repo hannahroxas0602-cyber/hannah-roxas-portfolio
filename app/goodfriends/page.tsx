@@ -73,7 +73,7 @@ export default function GoodFriendsPage() {
         <section id="overview" className="max-w-4xl pt-16 pb-8 sm:pt-24 md:pt-[31px]">
           <HoleLink direction="out"
             href="/"
-            className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
+            className="group/back inline-flex items-center gap-1.5 rounded-full bg-neutral-100 px-3.5 py-1.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200 hover:text-neutral-950"
           >
             ← Back to home
           </HoleLink>

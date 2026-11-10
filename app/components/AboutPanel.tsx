@@ -104,7 +104,7 @@ export default function AboutPanel({ width }: { width: number }) {
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 32 }}
             style={{ "--panel-width": `${width}px` } as React.CSSProperties}
-            className="fixed inset-4 z-[91] flex max-h-[calc(100svh-2rem)] flex-col gap-2 overflow-y-auto overscroll-contain rounded-3xl border border-black/[0.06] bg-[#f4f6f8] p-3 shadow-[0_8px_40px_rgba(0,0,0,0.1)] sm:inset-y-0 sm:inset-x-auto sm:right-0 sm:w-[var(--panel-width)] sm:max-w-[92vw] sm:max-h-none sm:gap-3 sm:overflow-visible sm:rounded-none sm:border-0 sm:border-l sm:border-l-black/[0.06] sm:p-5"
+            className="fixed inset-4 z-[91] flex max-h-[calc(100svh-2rem)] flex-col gap-2 overflow-y-auto overscroll-contain rounded-3xl border border-black/[0.06] bg-panel p-3 shadow-[0_8px_40px_rgba(0,0,0,0.1)] sm:inset-y-0 sm:inset-x-auto sm:right-0 sm:w-[var(--panel-width)] sm:max-w-[92vw] sm:max-h-none sm:gap-3 sm:overflow-visible sm:rounded-none sm:border-0 sm:border-l sm:border-l-black/[0.06] sm:p-5"
           >
             <button
               type="button"
@@ -116,7 +116,7 @@ export default function AboutPanel({ width }: { width: number }) {
             </button>
 
             {/* Photo + name inline, bio below */}
-            <div className="rounded-2xl bg-white ring-1 ring-black/[0.05] p-4 pr-12 sm:p-5">
+            <div className="rounded-3xl bg-white ring-1 ring-black/[0.05] p-4 pr-12 sm:p-5">
               <div className="flex items-center gap-5">
                 <PhotoStack />
                 <p className="font-display text-base font-semibold text-neutral-900">
@@ -127,14 +127,14 @@ export default function AboutPanel({ width }: { width: number }) {
             </div>
 
             {/* Tool marquee — real logos + names via Simple Icons, scrolling in one line */}
-            <div className="flex h-16 items-center overflow-hidden rounded-2xl bg-white ring-1 ring-black/[0.05]">
+            <div className="flex h-16 items-center overflow-hidden rounded-3xl bg-white ring-1 ring-black/[0.05]">
               <ToolsMarquee />
             </div>
 
             {/* Timeline — one minimal, non-scrolling section with a connecting rail */}
-            <div className="rounded-2xl bg-white ring-1 ring-black/[0.05] p-4 sm:p-5">
+            <div className="rounded-3xl bg-white ring-1 ring-black/[0.05] p-4 sm:p-5">
               <div className="flex items-center justify-between">
-                <p className="font-label text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+                <p className="font-label text-[11px] font-medium tracking-[0.16em] text-neutral-500 uppercase">
                   Experience
                 </p>
                 <a
@@ -166,7 +166,7 @@ export default function AboutPanel({ width }: { width: number }) {
                   aria-hidden
                   className="rail-track absolute top-[10px] bottom-[10px] left-[5px] w-[3px] overflow-hidden rounded-full"
                 >
-                  <span className="absolute inset-0 rounded-full" style={{ background: "linear-gradient(to bottom, #cfe6e9, #a4d3d6 55%, #9fc3ee)" }} />
+                  <span className="absolute inset-0 rounded-full" style={{ background: "#0b0b0d" }} />
                 </span>
                 {experience.map((entry, i) => (
                   <li
@@ -193,8 +193,8 @@ export default function AboutPanel({ width }: { width: number }) {
             </div>
 
             {/* Contact — pinned to the bottom on desktop's fixed-height sidebar; flows normally on mobile's scrollable stack */}
-            <div className="rounded-2xl bg-white ring-1 ring-black/[0.05] p-4 sm:mt-auto sm:p-5">
-              <p className="font-label text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+            <div className="rounded-3xl bg-white ring-1 ring-black/[0.05] p-4 sm:mt-auto sm:p-5">
+              <p className="font-label text-[11px] font-medium tracking-[0.16em] text-neutral-500 uppercase">
                 Contact
               </p>
               <div className="mt-3 flex flex-col gap-2">

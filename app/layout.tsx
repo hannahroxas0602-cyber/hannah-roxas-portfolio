@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Newsreader } from "next/font/google";
+import { IBM_Plex_Mono, Inter, Newsreader, Pacifico } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import CustomCursor from "@/app/components/CustomCursor";
@@ -31,6 +31,11 @@ const welcome = Newsreader({
   axes: ["opsz"],
 });
 
+// A cursive for the icing on the contact biscuit, and nowhere else.
+// Small mono labels (index numbers, kickers, tags): the editorial detail.
+const mono = IBM_Plex_Mono({ variable: "--font-mono-label", subsets: ["latin"], weight: ["400", "500"] });
+const script = Pacifico({ variable: "--font-script", subsets: ["latin"], weight: "400" });
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   ...pageMetadata({ title: siteName, description: siteDescription, path: "/" }),
@@ -54,14 +59,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${inter.variable} ${welcome.variable} h-full antialiased`}
+      className={`${inter.variable} ${welcome.variable} ${script.variable} ${mono.variable} h-full antialiased`}
     >
       <head>
         {/* A repeat visit in this tab skips the opening fall; mark it before first paint so the
             loader never flashes (see Loader.tsx). */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(sessionStorage.getItem("hannah-fell")&&!/[?&]fall\\b/.test(location.search))document.documentElement.dataset.fell="1"}catch(e){}`,
+            __html: `try{if(localStorage.getItem("hannah-theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}try{if(sessionStorage.getItem("hannah-fell")&&!/[?&]fall\\b/.test(location.search))document.documentElement.dataset.fell="1"}catch(e){}`,
           }}
         />
       </head>

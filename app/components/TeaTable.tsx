@@ -78,13 +78,13 @@ function scallopedOval(cx: number, cy: number, rx: number, ry: number, n: number
   });
   return d + "Z";
 }
-const OVAL = scallopedOval(100, 150, 90, 138, 36);
+const OVAL = scallopedOval(150, 100, 140, 90, 42);
 const HOLES = (() => {
   const out: [number, number][] = [];
-  for (let row = 0, y = 34; y < 268; y += 24, row++) {
-    for (let x = row % 2 ? 56 : 44; x < 160; x += 24) {
-      const dx = (x - 100) / 78;
-      const dy = (y - 150) / 118;
+  for (let row = 0, y = 26; y < 180; y += 22, row++) {
+    for (let x = row % 2 ? 36 : 24; x < 280; x += 24) {
+      const dx = (x - 150) / 118;
+      const dy = (y - 100) / 74;
       if (dx * dx + dy * dy < 1) out.push([x, y]);
     }
   }
@@ -93,12 +93,25 @@ const HOLES = (() => {
 
 // A bite out of the upper right: one big round bite, and a ring of small teeth-marks round its inner edge,
 // so the cut edge is scalloped like real tooth marks and not a smooth arc.
-const BITE_C = { x: 168, y: 52, r: 46 };
-const TEETH = [100, 122, 144, 166, 188, 210, 232, 254].map((deg) => {
+const BITE_C = { x: 250, y: 36, r: 44 };
+const TEETH = [95, 117, 139, 161, 183, 205, 227, 249].map((deg) => {
   const a = (deg * Math.PI) / 180;
   return { x: BITE_C.x + (BITE_C.r - 1) * Math.cos(a), y: BITE_C.y + (BITE_C.r - 1) * Math.sin(a) };
 });
-const CRUMBS: [number, number, number][] = [[128, 82, 2.6], [118, 96, 2], [138, 98, 1.8], [108, 74, 1.6]];
+const CRUMBS: [number, number, number][] = [[196, 92, 2.6], [186, 106, 2], [210, 104, 1.8], [176, 84, 1.6]];
+
+// The words, piped on in blue icing: a soft shadow, a darker rim, the icing itself, and a pale highlight.
+function Icing({ y, uid }: { y: number; uid: string }) {
+  return (
+    <>
+      <text x="150" y={y + 3} className="icing-shadow">email me</text>
+      <text x="150" y={y} className="icing-rim">email me</text>
+      <text x="150" y={y} className="icing-body" fill={`url(#${uid}-ice)`} stroke={`url(#${uid}-ice)`}>email me</text>
+      <text x="150" y={y - 2.2} className="icing-shine">email me</text>
+      <text x="150" y={y + 1.2} className="icing-edge">email me</text>
+    </>
+  );
+}
 
 export function Cookie() {
   const uid = useId().replace(/:/g, "");
@@ -120,27 +133,23 @@ export function Cookie() {
         onClick={copy}
         data-cursor={copied ? "Copied" : "Copy my email"}
         aria-label={copied ? "Copied my email address" : "Email me: copy my email address"}
-        className="cookie relative aspect-[2/3] w-[5.2rem] shrink-0 rotate-[-7deg] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e8638f] sm:w-[6.2rem]"
+        className="cookie relative aspect-[3/2] w-[9.6rem] shrink-0 rotate-[-4deg] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1f8fb0] sm:w-[12rem]"
       >
-        <svg viewBox="0 0 200 300" className="size-full overflow-visible drop-shadow-[0_8px_8px_rgba(60,40,20,0.28)]">
+        <svg viewBox="0 0 300 200" className="size-full overflow-visible drop-shadow-[0_8px_8px_rgba(60,40,20,0.28)]">
           <defs>
             <radialGradient id={`${uid}-bake`} cx="50%" cy="46%" r="62%">
               <stop offset="0" stopColor="#f5dca6" />
               <stop offset="0.7" stopColor="#ecc283" />
               <stop offset="1" stopColor="#d49b52" />
             </radialGradient>
-            <pattern id={`${uid}-dots`} width="5.4" height="5.4" patternUnits="userSpaceOnUse">
-              <circle cx="2.7" cy="2.7" r="2" fill="#1f8fb0" />
-            </pattern>
-            <mask id={`${uid}-text`}>
-              <rect width="200" height="300" fill="#000" />
-              <g fill="#fff" fontFamily="var(--font-inter), Arial, sans-serif" fontWeight="700" textAnchor="middle">
-                <text x="100" y="146" fontSize="58" letterSpacing="-1.5">email</text>
-                <text x="100" y="204" fontSize="58" letterSpacing="-1.5">me</text>
-              </g>
-            </mask>
+            {/* the icing is lit from above: pale on top, deeper blue at the bottom of each letter */}
+            <linearGradient id={`${uid}-ice`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#d6f6fb" />
+              <stop offset="0.45" stopColor="#7fd3e6" />
+              <stop offset="1" stopColor="#3aa5c4" />
+            </linearGradient>
             <mask id={`${uid}-bite`}>
-              <rect x="-20" y="-20" width="240" height="340" fill="#fff" />
+              <rect x="-20" y="-20" width="340" height="240" fill="#fff" />
               {copied && (
                 <g fill="#000" className="bite">
                   <circle cx={BITE_C.x} cy={BITE_C.y} r={BITE_C.r} />
@@ -155,9 +164,11 @@ export function Cookie() {
             <path d={OVAL} fill={`url(#${uid}-bake)`} />
             <path d={OVAL} fill="none" stroke="#b9803c" strokeOpacity="0.35" strokeWidth="1.4" />
             {HOLES.map(([x, y], i) => (
-              <circle key={i} cx={x} cy={y} r="2.8" fill="#8a5a2a" fillOpacity="0.55" />
+              <circle key={i} cx={x} cy={y} r="2.8" fill="#8a5a2a" fillOpacity="0.5" />
             ))}
-            <rect width="200" height="300" fill={`url(#${uid}-dots)`} mask={`url(#${uid}-text)`} />
+            <g textAnchor="middle" fontFamily="var(--font-script), cursive" fontWeight="400" fontSize="62" strokeLinejoin="round" strokeLinecap="round">
+              <Icing y={122} uid={uid} />
+            </g>
           </g>
           {/* a few crumbs where the bite came from */}
           {copied && (

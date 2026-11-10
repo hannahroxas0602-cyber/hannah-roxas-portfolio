@@ -1,5 +1,5 @@
 export const graphicDesignHero = {
-  eyebrow: "Rabbit Hole:",
+  eyebrow: "Visual work",
   category: "Brand & visual systems",
   intro: "Brand identity, illustration, and motion design.",
   subcopy:

@@ -1,42 +1,36 @@
 "use client";
 
-import { animate, motion } from "motion/react";
+import { animate, AnimatePresence, motion, useMotionValue, useTransform } from "motion/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { FALLING } from "@/app/components/WonderGlyphs";
-import { HALL_GRAY, LOGO_BLUE as BLUE } from "@/app/components/hallColor";
 import { markLanded } from "@/app/components/landing";
 
-// The opening: you fall. Alice, on the way down, wonders "how many miles I've fallen by this
-// time", and guesses four thousand. So the loader is a descent: the screen is the inside of the
-// hole, a miles counter climbs to 4,000 while the things she passed (a pocket watch, a key, a
-// teacup, a card, a door) drift upward, then "Thump." and the hole closes over the page.
-// Home only, once per session (a returning visitor in the same tab goes straight in), skippable,
-// and skipped entirely under Reduce Motion. The head script in layout.tsx hides it pre-hydration
-// for repeat visits so it never flashes.
+// The opening, in the spirit of a counter-led reveal: a large percentage fills the corner while a small black
+// rabbit tumbles down the page (Alice's fall, as a silhouette) and a sentence writes itself, line by line:
+// "Follow your curiosity / down the rabbit hole, / and you land in empathy." At a hundred the sheet lifts away and the
+// page begins. Home only, once per tab (add ?fall to replay), skippable, and skipped under Reduce Motion.
 const SEEN_KEY = "hannah-fell";
-const TOTAL_MILES = 4000;
-const FALL_SECONDS = 3.4;
-const DIAMONDS = 12;
+const SECONDS = 3.8;
+const LINES = ["Follow your curiosity", "down the rabbit hole,", "and you land in empathy."];
 
-// Fixed positions and speeds, so server and client markup match.
-const OBJECTS = FALLING.map((Glyph, i) => ({
-  Glyph,
-  left: 6 + ((i * 37) % 86),
-  size: 26 + ((i * 11) % 22),
-  duration: 3.4 + ((i * 7) % 5) * 0.5,
-  delay: -((i * 0.55) % 3),
-  rotate: (i % 2 ? 1 : -1) * (20 + i * 12),
-}));
+// The leaping-hare silhouette from the cursor (public/images/moving.png), used as a mask so it takes the text colour.
+function Bunny({ className }: { className?: string }) {
+  const mask = "url(/images/moving.png) center / contain no-repeat";
+  return <span aria-hidden className={`block aspect-[1084/856] bg-current ${className ?? ""}`} style={{ WebkitMask: mask, mask }} />;
+}
 
 export default function Loader() {
   const pathname = usePathname();
-  const [phase, setPhase] = useState<"fall" | "thump" | "leave" | "gone">("fall");
-  const [miles, setMiles] = useState(0);
+  const [phase, setPhase] = useState<"count" | "leave" | "gone">("count");
+  const p = useMotionValue(0); // 0..100
+  const [shown, setShown] = useState(0);
   const finished = useRef(false);
-  // Decided once. React runs effects twice in development, and the second run would otherwise
-  // see the flag the first run just wrote and skip the fall.
   const seenBefore = useRef<boolean | null>(null);
+
+  // the bunny: it falls from above the top to below the bottom, straight down
+  const y = useTransform(p, [0, 100], ["-22vh", "112vh"]);
+  // head-first: the hare leaps left, so -90deg points it down; it rocks a little as it falls
+  const rot = -90;
 
   useEffect(() => {
     if (pathname !== "/") {
@@ -52,9 +46,8 @@ export default function Loader() {
         seenBefore.current = false;
       }
     }
-    const seen = seenBefore.current;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (seen || reduce) {
+    if (seenBefore.current || reduce) {
       markLanded();
       setPhase("gone");
       return;
@@ -64,120 +57,79 @@ export default function Loader() {
     } catch {}
 
     const html = document.documentElement;
-    const prevOverflow = html.style.overflow;
+    const prev = html.style.overflow;
     html.style.overflow = "hidden";
-
-    let timers: ReturnType<typeof setTimeout>[] = [];
+    let timer: ReturnType<typeof setTimeout>;
     const leave = () => {
       if (finished.current) return;
       finished.current = true;
       setPhase("leave");
       markLanded();
-      html.style.overflow = prevOverflow;
-      timers.push(setTimeout(() => setPhase("gone"), 950));
+      html.style.overflow = prev;
+      timer = setTimeout(() => setPhase("gone"), 1000);
     };
     (window as unknown as { __skipFall?: () => void }).__skipFall = leave;
 
-    const controls = animate(0, TOTAL_MILES, {
-      duration: FALL_SECONDS,
-      ease: [0.5, 0, 0.75, 0.6],
-      onUpdate: (v) => setMiles(Math.round(v)),
+    const controls = animate(p, 100, {
+      duration: SECONDS,
+      ease: [0.55, 0.05, 0.3, 1],
+      onUpdate: (v) => setShown(Math.round(v)),
       onComplete: () => {
-        setPhase("thump");
-        timers.push(setTimeout(leave, 700));
+        setShown(100);
+        timer = setTimeout(leave, 420);
       },
     });
     return () => {
       controls.stop();
-      timers.forEach(clearTimeout);
-      timers = [];
-      html.style.overflow = prevOverflow;
+      clearTimeout(timer);
+      html.style.overflow = prev;
     };
-  }, [pathname]);
+  }, [pathname, p]);
 
   if (pathname !== "/" || phase === "gone") return null;
 
+  const stage = shown < 8 ? 0 : shown < 36 ? 1 : shown < 66 ? 2 : 3; // how many lines are showing
+
   return (
     <motion.div
-      aria-hidden={phase === "leave"}
       role="status"
-      aria-label="Loading: falling down the rabbit hole"
-      className="fall-loader fixed inset-0 z-[200] overflow-hidden bg-white text-neutral-800"
+      aria-label="Loading"
       initial={false}
-            animate={
-        phase === "leave"
-          ? { clipPath: "circle(0% at 50% 50%)" }
-          : phase === "thump"
-            ? { clipPath: "circle(150% at 50% 50%)", y: [0, 7, -3, 0] }
-            : { clipPath: "circle(150% at 50% 50%)" }
-      }
-      transition={
-        phase === "leave"
-          ? { duration: 0.85, ease: [0.7, 0, 0.2, 1] }
-          : { duration: 0.35, ease: "easeOut" }
-      }
+      animate={{ y: phase === "leave" ? "-100%" : 0 }}
+      transition={{ duration: 0.95, ease: [0.76, 0, 0.24, 1] }}
+      className="fixed inset-0 z-[200] overflow-hidden bg-[#f1f1f2] text-neutral-950 dark:bg-[#0e0f11]"
     >
-      {/* The walls of the hole: thin gray rings that rush outward, so the centre feels like it recedes. */}
-      <div className="absolute inset-0 grid place-items-center">
-        {[0, 1, 2, 3, 4].map((i) => (
-          <span
-            key={i}
-            className="fall-ring absolute rounded-full border border-[#868a8c]/50"
-            style={{ width: "30vmin", height: "30vmin", animationDelay: `${-i * 0.55}s` }}
-          />
-        ))}
-      </div>
+      <div className="font-label absolute top-5 left-5 text-[11px] tracking-[0.16em] uppercase sm:top-7 sm:left-8">Hannah Roxas</div>
+      <div className="font-label absolute top-5 right-5 text-[11px] tracking-[0.16em] uppercase sm:top-7 sm:right-8">Portfolio &apos;26</div>
 
-      {/* The things she passed, drifting upward past you. */}
-      {OBJECTS.map(({ Glyph, left, size, duration, delay, rotate }, i) => (
-        <span
-          key={i}
-          className="fall-object absolute bottom-0"
-          style={{
-            left: `${left}%`,
-            width: size * 1.5,
-            height: size * 1.5,
-            color: i % 2 ? HALL_GRAY : BLUE,
-            animationDuration: `${duration}s`,
-            animationDelay: `${delay}s`,
-            ["--spin" as string]: `${rotate}deg`,
-          }}
-        >
-          <Glyph className="size-full" />
-        </span>
-      ))}
+      {/* a hairline, and the sentence beside it */}
+      <div className="absolute top-[18%] left-[8%] h-[38%] w-px bg-neutral-950/80 sm:left-[16%]" />
+      <p className="absolute top-[18%] left-[calc(8%+1rem)] max-w-[16ch] text-[clamp(1.7rem,4.2vw,3.6rem)] leading-[1.04] font-medium tracking-[-0.04em] sm:left-[calc(16%+1.25rem)]">
+        <AnimatePresence initial={false}>
+          {LINES.slice(0, stage).map((l) => (
+            <motion.span key={l} initial={{ opacity: 0, y: 18, filter: "blur(6px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} className="block">
+              {l}
+            </motion.span>
+          ))}
+        </AnimatePresence>
+      </p>
 
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
-        <p className="welcome text-3xl text-neutral-900 italic sm:text-5xl">
-          {phase === "thump" || phase === "leave" ? "Thump." : "Down, down, down…"}
-        </p>
-      </div>
+      {/* the rabbit, falling */}
+      <motion.div style={{ y, rotate: rot }} className="absolute top-0 left-[66%] w-[clamp(7rem,17vw,16rem)] -translate-x-1/2">
+        <Bunny className="w-full" />
+      </motion.div>
 
-      {/* A row of diamonds fills in, blue and yellow in a checker, as the miles go by. */}
-      <div aria-hidden className="absolute bottom-20 left-1/2 flex -translate-x-1/2 gap-2">
-        {Array.from({ length: DIAMONDS }, (_, i) => {
-          const on = miles / TOTAL_MILES > i / DIAMONDS;
-          return (
-            <span
-              key={i}
-              className="block size-4 transition-all duration-300"
-              style={{
-                clipPath: "polygon(50% 0, 100% 50%, 50% 100%, 0 50%)",
-                backgroundColor: i % 2 ? HALL_GRAY : BLUE,
-                opacity: on ? 1 : 0.15,
-                transform: on ? "scale(1)" : "scale(0.6)",
-              }}
-            />
-          );
-        })}
-      </div>
+      {/* the counter */}
+      <p aria-hidden className="absolute bottom-3 left-4 text-[clamp(6.5rem,24vw,22rem)] leading-[0.78] font-semibold tracking-[-0.07em] tabular-nums sm:left-6">
+        {shown}%
+      </p>
 
       <button
         type="button"
         onClick={() => (window as unknown as { __skipFall?: () => void }).__skipFall?.()}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full border border-neutral-300 bg-white/70 px-4 py-1.5 text-xs font-medium text-neutral-600 transition-colors hover:border-neutral-500 hover:text-neutral-900"
+        className="font-label absolute right-5 bottom-6 text-[11px] tracking-[0.16em] uppercase underline-offset-4 hover:underline sm:right-8"
       >
-        Skip the fall
+        Skip
       </button>
     </motion.div>
   );

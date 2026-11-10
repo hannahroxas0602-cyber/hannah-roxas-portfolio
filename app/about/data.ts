@@ -1,5 +1,5 @@
 export const aboutIntro = {
-  eyebrow: "[01]",
+  eyebrow: "01",
   title: "About",
   tagline:
     "A curious, detail-obsessed designer who treats every project like a rabbit hole worth falling into.",

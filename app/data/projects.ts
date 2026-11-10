@@ -183,3 +183,37 @@ export const projects: Project[] = [
 export function projectDescription(slug: string) {
   return projects.find((p) => p.slug === slug)?.description ?? "";
 }
+
+// A showcase-only entry for the Graphic design tab: the posters and edited videos as one set. It isn't a
+// case study, so it's kept out of `projects` and its link goes to the graphic design page.
+const G = "/images/graphic-design/";
+export const graphicReel: Project = {
+  slug: "posters-and-motion",
+  title: "Posters & Motion",
+  description: "Experimental posters, type and layout studies, and short edited videos made in Illustrator, Photoshop and After Effects.",
+  tags: ["Posters", "Motion", "Graphic Design"],
+  category: "Graphic Design",
+  href: "/graphic-design",
+  image: `${G}experimental-05.jpg`,
+  imageAlt: "A$AP poster for NewJeans Get Up, from a set of experimental posters and edited videos",
+  imageWidth: 1236,
+  imageHeight: 1600,
+  year: "2022 – 2025",
+  outcome: "A growing set of posters and short edits. See all of them on the graphic design page.",
+  impactStats: [
+    { value: "12", label: "posters and experiments" },
+    { value: "4", label: "edited videos" },
+  ],
+  gallery: [
+    `${G}experimental-05.jpg`,
+    `${G}experimental-01.jpg`,
+    `${G}edited-video-04.mp4`,
+    `${G}experimental-03.jpg`,
+    `${G}edited-video-01.mp4`,
+    `${G}experimental-08.jpg`,
+    `${G}edited-video-03.mp4`,
+    `${G}experimental-11.jpg`,
+    `${G}experimental-07.jpg`,
+    `${G}experimental-10.jpg`,
+  ],
+};

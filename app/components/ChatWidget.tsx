@@ -39,6 +39,31 @@ async function getReply(message: string, history: ChatMessage[]): Promise<string
 
 // The White Rabbit as the way in: a small clay rabbit in the corner. Hover it and it stands up and offers
 // to answer questions; click it and the chat opens. Asking is the one job it has.
+// Turns plain URLs and email addresses in a reply into links, and leaves everything else as text.
+function Linkified({ text }: { text: string }) {
+  const parts = text.split(/(https?:\/\/[^\s]+|[\w.+-]+@[\w-]+\.[\w.]+)/g);
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (/^https?:\/\//.test(part)) {
+          const url = part.replace(/[.,;)]+$/, "");
+          const tail = part.slice(url.length);
+          return (
+            <span key={i}>
+              <a href={url} target="_blank" rel="noopener noreferrer" className="break-all underline underline-offset-2 hover:text-black">{url}</a>
+              {tail}
+            </span>
+          );
+        }
+        if (/^[\w.+-]+@[\w-]+\.[\w.]+$/.test(part)) {
+          return <a key={i} href={`mailto:${part}`} className="underline underline-offset-2 hover:text-black">{part}</a>;
+        }
+        return <span key={i}>{part}</span>;
+      })}
+    </>
+  );
+}
+
 function RabbitLauncher({ onOpen }: { onOpen: () => void }) {
   const [up, setUp] = useState(false);
   return (
@@ -158,12 +183,12 @@ export default function ChatWidget({ className = "", variant = "button" }: { cla
                     className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                   >
                     <div
-                      className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                      className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-line ${
                         msg.role === "user" ? "text-black" : "bg-neutral-100 text-neutral-800"
                       }`}
                       style={msg.role === "user" ? { backgroundColor: CURSOR_COLOR } : undefined}
                     >
-                      {msg.text}
+                      <Linkified text={msg.text} />
                     </div>
                   </div>
                 ))}

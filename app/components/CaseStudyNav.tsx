@@ -1,12 +1,49 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Stopwatch from "@/app/components/Stopwatch";
 
 export type CaseStudySection = {
   id: string;
   title: string;
   children?: CaseStudySection[];
 };
+
+// A small pill at the foot of the page: time left to read and the section you're in. It appears once you
+// start scrolling and updates with you. Wide screens only (the phone has its own bar).
+function Hud({ label }: { label: string }) {
+  const [state, setState] = useState<{ left: number; show: boolean }>({ left: 0, show: false });
+  const words = useRef(0);
+  useEffect(() => {
+    const main = document.querySelector("main");
+    words.current = (main?.innerText ?? "").split(/\s+/).filter(Boolean).length;
+    const onScroll = () => {
+      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const p = Math.min(1, window.scrollY / max);
+      setState({ left: Math.max(0, Math.ceil((words.current / 220) * (1 - p))), show: window.scrollY > 320 && p < 0.97 });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <div
+      aria-hidden
+      className={`pointer-events-none fixed right-6 bottom-6 z-30 hidden items-center gap-2.5 rounded-full bg-neutral-950/90 py-2 pr-4 pl-3 text-[12px] font-medium text-white shadow-[0_12px_30px_-12px_rgba(0,0,0,0.5)] backdrop-blur transition-all duration-500 md:flex ${
+        state.show ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+      }`}
+    >
+      <Stopwatch ticking className="size-4 text-white" />
+      <span className="tabular-nums">{state.left} min left</span>
+      {label && (
+        <>
+          <span className="text-white/30">·</span>
+          <span className="max-w-[12rem] truncate text-white/70">{label}</span>
+        </>
+      )}
+    </div>
+  );
+}
 
 export default function CaseStudyNav({ sections }: { sections: CaseStudySection[] }) {
   const [activeId, setActiveId] = useState("");
@@ -77,6 +114,7 @@ export default function CaseStudyNav({ sections }: { sections: CaseStudySection[
 
   return (
     <>
+      <Hud label={flatSections.find((s) => s.id === activeId)?.title ?? ""} />
       {/* Mobile: fixed horizontal scroll bar, pinned to the bottom of the viewport */}
       <nav data-bottom-bar className="fixed right-0 bottom-0 left-0 z-30 border-t border-black/[0.06] bg-background/95 py-3 backdrop-blur-sm md:hidden">
         <div
@@ -121,7 +159,7 @@ export default function CaseStudyNav({ sections }: { sections: CaseStudySection[
               className="absolute inset-x-0 top-0 rounded-full transition-[height] duration-500 ease-out"
               style={{
                 height: fillHeight,
-                background: "linear-gradient(to bottom, #cfe6e9, #a4d3d6 55%, #9fc3ee)",
+                background: "#0b0b0d",
               }}
             />
           </span>

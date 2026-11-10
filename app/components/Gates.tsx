@@ -8,7 +8,7 @@ import type { SVGProps } from "react";
 // bar reads as a white wire with a yellow edge. The spaces between the bars stay empty (see-through), the
 // way a real gate is. Only solid pieces (the spear heads, the beads, the balls on the rail) are filled,
 // and those are white with a yellow edge too.
-export const INK = "#dce0d2"; // the prim-yellow edge
+export const INK = "#1b1519"; // the ink edge
 export const WIRE = "#ffffff"; // the white wire
 
 // A spiral that winds inward from radius r0 to r1 around (cx, cy), starting at angle a0.
@@ -123,17 +123,22 @@ function LeafC({ f }: P) {
 const LEAVES = [LeafA, LeafB, LeafC];
 
 // A leaf, 60 x 104 units (finials included). Sized by its parent.
+// The ironwork as frosted glass: each wire is drawn three times from the same paths, a cool-tinted wide edge, a
+// milky body, and a thin bright highlight down the middle, each as one group so overlaps don't double up.
+// A soft shadow lifts the glass off the page. No dark outline.
+const GLASS_EDGE = "#6f88ad";
 export function GateLeaf({ variant = 0, ...props }: { variant?: number } & SVGProps<SVGSVGElement>) {
   const Leaf = LEAVES[variant % LEAVES.length];
   return (
-    <svg viewBox="0 -14 60 104" strokeLinecap="round" strokeLinejoin="round" aria-hidden {...props}>
-      {/* the yellow edge: a wide stroke ... */}
-      <g stroke={INK} strokeWidth={3.5}>
-        <Leaf f={INK} />
+    <svg viewBox="0 -14 60 104" overflow="visible" strokeLinecap="round" strokeLinejoin="round" aria-hidden {...props} style={{ filter: "drop-shadow(0 6px 10px rgba(60,85,120,0.18))", ...(props.style ?? {}) }}>
+      <g stroke={GLASS_EDGE} opacity={0.2} strokeWidth={3.6}>
+        <Leaf f={GLASS_EDGE} />
       </g>
-      {/* ... and the white wire on top of it */}
-      <g stroke={WIRE} strokeWidth={1.5}>
-        <Leaf f={WIRE} />
+      <g stroke="#ffffff" opacity={0.55} strokeWidth={2.5}>
+        <Leaf f="#ffffff" />
+      </g>
+      <g stroke="#ffffff" opacity={1} strokeWidth={0.6}>
+        <Leaf f="none" />
       </g>
     </svg>
   );
@@ -166,13 +171,13 @@ function Bow({ w }: { w: number }) {
 export function OrnateKey(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 60 174" strokeLinecap="round" strokeLinejoin="round" aria-hidden {...props}>
-      <g stroke={INK}>
+      <g stroke={GLASS_EDGE} opacity={0.5}>
         <Bow w={4.2} />
-        <path d={SOLID} fill={INK} strokeWidth={3.2} />
+        <path d={SOLID} fill={GLASS_EDGE} strokeWidth={3.2} />
       </g>
-      <g stroke={WIRE}>
-        <Bow w={1.6} />
-        <path d={SOLID} fill={WIRE} strokeWidth={1.2} />
+      <g stroke="#ffffff" opacity={0.85}>
+        <Bow w={1.8} />
+        <path d={SOLID} fill="#ffffff" strokeWidth={1.2} />
       </g>
     </svg>
   );

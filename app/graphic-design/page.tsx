@@ -30,7 +30,7 @@ export default function GraphicDesignPage() {
         <section className="mx-auto max-w-6xl px-6 pt-16 pb-10 sm:px-10 sm:pt-20 sm:pb-14">
           <HoleLink direction="out"
             href="/"
-            className="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
+            className="group/back inline-flex items-center gap-1.5 rounded-full bg-neutral-100 px-3.5 py-1.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200 hover:text-neutral-950"
           >
             ← Back to home
           </HoleLink>

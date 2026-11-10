@@ -1,5 +1,5 @@
 export const uiuxHero = {
-  eyebrow: "Rabbit hole:",
+  eyebrow: "Case studies",
   category: "Product & UX design",
   intro: "Product design for SaaS platforms, start to finish.",
   subcopy:

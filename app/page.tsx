@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Header from "@/app/components/Header";
 import HoleHero from "@/app/components/HoleHero";
 import Hall from "@/app/components/Hall";
+import Lab from "@/app/components/Lab";
 import WhatIDo from "@/app/components/WhatIDo";
 import Footer from "@/app/components/Footer";
 import ScrollToHash from "@/app/components/ScrollToHash";
-import ScrollRail from "@/app/components/ScrollRail";
 import ChatWidget from "@/app/components/ChatWidget";
 import { pageMetadata, siteDescription, siteName } from "@/app/data/seo";
 
@@ -23,14 +23,14 @@ export const metadata: Metadata = pageMetadata({
 // questions (ChatWidget). See each component for the idea behind it.
 export default function Home() {
   return (
-    <div className="orb-theme relative flex flex-1 flex-col bg-white">
-      <ScrollRail />
+    <div className="orb-theme relative flex flex-1 flex-col bg-background">
       <ScrollToHash />
       <ChatWidget variant="rabbit" />
       <Header />
-      <main className="flex-1">
+      <main className="relative mx-auto w-full max-w-7xl flex-1 border-x border-neutral-200/80">
         <HoleHero />
         <Hall />
+        <Lab />
         <WhatIDo />
       </main>
       <Footer />

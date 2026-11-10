@@ -47,7 +47,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           )}
           {project.tags.map((tag, i) => (
             <span key={tag} className="flex items-center gap-3">
-              {i > 0 && <span aria-hidden className="text-neutral-300">|</span>}
+              {i > 0 && <span aria-hidden className="text-neutral-300">·</span>}
               {tag}
             </span>
           ))}
@@ -85,7 +85,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       </div>
 
       <div
-        className="relative w-full overflow-hidden rounded-2xl bg-neutral-100"
+        className="relative w-full overflow-hidden rounded-[1.4rem] bg-panel ring-1 ring-black/[0.05] transition-shadow duration-500 group-hover:shadow-[0_30px_60px_-30px_rgba(20,30,50,0.3)]"
         style={{ aspectRatio: project.imageAspect ?? "4/3" }}
       >
         {hasVideo &&

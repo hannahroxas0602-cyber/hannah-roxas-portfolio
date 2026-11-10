@@ -1,131 +1,123 @@
 "use client";
 
-import { motion, useScroll, useSpring, useTransform } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 import Melt from "@/app/components/Melt";
-import WorkClock from "@/app/components/WorkClock";
+import InlineShot from "@/app/components/InlineShot";
 import Stopwatch from "@/app/components/Stopwatch";
+import CountUp from "@/app/components/CountUp";
+import { Em } from "@/app/components/Em";
 import { useLanded } from "@/app/components/landing";
 import { social } from "@/app/data/social";
-import { HALL_GRAY } from "@/app/components/hallColor";
 
-// The top of the hole. A tall section with a sticky stage: at first it's a calm page (who I am,
-// and a hole with the things Alice meets circling it), and as you scroll you fall into it. The
-// words melt away, the hole's core swells until it fills the screen, and a swirl winds in over it. The stage ends in the hall's gray, and the hall of
-// gates begins in the same gray, so there's no seam. Sizes and the two-column layout key off the stage's
-// own width (container queries), not the window's, so the hero stays right when the About panel opens
-// and narrows the page. The hero is also the page's plain statement
-// of what I do, so a ten-second visitor gets the answer before the fall begins.
+// The first screen. It has one job: in a few seconds, say who I am, what I do and that I'm hiring-ready,
+// and put the work in reach. So: a plain statement of the role, one line of what I've made, two actions
+// (the work, the resume), and three numbers as proof. The clock is the one piece of play: my work as its
+// hours, telling the time where I am, photographs you can pick up and move. It's the picture on the right,
+// not the whole page. Sizes key off the stage's own width (container queries), so the layout holds when the
+// About panel opens and narrows the page.
 const EASE = [0.22, 1, 0.36, 1] as const;
+
+const PROOF = [
+  { value: "72%", label: "mobile click rate on the Learvo landing page I shipped" },
+  { value: "4", label: "features shipped at Learvo, front end and back end" },
+  { value: "10", label: "exhibitions I ran PR and marketing for at UC Davis" },
+];
 
 function LocalTime() {
   const [time, setTime] = useState<string | null>(null);
   useEffect(() => {
     const tick = () =>
-      setTime(
-        new Date().toLocaleTimeString("en-US", { timeZone: "America/Los_Angeles", hour: "numeric", minute: "2-digit" }),
-      );
+      setTime(new Date().toLocaleTimeString("en-US", { timeZone: "America/Los_Angeles", hour: "numeric", minute: "2-digit" }));
     tick();
     const id = setInterval(tick, 20_000);
     return () => clearInterval(id);
   }, []);
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-neutral-300/80 bg-white/60 py-0.5 pr-2.5 pl-2 text-[11px] font-medium text-neutral-600 backdrop-blur">
+    <span className="inline-flex items-center gap-1.5 text-[12px] font-medium text-neutral-600">
       <Stopwatch ticking className="size-4 text-neutral-950" />
       LA / Bay Area
       <span aria-hidden className="text-neutral-300">·</span>
-      <span className="tabular-nums">{time ?? "       "}</span>
+      <span className="tabular-nums">{time ?? "       "}</span>
     </span>
+  );
+}
+
+// The hare from my cursor, mid-leap, sitting in the headline. It hops when you hover.
+function Hare() {
+  const mask = "url(/images/moving.png) center / contain no-repeat";
+  return (
+    <motion.span aria-hidden whileHover={{ x: 18, y: -10, rotate: -8 }} transition={{ type: "spring", stiffness: 260, damping: 12 }} className="inline-block h-[0.62em] w-[0.78em] cursor-pointer align-[-0.02em] bg-neutral-950" style={{ WebkitMask: mask, mask }} />
   );
 }
 
 const rise = (i: number) => ({
   initial: { opacity: 0, y: 18 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: EASE, delay: 0.12 + i * 0.09 },
+  transition: { duration: 0.6, ease: EASE, delay: 0.1 + i * 0.09 },
 });
 
 export default function HoleHero() {
-  const ref = useRef<HTMLElement>(null);
   const landed = useLanded();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  // Through a spring on purpose: it keeps the progress on the JavaScript path. Driven natively
-  // (as Motion does for plain scroll-linked opacity and filter), the sticky stage reads wrong.
-  const p = useSpring(scrollYProgress, { stiffness: 260, damping: 40, mass: 0.25 });
-
-  // The hole draws you in slowly at first (the rings widen, the core grows a little), then the
-  // core swells to fill the screen. The words melt away early so Alice's line has room.
-  const stageBg = useTransform(p, [0.5, 0.9], ["#ffffff", HALL_GRAY]);
-  const textOpacity = useTransform(p, [0.04, 0.3], [1, 0]);
-  const textY = useTransform(p, [0, 0.3], [0, -70]);
-  const textBlur = useTransform(p, [0, 0.3], ["blur(0px)", "blur(10px)"]);
+  const hidden = { initial: { opacity: 0 }, animate: { opacity: 0 } };
 
   return (
-    <section ref={ref} id="info" data-rail="The edge" className="relative -mt-12 h-[240svh]">
-      <motion.div style={{ backgroundColor: stageBg }} className="@container sticky top-0 h-svh overflow-hidden">
-        {/* The clock. It sits to the right on a wide screen and under the words on a phone. Its pivot
-            is the hole. */}
-        <div className="absolute top-[71%] left-1/2 aspect-square w-[min(66cqw,20rem)] -translate-x-1/2 -translate-y-1/2 @3xl:top-[43%] @3xl:left-[75%] @3xl:w-[min(27cqw,22rem)]">
-          <WorkClock progress={p} />
-        </div>
-
-        {/* Words: who I am. They melt away as you fall. */}
-        <motion.div
-          style={{ opacity: textOpacity, y: textY, filter: textBlur }}
-          className="pointer-events-none relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-start gap-5 px-6 pt-24 sm:px-10 @3xl:gap-3.5 @3xl:justify-center @3xl:pt-0 @3xl:pb-32 [&>*]:pointer-events-auto"
-        >
-          <motion.div {...(landed ? rise(0) : { initial: { opacity: 0 }, animate: { opacity: 0 } })}>
-            <LocalTime />
-          </motion.div>
-
-          <Melt as="div" mode="load" start={landed} maxBlur={3.4} duration={1.9} delay={0.1} className="max-w-[30rem]">
-            <h1 className="welcome text-[clamp(1.8rem,3.3cqw,2.15rem)] leading-[1.1] tracking-[-0.02em] text-neutral-950">
-              <a
-                href={social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cursor="View LinkedIn"
-                className="link-underline"
-              >
-                Hannah Roxas
-              </a>{" "}
-              designs it, then <em>ships it to production,</em> front end and back.
-            </h1>
-          </Melt>
-
-          <motion.p
-            {...(landed ? rise(2) : { initial: { opacity: 0 }, animate: { opacity: 0 } })}
-            className="max-w-[26rem] text-base leading-relaxed text-neutral-700 @3xl:text-[0.95rem]"
-          >
-            I follow questions down rabbit holes: research, then interface, then code. Come see what I found at the bottom.
-          </motion.p>
-
-          <motion.div
-            {...(landed ? rise(3) : { initial: { opacity: 0 }, animate: { opacity: 0 } })}
-            className="flex flex-wrap items-center gap-x-4 gap-y-2"
-          >
-            <button
-              type="button"
-              onClick={() =>
-                window.scrollTo({ top: (ref.current?.offsetTop ?? 0) + (ref.current?.offsetHeight ?? 0) - window.innerHeight * 0.4, behavior: "smooth" })
-              }
-              data-cursor="Fall in"
-              className="group inline-flex items-center gap-2.5 rounded-full bg-neutral-950 py-1.5 pr-1.5 pl-4 text-[13px] font-medium text-white transition-transform duration-300 hover:-translate-y-0.5"
-            >
-              Follow me down
-              <span className="flex size-6 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 group-hover:translate-y-0.5">
-                <svg viewBox="0 0 16 16" className="size-3.5" fill="none" aria-hidden>
-                  <path d="M8 3v10M3.5 8.5L8 13l4.5-4.5" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-            </button>
-            <span className="text-xs text-neutral-500">
-              <span className="font-medium text-accent-ink">Open to</span> Product Designer / Design Engineer roles
-            </span>
-          </motion.div>
+    <section id="info" data-rail="Intro" className="@container relative overflow-hidden">
+      <div className="relative mx-auto flex max-w-7xl flex-col px-6 pt-24 pb-12 sm:px-10 @3xl:min-h-[calc(100svh-1rem)] @3xl:justify-center @3xl:pt-12 @3xl:pb-28">
+        <motion.div {...(landed ? rise(0) : hidden)} className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span className="inline-flex items-center gap-2 rounded-full bg-neutral-100 py-1 pr-3 pl-2.5 text-[12px] font-medium text-neutral-800">
+            <span aria-hidden className="size-2 rounded-full bg-[#3ec3ff] shadow-[0_0_0_3px_rgba(62,195,255,0.25)]" />
+            Open to full-time roles
+          </span>
+          <LocalTime />
         </motion.div>
 
-      </motion.div>
+        <Melt as="div" mode="load" start={landed} maxBlur={3.4} duration={1.9} delay={0.1} className="mt-7">
+          <h1 className="font-display text-[clamp(2.2rem,6cqw,5.4rem)] leading-[0.96] font-medium tracking-[-0.05em] text-neutral-950">
+            Curiouser and <Em>curiouser</Em>: <Hare />
+            <br />
+            a product <InlineShot /> designer
+            <br />
+            who ships the code.
+          </h1>
+        </Melt>
+
+        <div className="mt-10 grid gap-8 @3xl:grid-cols-[1.1fr_1fr] @3xl:items-end @3xl:gap-16">
+          <div>
+            <motion.p {...(landed ? rise(2) : hidden)} className="max-w-[34rem] text-base leading-relaxed text-neutral-600 sm:text-lg">
+              Hello, I&apos;m{" "}
+              <a href={social.linkedin} target="_blank" rel="noopener noreferrer" data-cursor="View LinkedIn" className="link-underline font-medium text-neutral-950">
+                Hannah Roxas
+              </a>
+              . I follow the white rabbit from research to shipped code. Most recently: Learvo, an AI study tool, and Continuum, a care platform for surrogacy.
+            </motion.p>
+            <motion.div {...(landed ? rise(3) : hidden)} className="mt-7 flex flex-wrap items-center gap-3">
+              <a href="#works" data-cursor="See the work" className="btn btn-dark group !pr-3">
+                Follow the white rabbit
+                <span className="flex size-6 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 group-hover:translate-y-0.5">
+                  <svg viewBox="0 0 16 16" className="size-3.5" fill="none" aria-hidden>
+                    <path d="M8 3v10M3.5 8.5L8 13l4.5-4.5" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </a>
+              <a href={social.resume} target="_blank" rel="noopener noreferrer" data-cursor="Resume" className="btn btn-ghost">
+                Resume
+              </a>
+            </motion.div>
+          </div>
+
+          <motion.dl {...(landed ? rise(4) : hidden)} className="grid grid-cols-3 gap-5 border-t border-neutral-200 pt-6">
+            {PROOF.map((p) => (
+              <div key={p.value + p.label}>
+                <dt className="font-display text-3xl font-medium tracking-[-0.03em] text-neutral-950 sm:text-4xl">
+                  <CountUp value={p.value} />
+                </dt>
+                <dd className="mt-1 text-[12px] leading-snug text-neutral-500">{p.label}</dd>
+              </div>
+            ))}
+          </motion.dl>
+        </div>
+      </div>
     </section>
   );
 }

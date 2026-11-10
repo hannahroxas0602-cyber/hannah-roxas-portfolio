@@ -17,6 +17,7 @@ export default function ScrollReveal() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let io: IntersectionObserver | null = null;
+    const cleanups: (() => void)[] = [];
     const timer = setTimeout(() => {
       const main = document.querySelector("main");
       if (!main) return;
@@ -42,9 +43,29 @@ export default function ScrollReveal() {
           io?.observe(el);
         });
       });
+      // Pictures wipe in as they arrive: a soft upward clip that opens, with a slight settle.
+      const imgIo = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            (entry.target as HTMLElement).classList.add("img-in");
+            imgIo.unobserve(entry.target);
+          }
+        },
+        { rootMargin: "0px 0px -6% 0px", threshold: 0.08 },
+      );
+      main.querySelectorAll<HTMLImageElement>("img").forEach((img) => {
+        const r = img.getBoundingClientRect();
+        if (r.width < 240 || r.top + window.scrollY < fold) return;
+        img.classList.add("img-pre");
+        imgIo.observe(img);
+      });
+      cleanups.push(() => imgIo.disconnect());
     }, 700);
 
     return () => {
+      cleanups.forEach((f) => f());
+      document.querySelectorAll(".img-pre").forEach((el) => el.classList.remove("img-pre", "img-in"));
       clearTimeout(timer);
       io?.disconnect();
       document.querySelectorAll(".reveal-pre").forEach((el) => el.classList.remove("reveal-pre", "reveal-in"));

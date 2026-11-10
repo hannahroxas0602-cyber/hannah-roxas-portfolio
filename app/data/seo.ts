@@ -7,7 +7,7 @@ export const siteDescription =
   "Hannah Roxas is a product designer who ships her own front-end code. Product designer at Learvo, an ed-tech startup, where she designed and built onboarding, navigation, and the landing page.";
 
 const previewImage = {
-  url: "/images/Link_preview_home.png",
+  url: "/images/Link_preview_home_v2.png",
   width: 2400,
   height: 1260,
   alt: `Hannah Roxas, ${targetRole} — Portfolio`,
