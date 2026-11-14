@@ -60,6 +60,19 @@
   --color-neutral-900: #171717;
   --color-neutral-950: #0a0a0a;
 }
+/* The footer scene: light mode is the drawing as made; dark mode is the dark page color with the line art (not the cat photos) inverted to light lines. */
+.footer-scene { --scene-stage: #fafafa; --scene-ink: #0b0b0d; --scene-sub: #52525b; --scene-line: rgba(11, 11, 13, 0.3); }
+.dark .footer-scene { --scene-stage: var(--background); --scene-ink: #fafafa; --scene-sub: #c9c9cf; --scene-line: rgba(250, 250, 250, 0.35); }
+/* invert, then lift the blacks to the page's dark color (#0e0f11) so the curtains and table melt into the stage */
+.dark .footer-scene .footer-art { filter: invert(1) contrast(0.89); }
+.footer-stage { background: var(--scene-stage); }
+.footer-ink { color: var(--scene-ink); }
+.footer-sub { color: var(--scene-sub); }
+.footer-pill { border-color: var(--scene-line); color: var(--scene-ink); }
+.footer-pill:hover { background: var(--scene-ink); color: var(--scene-stage); }
+/* Pictures that are blended into the page with multiply (the Continuum mockups, drawn on a light background) turn black on a
+   dark page. In dark mode show them as they are, as light cards. */
+.dark .mix-blend-multiply { mix-blend-mode: normal; border-radius: 1rem; }
 .dark .text-black { color: #0b0b0d; }
 .dark .btn-dark { background: #f3f2ed; color: #0b0b0d; }
 .dark .btn-ghost { border-color: #3b3c42; color: #ededf0; }
