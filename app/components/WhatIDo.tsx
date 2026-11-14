@@ -7,6 +7,7 @@ import { Em } from "@/app/components/Em";
 import Melt from "@/app/components/Melt";
 import { social } from "@/app/data/social";
 import { useIsPhone } from "@/app/components/useIsPhone";
+import ArrowUpRight from "@/app/components/ArrowUpRight";
 
 // "What I do", set as an editorial spread: the hall's gray ends in a rounded white sheet that rides up over
 // it (a row of small diamonds marks the edge), and on the sheet a sticky statement on the left with the four
@@ -156,7 +157,7 @@ export default function WhatIDo() {
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <a href={social.resume} target="_blank" rel="noopener noreferrer" data-cursor="Resume" className="btn btn-dark">
-                See my resume <span aria-hidden>↗</span>
+                See my resume <ArrowUpRight className="size-4" />
               </a>
               <a href="#works" className="link-underline text-sm font-medium text-neutral-700">Back to the work</a>
             </div>

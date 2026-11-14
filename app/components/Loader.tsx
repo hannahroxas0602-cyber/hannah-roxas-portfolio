@@ -1,6 +1,7 @@
 "use client";
 
 import { animate, AnimatePresence, motion, useMotionValue, useTransform } from "motion/react";
+import { usePrefersReducedMotion } from "@/app/components/useIsPhone";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { markLanded } from "@/app/components/landing";
@@ -8,7 +9,8 @@ import { markLanded } from "@/app/components/landing";
 // The opening, in the spirit of a counter-led reveal: a large percentage fills the corner while a small black
 // rabbit tumbles down the page (Alice's fall, as a silhouette) and a sentence writes itself, line by line:
 // "Follow your curiosity / down the rabbit hole, / and you land in empathy." At a hundred the sheet lifts away and the
-// page begins. Home only, once per tab (add ?fall to replay), skippable, and skipped under Reduce Motion.
+// page begins. Home only, once per tab (add ?fall to replay) and skippable. Under Reduce Motion it is a calm version: the
+// counter and the sentence fade in and out, with no falling hare and no sliding.
 const SEEN_KEY = "hannah-fell";
 const SECONDS = 3.8;
 const LINES = ["Follow your curiosity", "down the rabbit hole,", "and you land in empathy."];
@@ -26,6 +28,8 @@ export default function Loader() {
   const [shown, setShown] = useState(0);
   const finished = useRef(false);
   const seenBefore = useRef<boolean | null>(null);
+  // Reduce Motion: a calm version (the counter and the sentence, no falling hare, no slide, just fades), not nothing
+  const calm = usePrefersReducedMotion();
 
   // the bunny: it falls from above the top to below the bottom, straight down
   const y = useTransform(p, [0, 100], ["-22vh", "112vh"]);
@@ -46,8 +50,8 @@ export default function Loader() {
         seenBefore.current = false;
       }
     }
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (seenBefore.current || reduce) {
+    const calmNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (seenBefore.current) {
       markLanded();
       setPhase("gone");
       return;
@@ -71,7 +75,7 @@ export default function Loader() {
     (window as unknown as { __skipFall?: () => void }).__skipFall = leave;
 
     const controls = animate(p, 100, {
-      duration: SECONDS,
+      duration: calmNow ? 2.6 : SECONDS,
       ease: [0.55, 0.05, 0.3, 1],
       onUpdate: (v) => setShown(Math.round(v)),
       onComplete: () => {
@@ -95,8 +99,8 @@ export default function Loader() {
       role="status"
       aria-label="Loading"
       initial={false}
-      animate={{ y: phase === "leave" ? "-100%" : 0 }}
-      transition={{ duration: 0.95, ease: [0.76, 0, 0.24, 1] }}
+      animate={calm ? { opacity: phase === "leave" ? 0 : 1 } : { y: phase === "leave" ? "-100%" : 0 }}
+      transition={calm ? { duration: 0.6, ease: "easeOut" } : { duration: 0.95, ease: [0.76, 0, 0.24, 1] }}
       className="fixed inset-0 z-[200] overflow-hidden bg-[#f1f1f2] text-neutral-950 dark:bg-[#0e0f11]"
     >
       <div className="font-label absolute top-5 left-5 text-[11px] tracking-[0.16em] uppercase sm:top-7 sm:left-8">Hannah Roxas</div>
@@ -107,7 +111,7 @@ export default function Loader() {
       <p className="absolute top-[18%] left-[calc(8%+1rem)] max-w-[16ch] text-[clamp(1.7rem,4.2vw,3.6rem)] leading-[1.04] font-medium tracking-[-0.04em] sm:left-[calc(16%+1.25rem)]">
         <AnimatePresence initial={false}>
           {LINES.slice(0, stage).map((l) => (
-            <motion.span key={l} initial={{ opacity: 0, y: 18, filter: "blur(6px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} className="block">
+            <motion.span key={l} initial={calm ? { opacity: 0 } : { opacity: 0, y: 18, filter: "blur(6px)" }} animate={calm ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ duration: calm ? 0.4 : 0.55, ease: [0.22, 1, 0.36, 1] }} className="block">
               {l}
             </motion.span>
           ))}
@@ -115,9 +119,11 @@ export default function Loader() {
       </p>
 
       {/* the rabbit, falling */}
-      <motion.div style={{ y, rotate: rot }} className="absolute top-0 left-[66%] w-[clamp(7rem,17vw,16rem)] -translate-x-1/2">
-        <Bunny className="w-full" />
-      </motion.div>
+      {!calm && (
+        <motion.div style={{ y, rotate: rot }} className="absolute top-0 left-[66%] w-[clamp(7rem,17vw,16rem)] -translate-x-1/2">
+          <Bunny className="w-full" />
+        </motion.div>
+      )}
 
       {/* the counter */}
       <p aria-hidden className="absolute bottom-3 left-4 text-[clamp(6.5rem,24vw,22rem)] leading-[0.78] font-semibold tracking-[-0.07em] tabular-nums sm:left-6">

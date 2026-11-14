@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { animate, AnimatePresence, motion, useInView, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import { animate, AnimatePresence, motion, useInView, useMotionValue, useMotionValueEvent, useScroll, useSpring, useTransform } from "motion/react";
 import HoleLink from "@/app/components/HoleLink";
 import DemoVideo from "@/app/components/DemoVideo";
 import Melt from "@/app/components/Melt";
@@ -10,7 +10,7 @@ import { Em } from "@/app/components/Em";
 import Gate from "@/app/components/Gate";
 import CyclingImage from "@/app/components/CyclingImage";
 import FitMedia from "@/app/components/FitMedia";
-import { useIsPhone } from "@/app/components/useIsPhone";
+import { useIsPhone, usePrefersReducedMotion } from "@/app/components/useIsPhone";
 import { graphicReel, projects, type Project } from "@/app/data/projects";
 import { filled } from "@/app/data/placeholder";
 
@@ -233,6 +233,7 @@ function Controls({ tab, setTab, view, setView }: { tab: Tab["key"]; setTab: (t:
 // On a phone the showcase is a row of cards you swipe through (the pinned stage is taller than a phone screen).
 // One card at a time snaps into place with the next one peeking in; the picture on the card in front cycles.
 function MobileShowcase({ list, controls }: { list: Project[]; controls: React.ReactNode }) {
+  const calm = usePrefersReducedMotion(); // Reduce Motion: the row still swipes, but the pictures stay still
   const scroller = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const step = () => {
@@ -255,7 +256,7 @@ function MobileShowcase({ list, controls }: { list: Project[]; controls: React.R
           return (
             <article key={project.slug} className="w-[86%] shrink-0 snap-start">
               <HoleLink href={project.href} data-cursor="Open case study" className="block">
-                <CyclingImage project={project} playing={i === active} interval={1900} className="aspect-[5/4] rounded-[1.4rem] ring-1 ring-black/[0.05]" />
+                <CyclingImage project={project} playing={i === active && !calm} interval={1900} className="aspect-[5/4] rounded-[1.4rem] ring-1 ring-black/[0.05]" />
               </HoleLink>
               <p className="font-label mt-4 text-[11px] tracking-wide text-neutral-500 uppercase">
                 <span className="text-neutral-900">{project.year}</span> · {project.tags.join(" · ")}
@@ -448,7 +449,7 @@ function ListView({ list }: { list: Project[] }) {
 export default function Hall() {
   const [tab, setTab] = useState<Tab["key"]>("UIUX");
   const [view, setView] = useState<View>("showcase");
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion(); // hydration-safe, so the server and the first client render agree
   const phone = useIsPhone();
   const list = [
     ...(tab === "Graphic Design" ? [graphicReel] : []),
@@ -464,8 +465,8 @@ export default function Hall() {
     // stay in the section: the layouts differ in height, so bring the heading back to the top
     setTimeout(() => top.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
   };
-  const controls = <Controls tab={tab} setTab={choose} view={reduce && view === "showcase" ? "grid" : view} setView={chooseView} />;
-  const mode: View = reduce && view === "showcase" ? "grid" : view;
+  const controls = <Controls tab={tab} setTab={choose} view={reduce && !phone && view === "showcase" ? "grid" : view} setView={chooseView} />;
+  const mode: View = reduce && !phone && view === "showcase" ? "grid" : view;
 
   return (
     <section id="works" data-rail="Work" className="relative bg-background pt-12 pb-10 sm:pt-20">

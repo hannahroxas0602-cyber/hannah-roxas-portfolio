@@ -16,3 +16,19 @@ export function useIsPhone() {
     () => false,
   );
 }
+
+// True when the device asks for Reduce Motion. Read the hydration-safe way: false on the server and during the first
+// client render, then the real value (unlike motion's useReducedMotion, which can differ on the very first render).
+const RM = "(prefers-reduced-motion: reduce)";
+const subscribeRM = (cb: () => void) => {
+  const mq = window.matchMedia(RM);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+export function usePrefersReducedMotion() {
+  return useSyncExternalStore(
+    subscribeRM,
+    () => window.matchMedia(RM).matches,
+    () => false,
+  );
+}

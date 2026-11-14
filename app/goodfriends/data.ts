@@ -104,7 +104,7 @@ export const roleAndImpact = {
 
 export const problemSection = {
   heading: "The Problem",
-  flow: "[Entry: Complete Hesitation] ➔ [Menu: Text-Heavy Overload] ➔ [Register: Manual Bottlenecks]",
+  flow: "[Entry: Complete Hesitation] → [Menu: Text-Heavy Overload] → [Register: Manual Bottlenecks]",
   paragraphs: [
     "Through in-store observation and flow mapping, I uncovered a clear pattern: First-timers froze upon walking in. They didn't know where to stand, how to build their bowl, or what they were paying for. Staff spent their energy acting as traffic cops rather than hosts.",
     "We needed to shift from an organic, chaotic layout to confidence by design.",

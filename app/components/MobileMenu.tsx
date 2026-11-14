@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 import HoleLink from "@/app/components/HoleLink";
 import { graphicReel, projects } from "@/app/data/projects";
 import { social } from "@/app/data/social";
+import ArrowUpRight from "@/app/components/ArrowUpRight";
 import { openAboutOnPlainClick, useAboutPanel } from "@/app/components/AboutPanelContext";
 
 // The phone menu: a frosted sheet that drops under the buttons. Home, Work (it unfolds into the projects, each
@@ -101,7 +102,7 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
               </li>
               <li>
                 <a href={social.resume} target="_blank" rel="noopener noreferrer" onClick={onClose} className={row}>
-                  Resume <span aria-hidden className="text-lg">↗</span>
+                  Resume <ArrowUpRight className="size-[1.05rem]" />
                 </a>
               </li>
             </ul>

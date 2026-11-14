@@ -30,6 +30,7 @@ import {
   nextProject,
 } from "@/app/continuum/data";
 import Melt from "@/app/components/Melt";
+import ArrowUpRight from "@/app/components/ArrowUpRight";
 
 const sections = [
   { id: "overview", title: "Overview" },
@@ -125,7 +126,7 @@ export default function ContinuumPage() {
                 <>
                   {" "}
                   <a href={prototypeNote.url} target="_blank" rel="noopener noreferrer" className="font-medium text-neutral-600 underline underline-offset-4">
-                    {prototypeNote.label} ↗
+                    {prototypeNote.label} <ArrowUpRight className="inline size-3 align-[-0.1em]" />
                   </a>
                 </>
               )}
