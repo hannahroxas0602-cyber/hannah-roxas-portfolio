@@ -10,6 +10,7 @@ import { Em } from "@/app/components/Em";
 import Gate from "@/app/components/Gate";
 import CyclingImage from "@/app/components/CyclingImage";
 import FitMedia from "@/app/components/FitMedia";
+import { useIsPhone } from "@/app/components/useIsPhone";
 import { graphicReel, projects, type Project } from "@/app/data/projects";
 import { filled } from "@/app/data/placeholder";
 
@@ -138,14 +139,14 @@ function Card({ project, index, total }: { project: Project; index: number; tota
         {/* the frosted sleeve: covers the lower half of the work, then slides down and away */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-3 top-[40%] bottom-3 rounded-2xl border border-white/80 bg-white/40 shadow-[0_10px_30px_-12px_rgba(20,30,50,0.25)] backdrop-blur-xl backdrop-saturate-150 transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:inset-x-4 sm:bottom-4"
+          className="pointer-events-none absolute inset-x-3 top-[40%] bottom-3 hidden rounded-2xl border border-white/80 bg-white/40 shadow-[0_10px_30px_-12px_rgba(20,30,50,0.25)] backdrop-blur-xl backdrop-saturate-150 sm:block transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:inset-x-4 sm:bottom-4"
           style={{ transform: open ? "translateY(115%)" : "translateY(0)", transitionDelay: open && !hovered ? "0.35s" : "0s" }}
         />
 
         {stat && (
           <span
             className={`absolute bottom-3.5 left-3.5 z-10 flex max-w-[calc(100%-1.75rem)] items-baseline gap-2 rounded-full bg-white/85 py-1.5 pr-3.5 pl-3 text-neutral-900 shadow-sm ring-1 ring-black/5 backdrop-blur transition-opacity duration-700 ${
-              open ? "opacity-100 delay-700" : "opacity-0"
+              open ? "opacity-100 delay-700" : "opacity-0 max-sm:opacity-100"
             }`}
           >
             <span className="font-display text-sm font-semibold">{stat.value}</span>
@@ -224,6 +225,68 @@ function Controls({ tab, setTab, view, setView }: { tab: Tab["key"]; setTab: (t:
             </button>
           ))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+// On a phone the showcase is a row of cards you swipe through (the pinned stage is taller than a phone screen).
+// One card at a time snaps into place with the next one peeking in; the picture on the card in front cycles.
+function MobileShowcase({ list, controls }: { list: Project[]; controls: React.ReactNode }) {
+  const scroller = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const step = () => {
+    const first = scroller.current?.children[0] as HTMLElement | undefined;
+    return first ? first.offsetWidth + 16 : 1;
+  };
+  const onScroll = () => {
+    const el = scroller.current;
+    if (el) setActive(Math.min(list.length - 1, Math.max(0, Math.round(el.scrollLeft / step()))));
+  };
+  const jump = (i: number) => scroller.current?.scrollTo({ left: i * step(), behavior: "smooth" });
+
+  return (
+    <div className="mx-auto max-w-7xl px-6">
+      <div className="mt-8">{controls}</div>
+      <div ref={scroller} onScroll={onScroll} className="-mx-6 mt-6 flex snap-x snap-mandatory scroll-pl-6 gap-4 overflow-x-auto px-6 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {list.map((project, i) => {
+          const stat = (project.impactStats ?? []).find((s) => filled(s.value) && filled(s.label));
+          const graphic = project.href === "/graphic-design";
+          return (
+            <article key={project.slug} className="w-[86%] shrink-0 snap-start">
+              <HoleLink href={project.href} data-cursor="Open case study" className="block">
+                <CyclingImage project={project} playing={i === active} interval={1900} className="aspect-[5/4] rounded-[1.4rem] ring-1 ring-black/[0.05]" />
+              </HoleLink>
+              <p className="font-label mt-4 text-[11px] tracking-wide text-neutral-500 uppercase">
+                <span className="text-neutral-900">{project.year}</span> · {project.tags.join(" · ")}
+              </p>
+              <h3 className="font-display mt-1.5 text-[1.9rem] leading-[1.05] font-semibold tracking-[-0.035em] text-neutral-950">{project.title.split(":")[0]}</h3>
+              <p className="mt-2 text-[0.95rem] leading-relaxed text-neutral-600">{project.outcome ?? project.description}</p>
+              {stat && (
+                <p className="mt-3 inline-flex max-w-full items-baseline gap-2 rounded-full bg-white py-1.5 pr-3.5 pl-3 text-neutral-900 ring-1 ring-black/[0.06]">
+                  <span className="font-display text-sm font-semibold">{stat.value}</span>
+                  <span className="truncate text-xs text-neutral-600">{stat.label}</span>
+                </p>
+              )}
+              <div className="mt-4">
+                <HoleLink href={project.href} data-cursor="Open case study" className="btn btn-dark">
+                  {graphic ? "See all graphic work" : "View case study"} <span aria-hidden>→</span>
+                </HoleLink>
+              </div>
+            </article>
+          );
+        })}
+        <div aria-hidden className="w-2 shrink-0" />
+      </div>
+      <div className="mt-3 flex items-center justify-between">
+        <div className="flex items-center gap-1.5" role="group" aria-label="Choose a project">
+          {list.map((p, i) => (
+            <button key={p.slug} type="button" aria-label={`Show ${p.title.split(":")[0]}`} aria-current={i === active} onClick={() => jump(i)} className="grid h-6 place-items-center">
+              <span className={`block h-1.5 rounded-full transition-all duration-300 ${i === active ? "w-6 bg-neutral-950" : "w-1.5 bg-neutral-300"}`} />
+            </button>
+          ))}
+        </div>
+        <span className="font-label text-[11px] tracking-[0.14em] text-neutral-500 uppercase">Swipe →</span>
       </div>
     </div>
   );
@@ -386,6 +449,7 @@ export default function Hall() {
   const [tab, setTab] = useState<Tab["key"]>("UIUX");
   const [view, setView] = useState<View>("showcase");
   const reduce = useReducedMotion();
+  const phone = useIsPhone();
   const list = [
     ...(tab === "Graphic Design" ? [graphicReel] : []),
     ...projects.filter((p) => p.category === tab && !p.hideFromHome).sort((a, b) => Number(!!b.featured) - Number(!!a.featured)),
@@ -423,7 +487,7 @@ export default function Hall() {
       </div>
 
       {mode === "showcase" ? (
-        <Pinned key={tab} list={list} controls={controls} />
+        phone ? <MobileShowcase key={tab} list={list} controls={controls} /> : <Pinned key={tab} list={list} controls={controls} />
       ) : (
         <div className="mx-auto max-w-7xl px-6 pb-14 sm:px-10">
           <div className="mt-10">{controls}</div>
