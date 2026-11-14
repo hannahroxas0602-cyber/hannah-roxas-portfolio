@@ -8,12 +8,12 @@ import { markLanded } from "@/app/components/landing";
 
 // The opening, in the spirit of a counter-led reveal: a large percentage fills the corner while a small black
 // rabbit tumbles down the page (Alice's fall, as a silhouette) and a sentence writes itself, line by line:
-// "Follow your curiosity / down the rabbit hole, / and you land in empathy." At a hundred the sheet lifts away and the
+// "Follow the rabbit. / See where it lands." At a hundred the sheet lifts away and the
 // page begins. Home only, once per tab (add ?fall to replay) and skippable. Under Reduce Motion it is a calm version: the
 // counter and the sentence fade in and out, with no falling hare and no sliding.
 const SEEN_KEY = "hannah-fell";
 const SECONDS = 3.8;
-const LINES = ["Follow your curiosity", "down the rabbit hole,", "and you land in empathy."];
+const LINES = ["Follow the rabbit.", "See where it lands."];
 
 // The leaping-hare silhouette from the cursor (public/images/moving.png), used as a mask so it takes the text colour.
 function Bunny({ className }: { className?: string }) {
@@ -92,7 +92,7 @@ export default function Loader() {
 
   if (pathname !== "/" || phase === "gone") return null;
 
-  const stage = shown < 8 ? 0 : shown < 36 ? 1 : shown < 66 ? 2 : 3; // how many lines are showing
+  const stage = shown < 10 ? 0 : shown < 45 ? 1 : 2; // how many lines are showing
 
   return (
     <motion.div
@@ -101,13 +101,13 @@ export default function Loader() {
       initial={false}
       animate={calm ? { opacity: phase === "leave" ? 0 : 1 } : { y: phase === "leave" ? "-100%" : 0 }}
       transition={calm ? { duration: 0.6, ease: "easeOut" } : { duration: 0.95, ease: [0.76, 0, 0.24, 1] }}
-      className="fixed inset-0 z-[200] overflow-hidden bg-[#f1f1f2] text-neutral-950 dark:bg-[#0e0f11]"
+      className="fixed inset-0 z-[200] overflow-hidden bg-[#ffffff] text-[#0b0b0d]"
     >
       <div className="font-label absolute top-5 left-5 text-[11px] tracking-[0.16em] uppercase sm:top-7 sm:left-8">Hannah Roxas</div>
       <div className="font-label absolute top-5 right-5 text-[11px] tracking-[0.16em] uppercase sm:top-7 sm:right-8">Portfolio &apos;26</div>
 
       {/* a hairline, and the sentence beside it */}
-      <div className="absolute top-[18%] left-[8%] h-[38%] w-px bg-neutral-950/80 sm:left-[16%]" />
+      <div className="absolute top-[18%] left-[8%] h-[38%] w-px bg-[#0b0b0d] sm:left-[16%]" />
       <p className="absolute top-[18%] left-[calc(8%+1rem)] max-w-[16ch] text-[clamp(1.7rem,4.2vw,3.6rem)] leading-[1.04] font-medium tracking-[-0.04em] sm:left-[calc(16%+1.25rem)]">
         <AnimatePresence initial={false}>
           {LINES.slice(0, stage).map((l) => (

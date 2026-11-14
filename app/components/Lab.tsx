@@ -1,25 +1,12 @@
 "use client";
 
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Em } from "@/app/components/Em";
 
 // The lab: pieces from my case studies, rebuilt to be used. Learvo's checklist, quiz builder and study timer;
 // Continuum's timeline states and mood picker.
-
-function Tile({ label, note, caption, i = 0, className = "", children }: { label: string; note: string; caption?: string; i?: number; className?: string; children: React.ReactNode }) {
-  return (
-    <motion.div className={`flex flex-col ${className}`} initial={{ opacity: 0, y: 36 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7, delay: (i % 3) * 0.1, ease: [0.22, 1, 0.36, 1] }}>
-      <div className="flex min-h-[18.5rem] flex-1 flex-col rounded-[1.4rem] bg-panel p-3.5 ring-1 ring-black/[0.05]">
-        {caption && <p className="font-label text-[10px] tracking-[0.14em] text-neutral-600 uppercase">{caption}</p>}
-        <div className="grid flex-1 place-items-center pt-1 [zoom:0.82]">{children}</div>
-      </div>
-      <p className="mt-3 text-sm font-semibold text-neutral-950">{label}</p>
-      <p className="text-[13px] text-neutral-600">{note}</p>
-    </motion.div>
-  );
-}
 
 const STEPS = [
   { t: "Upload your study notes", cta: "Beat procrastination", img: "upload" },
@@ -257,6 +244,88 @@ function Timer() {
   );
 }
 
+type Piece = { key: string; label: string; project: string; note: string; caption?: string; node: React.ReactNode };
+const PIECES: Piece[] = [
+  { key: "checklist", label: "Onboarding checklist", project: "Learvo", note: "Tick things off and watch the bar fill.", node: <Checklist /> },
+  { key: "timeline", label: "Appointment timeline", project: "Continuum", note: "Tap a step to finish it; the next one lights up.", caption: "Timeline states", node: <Timeline /> },
+  { key: "mood", label: "Mood check-in", project: "Continuum", note: "A highlight that slides, a check that draws itself.", caption: "One tap, no homework", node: <Mood /> },
+  { key: "quiz", label: "Quiz builder", project: "Learvo", note: "Set it up. The button wakes at one question.", node: <QuizBuilder /> },
+  { key: "timer", label: "Study timer", project: "Learvo", note: "25, 50 or your own, then focus.", node: <Timer /> },
+];
+
+// One stage, five pieces. Pick one from the list (or the chips on a phone, or the arrow keys) and it swaps into the
+// stage, so the whole section is the height of a single piece instead of five stacked.
+function LabStage() {
+  const [i, setI] = useState(0);
+  const piece = PIECES[i];
+  const go = (n: number) => setI((n + PIECES.length) % PIECES.length);
+  const onKey = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowDown" || e.key === "ArrowRight") { e.preventDefault(); go(i + 1); }
+    if (e.key === "ArrowUp" || e.key === "ArrowLeft") { e.preventDefault(); go(i - 1); }
+  };
+
+  return (
+    <div className="mt-7 grid gap-5 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-8">
+      {/* the picker: a vertical list from desktop, a row of chips on a phone */}
+      <div role="tablist" aria-label="Pick a piece to try" onKeyDown={onKey} className="-mx-6 flex gap-2 overflow-x-auto px-6 pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-col lg:gap-0.5 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
+        {PIECES.map((p, n) => {
+          const on = n === i;
+          return (
+            <button
+              key={p.key}
+              role="tab"
+              aria-selected={on}
+              tabIndex={on ? 0 : -1}
+              onClick={() => setI(n)}
+              className={`relative shrink-0 rounded-full px-4 py-2 text-left whitespace-nowrap transition-colors lg:rounded-2xl lg:px-4 lg:py-3 lg:whitespace-normal ${on ? "text-neutral-950" : "text-neutral-500 hover:text-neutral-800"}`}
+            >
+              {on && <motion.span layoutId="lab-hot" transition={{ type: "spring", stiffness: 420, damping: 36 }} className="absolute inset-0 rounded-full bg-panel ring-1 ring-black/[0.06] lg:rounded-2xl" />}
+              <span className="relative flex items-baseline gap-3">
+                <span className="font-label hidden text-[11px] tabular-nums lg:inline">{String(n + 1).padStart(2, "0")}</span>
+                <span>
+                  <span className="block text-[0.95rem] font-medium">{p.label}</span>
+                  <span className="font-label mt-0.5 hidden text-[10.5px] tracking-wide uppercase lg:block">{p.project}</span>
+                </span>
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* the stage */}
+      <div className="relative flex min-h-[29rem] flex-col rounded-[1.6rem] bg-panel p-4 ring-1 ring-black/[0.05] sm:min-h-[31rem] sm:p-6">
+        <div className="flex items-start justify-between gap-3">
+          <p className="font-label text-[10px] tracking-[0.14em] text-neutral-600 uppercase">{piece.caption ?? "Try it"}</p>
+          <span className="font-label rounded-full bg-white/70 px-2.5 py-1 text-[10px] tracking-wide text-neutral-700 uppercase ring-1 ring-black/[0.06]">{piece.project}</span>
+        </div>
+        <div className="grid flex-1 place-items-center py-4">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={piece.key}
+              role="tabpanel"
+              initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -10, filter: "blur(6px)" }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="flex w-full justify-center"
+            >
+              {piece.node}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-[13px] text-neutral-600">{piece.note}</p>
+          <div className="flex shrink-0 items-center gap-2">
+            <button type="button" onClick={() => go(i - 1)} aria-label="Previous piece" className="grid size-9 place-items-center rounded-full bg-white text-neutral-950 ring-1 ring-black/10 transition-transform active:scale-90">←</button>
+            <span className="font-label min-w-[3rem] text-center text-[11px] tracking-[0.14em] text-neutral-600">{i + 1} / {PIECES.length}</span>
+            <button type="button" onClick={() => go(i + 1)} aria-label="Next piece" className="grid size-9 place-items-center rounded-full bg-white text-neutral-950 ring-1 ring-black/10 transition-transform active:scale-90">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Lab() {
   return (
     <section id="lab" data-rail="Lab" className="relative bg-background pb-14 sm:pb-16">
@@ -265,23 +334,7 @@ export default function Lab() {
         <h2 className="mt-3 max-w-2xl font-display text-3xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-4xl">
           Curious about the <Em>details</Em>? Click anything.
         </h2>
-        <div className="mt-7 grid gap-x-5 gap-y-6 md:grid-cols-2 lg:grid-cols-6">
-          <Tile className="lg:col-span-2" i={0} label="Onboarding checklist" note="Learvo. Tick things off, watch the bar.">
-            <Checklist />
-          </Tile>
-          <Tile className="lg:col-span-2" i={1} caption="Timeline states" label="Appointment timeline" note="Continuum. Tap one to finish it.">
-            <Timeline />
-          </Tile>
-          <Tile className="lg:col-span-2" i={2} caption="One tap, no homework" label="Mood check-in" note="Continuum. A sliding highlight, a drawn check.">
-            <Mood />
-          </Tile>
-          <Tile className="lg:col-span-2 lg:col-start-2" i={3} label="Quiz builder" note="Learvo. Set it up, the button wakes at one question.">
-            <QuizBuilder />
-          </Tile>
-          <Tile className="lg:col-span-2" i={4} label="Study timer" note="Learvo. 25, 50 or your own, then focus.">
-            <Timer />
-          </Tile>
-        </div>
+        <LabStage />
       </div>
     </section>
   );
