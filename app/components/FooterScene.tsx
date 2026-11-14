@@ -63,13 +63,10 @@ export default function FooterScene() {
 
   return (
     <MotionConfig reducedMotion="user">
-      {/* on a phone the words sit above the picture, at a size you can read (the picture is too small to hold them) */}
-      <div className="footer-scene footer-ink px-6 pt-2 pb-5 text-center sm:hidden">
-        <p className="font-display text-[1.9rem] leading-[1.05] font-medium tracking-[-0.03em]">It&apos;s always tea time.</p>
-        <p className="footer-sub mt-2 text-[0.95rem]">Open to full-time roles.</p>
-        <button type="button" onClick={copy} data-cursor={copied ? "Copied" : "Copy email"} className="footer-pill mt-4 inline-flex max-w-full items-center rounded-full border px-4 py-2 text-[0.9rem] transition-colors">
-          <span className="truncate">{label}</span>
-        </button>
+      {/* on a phone the title and the line sit just above the picture, tight to the email, which sits on top of the picture */}
+      <div className="footer-scene footer-ink px-6 pt-2 text-center sm:hidden">
+        <p className="font-display text-[1.75rem] leading-[1.05] font-medium tracking-[-0.03em]">It&apos;s always tea time.</p>
+        <p className="footer-sub mt-1 text-[0.95rem]">Open to full-time roles.</p>
       </div>
 
       <div className="footer-scene @container relative aspect-[3024/1964] w-full select-none">
@@ -102,6 +99,11 @@ export default function FooterScene() {
             ))}
           </motion.div>
         ))}
+
+        {/* phone: the email sits at the top of the picture, centered between the curtains */}
+        <button type="button" onClick={copy} data-cursor={copied ? "Copied" : "Copy email"} className="footer-pill footer-ink absolute top-[3.5%] left-1/2 z-10 inline-flex max-w-[72%] -translate-x-1/2 items-center rounded-full border px-4 py-2 text-[0.9rem] whitespace-nowrap transition-colors sm:hidden">
+          <span className="truncate">{label}</span>
+        </button>
 
         {/* tablet and up: the words sit in the empty part of the stage, centered between the curtains */}
         <div className="footer-ink absolute top-[8%] left-1/2 hidden w-[56%] -translate-x-1/2 text-center sm:block">
