@@ -1,9 +1,10 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useDragControls } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Em } from "@/app/components/Em";
+import { useIsPhone } from "@/app/components/useIsPhone";
 
 // The lab: pieces from my case studies, rebuilt to be used. Learvo's checklist, quiz builder and study timer;
 // Continuum's timeline states and mood picker.
@@ -244,85 +245,145 @@ function Timer() {
   );
 }
 
-type Piece = { key: string; label: string; project: string; note: string; caption?: string; node: React.ReactNode };
+type Piece = { key: string; label: string; door: string; project: string; note: string; caption?: string; node: React.ReactNode };
 const PIECES: Piece[] = [
-  { key: "checklist", label: "Onboarding checklist", project: "Learvo", note: "Tick things off and watch the bar fill.", node: <Checklist /> },
-  { key: "timeline", label: "Appointment timeline", project: "Continuum", note: "Tap a step to finish it; the next one lights up.", caption: "Timeline states", node: <Timeline /> },
-  { key: "mood", label: "Mood check-in", project: "Continuum", note: "A highlight that slides, a check that draws itself.", caption: "One tap, no homework", node: <Mood /> },
-  { key: "quiz", label: "Quiz builder", project: "Learvo", note: "Set it up. The button wakes at one question.", node: <QuizBuilder /> },
-  { key: "timer", label: "Study timer", project: "Learvo", note: "25, 50 or your own, then focus.", node: <Timer /> },
+  { key: "checklist", label: "Onboarding checklist", door: "Checklist", project: "Learvo", note: "Tick things off and watch the bar fill.", node: <Checklist /> },
+  { key: "timeline", label: "Appointment timeline", door: "Timeline", project: "Continuum", note: "Tap a step to finish it; the next one lights up.", caption: "Timeline states", node: <Timeline /> },
+  { key: "mood", label: "Mood check-in", door: "Mood", project: "Continuum", note: "A highlight that slides, a check that draws itself.", caption: "One tap, no homework", node: <Mood /> },
+  { key: "quiz", label: "Quiz builder", door: "Quiz", project: "Learvo", note: "Set it up. The button wakes at one question.", node: <QuizBuilder /> },
+  { key: "timer", label: "Study timer", door: "Timer", project: "Learvo", note: "25, 50 or your own, then focus.", node: <Timer /> },
 ];
 
-// One stage, five pieces. Pick one from the list (or the chips on a phone, or the arrow keys) and it swaps into the
-// stage, so the whole section is the height of a single piece instead of five stacked.
-function LabStage() {
-  const [i, setI] = useState(0);
-  const piece = PIECES[i];
-  const go = (n: number) => setI((n + PIECES.length) % PIECES.length);
-  const onKey = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowDown" || e.key === "ArrowRight") { e.preventDefault(); go(i + 1); }
-    if (e.key === "ArrowUp" || e.key === "ArrowLeft") { e.preventDefault(); go(i - 1); }
+// A hall of five small doors. Tap one: it swings open, and the piece comes up behind it in a sheet (a bottom sheet
+// on a phone, a card in the middle on a bigger screen). The whole section is just the row of doors, so it takes
+// almost no scrolling; the pieces only take room when you open one.
+function Door({ n, piece, opening, onOpen }: { n: number; piece: Piece; opening: boolean; onOpen: () => void }) {
+  return (
+    <motion.button
+      type="button"
+      onClick={onOpen}
+      aria-label={`Open the door to the ${piece.label}`}
+      initial="rest"
+      animate={opening ? "open" : "rest"}
+      whileHover="ajar"
+      whileTap="ajar"
+      className="group flex flex-col items-center gap-2 text-center"
+    >
+      {/* the frame: an arch, with the dark room showing where the door swings open */}
+      <span className="relative block aspect-[3/4.3] w-full max-w-[8.5rem] [perspective:700px]">
+        <span aria-hidden className="absolute inset-0 rounded-t-[999px] rounded-b-lg bg-panel ring-1 ring-black/[0.08]" />
+        <span aria-hidden className="absolute inset-[7%] rounded-t-[999px] rounded-b-md bg-[#0b0b0d]" style={{ backgroundImage: "radial-gradient(circle at 50% 70%, rgba(62,195,255,0.55), transparent 62%)" }} />
+        <motion.span
+          aria-hidden
+          variants={{ rest: { rotateY: 0 }, ajar: { rotateY: -18 }, open: { rotateY: -74 } }}
+          transition={{ type: "spring", stiffness: 220, damping: 20 }}
+          style={{ transformOrigin: "left center" }}
+          className="absolute inset-[7%] flex flex-col items-center rounded-t-[999px] rounded-b-md bg-white ring-1 ring-black/[0.08] shadow-[0_10px_22px_-14px_rgba(0,0,0,0.5)]"
+        >
+          <span className="font-label mt-[22%] text-[10px] tracking-[0.12em] text-neutral-500 tabular-nums">{String(n + 1).padStart(2, "0")}</span>
+          <span className="mt-[12%] h-[34%] w-[62%] rounded-t-[999px] rounded-b-sm border border-neutral-300/80" />
+          <span className="absolute top-[58%] right-[12%] size-[9%] rounded-full bg-neutral-950" />
+        </motion.span>
+      </span>
+      <span className="text-[0.8rem] font-medium text-neutral-900 sm:text-[0.9rem]">{piece.door}</span>
+      <span className="font-label -mt-1.5 hidden text-[10px] tracking-wide text-neutral-500 uppercase sm:block">{piece.project}</span>
+    </motion.button>
+  );
+}
+
+function LabDoors() {
+  const phone = useIsPhone();
+  const [opening, setOpening] = useState<number | null>(null); // the door that is swinging
+  const [open, setOpen] = useState<number | null>(null); // the piece showing in the sheet
+  const drag = useDragControls();
+
+  const openDoor = (n: number) => {
+    setOpening(n);
+    setTimeout(() => {
+      setOpen(n);
+      setOpening(null);
+    }, 360);
   };
+  const close = () => setOpen(null);
+
+  // while the sheet is up: no page scroll behind it, and Escape closes it
+  useEffect(() => {
+    if (open === null) return;
+    const html = document.documentElement;
+    const prev = html.style.overflow;
+    html.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(null);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      html.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const piece = open === null ? null : PIECES[open];
 
   return (
-    <div className="mt-7 grid gap-5 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-8">
-      {/* the picker: a vertical list from desktop, a row of chips on a phone */}
-      <div role="tablist" aria-label="Pick a piece to try" onKeyDown={onKey} className="-mx-6 flex gap-2 overflow-x-auto px-6 pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-col lg:gap-0.5 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
-        {PIECES.map((p, n) => {
-          const on = n === i;
-          return (
-            <button
-              key={p.key}
-              role="tab"
-              aria-selected={on}
-              tabIndex={on ? 0 : -1}
-              onClick={() => setI(n)}
-              className={`relative shrink-0 rounded-full px-4 py-2 text-left whitespace-nowrap transition-colors lg:rounded-2xl lg:px-4 lg:py-3 lg:whitespace-normal ${on ? "text-neutral-950" : "text-neutral-500 hover:text-neutral-800"}`}
-            >
-              {on && <motion.span layoutId="lab-hot" transition={{ type: "spring", stiffness: 420, damping: 36 }} className="absolute inset-0 rounded-full bg-panel ring-1 ring-black/[0.06] lg:rounded-2xl" />}
-              <span className="relative flex items-baseline gap-3">
-                <span className="font-label hidden text-[11px] tabular-nums lg:inline">{String(n + 1).padStart(2, "0")}</span>
-                <span>
-                  <span className="block text-[0.95rem] font-medium">{p.label}</span>
-                  <span className="font-label mt-0.5 hidden text-[10.5px] tracking-wide uppercase lg:block">{p.project}</span>
-                </span>
-              </span>
-            </button>
-          );
-        })}
+    <>
+      <div className="mt-8 grid grid-cols-5 items-start gap-2 sm:gap-6">
+        {PIECES.map((p, n) => (
+          <Door key={p.key} n={n} piece={p} opening={opening === n} onOpen={() => openDoor(n)} />
+        ))}
       </div>
+      <p className="font-label mt-5 text-center text-[11px] tracking-[0.14em] text-neutral-500 uppercase">Five doors. Open one.</p>
 
-      {/* the stage */}
-      <div className="relative flex min-h-[29rem] flex-col rounded-[1.6rem] bg-panel p-4 ring-1 ring-black/[0.05] sm:min-h-[31rem] sm:p-6">
-        <div className="flex items-start justify-between gap-3">
-          <p className="font-label text-[10px] tracking-[0.14em] text-neutral-600 uppercase">{piece.caption ?? "Try it"}</p>
-          <span className="font-label rounded-full bg-white/70 px-2.5 py-1 text-[10px] tracking-wide text-neutral-700 uppercase ring-1 ring-black/[0.06]">{piece.project}</span>
-        </div>
-        <div className="grid flex-1 place-items-center py-4">
-          <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence>
+        {piece && open !== null && (
+          <div className="fixed inset-0 z-[140]">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} onClick={close} className="absolute inset-0 bg-black/45 backdrop-blur-sm" />
             <motion.div
-              key={piece.key}
-              role="tabpanel"
-              initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -10, filter: "blur(6px)" }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="flex w-full justify-center"
+              role="dialog"
+              aria-modal="true"
+              aria-label={piece.label}
+              initial={phone ? { y: "100%" } : { opacity: 0, scale: 0.94, y: 12 }}
+              animate={phone ? { y: 0 } : { opacity: 1, scale: 1, y: 0 }}
+              exit={phone ? { y: "100%" } : { opacity: 0, scale: 0.96, y: 8 }}
+              transition={{ type: "spring", stiffness: 300, damping: 32 }}
+              drag={phone ? "y" : false}
+              dragControls={drag}
+              dragListener={false}
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic={{ top: 0, bottom: 0.6 }}
+              onDragEnd={(_, info) => (info.offset.y > 110 || info.velocity.y > 600) && close()}
+              className="absolute inset-x-0 bottom-0 max-h-[92svh] overflow-y-auto rounded-t-[2rem] bg-panel p-5 pb-8 shadow-[0_-20px_60px_-20px_rgba(0,0,0,0.4)] sm:inset-x-auto sm:top-1/2 sm:bottom-auto sm:left-1/2 sm:max-h-[88svh] sm:w-[36rem] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[2rem] sm:p-7"
             >
-              {piece.node}
+              {/* a handle to pull the sheet down on a phone */}
+              <div onPointerDown={(e) => drag.start(e)} className="mx-auto -mt-1 mb-3 h-6 w-full max-w-[6rem] cursor-grab touch-none sm:hidden">
+                <span className="mx-auto mt-2 block h-1.5 w-12 rounded-full bg-neutral-400/70" />
+              </div>
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="font-label text-[10px] tracking-[0.14em] text-neutral-600 uppercase">{piece.caption ?? piece.project}</p>
+                  <h3 className="font-display mt-1 text-[1.35rem] leading-tight font-semibold tracking-[-0.02em] text-neutral-950">{piece.label}</h3>
+                </div>
+                <button type="button" onClick={close} aria-label="Close" className="grid size-9 shrink-0 place-items-center rounded-full bg-white text-neutral-950 ring-1 ring-black/10 active:scale-90">
+                  <svg viewBox="0 0 12 12" className="size-3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
+                    <path d="M2 2l8 8M10 2l-8 8" />
+                  </svg>
+                </button>
+              </div>
+              <div className="grid min-h-[22rem] place-items-center py-5">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div key={piece.key} initial={{ opacity: 0, y: 12, filter: "blur(5px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, filter: "blur(5px)" }} transition={{ duration: 0.28 }} className="flex w-full justify-center">
+                    {piece.node}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-[13px] text-neutral-600">{piece.note}</p>
+                <button type="button" onClick={() => setOpen((open + 1) % PIECES.length)} className="shrink-0 text-sm font-medium text-neutral-950 underline underline-offset-4">
+                  Next door →
+                </button>
+              </div>
             </motion.div>
-          </AnimatePresence>
-        </div>
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-[13px] text-neutral-600">{piece.note}</p>
-          <div className="flex shrink-0 items-center gap-2">
-            <button type="button" onClick={() => go(i - 1)} aria-label="Previous piece" className="grid size-9 place-items-center rounded-full bg-white text-neutral-950 ring-1 ring-black/10 transition-transform active:scale-90">←</button>
-            <span className="font-label min-w-[3rem] text-center text-[11px] tracking-[0.14em] text-neutral-600">{i + 1} / {PIECES.length}</span>
-            <button type="button" onClick={() => go(i + 1)} aria-label="Next piece" className="grid size-9 place-items-center rounded-full bg-white text-neutral-950 ring-1 ring-black/10 transition-transform active:scale-90">→</button>
           </div>
-        </div>
-      </div>
-    </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
@@ -334,7 +395,7 @@ export default function Lab() {
         <h2 className="mt-3 max-w-2xl font-display text-3xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-4xl">
           Curious about the <Em>details</Em>? Click anything.
         </h2>
-        <LabStage />
+        <LabDoors />
       </div>
     </section>
   );

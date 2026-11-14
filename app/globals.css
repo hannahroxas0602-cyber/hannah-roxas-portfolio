@@ -374,11 +374,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(.iris-over),
   ::view-transition-old(.iris-close) {
-    animation: vt-fade-out 150ms ease both;
+    animation: vt-fade-out 280ms ease both;
   }
   ::view-transition-new(.iris-open),
   ::view-transition-new(.iris-under) {
-    animation: vt-fade-in 150ms ease both;
+    animation: vt-fade-in 360ms ease 60ms both;
   }
 }
 
@@ -1005,6 +1005,34 @@ html[data-fell] .fall-loader { display: none; }
     opacity: 1;
     transform: none;
   }
+  /* phone: each paragraph, item and heading on its own, a smaller, quicker rise */
+  .reveal-pre.leaf {
+    transform: translateY(14px);
+    transition:
+      opacity 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+      transform 650ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+  }
+  .reveal-pre.leaf.reveal-in { transform: none; }
+}
+/* Reduce Motion: the same arrivals as a calm fade, with nothing moving */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-pre.fade-only {
+    opacity: 0;
+    transition: opacity 500ms ease var(--reveal-delay, 0ms);
+  }
+  .reveal-pre.fade-only.reveal-in { opacity: 1; }
+}
+/* the highlighter sweep behind bold phrases */
+.hl-pre {
+  background-image: linear-gradient(transparent 60%, rgba(62, 195, 255, 0.3) 60%, rgba(62, 195, 255, 0.3) 92%, transparent 92%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.hl-pre.hl-in { background-size: 100% 100%; transition: background-size 900ms cubic-bezier(0.22, 1, 0.36, 1) 0.25s; }
+@media (prefers-reduced-motion: reduce) {
+  .hl-pre.hl-in { transition: none; }
 }
 
 /* ═══ Falling into a project (and climbing back out) ═══
