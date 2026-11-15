@@ -1,13 +1,15 @@
 "use client";
 
-import { AnimatePresence, motion, useDragControls } from "motion/react";
+import { motion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Em } from "@/app/components/Em";
 import { useIsPhone } from "@/app/components/useIsPhone";
 
 // The lab: pieces from my case studies, rebuilt to be used. Learvo's checklist, quiz builder and study timer;
-// Continuum's timeline states and mood picker.
+// Continuum's timeline states and mood picker. Everything is on the page at once and works in place, no pop-ups:
+// tablet and desktop get the full-size pieces in a grid; a phone gets a compact bento where each piece is drawn
+// small enough to use with a thumb, so all five fit on about a screen.
 
 const STEPS = [
   { t: "Upload your study notes", cta: "Beat procrastination", img: "upload" },
@@ -245,149 +247,240 @@ function Timer() {
   );
 }
 
-type Piece = { key: string; label: string; door: string; project: string; note: string; caption?: string; node: React.ReactNode };
-const PIECES: Piece[] = [
-  { key: "checklist", label: "Onboarding checklist", door: "Checklist", project: "Learvo", note: "Tick things off and watch the bar fill.", node: <Checklist /> },
-  { key: "timeline", label: "Appointment timeline", door: "Timeline", project: "Continuum", note: "Tap a step to finish it; the next one lights up.", caption: "Timeline states", node: <Timeline /> },
-  { key: "mood", label: "Mood check-in", door: "Mood", project: "Continuum", note: "A highlight that slides, a check that draws itself.", caption: "One tap, no homework", node: <Mood /> },
-  { key: "quiz", label: "Quiz builder", door: "Quiz", project: "Learvo", note: "Set it up. The button wakes at one question.", node: <QuizBuilder /> },
-  { key: "timer", label: "Study timer", door: "Timer", project: "Learvo", note: "25, 50 or your own, then focus.", node: <Timer /> },
-];
-
-// A hall of five small doors. Tap one: it swings open, and the piece comes up behind it in a sheet (a bottom sheet
-// on a phone, a card in the middle on a bigger screen). The whole section is just the row of doors, so it takes
-// almost no scrolling; the pieces only take room when you open one.
-function Door({ n, piece, opening, onOpen }: { n: number; piece: Piece; opening: boolean; onOpen: () => void }) {
+// ───────── tablet and desktop: the full-size pieces, side by side ─────────
+function Tile({ label, note, caption, i = 0, className = "", children }: { label: string; note: string; caption?: string; i?: number; className?: string; children: React.ReactNode }) {
   return (
-    <motion.button
-      type="button"
-      onClick={onOpen}
-      aria-label={`Open the door to the ${piece.label}`}
-      initial="rest"
-      animate={opening ? "open" : "rest"}
-      whileHover="ajar"
-      whileTap="ajar"
-      className="group flex flex-col items-center gap-2 text-center"
-    >
-      {/* the frame: an arch, with the dark room showing where the door swings open */}
-      <span className="relative block aspect-[3/4.3] w-full max-w-[8.5rem] [perspective:700px]">
-        <span aria-hidden className="absolute inset-0 rounded-t-[999px] rounded-b-lg bg-panel ring-1 ring-black/[0.08]" />
-        <span aria-hidden className="absolute inset-[7%] rounded-t-[999px] rounded-b-md bg-[#0b0b0d]" style={{ backgroundImage: "radial-gradient(circle at 50% 70%, rgba(62,195,255,0.55), transparent 62%)" }} />
-        <motion.span
-          aria-hidden
-          variants={{ rest: { rotateY: 0 }, ajar: { rotateY: -18 }, open: { rotateY: -74 } }}
-          transition={{ type: "spring", stiffness: 220, damping: 20 }}
-          style={{ transformOrigin: "left center" }}
-          className="absolute inset-[7%] flex flex-col items-center rounded-t-[999px] rounded-b-md bg-white ring-1 ring-black/[0.08] shadow-[0_10px_22px_-14px_rgba(0,0,0,0.5)]"
-        >
-          <span className="font-label mt-[22%] text-[10px] tracking-[0.12em] text-neutral-500 tabular-nums">{String(n + 1).padStart(2, "0")}</span>
-          <span className="mt-[12%] h-[34%] w-[62%] rounded-t-[999px] rounded-b-sm border border-neutral-300/80" />
-          <span className="absolute top-[58%] right-[12%] size-[9%] rounded-full bg-neutral-950" />
-        </motion.span>
-      </span>
-      <span className="text-[0.8rem] font-medium text-neutral-900 sm:text-[0.9rem]">{piece.door}</span>
-      <span className="font-label -mt-1.5 hidden text-[10px] tracking-wide text-neutral-500 uppercase sm:block">{piece.project}</span>
-    </motion.button>
+    <motion.div className={`flex flex-col ${className}`} initial={{ opacity: 0, y: 36 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7, delay: (i % 3) * 0.1, ease: [0.22, 1, 0.36, 1] }}>
+      <div className="flex min-h-[18.5rem] flex-1 flex-col rounded-[1.4rem] bg-panel p-3.5 ring-1 ring-black/[0.05]">
+        {caption && <p className="font-label text-[10px] tracking-[0.14em] text-neutral-600 uppercase">{caption}</p>}
+        <div className="grid flex-1 place-items-center pt-1 [zoom:0.82]">{children}</div>
+      </div>
+      <p className="mt-3 text-sm font-semibold text-neutral-950">{label}</p>
+      <p className="text-[13px] text-neutral-600">{note}</p>
+    </motion.div>
   );
 }
 
-function LabDoors() {
-  const phone = useIsPhone();
-  const [opening, setOpening] = useState<number | null>(null); // the door that is swinging
-  const [open, setOpen] = useState<number | null>(null); // the piece showing in the sheet
-  const drag = useDragControls();
-
-  const openDoor = (n: number) => {
-    setOpening(n);
-    setTimeout(() => {
-      setOpen(n);
-      setOpening(null);
-    }, 360);
-  };
-  const close = () => setOpen(null);
-
-  // while the sheet is up: no page scroll behind it, and Escape closes it
-  useEffect(() => {
-    if (open === null) return;
-    const html = document.documentElement;
-    const prev = html.style.overflow;
-    html.style.overflow = "hidden";
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(null);
-    window.addEventListener("keydown", onKey);
-    return () => {
-      html.style.overflow = prev;
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
-
-  const piece = open === null ? null : PIECES[open];
-
+function DesktopGrid() {
   return (
-    <>
-      <div className="mt-8 grid grid-cols-5 items-start gap-2 sm:gap-6">
-        {PIECES.map((p, n) => (
-          <Door key={p.key} n={n} piece={p} opening={opening === n} onOpen={() => openDoor(n)} />
+    <div className="mt-7 grid gap-x-5 gap-y-6 md:grid-cols-2 lg:grid-cols-6">
+      <Tile className="lg:col-span-2" i={0} label="Onboarding checklist" note="Learvo. Tick things off, watch the bar.">
+        <Checklist />
+      </Tile>
+      <Tile className="lg:col-span-2" i={1} caption="Timeline states" label="Appointment timeline" note="Continuum. Tap one to finish it.">
+        <Timeline />
+      </Tile>
+      <Tile className="lg:col-span-2" i={2} caption="One tap, no homework" label="Mood check-in" note="Continuum. A sliding highlight, a drawn check.">
+        <Mood />
+      </Tile>
+      <Tile className="lg:col-span-2 lg:col-start-2" i={3} label="Quiz builder" note="Learvo. Set it up, the button wakes at one question.">
+        <QuizBuilder />
+      </Tile>
+      <Tile className="lg:col-span-2" i={4} label="Study timer" note="Learvo. 25, 50 or your own, then focus.">
+        <Timer />
+      </Tile>
+    </div>
+  );
+}
+
+// ───────── phone: a compact bento, all five at once ─────────
+// the phone bento: white tiles with room around everything inside them
+const card = "keep-light rounded-[1.9rem] bg-white p-[1.15rem] shadow-[0_18px_40px_-28px_rgba(20,21,59,0.4)] ring-1 ring-black/[0.05]";
+const tag = "font-label text-[9.5px] tracking-[0.16em] text-neutral-500 uppercase";
+
+function MiniChecklist() {
+  const names = ["Upload notes", "Build a quiz", "Flashcards", "AI summaries"];
+  const start = [false, false, true, true];
+  const [done, setDone] = useState(start);
+  const n = done.filter(Boolean).length;
+  return (
+    <div className={`${card} flex flex-1 flex-col`}>
+      <p className={tag}>Learvo</p>
+      <p className="mt-1.5 text-[15px] font-bold text-neutral-950">{Math.round((n / 4) * 100)}% set up!</p>
+      <ul className="mt-2.5 flex-1">
+        {names.map((t, k) => (
+          <li key={t}>
+            <button type="button" onClick={() => setDone((a) => a.map((x, j) => (j === k ? !x : x)))} className="flex w-full items-center gap-2.5 py-2 text-left">
+              <span className={`grid size-4 shrink-0 place-items-center rounded-full ring-1 transition-colors ${done[k] ? "bg-[#bfe5cf] ring-[#bfe5cf]" : "ring-neutral-300"}`}>
+                <svg viewBox="0 0 12 12" className="size-2.5" fill="none" aria-hidden>
+                  <motion.path d="M2.5 6.2l2.3 2.3L9.5 3.6" stroke={done[k] ? "#fff" : "#a3a3a3"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" initial={false} animate={{ pathLength: done[k] ? 1 : 0.0001 }} transition={{ duration: 0.25 }} />
+                </svg>
+              </span>
+              <span className={`text-[12.5px] leading-snug font-semibold transition-colors ${done[k] ? "text-neutral-400 line-through" : "text-neutral-950"}`}>{t}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/80">
+        <motion.div className="h-full rounded-full" style={{ background: "linear-gradient(90deg,#4a7be8,#4fb38a)" }} animate={{ width: `${(n / 4) * 100}%` }} transition={{ type: "spring", stiffness: 140, damping: 20 }} />
+      </div>
+      <p className="mt-2 flex justify-between text-[11.5px] text-neutral-600">
+        <span>{n} of 4 done</span>
+        <button type="button" onClick={() => setDone(start)}>Reset</button>
+      </p>
+    </div>
+  );
+}
+
+function MiniTimer() {
+  const [mins, setMins] = useState(25);
+  const [left, setLeft] = useState(25 * 60);
+  const [run, setRun] = useState(false);
+  useEffect(() => {
+    if (!run) return;
+    const id = setInterval(() => setLeft((l) => Math.max(0, l - 1)), 1000);
+    return () => clearInterval(id);
+  }, [run]);
+  const pick = (m: number) => {
+    setMins(m);
+    setLeft(m * 60);
+    setRun(false);
+  };
+  const done = left === 0;
+  const R = 40;
+  const C = 2 * Math.PI * R;
+  const mm = String(Math.floor(left / 60)).padStart(2, "0");
+  const ss = String(left % 60).padStart(2, "0");
+  return (
+    <div className={`${card} flex flex-col items-center justify-between`}>
+      <p className={`${tag} self-start`}>Learvo</p>
+      <div className="relative my-3 size-[5.2rem]">
+        <svg viewBox="0 0 100 100" className="size-full -rotate-90" aria-hidden>
+          <circle cx="50" cy="50" r={R} fill="none" stroke="#e1e6f5" strokeWidth="8" />
+          <motion.circle cx="50" cy="50" r={R} fill="none" stroke="url(#mtg)" strokeWidth="8" strokeLinecap="round" strokeDasharray={C} animate={{ strokeDashoffset: C * (1 - left / (mins * 60)) }} transition={{ duration: run ? 1 : 0.4, ease: "linear" }} />
+          <defs>
+            <linearGradient id="mtg" x1="0" x2="1">
+              <stop stopColor="#4a7be8" />
+              <stop offset="1" stopColor="#4fb38a" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span className="absolute inset-0 grid place-content-center text-center text-[1.15rem] font-bold tracking-[-0.03em] tabular-nums" style={{ color: NAVY }}>{done ? "Done" : `${mm}:${ss}`}</span>
+      </div>
+      <div className="flex w-full gap-1.5">
+        {[15, 25, 45].map((m) => (
+          <button key={m} type="button" onClick={() => pick(m)} className={`flex-1 rounded-full px-0 py-1.5 text-center text-[11.5px] font-semibold ring-1 transition-colors ${mins === m ? "text-[#3b4aa8] ring-[#5b6fd6]" : "text-neutral-600 ring-neutral-300"}`}>
+            {m}m
+          </button>
         ))}
       </div>
-      <p className="font-label mt-5 text-center text-[11px] tracking-[0.14em] text-neutral-500 uppercase">Five doors. Open one.</p>
+      <button type="button" onClick={() => (done ? pick(mins) : setRun((r) => !r))} className="mt-4 w-full rounded-full py-2.5 text-[13px] font-semibold text-white transition-transform active:scale-95" style={{ background: BLUE }}>
+        {done ? "Again" : run ? "Pause" : "Start"}
+      </button>
+    </div>
+  );
+}
 
-      <AnimatePresence>
-        {piece && open !== null && (
-          <div className="fixed inset-0 z-[140]">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} onClick={close} className="absolute inset-0 bg-black/45 backdrop-blur-sm" />
-            <motion.div
-              role="dialog"
-              aria-modal="true"
-              aria-label={piece.label}
-              initial={phone ? { y: "100%" } : { opacity: 0, scale: 0.94, y: 12 }}
-              animate={phone ? { y: 0 } : { opacity: 1, scale: 1, y: 0 }}
-              exit={phone ? { y: "100%" } : { opacity: 0, scale: 0.96, y: 8 }}
-              transition={{ type: "spring", stiffness: 300, damping: 32 }}
-              drag={phone ? "y" : false}
-              dragControls={drag}
-              dragListener={false}
-              dragConstraints={{ top: 0, bottom: 0 }}
-              dragElastic={{ top: 0, bottom: 0.6 }}
-              onDragEnd={(_, info) => (info.offset.y > 110 || info.velocity.y > 600) && close()}
-              className="absolute inset-x-0 bottom-0 max-h-[92svh] overflow-y-auto rounded-t-[2rem] bg-panel p-5 pb-8 shadow-[0_-20px_60px_-20px_rgba(0,0,0,0.4)] sm:inset-x-auto sm:top-1/2 sm:bottom-auto sm:left-1/2 sm:max-h-[88svh] sm:w-[36rem] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[2rem] sm:p-7"
-            >
-              {/* a handle to pull the sheet down on a phone */}
-              <div onPointerDown={(e) => drag.start(e)} className="mx-auto -mt-1 mb-3 h-6 w-full max-w-[6rem] cursor-grab touch-none sm:hidden">
-                <span className="mx-auto mt-2 block h-1.5 w-12 rounded-full bg-neutral-400/70" />
-              </div>
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="font-label text-[10px] tracking-[0.14em] text-neutral-600 uppercase">{piece.caption ?? piece.project}</p>
-                  <h3 className="font-display mt-1 text-[1.35rem] leading-tight font-semibold tracking-[-0.02em] text-neutral-950">{piece.label}</h3>
-                </div>
-                <button type="button" onClick={close} aria-label="Close" className="grid size-9 shrink-0 place-items-center rounded-full bg-white text-neutral-950 ring-1 ring-black/10 active:scale-90">
-                  <svg viewBox="0 0 12 12" className="size-3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
-                    <path d="M2 2l8 8M10 2l-8 8" />
-                  </svg>
-                </button>
-              </div>
-              <div className="grid min-h-[22rem] place-items-center py-5">
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.div key={piece.key} initial={{ opacity: 0, y: 12, filter: "blur(5px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, filter: "blur(5px)" }} transition={{ duration: 0.28 }} className="flex w-full justify-center">
-                    {piece.node}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-              <div className="flex items-center justify-between gap-3">
-                <p className="text-[13px] text-neutral-600">{piece.note}</p>
-                <button type="button" onClick={() => setOpen((open + 1) % PIECES.length)} className="shrink-0 text-sm font-medium text-neutral-950 underline underline-offset-4">
-                  Next door →
-                </button>
-              </div>
-            </motion.div>
+function MiniMood() {
+  const [m, setM] = useState(0);
+  return (
+    <div className={card}>
+      <p className={tag}>Continuum</p>
+      <p className="mt-1.5 text-[15px] font-bold text-neutral-950">How are you feeling today?</p>
+      <div className="mt-3.5 grid grid-cols-5 gap-1.5">
+        {MOODS.map((o, n) => (
+          <button key={o.k} type="button" onClick={() => setM(n)} className={`flex items-center justify-center rounded-full px-0 py-2.5 text-[11.5px] font-medium ring-1 transition-colors ${n === m ? "bg-neutral-950 text-white ring-neutral-950" : "bg-neutral-100 text-neutral-700 ring-transparent"}`}>
+            {o.k}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MiniTimeline() {
+  const [st, setSt] = useState<St[]>(["done", "overdue", "next", "later"]);
+  const tap = (k: number) =>
+    setSt((a) => {
+      const b = a.map((x, j): St => (j === k ? (x === "done" ? "later" : "done") : x));
+      if (!b.includes("next")) {
+        const f = b.findIndex((x) => x === "later");
+        if (f >= 0) b[f] = "next";
+      }
+      return b;
+    });
+  const word: Record<St, string> = { done: "Done", overdue: "Overdue", next: "Up next", later: "Later" };
+  const filled = st.filter((x) => x === "done").length;
+  return (
+    <div className={card}>
+      <p className={`${tag} mb-4`}>Continuum · appointments</p>
+      <div className="relative grid grid-cols-4">
+        {/* the line behind the steps: grey, then black as far as the last finished step */}
+        <span aria-hidden className="absolute top-[14px] right-[12.5%] left-[12.5%] h-px bg-neutral-400/60" />
+        <motion.span aria-hidden className="absolute top-[14px] left-[12.5%] h-px origin-left bg-neutral-950" style={{ width: "75%" }} animate={{ scaleX: Math.max(0, filled - 1) / 3 }} transition={{ type: "spring", stiffness: 160, damping: 24 }} />
+        {TL.map((t, k) => (
+          <button key={t} type="button" onClick={() => tap(k)} className="relative flex flex-col items-center px-0.5 text-center">
+            <span className={`relative z-10 grid size-7 place-items-center rounded-full ring-[1.5px] transition-colors ${st[k] === "done" ? "bg-neutral-950 ring-neutral-950" : "bg-white"} ${st[k] === "done" ? "" : st[k] === "later" ? "ring-neutral-300" : st[k] === "next" ? "ring-neutral-400 ring-offset-2 ring-offset-white" : "ring-neutral-950"}`}>
+              {st[k] === "done" && (
+                <svg viewBox="0 0 12 12" className="size-3" fill="none" aria-hidden>
+                  <motion.path d="M2.5 6.2l2.3 2.3L9.5 3.6" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.3 }} />
+                </svg>
+              )}
+              {st[k] === "overdue" && <span className="text-[13px] leading-none font-semibold text-neutral-950">!</span>}
+              {st[k] === "next" && <span className="size-1.5 rounded-full bg-neutral-950" />}
+            </span>
+            <span className={`mt-2 text-[11.5px] leading-tight font-medium ${st[k] === "later" ? "text-neutral-500" : "text-neutral-950"}`}>{t}</span>
+            <span className="font-label mt-1 text-[9px] tracking-wide text-neutral-500 uppercase">{word[st[k]]}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MiniQuiz() {
+  const labels = ["Multiple choice", "True / false", "Free response"];
+  const [q, setQ] = useState([2, 1, 0]);
+  const [made, setMade] = useState(false);
+  const total = q.reduce((a, b) => a + b, 0);
+  const set = (n: number, v: number) => {
+    setMade(false);
+    setQ((a) => a.map((x, j) => (j === n ? Math.min(20, Math.max(0, v)) : x)));
+  };
+  return (
+    <div className={card}>
+      <p className={`${tag} mb-3.5`}>Learvo · quiz builder</p>
+      <div className="grid grid-cols-3 gap-2.5">
+        {labels.map((l, n) => (
+          <div key={l} className="text-center">
+            <p className="text-[11px] leading-tight text-neutral-600">{l}</p>
+            <div className="mx-auto mt-1.5 flex w-full max-w-[6.5rem] items-center overflow-hidden rounded-lg border border-neutral-300 bg-white text-[13px]">
+              <button type="button" aria-label={`Fewer ${l}`} onClick={() => set(n, q[n] - 1)} className="flex-1 py-1.5 text-neutral-500 active:bg-neutral-100">−</button>
+              <span className="w-6 border-x border-neutral-200 py-1.5 text-center tabular-nums">{q[n]}</span>
+              <button type="button" aria-label={`More ${l}`} onClick={() => set(n, q[n] + 1)} className="flex-1 py-1.5 text-neutral-500 active:bg-neutral-100">+</button>
+            </div>
           </div>
-        )}
-      </AnimatePresence>
-    </>
+        ))}
+      </div>
+      <div className="mt-4 flex items-center gap-3">
+        <p className="text-[12.5px] text-neutral-700">
+          Total <span className="font-semibold text-neutral-950 tabular-nums">{total}</span>
+        </p>
+        <button type="button" disabled={total === 0} onClick={() => setMade(true)} className="flex-1 rounded-full py-2 text-[13px] font-semibold text-white transition-[background-color,transform] enabled:active:scale-[0.97]" style={{ background: total === 0 ? "#b9c0ee" : BLUE }}>
+          {made ? "Quiz ready ✓" : "Generate Quiz"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function PhoneBento() {
+  return (
+    <div className="mt-7">
+      <div className="grid grid-cols-2 gap-3.5">
+        <MiniChecklist />
+        <MiniTimer />
+        <div className="col-span-2"><MiniMood /></div>
+        <div className="col-span-2"><MiniTimeline /></div>
+        <div className="col-span-2"><MiniQuiz /></div>
+      </div>
+      <p className="font-label mt-5 text-center text-[10px] tracking-[0.14em] text-neutral-500 uppercase">Tap anything. It all works.</p>
+    </div>
   );
 }
 
 export default function Lab() {
+  const phone = useIsPhone();
   return (
     <section id="lab" data-rail="Lab" className="relative bg-background pb-14 sm:pb-16">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
@@ -395,7 +488,7 @@ export default function Lab() {
         <h2 className="mt-3 max-w-2xl font-display text-3xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-4xl">
           Curious about the <Em>details</Em>? Click anything.
         </h2>
-        <LabDoors />
+        {phone ? <PhoneBento /> : <DesktopGrid />}
       </div>
     </section>
   );
